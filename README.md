@@ -50,6 +50,15 @@
 - 取得したイベント情報をカレンダーに一覧表示させる
   - 日時や場所からプルダウンで絞り込みできるようにする
 ## 🐈 機能の実装方針予定（検証未）
+|  | 使用技術 |
+| ---- | ---- |
+| フロントエンド | TailwindCSS（＋daisyUI）<br>JavaScript<br>Hotwire |
+| バックエンド | Ruby 3.2.2<br>Ruby on Rails 7.1.2 |
+| データベース | PostgreSQL |
+| インフラ | Heroku<br>AmazonS3 |
+| API | Google Maps JavaScript API<br>Google Places API<br>Google Geolocation API<br>Instagram graph API<br>LINE messenger API |
+| Gem | gmaps4rails 2.0<br>geocoder 1.8.2<br>google_places<br>simple calendar 3.0.2 |
+| その他 | Docker |
 - Google Places APIでスポット詳細情報の取得・表示（あらかじめDBに保存しておく）
 - Google Maps JavaScript APIで地図表示
 - Google Geolocation APIで現在地周辺の猫スポットを取得
