@@ -69,3 +69,6 @@
 - Instagram graph APIから抽出した投稿から必要なイベント情報（イベント名、日付、場所）を正規表現などを用いてパースする
 - simple calendarを用いて取得したイベント情報をカレンダーに一覧表示させる
 - LINE APIでLINE通知機能とログイン機能実装
+
+## 画面遷移図
+https://www.figma.com/file/I5K5nm237QJwWo64gCTjdm/Nekospot?type=design&node-id=0%3A1&mode=design&t=8og5QESets43UqBY-1
