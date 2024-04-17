@@ -1,4 +1,33 @@
-<div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-accent">
+<div class="hidden md:block">
+    <div class="navbar bg-primary text-accent ">
+    <div class="flex-1">
+        <a class="btn btn-ghost text-xl">NekoSpot</a>
+    </div>
+    <div class="flex-none">
+        <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+        <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+            <i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-accent group-hover:text-neutral" aria-hidden="true"></i>
+            <span class="text-sm text-accent dark:text-gray-400 group-hover:text-neutral">検索</span>
+        </button>
+        <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+            <i class="ph-bold ph-list-dashes w-5 h-5 mb-2 text-accent group-hover:text-neutral" aria-hidden="true"></i>
+            <span class="text-sm text-accent dark:text-gray-400 group-hover:text-neutral">一覧</span>
+        </button>
+        <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+            <i class="ph-fill ph-heart w-5 h-5 mb-2 text-accent group-hover:text-neutral" aria-hidden="true"></i>
+            <span class="text-sm text-accent dark:text-gray-400 group-hover:text-neutral">お気に入り</span>
+        </button>
+        <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+            <i class="ph-fill ph-user w-5 h-5 mb-2 text-accent group-hover:text-neutral" aria-hidden="true"></i>
+            <span class="text-sm text-accent dark:text-gray-400 group-hover:text-neutral">マイページ</span>
+        </button>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+<div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-accent md:hidden">
     <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
         <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
         <i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-accent group-hover:text-neutral" aria-hidden="true"></i>
