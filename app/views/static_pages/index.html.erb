@@ -8,25 +8,39 @@
       </a>
       <!-- logo - end -->
 
-      <!-- nav - start -->
-      <nav class="hidden gap-12 lg:flex">
-        <a href="#" class="text-lg font-semibold text-neutral">Home</a>
-        <a href="#" class="text-lg font-semibold text-neutral transition duration-100 hover:text-indigo-500 active:text-indigo-700">Features</a>
-        <a href="#" class="text-lg font-semibold text-neutral transition duration-100 hover:text-indigo-500 active:text-indigo-700">Pricing</a>
-        <a href="#" class="text-lg font-semibold text-neutral transition duration-100 hover:text-indigo-500 active:text-indigo-700">About</a>
-      </nav>
-      <!-- nav - end -->
+      <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-primary px-2.5 py-2 text-sm font-semibold text-neutral ring-indigo-300 focus-visible:ring active:text-gray-700 md:text-base">
+      <div class="drawer drawer-end">
+      <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!-- Page content here -->
+        <label for="my-drawer-4" class="drawer-button btn-circle swap swap-rotate">
+        <!-- this hidden checkbox controls the state -->
+        <input type="checkbox" />
+        
+        <!-- hamburger icon -->
+        <svg class="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"/></svg>
+        
+        
+      </label>
+        </label>
+      </div> 
+      <div class="drawer-side z-10">
+        <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 min-h-full bg-primary text-base-content">
+        <li class="text-right">
+        <label for="my-drawer-4" class="btn-close p-2 btn-circle">
+        <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
+        </label>
+      </li>
+          <!-- Sidebar content here -->
+          <li><a>Sidebar Item 1</a></li>
+          <li><a>Sidebar Item 2</a></li>
+        </ul>
+      </div>
+    </div>
 
-      <!-- buttons - start -->
-      <a href="#" class="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Menu</a>
 
-      <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-primary px-2.5 py-2 text-sm font-semibold text-neutral ring-indigo-300 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-        </svg>
 
-        Menu
-      </button>
       <!-- buttons - end -->
     </header>
 
