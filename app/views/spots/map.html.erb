@@ -1,0 +1,74 @@
+<h2>Google Map Test</h2>
+<input id="address" type="textbox" value="">
+<input type="button" value="送信" onclick="codeAddress()">
+<input type="button" value="現在地を表示" onclick="showCurrentLocation()">
+<div id="latlngDisplay">ここに緯度、経緯が表示される</div>
+<div id="addressDisplay">ここに住所が表示される</div>
+<div id="map"></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
+
+<script>
+let map, marker;
+
+const latlngDis = document.getElementById('latlngDisplay');
+const addressDis = document.getElementById('addressDisplay');
+
+function initMap() {
+  const geocoder = new google.maps.Geocoder();
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    map: map,
+  });
+  showCurrentLocation();
+}
+
+function codeAddress() {
+  const geocoder = new google.maps.Geocoder();
+  const inputAddress = document.getElementById('address').value;
+  geocoder.geocode({ 'address': inputAddress }, function(results, status) {
+    if (status === 'OK') {
+      map.setCenter(results[0].geometry.location);
+      marker.setPosition(results[0].geometry.location);
+      latlngDis.innerHTML = `Latitude: ${results[0].geometry.location.lat()}, Longitude: ${results[0].geometry.location.lng()}`;
+      addressDis.innerHTML = results[0].formatted_address;
+    } else {
+      alert("該当する結果がありませんでした：" + status);
+    }
+  });
+}
+
+function showCurrentLocation(){
+    // ユーザーの現在地を取得してマップに設定
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const userLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        map.setCenter(userLocation);
+        marker.setPosition(userLocation);
+        latlngDis.innerHTML = `Latitude: ${userLocation.lat}, Longitude: ${userLocation.lng}`;
+      }, function() {
+        alert('位置情報の取得に失敗しました。');
+        map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+      });
+    } else {
+      // Geolocationがサポートされていないブラウザの場合
+      alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
+      map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+    };
+}
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API_KEY'] %>&callback=initMap" async defer></script>
