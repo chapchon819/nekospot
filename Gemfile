@@ -47,6 +47,21 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# google_places_api
+gem 'google_places'
+
+# javasctipt
+gem 'gon'
+
+# debug
+gem 'pry-rails'
+
+# Geolocation
+gem 'geokit-rails'
+
+# Geocoding
+gem 'geocoder'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
@@ -63,7 +78,7 @@ group :development do
   # gem "spring"
 end
 
-#その他
+# security
 gem 'dotenv-rails'
 
 
