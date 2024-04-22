@@ -1,12 +1,3 @@
-<h2>Google Map Test</h2>
-<input id="address" type="textbox" value="">
-<input type="button" value="送信" onclick="codeAddress()">
-<input type="button" value="現在地を表示" onclick="showCurrentLocation()">
-<div id="latlngDisplay">ここに緯度、経緯が表示される</div>
-<div id="addressDisplay">ここに住所が表示される</div>
-<div id="map" class="w-11/12 h-72 md:h-96 rounded-xl"></div>
-
-<script>
 let map, marker;
 
 const latlngDis = document.getElementById('latlngDisplay');
@@ -61,7 +52,3 @@ function showCurrentLocation(){
       map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
     };
 }
-
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API_KEY'] %>&callback=initMap" async defer></script>
