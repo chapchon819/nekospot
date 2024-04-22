@@ -63,4 +63,7 @@ group :development do
   # gem "spring"
 end
 
+#その他
+gem 'dotenv-rails'
+
 
