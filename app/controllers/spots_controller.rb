@@ -1,4 +1,6 @@
 class SpotsController < ApplicationController
 
-  def map; end
+  def map
+    @user = current_user
+  end
 end

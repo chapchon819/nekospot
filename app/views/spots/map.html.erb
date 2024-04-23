@@ -1,4 +1,4 @@
-<h2>Google Map Test</h2>
+<h2><%= @user.name %></h2><%= link_to 'ログアウト', destroy_user_session_path, class: "inline-block rounded-full bg-green-300 px-8 py-3 text-center text-sm font-semibold text-neutral outline-none ring-indigo-300 transition duration-100 hover:bg-primary focus-visible:ring active:bg-indigo-700 sm:w-1/2 text-base md:w-1/2", data: { turbo_method: :delete } %>
 <input id="address" type="textbox" value="">
 <input type="button" value="送信" onclick="codeAddress()">
 <input type="button" value="現在地を表示" onclick="showCurrentLocation()">
