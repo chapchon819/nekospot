@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "static_pages#index"
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: "omniauth_callbacks"
+  }
   get 'static_pages/index'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_use', to: 'static_pages#terms_of_use'
