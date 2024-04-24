@@ -2,6 +2,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def google_oauth2
         basic_action
     end
+
+    def line
+      basic_action
+    end
   
     private
     

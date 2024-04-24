@@ -50,6 +50,7 @@ gem "bootsnap", require: false
 # 認証
 gem 'devise'
 gem "omniauth-google-oauth2"
+gem 'omniauth-line'
 gem 'omniauth-rails_csrf_protection'
 
 # google_places_api
