@@ -13,7 +13,13 @@
   </head>
 
   <body>
-    <%= render "shared/header" %>
+  <% unless current_page?(root_path) %>
+    <% if user_signed_in? %>
+      <%= render "shared/header" %>
+    <% else %>
+      <%= render "shared/before_login_header" %>
+    <% end %>
+  <% end %>
     <%= render 'layouts/flash_messages' %>
     <%= yield %>
     <%= render "shared/footer" %>
