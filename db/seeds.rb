@@ -7,3 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Category.create!(
+  [
+    {name: '猫カフェ'},
+    {name: '島'},
+    {name: '動物園'},
+    {name: '宿泊施設'},
+    {name: '駅・バス停'}
+  ]
+)
