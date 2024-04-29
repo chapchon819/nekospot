@@ -1,4 +1,5 @@
 class Spot < ApplicationRecord
+  has_many :spot_images, dependent: :destroy
   belongs_to :category
   belongs_to :prefecture, class_name: 'Prefecture', foreign_key: 'prefecture_id', optional: true
   geocoded_by :name
