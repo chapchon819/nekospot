@@ -1,4 +1,12 @@
 module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        'zenmaru': ['Zen Maru Gothic', 'sans-serif'],
+        'sans': ['Noto Sans JS', 'sans-serif'],
+      }
+    },
+  },
   content: [
     './app/views/**/*.html.erb',
     './app/helpers/**/*.rb',
