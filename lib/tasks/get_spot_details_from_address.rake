@@ -18,7 +18,7 @@ namespace :Spot do
       if place_id
         existing_spot = Spot.find_by(place_id: place_id) # データベース内を検索
         if existing_spot
-          puts "既に保存済みです: #{spot['店名']}"
+          puts "既に保存済みです: #{spot['スポット名']}"
           return nil
         end
 
@@ -32,7 +32,7 @@ namespace :Spot do
         place_detail_data = JSON.parse(place_detail_page)
 
         result = {}
-        result[:name] = spot['店名']
+        result[:name] = spot['スポット名']
         result[:postal_code] = place_detail_data['result']['address_components'].find { |c| c['types'].include?('postal_code') }&.fetch('long_name', nil)
 
         full_address = place_detail_data['result']['formatted_address']
@@ -93,10 +93,10 @@ namespace :Spot do
           )
 
         spot = Spot.create!(spot_data)
-        puts "Spotを保存しました: #{row['店名']}"
+        puts "Spotを保存しました: #{row['スポット名']}"
         puts "----------"
       else
-        puts "Spotの保存に失敗しました: #{row['店名']}"
+        puts "Spotの保存に失敗しました: #{row['スポット名']}"
       end
 
       photo_references = photo_reference_data(spot_data)
@@ -104,10 +104,10 @@ namespace :Spot do
         photo_references.each do |photo|
           SpotImage.create!(spot: spot, image: photo)
         end
-        puts "SpotImageを保存しました: #{row['店名']}"
+        puts "SpotImageを保存しました: #{row['スポット名']}"
         puts "----------"
       else
-        puts "SpotImageの保存に失敗しました: #{row['店名']}"
+        puts "SpotImageの保存に失敗しました: #{row['スポット名']}"
       end
     end
   end
