@@ -7,21 +7,37 @@
 <div id="map" class="w-screen h-screen md:h-96 md:w-11/12 rounded-xl"></div>
 </div>
 
-<script>
-let map, marker;
+<div id="infoCard" class="hidden bg-white border rounded-xl shadow-sm flex">
+  <div class="flex-shrink-0 relative rounded-t-xl overflow-hidden h-32 w-11/12 rounded-s-xl md:rounded-se-none">
+    <img id="spotImage" class="w-full h-full absolute top-0 left-0 object-cover" src="" alt="Image Description">
+  </div>
+  <div class="flex flex-wrap">
+    <div class="p-4 flex flex-col h-full sm:p-7">
+      <h3 id="spotName" class="text-lg font-bold text-gray-800"></h3>
+      <p id="spotRating" class="mt-1 text-gray-500"></p>
+      <div class="mt-5 sm:mt-auto">
+        <p id="spotCategory" class="text-xs text-gray-500 dark:text-neutral-500"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
-var spots = <%= @spots_json.html_safe %>;
+<script type="text/javascript">
+  var googleMapApiKey = "<%= ENV['GMAP_API_KEY'] %>";
+</script>
+
+<script>
+let map, marker, markers = [];
+
 const latlngDis = document.getElementById('latlngDisplay');
 const addressDis = document.getElementById('addressDisplay');
 
 function initMap() {
   const geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map(document.getElementById('map'), { zoom: 12 });
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-  });
+  var spots = <%= @spots_json.html_safe %>;
 
-  // スポットのマーカーを追加
   spots.forEach(function(spot) {
     let marker = new google.maps.Marker({
       map: map,
@@ -29,20 +45,25 @@ function initMap() {
       title: spot.name
     });
 
-    // クリックすると情報ウィンドウが開くように設定
+    markers.push(marker);  // マーカーを配列に追加
+
     marker.addListener('click', function() {
-      const infoWindow = new google.maps.InfoWindow({
-        content: '<div><strong>' + spot.name + '</strong><br>' + spot.address + '</div>'
-      });
-      infoWindow.open(map, marker);
+      updateInfoCard(spot);
     });
   });
 
+  // 現在地表示機能
+  showCurrentLocation();  //
+}
 
-  marker = new google.maps.Marker({
-    map: map,
-  });
-  showCurrentLocation();
+function updateInfoCard(spot) {
+  document.getElementById('infoCard').classList.remove('hidden');
+  const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${googleMapApiKey}`;
+  console.log("Generated Image URL:", imageUrl);
+  document.getElementById('spotImage').src = imageUrl;
+  document.getElementById('spotName').textContent = spot.name;
+  document.getElementById('spotRating').textContent = `⭐️ ${spot.rating}`;
+  document.getElementById('spotCategory').textContent = spot.category;
 }
 
 function codeAddress() {
@@ -69,14 +90,14 @@ function showCurrentLocation(){
           lng: position.coords.longitude
         };
         map.setCenter(userLocation);
-        marker.setPosition(userLocation);
-        latlngDis.innerHTML = `Latitude: ${userLocation.lat}, Longitude: ${userLocation.lng}`;
+        if (markers.length > 0) {
+          markers[0].setPosition(userLocation);  // 最初のマーカーの位置を更新
+        }
       }, function() {
         alert('位置情報の取得に失敗しました。');
         map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
       });
     } else {
-      // Geolocationがサポートされていないブラウザの場合
       alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
       map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
     };
