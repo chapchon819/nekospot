@@ -21,6 +21,7 @@
             <i class="ph-fill ph-user w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">マイページ</span>
         </button>
+        <%= link_to 'ログアウト', destroy_user_session_path, class: "inline-block rounded-full bg-green-300 px-8 py-3 text-center text-sm font-semibold text-neutral outline-none ring-indigo-300 transition duration-100 hover:bg-primary focus-visible:ring active:bg-indigo-700 sm:w-1/2 text-base md:w-1/2", data: { turbo_method: :delete } %>
         </div>
     </div>
     </div>

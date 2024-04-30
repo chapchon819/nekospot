@@ -1,14 +1,16 @@
-<h2><%= @user.name %></h2><%= link_to 'ログアウト', destroy_user_session_path, class: "inline-block rounded-full bg-green-300 px-8 py-3 text-center text-sm font-semibold text-neutral outline-none ring-indigo-300 transition duration-100 hover:bg-primary focus-visible:ring active:bg-indigo-700 sm:w-1/2 text-base md:w-1/2", data: { turbo_method: :delete } %>
+<div class="mx-auto items-center justify-center">
 <input id="address" type="textbox" value="">
 <input type="button" value="送信" onclick="codeAddress()">
 <input type="button" value="現在地を表示" onclick="showCurrentLocation()">
 <div id="latlngDisplay">ここに緯度、経緯が表示される</div>
 <div id="addressDisplay">ここに住所が表示される</div>
-<div id="map" class="w-11/12 h-72 md:h-96 rounded-xl"></div>
+<div id="map" class="w-screen h-screen md:h-96 md:w-11/12 rounded-xl"></div>
+</div>
 
 <script>
 let map, marker;
 
+var spots = <%= @spots_json.html_safe %>;
 const latlngDis = document.getElementById('latlngDisplay');
 const addressDis = document.getElementById('addressDisplay');
 
@@ -18,6 +20,24 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
   });
+
+  // スポットのマーカーを追加
+  spots.forEach(function(spot) {
+    let marker = new google.maps.Marker({
+      map: map,
+      position: { lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude) },
+      title: spot.name
+    });
+
+    // クリックすると情報ウィンドウが開くように設定
+    marker.addListener('click', function() {
+      const infoWindow = new google.maps.InfoWindow({
+        content: '<div><strong>' + spot.name + '</strong><br>' + spot.address + '</div>'
+      });
+      infoWindow.open(map, marker);
+    });
+  });
+
 
   marker = new google.maps.Marker({
     map: map,
