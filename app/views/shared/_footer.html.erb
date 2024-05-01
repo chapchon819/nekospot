@@ -1,18 +1,9 @@
-<div class="<%= 'hidden md:block' if controller_name != 'home' && action_name != 'index' %>">
-<div class="footer footer-center p-10 bg-primary text-secondary rounded items-end">
-  <nav class="grid grid-flow-col gap-4">
-    <%= link_to '利用規約', terms_of_use_path %>
-    <%= link_to 'プライバシー・ポリシー', privacy_policy_path %>
-    <%= link_to 'お問い合わせ', 'https://twitter.com/819Chapchon', target: '_blank', rel: 'noopener noreferrer' %>
-  </nav> 
-  <nav>
-    <div class="grid grid-flow-col gap-4">
-      <%= link_to 'https://twitter.com/819Chapchon', target: '_blank', rel: 'noopener noreferrer' do %><i class="fa-brands fa-square-x-twitter fa-2x"></i><% end %>
-      <%= link_to '#' do %><i class="fa-brands fa-github fa-2x"></i><% end %>
-    </div>
-  </nav> 
-  <aside>
-    <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
-  </aside>
-</div>
-</div>
+<% if controller_name == 'static_pages' && action_name == 'index' %>
+  <!-- Always show footer on the top page (index) on all devices -->
+  <%= render "shared/footer_contents" %>
+<% elsif controller_name != 'spots' && action_name != 'index' %>
+  <!-- Show footer on PC for pages other than spots/index -->
+  <div class="<%= 'hidden md:block' %>">
+  <%= render "shared/footer_contents" %>
+  </div>
+<% end %>
