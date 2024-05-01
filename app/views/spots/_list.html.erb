@@ -1,0 +1,7 @@
+<turbo-frame id="spots_list" src="<%= spots_list_path %>">
+<ul class="space-y-2 font-medium">
+  <% @spots.each do |spot| %>
+    <li><%= spot['name'] %></li>
+  <% end %>
+</ul>
+</turbo-frame>
