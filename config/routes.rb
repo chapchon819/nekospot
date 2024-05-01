@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'static_pages/index'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_use', to: 'static_pages#terms_of_use'
-  get 'spots/list'
+  get 'spots/list', to: 'spots#list'
   resources :spots
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
