@@ -1,6 +1,6 @@
 class SpotsController < ApplicationController
 
-  def map
+  def index
     @user = current_user
     @spots = Spot.includes(:spot_images).all.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
