@@ -1,4 +1,4 @@
-<turbo-frame id="spots_list" src="<%= spots_list_path %>">
+<turbo-frame id="spots_list" src="/spots/list">
 <div class="space-y-2 font-medium flex flex-col items-center justify-center">
   <% @spots.each do |spot| %>
     <div class="bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 relative z-10 mb-50 hover:shadow-lg group">
@@ -8,9 +8,11 @@
     <div class="flex flex-wrap">
       <div class="p-4 flex flex-col h-full sm:p-2">
         <h3 class="text-lg md:text-sm font-bold text-neutral font-zenmaru overflow-hidden whitespace-nowrap text-overflow-ellipsis"><%= spot['name'] %></h3>
-        <p class="mt-1 md:text-sm text-secondary">⭐️ <%= spot['rating'] %></p>
+        <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
         <div class="mt-1 inline-flex">
-          <p class="text-xs text-white py-1 px-1 rounded-full bg-accent dark:text-neutral-500"><%= spot['category'] %></p>
+        <p class="text-xs text-white py-1 px-1 rounded-full bg-accent dark:text-neutral-500"><%= spot['category'] %></p>
+      </div>
+        <p class="mt-1 md:text-sm text-secondary">⭐️ <%= spot['rating'] %></p>
         </div>
       </div>
     </div>
@@ -18,5 +20,7 @@
   <% end %>
 </div>
 </turbo-frame>
+
+
 
 
