@@ -2,6 +2,8 @@ class SpotsController < ApplicationController
 
   def index
     @user = current_user
+    @spot_objects = Spot.includes(:spot_images, :category).all
+    
     @spots = Spot.includes(:spot_images, :category).all.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
         image: spot.spot_images.first&.image,
@@ -27,6 +29,7 @@ class SpotsController < ApplicationController
   end
 
   def show
+    @spot = Spot.find(params[:id])
   end
 
 end
