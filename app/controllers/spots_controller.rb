@@ -26,5 +26,7 @@ class SpotsController < ApplicationController
     render partial: "spots/list", locals: { spots: @spots }
   end
 
-  
+  def show
+  end
+
 end
