@@ -1,4 +1,4 @@
-<div class="bg-primary">
+<div class="bg-primary relative mb-16">
 <div class="relative overflow-hidden md:mt-16" data-controller="carousel">
   <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
     <% @spot.spot_images.each_with_index do |image, index| %>
@@ -13,7 +13,7 @@
 <div class="flex flex-col items-center justify-center w-full">
 <div class="md:w-11/12 w-full">
 <div data-controller="tabs absolute top-0 left-0 w-full z-10 rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
-  <ul class="list-reset flex border-b">
+  <ul class="list-reset flex border-b rounded-t-lg">
     <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
       <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
     </li>
@@ -23,21 +23,52 @@
   </ul>
 
   <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-  <div class="w-11/12 mx-auto">
-  <div class="my-4">
-  <p class="text-secondary text-xs"><%= @spot.address %></p>
-    <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
-  <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
-            <div class="inline-flex">
+    <div class="w-11/12 mx-auto divide-y space-y-8">
+      <div class="my-4 flex justify-between">
+       <div>
+        <p class="text-secondary text-xs"><%= @spot.address %></p>
+        <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
+        <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
+          <div class="inline-flex">
             <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
-            </div>
-            <p class="text-secondary">⭐️ <%= @spot.rating %></p>
-            </div>
-  </div>
-</div>
+          </div>
+          <p class="text-secondary">⭐️ <%= @spot.rating %></p>
+        </div>
+        </div>
+        <div class="space-x-2">
+          <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-2x"></i><% end %>
+          <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-bookmark-simple fa-2x"></i><% end %>
+        </div>
+      </div>
+      <div class="my-4 text-secondary">
+        <p class="text-sm pb-4 pt-8"><i class="ph-bold ph-clock"></i> 営業時間</p>
+        <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
+      </div>
+      <div class="my-4 text-secondary">
+        <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-phone"></i> 電話番号</p>
+        <p class="text-lg"><%= @spot.phone_number %></p>
+      </div>
+      <div class="my-4 text-secondary">
+        <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
+        <p class="text-sm"><%= @spot.web_site %></p>
+      </div>
+      <div class="my-4 text-secondary">
+        <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
+        <div class="flex justify-between">
+          <div>
+            <p class="text-sm"><%= @spot.postal_code %></p>
+            <p class="text-sm mb-4"><%= @spot.address %></p>
+          </div>
+          <div>
+            <p class="text-sm text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500 bottom-0"><i class="ph-fill ph-path"></i> 経路</p>
+          </div>
+        </div>
+        <div id="map" class="w-full md:h-64 h-48 rounded-xl"></div>
+      </div>
+    </div>
   </div>
 
-  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
   <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
   <p class="text-secondary">coming soon...</p>
   </div>
@@ -46,3 +77,33 @@
 </div>
 </div>
 </div>
+
+<%= link_to spots_path do %>
+<button class="inline-flex flex-col items-center justify-center px-5 hover:shadow-lg group md:hidden fixed bottom-36 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-50"">
+<i class="ph ph-arrow-left w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+<span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">戻る</span>
+</button>
+<% end %>
+
+<script>
+function initMap() {
+  // スポットの緯度と経度を取得
+  var spotLocation = {lat: <%= @spot.latitude %>, lng: <%= @spot.longitude %>};
+
+  // マップを作成し、指定した位置にセット
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: spotLocation,
+    zoom: 15
+  });
+
+  // ピンを追加
+  var marker = new google.maps.Marker({
+    position: spotLocation,
+    map: map,
+    title: '<%= @spot.name %>'
+  });
+}
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API_KEY'] %>&callback=initMap" async defer></script>

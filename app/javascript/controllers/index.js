@@ -10,8 +10,5 @@ application.register("carousel", CarouselController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import ShowTabsController from "./show_tabs_controller"
-application.register("show_tabs", ShowTabsController)
-
 import SidebarController from "./sidebar_controller"
 application.register("sidebar", SidebarController)
