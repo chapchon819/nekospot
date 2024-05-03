@@ -52,7 +52,7 @@
       </div>
       <div class="my-4 text-secondary">
         <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
-        <p class="text-sm"><%= @spot.web_site %></p>
+        <%= link_to @spot.web_site, @spot.web_site, class: "text-sm" %>
       </div>
       <div class="my-4 text-secondary">
         <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
