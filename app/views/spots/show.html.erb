@@ -1,3 +1,4 @@
+<div class="bg-primary">
 <div class="relative overflow-hidden md:mt-16" data-controller="carousel">
   <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
     <% @spot.spot_images.each_with_index do |image, index| %>
@@ -9,11 +10,23 @@
   <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
   <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
 </div>
+<div class="flex flex-col items-center justify-center w-full">
+<div class="md:w-11/12 w-full">
+<div data-controller="tabs absolute top-0 left-0 w-full z-10 rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
+  <ul class="list-reset flex border-b">
+    <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+      <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
+    </li>
+    <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+      <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(3件)</a>
+    </li>
+  </ul>
 
-<section class="w-11/12 mx-auto">
+  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+  <div class="w-11/12 mx-auto">
   <div class="my-4">
   <p class="text-secondary text-xs"><%= @spot.address %></p>
-    <h3 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h3>
+    <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
   <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
             <div class="inline-flex">
             <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
@@ -21,16 +34,15 @@
             <p class="text-secondary">⭐️ <%= @spot.rating %></p>
             </div>
   </div>
-<div role="tablist" class="tabs tabs-lifted md:mt-16">
-  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 1" />
-  <div role="tabpanel" class="tab-content bg-white border-secondary rounded-box p-6">Tab content 1</div>
-
-  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 2" checked />
-  <div role="tabpanel" class="tab-content bg-white border-secondary rounded-box p-6">Tab content 2</div>
-
-  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 3" />
-  <div role="tabpanel" class="tab-content bg-white border-secondary rounded-box p-6">Tab content 3</div>
 </div>
+  </div>
 
-</section>
+  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+  <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
+  <p class="text-secondary">coming soon...</p>
+  </div>
 
+</div>
+</div>
+</div>
+</div>
