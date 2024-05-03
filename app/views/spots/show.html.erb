@@ -1,1 +1,36 @@
-<%= @spot.name %>
+<div class="relative overflow-hidden md:mt-16" data-controller="carousel">
+  <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
+    <% @spot.spot_images.each_with_index do |image, index| %>
+      <div data-carousel-target="item" class="inline-block w-full">
+        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
+      </div>
+    <% end %>
+  </div>
+  <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
+  <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
+</div>
+
+<section class="w-11/12 mx-auto">
+  <div class="my-4">
+  <p class="text-secondary text-xs"><%= @spot.address %></p>
+    <h3 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h3>
+  <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
+            <div class="inline-flex">
+            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
+            </div>
+            <p class="text-secondary">⭐️ <%= @spot.rating %></p>
+            </div>
+  </div>
+<div role="tablist" class="tabs tabs-lifted md:mt-16">
+  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 1" />
+  <div role="tabpanel" class="tab-content bg-white border-secondary rounded-box p-6">Tab content 1</div>
+
+  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 2" checked />
+  <div role="tabpanel" class="tab-content bg-white border-secondary rounded-box p-6">Tab content 2</div>
+
+  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 3" />
+  <div role="tabpanel" class="tab-content bg-white border-secondary rounded-box p-6">Tab content 3</div>
+</div>
+
+</section>
+
