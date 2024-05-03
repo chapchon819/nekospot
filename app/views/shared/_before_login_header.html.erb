@@ -1,7 +1,7 @@
 <div class="hidden md:block md:fixed md:top-0 md:left-0 md:z-10 w-full">
     <div class="navbar bg-primary text-secondary ">
     <div class="flex-1">
-        <a class="btn btn-ghost text-xl">NekoSpot</a>
+    <%= link_to 'NekoSpot', spots_path, class: "btn btn-ghost text-xl" %>
     </div>
     <div class="flex-none">
     <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
@@ -26,7 +26,9 @@
     </div>
     </div>
 
-
+    <% if controller_name == 'spots' && action_name == 'show' %>
+    <%= render "shared/spot_show_header" %>
+  <% else %>
 <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-secondary md:hidden">
     <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
         <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
@@ -43,3 +45,4 @@
         </button>
     </div>
 </div>
+<% end %>

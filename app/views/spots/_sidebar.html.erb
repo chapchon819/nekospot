@@ -1,8 +1,8 @@
-<button data-action="click->sidebar#toggleButton" aria-controls="default-sidebar" type="button" class="md:hidden fixed bottom-52 right-6 border-white rounded-full py-2 px-4 text-white bg-accent text-center hover:bg-white hover:text-accent hover:drop-shadow-none z-50" data-sidebar-target="toggleButton">
+<button data-action="click->sidebar#toggleButton" aria-controls="default-sidebar" type="button" class="md:hidden fixed bottom-48 right-6 border-white rounded-full py-2 px-4 text-white bg-accent text-center hover:drop-shadow-none z-50" data-sidebar-target="toggleButton">
   <i class="ph-bold ph-list-dashes" data-sidebar-target="icon"></i> <span data-sidebar-target="buttonText">リスト</span>
 </button>
 
-<aside id="default-sidebar" data-sidebar-target="sidebar" class="md:mt-16 fixed top-0 md:top-15 left-0 w-full md:w-64 md:min-w-64 h-screen transition-transform -translate-x-full md:translate-x-0 z-40" aria-label="Sidebar">
+<aside id="default-sidebar" data-sidebar-target="sidebar" class="md:mt-16 fixed top-0 left-0 w-full md:w-64 md:min-w-64 h-screen transition-transform -translate-x-full md:translate-x-0 z-40" aria-label="Sidebar">
   <div class="h-full px-3 py-4 overflow-y-auto bg-white md:border-r-4 md:border-primary md:border-double">
     <%= render "spots/list" %>
   </div>

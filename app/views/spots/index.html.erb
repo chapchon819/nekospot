@@ -15,23 +15,26 @@
     </div>
 
     <div class="flex flex-col items-center justify-center md:my-8 bottom-0">
-      <div id="infoCard" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
+    <% @spot_objects.each do |spot| %>
+    <%= link_to spot_path(spot), class: "w-11/12 rounded-xl" do %>
+      <div id="infoCard-<%= spot.id %>" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 md:w-full absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
         <div class="flex-shrink-0 relative overflow-hidden h-33 w-32 md:w-1/3 md:rounded-se-none">
-          <img id="spotImage" class="w-full h-full absolute top-0 left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110" src="" alt="Image Description">
+          <img id="spotImage-<%= spot.id %>" class="w-full h-full absolute top-0 rounded-l-xl left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-l-xl" src="" alt="Image Description">
         </div>
         <div class="flex flex-wrap">
           <div class="p-4 flex flex-col h-full sm:p-7">
-            <h3 id="spotName" class="text-lg font-bold text-neutral font-zenmaru overflow-hidden whitespace-nowrap text-overflow-ellipsis"></h3>
+            <h3 id="spotName-<%= spot.id %>" class="text-lg font-bold text-neutral font-zenmaru overflow-hidden whitespace-nowrap text-overflow-ellipsis"></h3>
             <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
             <div class="inline-flex">
-            <p id="spotCategory" class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"></p>
+            <p id="spotCategory-<%= spot.id %>" class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"></p>
             </div>
-            <p id="spotRating" class="text-secondary"></p>
+            <p id="spotRating-<%= spot.id %>" class="text-secondary"></p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
+    <% end %>
   </div>
 </div>
 
@@ -70,13 +73,23 @@ function initMap() {
 }
 
 function updateInfoCard(spot) {
-  document.getElementById('infoCard').classList.remove('hidden');
-  const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
-  console.log("Generated Image URL:", imageUrl);
-  document.getElementById('spotImage').src = imageUrl;
-  document.getElementById('spotName').textContent = spot.name;
-  document.getElementById('spotRating').textContent = `⭐️ ${spot.rating}`;
-  document.getElementById('spotCategory').textContent = spot.category;
+  // 他の全ての情報カードを非表示にする
+  document.querySelectorAll('[id^="infoCard-"]').forEach(card => {
+    card.classList.add('hidden');
+  });
+  
+  var infoCardId = 'infoCard-' + spot.id;
+  var infoCard = document.getElementById(infoCardId);
+  if (infoCard) {
+    infoCard.classList.remove('hidden');
+    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
+    infoCard.querySelector(`#spotImage-${spot.id}`).src = imageUrl;
+    infoCard.querySelector(`#spotName-${spot.id}`).textContent = spot.name;
+    infoCard.querySelector(`#spotRating-${spot.id}`).textContent = `⭐️ ${spot.rating}`;
+    infoCard.querySelector(`#spotCategory-${spot.id}`).textContent = spot.category;
+  } else {
+    console.error('Info card element not found:', infoCardId);
+  }
 }
 
 function codeAddress() {
