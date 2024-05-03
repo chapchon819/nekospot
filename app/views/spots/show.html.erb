@@ -10,9 +10,11 @@
   <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
   <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
 </div>
-<div class="flex flex-col items-center justify-center w-full">
+
+
+<div class="flex flex-col items-center justify-center w-full md:mt-4">
 <div class="md:w-11/12 w-full">
-<div data-controller="tabs absolute top-0 left-0 w-full z-10 rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
+<div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
   <ul class="list-reset flex border-b rounded-t-lg">
     <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
       <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
@@ -23,7 +25,7 @@
   </ul>
 
   <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-    <div class="w-11/12 mx-auto divide-y space-y-8">
+    <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
       <div class="my-4 flex justify-between">
        <div>
         <p class="text-secondary text-xs"><%= @spot.address %></p>
