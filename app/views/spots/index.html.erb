@@ -73,6 +73,11 @@ function initMap() {
 }
 
 function updateInfoCard(spot) {
+  // 他の全ての情報カードを非表示にする
+  document.querySelectorAll('[id^="infoCard-"]').forEach(card => {
+    card.classList.add('hidden');
+  });
+  
   var infoCardId = 'infoCard-' + spot.id;
   var infoCard = document.getElementById(infoCardId);
   if (infoCard) {
