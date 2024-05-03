@@ -17,12 +17,16 @@
 
   <body>
   <% unless current_page?(root_path) %>
+  <% if controller_name == 'spots' && action_name == 'show' %>
+    <%= render "shared/spot_show_header" %>
+  <% else %>
     <% if user_signed_in? %>
       <%= render "shared/header" %>
     <% else %>
       <%= render "shared/before_login_header" %>
     <% end %>
   <% end %>
+<% end %>
     <%= render 'layouts/flash_messages' %>
     <%= yield %>
     <%= render "shared/footer" %>
