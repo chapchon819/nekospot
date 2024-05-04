@@ -1,2 +1,57 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="bg-primary relative md:pb-16 md:mb-0 mb-20">
+<div class="relative md:mt-16">
+  <div class="whitespace-nowrap transition duration-700 ease-in-out">
+      <div class="inline-block w-full">
+        <%= image_tag("TOP画像2.png", class: "w-full h-96 object-cover") %>
+      </div>
+  </div>
+</div>
+
+
+<div class="flex flex-col items-center justify-center w-full md:mt-4">
+<div class="md:w-11/12 w-full">
+<div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
+  <ul class="list-reset flex border-b rounded-t-lg">
+    <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+      <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">ユーザー情報</a>
+    </li>
+    <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+      <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">投稿一覧</a>
+    </li>
+  </ul>
+
+  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+    <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
+       <div>
+        <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @user.name %></h2>
+        </div>
+       
+    </div>
+    <div class="w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+    <%= link_to "#", class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+        <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
+    <% end %>
+    <%= link_to "#", class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+        <p><i class="ph ph-file-text fa-lg mr-1"></i> 利用規約</p>
+    <% end %>
+    <%= link_to "#", class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+        <p><i class="ph ph-lock-key fa-lg mr-1"></i> プライバシーポリシー</p>
+    <% end %>
+    <%= link_to "#", class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+        <p><i class="ph ph-envelope-simple fa-lg mr-1"></i> お問い合わせ</p>
+    <% end %>
+    <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
+        <p><i class="ph ph-sign-out fa-lg mr-1"></i> ログアウト</p>
+    <% end %>
+</div>
+  </div>
+
+  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+  <h2 class="text-xl font-zenmaru font-bold text-neutral">投稿一覧</h2>
+  <p class="text-secondary">coming soon...</p>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
