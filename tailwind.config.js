@@ -4,7 +4,15 @@ module.exports = {
       fontFamily: {
         'zenmaru': ['Zen Maru Gothic', 'sans-serif'],
         'sans': ['Noto Sans JS', 'sans-serif'],
-      }
+      },
+      colors: {
+        'line-base': '#06C755',
+        'line-hover': '#06B64E',
+        'line-click': '#059540',
+        'google-hover': '#F2F2F2',
+        'google-text': '#1F1F1F',
+        'google': '#747775',
+      },
     },
   },
   content: [

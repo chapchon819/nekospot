@@ -56,14 +56,12 @@
                     <h1 class="text-3xl font-semibold font-zenmaru font-bold text-neutral lg:text-4xl">猫と出会える,ふれあえる<br>スポットが見つかる</h1>
                     
                     <p class="mt-3 text-secondary my-6 font-zenmaru">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro beatae error laborum ab amet sunt recusandae? Reiciendis natus perspiciatis optio.</p>
-                    <div class="hidden lg:mx-auto lg:flex lg:w-full lg:justify-center lg:gap-2.5 ">
-                    <%= link_to '猫スポットを探す', spots_path, data: { "turbolinks" => false }, class: "inline-block rounded-full bg-accent px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" %>
-                    <%= link_to user_line_omniauth_authorize_path, class: "inline-block sm:w-1/2", method: :post do %>
-                      <%= image_tag('LINE.png', height: '5px') %>
-                    <% end %>
-                    <%= link_to user_google_oauth2_omniauth_authorize_path, class: "inline-block sm:w-1/2", method: :post do %>
-                      <%= image_tag('Google.png', height: '5px') %>
-                    <% end %>
+                    <div class="mx-auto flex md:w-full w-11/12 justify-center gap-2.5 fixed bottom-5 z-50 md:relative">
+                    <%= link_to spots_path, data: { "turbolinks" => false }, class: "w-1/2 inline-block rounded-full bg-accent px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
+                      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+                      <% end %>
+                    <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 hover:text-white text-secondary hover:bg-accent bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" onclick="my_modal_3.showModal()"><i class="ph-bold ph-sign-in fa-lg"></i> ログイン</button>
+                    <%= render 'shared/login_modal' %>
                     </div>
                 </div>
             </div>
@@ -71,17 +69,6 @@
             <div class="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
             <%= image_tag 'TOP画像2.png' %>
             </div>
-            <div class="mx-auto flex w-3/4 flex-col gap-2.5 justify-center sm:flex-row lg:hidden md:hidden">
-              <%= link_to '猫スポットを探す', spots_path, data: { "turbolinks" => false }, class: "inline-block rounded-full bg-accent px-8 py-3 font-sans text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring active:bg-indigo-700 sm:w-1/2 text-base md:w-1/2" %>
-            </div>
-            <div class="mx-auto flex w-3/4 flex-row gap-2.5 justify-center lg:hidden md:hidden">
-            <%= link_to user_line_omniauth_authorize_path, class: "inline-block sm:w-1/2", method: :post do %>
-              <%= image_tag('LINE.png', height: '5px') %>
-            <% end %>
-            <%= link_to user_google_oauth2_omniauth_authorize_path, class: "inline-block sm:w-1/2", method: :post do %>
-              <%= image_tag('Google.png', height: '5px') %>
-            <% end %>
-            </div>
-        </div>
+
     </div>
 </section>
