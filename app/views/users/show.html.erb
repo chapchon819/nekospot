@@ -296,13 +296,13 @@
     <%= link_to "#", class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
         <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
     <% end %>
-    <%= link_to "#", class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+    <%= link_to terms_of_use_path, class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
         <p><i class="ph ph-file-text fa-lg mr-1"></i> 利用規約</p>
     <% end %>
-    <%= link_to "#", class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+    <%= link_to privacy_policy_path, class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
         <p><i class="ph ph-lock-key fa-lg mr-1"></i> プライバシーポリシー</p>
     <% end %>
-    <%= link_to "#", class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+    <%= link_to "https://twitter.com/819Chapchon", class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
         <p><i class="ph ph-envelope-simple fa-lg mr-1"></i> お問い合わせ</p>
     <% end %>
     <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
