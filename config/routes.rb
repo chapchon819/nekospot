@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get 'users/show'
   root "static_pages#index"
   devise_for :users, controllers: {
-    omniauth_callbacks: "omniauth_callbacks"
+    omniauth_callbacks: "omniauth_callbacks",
+    registrations: 'users/registrations'
   }
   get 'static_pages/index'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
