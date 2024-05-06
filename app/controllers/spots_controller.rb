@@ -1,4 +1,5 @@
 class SpotsController < ApplicationController
+  before_action :set_map_data, only: :index
 
   def index
     @user = current_user
@@ -30,6 +31,10 @@ class SpotsController < ApplicationController
 
   def show
     @spot = Spot.find(params[:id])
+  end
+
+  def set_map_data
+    gon.api_key = ENV['GMAP_API_KEY']
   end
 
 end
