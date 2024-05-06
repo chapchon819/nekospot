@@ -19,18 +19,21 @@ class SpotsController < ApplicationController
   end
 
   def list
-    @latitude = params[:latitude]
-    @longitude = params[:longitude]
-    @radius = params[:radius] || 10 # デフォルトは10km
+    latitude = params[:latitude].to_f
+    longitude = params[:longitude].to_f
+    radius = params[:radius] || 10 # デフォルトは10km
 
-    @spots = Spot.includes(:spot_images, :category).near([@latitude, @longitude], @radius, units: :km).map do |spot|
+    @spots = Spot.includes(:spot_images, :category).near([latitude, longitude], radius, units: :km).limit(10)
+
+    # JSON形式でスポットのデータをフロントエンドに送り返します
+    spots_json = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
         image: spot.spot_images.first&.image,
         category: spot.category.name
       )
     end
-    @spots_json = @spots.to_json
-    render partial: "spots/list", locals: { spots: @spots }
+
+    render json: spots_json
   end
 
   def show
