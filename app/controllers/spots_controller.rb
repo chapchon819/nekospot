@@ -3,15 +3,19 @@ class SpotsController < ApplicationController
 
   def index
     @user = current_user
-    @spot_objects = Spot.includes(:spot_images, :category).all
+    @spots = Spot.includes(:spot_images, :category).all
     
-    @spots = Spot.includes(:spot_images, :category).all.map do |spot|
-      spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
-        image: spot.spot_images.first&.image,
-        category: spot.category.name
-      )
+    latitude = params[:latitude].to_f
+    longitude = params[:longitude].to_f
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          spots: @spots.as_json(include: [:spot_images, :category])
+        }
+      end
     end
-    @spots_json = @spots.to_json
   end
 
   def list
@@ -35,6 +39,12 @@ class SpotsController < ApplicationController
 
   def set_map_data
     gon.api_key = ENV['GMAP_API_KEY']
+    gon.spots = Spot.includes(:spot_images, :category).all.map do |spot|
+      spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
+        image: spot.spot_images.first&.image,
+        category: spot.category.name
+      )
+    end
   end
 
 end
