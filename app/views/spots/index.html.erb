@@ -79,6 +79,13 @@ function initMap() {
   }
 };
 
+centerPin = new google.maps.Marker({
+  map: map,
+  draggable: true,
+  position: map.getCenter(), // 初期位置をマップの中心に設定
+  title: "現在地"
+});
+
 
 spots.forEach(function(spot) {
   let marker = new google.maps.Marker({
@@ -95,8 +102,23 @@ spots.forEach(function(spot) {
     });
   });
 
-  // 現在地表示機能
-  showCurrentLocation();  //
+  // ピンのドラッグ終了イベント
+  centerPin.addListener('dragend', function() {
+    map.setCenter(centerPin.getPosition());
+    updateSpotsList(); // スポットリストを更新
+  });
+
+  // マップのドラッグ終了イベント
+  map.addListener('dragend', function() {
+    centerPin.setPosition(map.getCenter());
+    updateSpotsList(); // スポットリストを更新
+  });
+
+  // スポットの初期化とリスナーの設定...
+  initSpots();
+
+  // 現在地の読み込み
+  showCurrentLocation();
 }
 
 function updateInfoCard(spot) {
@@ -142,15 +164,7 @@ function showCurrentLocation(){
                 lng: position.coords.longitude
             };
             map.setCenter(userLocation);
-            if (!marker) {
-              marker = new google.maps.Marker({
-                position: userLocation,
-                map: map,
-                title: "現在地"
-              });
-            } else {
-              marker.setPosition(userLocation);
-            }
+            centerPin.setPosition(userLocation);
           }, function() {
             alert('位置情報の取得に失敗しました。');
             map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
@@ -177,6 +191,8 @@ function updateSpotsList() {
 }
 
 document.addEventListener("turbo:load", function() {
+  if (!map) initMap(); // マップが初期化されていなければ初期化
+  showCurrentLocation();
   updateSpotsList();
 });
 
