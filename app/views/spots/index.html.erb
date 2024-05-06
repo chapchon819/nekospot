@@ -165,13 +165,16 @@ function showCurrentLocation(){
             };
             map.setCenter(userLocation);
             centerPin.setPosition(userLocation);
+            updateSpotsList();
           }, function() {
             alert('位置情報の取得に失敗しました。');
             map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+            updateSpotsList();
         });
     } else {
         alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
         map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+        updateSpotsList();
     }
 }
 
