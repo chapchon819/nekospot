@@ -34,7 +34,11 @@
           <div class="inline-flex">
             <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
           </div>
-          <p class="text-secondary">⭐️ <%= @spot.rating %></p>
+          <% if @spot.rating.present? %>
+            <p class="text-secondary">⭐️ <%= @spot.rating %></p>
+          <% else %>
+            <p class="text-secondary">⭐️ 評価なし</p>
+          <% end %>
         </div>
         </div>
         <div class="space-x-2">
@@ -42,18 +46,24 @@
           <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-bookmark-simple fa-2x"></i><% end %>
         </div>
       </div>
+      <% if @spot.opening_hours.present? %>
       <div class="my-4 text-secondary">
         <p class="text-sm pb-4 pt-8"><i class="ph-bold ph-clock"></i> 営業時間</p>
-        <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
+          <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
       </div>
+      <% end %>
+      <% if @spot.phone_number.present? %>
       <div class="my-4 text-secondary">
         <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-phone"></i> 電話番号</p>
         <p class="text-lg"><%= @spot.phone_number %></p>
       </div>
+      <% end %>
+      <% if @spot.web_site.present? %>
       <div class="my-4 text-secondary">
         <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
         <%= link_to @spot.web_site, @spot.web_site, class: "text-sm" %>
       </div>
+      <% end %>
       <div class="my-4 text-secondary">
         <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
         <div class="flex justify-between">

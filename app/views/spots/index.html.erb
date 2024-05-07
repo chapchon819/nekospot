@@ -5,9 +5,9 @@
   <div class="md:flex-1 md:pl-64">
     <div class="flex flex-col items-center justify-center">
       <div class="bg-white rounded-b-lg w-full">
-      <%= render "shared/search" %>
+      <%= render "shared/search", q: @q, url: spots_path %>
       <div class="mx-auto flex w-11/12 max-w-md justify-center gap-2.5 pt-4 px-1 pb-6">
-        <button value="現在地を表示" onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
+        <button onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
           <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
         </button>
         <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2"><i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み</button>
@@ -20,11 +20,15 @@
        class="w-screen h-screen md:h-96 md:w-11/12 md:rounded-xl"></div>
 
 
-  <div class="flex flex-col items-center justify-center md:my-8 bottom-0 w-full">
-    <% @spot_objects.each do |spot| %>
+  <div class="flex flex-col items-center justify-center md:my-8 md:bottom-0 bottom-20 w-full relative">
+    <% @spots.each do |spot| %>
     <%= link_to spot_path(spot), class: "w-11/12 rounded-xl" do %>
       <div id="infoCard-<%= spot.id %>" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 md:w-full absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
-        <div class="flex-shrink-0 relative overflow-hidden h-33 w-32 md:w-1/3 md:rounded-se-none">
+      <!-- ×ボタン -->
+      <button onclick="hideInfoCard(event, <%= spot.id %>)" class="absolute top-1 right-2 text-secondary focus:outline-none z-20 md:hidden">
+        <i class="ph ph-x"></i>
+      </button>  
+      <div class="flex-shrink-0 relative overflow-hidden h-33 w-32 md:w-1/3 md:rounded-se-none">
           <img id="spotImage-<%= spot.id %>" class="w-full h-full absolute top-0 rounded-l-xl left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-l-xl" src="" alt="Image Description">
         </div>
         <div class="flex flex-wrap">
@@ -46,22 +50,20 @@
   </div>
 </div>
 
-
-<script type="text/javascript">
-  var apiKey = "<%= ENV['GMAP_API_KEY'] %>";
-</script>
-
 <script>
 let map, marker, markers = [];
+var apiKey = gon.api_key;
 
 const latlngDis = document.getElementById('latlngDisplay');
 const addressDis = document.getElementById('addressDisplay');
 
 function initMap() {
   const geocoder = new google.maps.Geocoder();
-  map = new google.maps.Map(document.getElementById('map'), { zoom: 12 });
+  map = new google.maps.Map(document.getElementById('map'), { 
+    zoom: 12
+     });
 
-  var spots = <%= @spots_json.html_safe %>;
+  var spots = gon.spots;
   let mapElement = document.getElementById('map');
   let icons = {
   "猫カフェ": {
@@ -81,6 +83,13 @@ function initMap() {
   }
 };
 
+centerPin = new google.maps.Marker({
+  map: map,
+  draggable: true,
+  position: map.getCenter(), // 初期位置をマップの中心に設定
+  title: "現在地"
+});
+
 
 spots.forEach(function(spot) {
   let marker = new google.maps.Marker({
@@ -97,8 +106,23 @@ spots.forEach(function(spot) {
     });
   });
 
-  // 現在地表示機能
-  showCurrentLocation();  //
+  // ピンのドラッグ終了イベント
+  centerPin.addListener('dragend', function() {
+    map.setCenter(centerPin.getPosition());
+    updateSpotsList(); // スポットリストを更新
+  });
+
+  // マップのドラッグ終了イベント
+  map.addListener('dragend', function() {
+    centerPin.setPosition(map.getCenter());
+    updateSpotsList(); // スポットリストを更新
+  });
+
+  // スポットの初期化とリスナーの設定...
+  initSpots();
+
+  // 現在地の読み込み
+  showCurrentLocation();
 }
 
 function updateInfoCard(spot) {
@@ -118,6 +142,20 @@ function updateInfoCard(spot) {
     infoCard.querySelector(`#spotCategory-${spot.id}`).textContent = spot.category;
   } else {
     console.error('Info card element not found:', infoCardId);
+  }
+}
+
+function hideInfoCard(event, spotId) {
+  // イベントのバブリングを停止
+  event.stopPropagation();
+  // デフォルトのイベントをキャンセル
+  event.preventDefault();
+
+  const infoCard = document.getElementById(`infoCard-${spotId}`);
+  if (infoCard) {
+    infoCard.classList.add('hidden');
+  } else {
+    console.error('Info card element not found:', `infoCard-${spotId}`);
   }
 }
 
@@ -144,36 +182,62 @@ function showCurrentLocation(){
                 lng: position.coords.longitude
             };
             map.setCenter(userLocation);
-            if (markers.length > 0) {
-                markers[0].setPosition(userLocation);  // 最初のマーカーの位置を更新
-            }
-            updateSpotsList();  // Spotリストの更新を追加
-        }, function() {
+            centerPin.setPosition(userLocation);
+            updateSpotsList();
+          }, function() {
             alert('位置情報の取得に失敗しました。');
             map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+            updateSpotsList();
         });
     } else {
         alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
         map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+        updateSpotsList();
     }
 }
 
 function updateSpotsList() {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
+  const center = map.getCenter();
 
-        const frame = document.querySelector("#spots_list");
-        const newSrc = `/spots/list?latitude=${lat}&longitude=${lng}`;
-        if (frame.src !== newSrc) {
-            frame.src = newSrc;  // srcが現在設定されているものと異なる場合のみ更新
-        }
-    }, function(error) {
-        console.error('Geolocation error:', error);
-    });
+  fetch(`/spots/list?latitude=${center.lat()}&longitude=${center.lng()}`)
+    .then(response => response.json())
+    .then(data => {
+        const frame = document.getElementById('spots_list');
+        frame.innerHTML = '';  // Frame の内容をクリア
+
+        data.forEach(spot => {
+            const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
+            const spotElement = document.createElement('div');
+            spotElement.className = 'spot-item';
+            spotElement.innerHTML = `
+            <a href="/spots/${spot.id}" class="block w-full h-full" data-turbo="false">
+              <div class="bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 relative z-10 mb-50 hover:shadow-lg group truncate">
+                <div class="flex-shrink-0 relative rounded-t-xl overflow-hidden h-33 w-32 md:w-1/3 rounded-s-xl md:rounded-se-none">
+                  <img src="${imageUrl}" class="w-full h-full absolute top-0 left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110">
+                </div>
+                <div class="flex flex-wrap">
+                  <div class="p-4 flex flex-col h-full sm:p-2">
+                    <h3 class="text-lg md:text-xs font-bold text-neutral font-zenmaru overflow-hidden whitespace-nowrap pr-1 line-clamp-1">${spot.name}</h3>
+                    <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
+                      <div class="mt-1 inline-flex">
+                        <p class="text-xs text-white py-1 px-1 rounded-full bg-accent dark:text-neutral-500">${spot.category}</p>
+                      </div>
+                      <p class="mt-1 md:text-sm font-semibold text-secondary">⭐️ ${spot.rating}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </a>
+            `;
+            frame.appendChild(spotElement);
+        });
+    })
+    .catch(error => console.error('スポットリストの更新に失敗しました：', error));
 }
 
 document.addEventListener("turbo:load", function() {
+  if (!map) initMap(); // マップが初期化されていなければ初期化
+  showCurrentLocation();
   updateSpotsList();
 });
 

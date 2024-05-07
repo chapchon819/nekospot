@@ -1,22 +1,6 @@
 <turbo-frame id="spots_list" src="/spots/list">
 <div class="space-y-4 font-medium flex flex-col items-center justify-center mb-20 md:mb-2">
   <% @spots.each do |spot| %>
-    <div class="bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 relative z-10 mb-50 hover:shadow-lg group truncate">
-    <div class="flex-shrink-0 relative rounded-t-xl overflow-hidden h-33 w-32 md:w-1/3 rounded-s-xl md:rounded-se-none">
-      <%= image_tag 'TOP画像2.png', class: "w-full h-full absolute top-0 left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110" %>
-    </div>
-    <div class="flex flex-wrap">
-      <div class="p-4 flex flex-col h-full sm:p-2">
-        <h3 class="text-lg md:text-xs font-bold text-neutral font-zenmaru overflow-hidden whitespace-nowrap pr-1 line-clamp-1"><%= spot['name'] %></h3>
-        <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
-        <div class="mt-1 inline-flex">
-        <p class="text-xs text-white py-1 px-1 rounded-full bg-accent dark:text-neutral-500"><%= spot['category'] %></p>
-      </div>
-        <p class="mt-1 md:text-sm font-semibold text-secondary">⭐️ </i><%= spot['rating'] %></p>
-        </div>
-      </div>
-    </div>
-  </div>
   <% end %>
 </div>
 </turbo-frame>
