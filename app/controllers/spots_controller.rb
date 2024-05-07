@@ -3,7 +3,8 @@ class SpotsController < ApplicationController
 
   def index
     @user = current_user
-    @spots = Spot.includes(:spot_images, :category).all
+    @q = Spot.ransack(params[:q])
+    @spots = @q.result(distinct: true).includes(:spot_images, :category)
     
     latitude = params[:latitude].to_f
     longitude = params[:longitude].to_f
@@ -19,13 +20,16 @@ class SpotsController < ApplicationController
   end
 
   def list
+    @q = Spot.ransack(params[:q])
+    search_results = @q.result(distinct: true)
+
     latitude = params[:latitude].to_f
     longitude = params[:longitude].to_f
     radius = params[:radius] || 10 # デフォルトは10km
+    
+    @spots = search_results.includes(:spot_images, :category).near([latitude, longitude], radius, units: :km).limit(10)
 
-    @spots = Spot.includes(:spot_images, :category).near([latitude, longitude], radius, units: :km).limit(10)
-
-    # JSON形式でスポットのデータをフロントエンドに送り返します
+    # JSON形式でスポットのデータをフロントエンドに送り返す
     spots_json = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
         image: spot.spot_images.first&.image,
@@ -41,8 +45,11 @@ class SpotsController < ApplicationController
   end
 
   def set_map_data
+    @q = Spot.ransack(params[:q])  # フリーワード検索のパラメータを受け取る
+    @spots = @q.result(distinct: true).includes(:spot_images, :category)
+
     gon.api_key = ENV['GMAP_API_KEY']
-    gon.spots = Spot.includes(:spot_images, :category).all.map do |spot|
+    gon.spots = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
         image: spot.spot_images.first&.image,
         category: spot.category.name

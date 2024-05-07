@@ -5,7 +5,7 @@
   <div class="md:flex-1 md:pl-64">
     <div class="flex flex-col items-center justify-center">
       <div class="bg-white rounded-b-lg w-full">
-      <%= render "shared/search" %>
+      <%= render "shared/search", q: @q, url: spots_path %>
       <div class="mx-auto flex w-11/12 max-w-md justify-center gap-2.5 pt-4 px-1 pb-6">
         <button onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
           <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
