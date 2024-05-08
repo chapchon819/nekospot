@@ -2,3 +2,4 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import './custom/show_map';
+import './custom/gmap';
