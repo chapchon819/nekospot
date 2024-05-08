@@ -60,12 +60,16 @@ const addressDis = document.getElementById('addressDisplay');
 function initMap() {
   const geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById('map'), { 
-    zoom: 12
+    zoom: 12,
+    streetViewControl: false, // ストリートビューのボタン非表示
+    mapTypeControl: false, // 地図、航空写真のボタン非表示
+    fullscreenControl: false, // フルスクリーンボタン非表示
+    keyboardShortcuts: false //キーボードショートカットオフ、キーボードボタン非表示
      });
 
   var spots = gon.spots;
-  let mapElement = document.getElementById('map');
-  let icons = {
+  const mapElement = document.getElementById('map');
+  const icons = {
   "猫カフェ": {
     url: mapElement.dataset.cafeIcon,
     size: new google.maps.Size(52, 52),
