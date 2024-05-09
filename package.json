@@ -12,8 +12,10 @@
     "tailwindcss-stimulus-components": "^5.1.1"
   },
   "scripts": {
+    "start": "bin/rails server -p $PORT -e production",
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
-    "build:custom": "esbuild app/javascript/custom/*.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
+    "build:custom": "esbuild app/javascript/custom/*.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "heroku-postbuild": "yarn run build && yarn run build:custom"
   }
 }
