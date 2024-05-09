@@ -6,7 +6,6 @@ rm -f /myapp/tmp/pids/server.pid
 
 if [ "${RAILS_ENV}" = "production" ]
 then
-    yarn build:custom
     bundle exec rails assets:precompile
 fi
 
