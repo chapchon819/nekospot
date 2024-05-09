@@ -64,13 +64,13 @@ spots.forEach(function(spot) {
   // ピンのドラッグ終了イベント
   centerPin.addListener('dragend', function() {
     map.setCenter(centerPin.getPosition());
-    updateSpotsList(); // スポットリストを更新
+    updateSpotsList(currentCategoryId); // スポットリストを更新
   });
 
   // マップのドラッグ終了イベント
   map.addListener('dragend', function() {
     centerPin.setPosition(map.getCenter());
-    updateSpotsList(); // スポットリストを更新
+    updateSpotsList(currentCategoryId); // スポットリストを更新
   });
 
   // 現在地の読み込み
@@ -149,16 +149,16 @@ function showCurrentLocation(){
             };
             map.setCenter(userLocation);
             centerPin.setPosition(userLocation);
-            updateSpotsList();
+            updateSpotsList(currentCategoryId);
           }, function() {
             alert('位置情報の取得に失敗しました。');
             map.setCenter(defaultLocation); // 東京の座標
-            updateSpotsList();
+            updateSpotsList(currentCategoryId);
         });
     } else {
         alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
         map.setCenter(defaultLocation); // 東京の座標
-        updateSpotsList();
+        updateSpotsList(currentCategoryId);
     }
 }
 
