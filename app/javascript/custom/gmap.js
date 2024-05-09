@@ -86,6 +86,13 @@ spots.forEach(function(spot) {
       updateSpotsList(categoryId);
     });
   });
+
+    // 解除ボタンにイベントリスナーを追加
+    document.getElementById("reset-button").addEventListener("click", function() {
+        currentCategoryId = null;
+        filterSpotsByCategory(null);
+        updateSpotsList(null);
+      });
 }
 
 // initMapをグローバルスコープに
@@ -93,7 +100,7 @@ window.initMap = initMap;
 
 function filterSpotsByCategory(categoryId) {
     markers.forEach(marker => {
-      if (marker.categoryId === categoryId) {
+      if (categoryId === null || marker.categoryId === categoryId) {
         marker.setVisible(true);
       } else {
         marker.setVisible(false);
