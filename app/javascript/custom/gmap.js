@@ -1,6 +1,7 @@
 let map, marker, markers = [];
 var apiKey = gon.api_key;
 var spots = gon.spots;
+let currentCategoryId = null;
 
 const defaultLocation = { lat: 35.6803997, lng: 139.7690174 };
 
@@ -80,7 +81,9 @@ spots.forEach(function(spot) {
   buttons.forEach(button => {
     button.addEventListener("click", function() {
       const categoryId = parseInt(this.getAttribute('data-category-id'));
+      currentCategoryId = categoryId;
       filterSpotsByCategory(categoryId);
+      updateSpotsList(categoryId);
     });
   });
 }
@@ -162,10 +165,13 @@ function showCurrentLocation(){
 // showCurrentLocationをグローバルスコープに追加
 window.showCurrentLocation = showCurrentLocation;
 
-function updateSpotsList() {
+function updateSpotsList(categoryId) {
   const center = map.getCenter();
+  const url = categoryId
+  ? `/spots/list?latitude=${center.lat()}&longitude=${center.lng()}&category=${categoryId}`
+  : `/spots/list?latitude=${center.lat()}&longitude=${center.lng()}`;
 
-  fetch(`/spots/list?latitude=${center.lat()}&longitude=${center.lng()}`)
+  fetch(url)
     .then(response => response.json())
     .then(data => {
         const frame = document.getElementById('spots_list');

@@ -30,6 +30,10 @@ class SpotsController < ApplicationController
     latitude = params[:latitude].to_f
     longitude = params[:longitude].to_f
     radius = params[:radius] || 10 # デフォルトは10km
+
+    if params[:category].present?
+      search_results = search_results.where(category_id: params[:category])
+    end
     
     @spots = search_results.includes(:spot_images, :category).near([latitude, longitude], radius, units: :km).limit(10)
 
@@ -37,7 +41,8 @@ class SpotsController < ApplicationController
     spots_json = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
         image: spot.spot_images.first&.image,
-        category: spot.category.name
+        category: spot.category.name,
+        category_id: spot.category.id
       )
     end
 
