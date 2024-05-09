@@ -75,7 +75,7 @@
             <p class="text-sm text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500 bottom-0"><i class="ph-fill ph-path"></i> 経路</p>
           </div>
         </div>
-        <div id="map" class="w-full md:h-64 h-48 rounded-xl"></div>
+        <div id="map" class="w-full md:h-64 h-48 rounded-xl" data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
       </div>
     </div>
   </div>
@@ -103,25 +103,6 @@
 </button>
     <% end %>
 
-<script>
-function initMap() {
-  // スポットの緯度と経度を取得
-  var spotLocation = {lat: <%= @spot.latitude %>, lng: <%= @spot.longitude %>};
-
-  // マップを作成し、指定した位置にセット
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: spotLocation,
-    zoom: 15
-  });
-
-  // ピンを追加
-  var marker = new google.maps.Marker({
-    position: spotLocation,
-    map: map,
-    title: '<%= @spot.name %>'
-  });
-}
-</script>
-
+<%= javascript_include_tag "show_map" %>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API_KEY'] %>&callback=initMap" async defer></script>
