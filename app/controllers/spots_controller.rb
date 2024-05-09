@@ -5,6 +5,10 @@ class SpotsController < ApplicationController
     @user = current_user
     @q = Spot.ransack(params[:q])
     @spots = @q.result(distinct: true).includes(:spot_images, :category)
+
+    if params[:category].present?
+      @spots = @spots.where(category_id: params[:category])
+    end
     
     latitude = params[:latitude].to_f
     longitude = params[:longitude].to_f
@@ -52,7 +56,8 @@ class SpotsController < ApplicationController
     gon.spots = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
         image: spot.spot_images.first&.image,
-        category: spot.category.name
+        category: spot.category.name,
+        category_id: spot.category.id
       )
     end
   end

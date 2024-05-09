@@ -49,7 +49,8 @@ spots.forEach(function(spot) {
     map: map,
     position: { lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude) },
     title: spot.name,
-    icon: icons[spot.category] || null // デフォルトアイコンを設定
+    icon: icons[spot.category] || null, // デフォルトアイコンを設定
+    categoryId: spot.category_id  // カテゴリIDを正しく設定
   });
 
     markers.push(marker);  // マーカーを配列に追加
@@ -73,10 +74,33 @@ spots.forEach(function(spot) {
 
   // 現在地の読み込み
   showCurrentLocation();
+
+  // カテゴリーボタンにイベントリスナーを追加
+  const buttons = document.querySelectorAll("#category-buttons button");
+  buttons.forEach(button => {
+    button.addEventListener("click", function() {
+      const categoryId = parseInt(this.getAttribute('data-category-id'));
+      filterSpotsByCategory(categoryId);
+    });
+  });
 }
 
 // initMapをグローバルスコープに
 window.initMap = initMap;
+
+function filterSpotsByCategory(categoryId) {
+    markers.forEach(marker => {
+      if (marker.categoryId === categoryId) {
+        marker.setVisible(true);
+      } else {
+        marker.setVisible(false);
+      }
+    });
+  }
+
+// filterSpotsByCategoryをグローバルスコープに追加
+window.filterSpotsByCategory = filterSpotsByCategory;
+
 
 function updateInfoCard(spot) {
   // 他の全ての情報カードを非表示にする
