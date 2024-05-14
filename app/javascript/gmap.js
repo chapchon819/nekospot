@@ -4,8 +4,10 @@ var spots = gon.spots;
 let currentCategoryId = null;
 
 const defaultLocation = { lat: 35.6803997, lng: 139.7690174 };
+console.log(`デフォルト位置: lat=${defaultLat}, lng=${defaultLng}`);
 
 function initMap() {
+  console.log(`デフォルト位置: lat=${defaultLat}, lng=${defaultLng}`);
   const geocoder = new google.maps.Geocoder();
   const mapElement = document.getElementById('map');
   const defaultLat = parseFloat(mapElement.dataset.lat) || defaultLocation.lat;
