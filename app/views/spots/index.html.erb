@@ -12,6 +12,28 @@
         </button>
         <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2"><i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み</button>
       </div>
+      <div id="region-search" data-controller="accordion" class="w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+      <% Region.all.each do |region| %>
+        <div class="accordion w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+          <div class="accordion-header" data-action="click->accordion#toggle">
+            <h3 class="region-title">
+            <i class="toggle-icon ph ph-plus transform transition-transform duration-300" data-accordion-target="icon"></i><%= region.name %>
+            </h3>
+          </div>
+          <div class="accordion-body overflow-hidden transition-all duration-500 ease-in-out max-h-0" data-accordion-target="body">
+            <ul class="prefecture-list">
+              <% region.prefectures.each do |prefecture| %>
+                <li>
+                  <button id="prefecture-<%= prefecture.id %>" name="prefecture-<%= prefecture.id %>" class="prefecture-btn w-1/2 flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" data-prefecture-id="<%= prefecture.id %>" data-lat="<%= prefecture.latitude %>" data-lng="<%= prefecture.longitude %>">
+                    <%= prefecture.name %>
+                  </button>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
       <div class="mx-auto flex w-11/12 max-w-md justify-center pt-4 px-1 pb-6">
       <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
       <% Category.all.each do |category| %>
