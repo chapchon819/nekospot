@@ -10,7 +10,9 @@
         <button onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
           <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
         </button>
-        <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2"><i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み</button>
+        <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
+          <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
+        </button>
       </div>
       <div id="region-search" data-controller="accordion" class="w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
       <% Region.all.each do |region| %>
@@ -24,7 +26,12 @@
             <ul class="prefecture-list">
               <% region.prefectures.each do |prefecture| %>
                 <li>
-                  <button id="prefecture-<%= prefecture.id %>" name="prefecture-<%= prefecture.id %>" class="prefecture-btn w-1/2 flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" data-prefecture-id="<%= prefecture.id %>" data-lat="<%= prefecture.latitude %>" data-lng="<%= prefecture.longitude %>">
+                  <button id="prefecture-<%= prefecture.id %>" 
+                    name="prefecture-<%= prefecture.id %>" 
+                    class="prefecture-btn w-1/2 flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" 
+                    data-prefecture-id="<%= prefecture.id %>" 
+                    data-lat="<%= prefecture.latitude %>" 
+                    data-lng="<%= prefecture.longitude %>">
                     <%= prefecture.name %>
                   </button>
                 </li>

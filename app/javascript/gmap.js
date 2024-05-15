@@ -86,12 +86,12 @@ spots.forEach(function(spot) {
     });
   });
 
-    // 解除ボタンにイベントリスナーを追加
-    document.getElementById("reset-button").addEventListener("click", function() {
-        currentCategoryId = null;
-        filterSpotsByCategory(null);
-        updateSpotsList(null);
-      });
+  // 解除ボタンにイベントリスナーを追加
+  document.getElementById("reset-button").addEventListener("click", function() {
+      currentCategoryId = null;
+      filterSpotsByCategory(null);
+      updateSpotsList(null);
+  });
 }
 
 // initMapをグローバルスコープに
@@ -110,6 +110,20 @@ function filterSpotsByCategory(categoryId) {
 // filterSpotsByCategoryをグローバルスコープに追加
 window.filterSpotsByCategory = filterSpotsByCategory;
 
+// 都道府県ボタンのイベントリスナー設定
+document.addEventListener("DOMContentLoaded", function() {
+  const prefectureButtons = document.querySelectorAll(".prefecture-btn");
+  prefectureButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const lat = parseFloat(this.dataset.lat);
+      const lng = parseFloat(this.dataset.lng);
+      const newCenter = new google.maps.LatLng(lat, lng);
+      map.setCenter(newCenter);
+      centerPin.setPosition(newCenter);
+      map.setZoom(8);
+    });
+  });
+});
 
 function updateInfoCard(spot) {
   // 他の全ての情報カードを非表示にする
@@ -158,7 +172,6 @@ document.querySelectorAll('.infoCard-link').forEach(link => {
     }
   });
 });
-
 
 function showCurrentLocation(){
     if (navigator.geolocation) {
