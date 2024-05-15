@@ -4,7 +4,15 @@ var spots = gon.spots;
 let currentCategoryId = null;
 
 const defaultLocation = { lat: 35.6803997, lng: 139.7690174 };
-console.log('テスト');
+
+document.addEventListener("DOMContentLoaded", function() {
+  if (!window.google || !window.google.maps) {
+    return;
+  }
+  if (typeof map === 'undefined') initMap(); // マップが初期化されていなければ初期化
+  showCurrentLocation();
+  updateSpotsList();
+});
 
 function initMap() {
   const geocoder = new google.maps.Geocoder();
@@ -44,8 +52,6 @@ centerPin = new google.maps.Marker({
   position: map.getCenter(), // 初期位置をマップの中心に設定
   title: "現在地"
 });
-
-console.log(`デフォルト位置: lat=${defaultLat}, lng=${defaultLng}`);
 
 spots.forEach(function(spot) {
   let marker = new google.maps.Marker({
@@ -175,7 +181,16 @@ function showCurrentLocation(){
 window.showCurrentLocation = showCurrentLocation;
 
 function updateSpotsList(categoryId) {
-  const center = map.getCenter();
+  if (!map) {
+    console.error('Map is not initialized.');
+    return;
+  }
+  
+  const center = map.getCenter() || defaultLocation;
+  if (!center) {
+    console.error('マップの中心が利用できません。デフォルトの位置を使用します。');
+  }
+
   const url = categoryId
   ? `/spots/list?latitude=${center.lat()}&longitude=${center.lng()}&category=${categoryId}`
   : `/spots/list?latitude=${center.lat()}&longitude=${center.lng()}`;
@@ -215,9 +230,3 @@ function updateSpotsList(categoryId) {
     })
     .catch(error => console.error('スポットリストの更新に失敗しました：', error));
 }
-
-document.addEventListener("turbo:load", function() {
-  if (!map) initMap(); // マップが初期化されていなければ初期化
-  showCurrentLocation();
-  updateSpotsList();
-});
