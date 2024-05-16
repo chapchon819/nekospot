@@ -12,3 +12,9 @@ application.register("hello", HelloController)
 
 import SidebarController from "./sidebar_controller"
 application.register("sidebar", SidebarController)
+
+import AccordionController from "./accordion_controller"
+application.register("accordion", AccordionController)
+
+import SearchAccordionController from "./search_accordion_controller"
+application.register("search-accordion", SearchAccordionController)

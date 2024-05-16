@@ -4,7 +4,6 @@ var spots = gon.spots;
 let currentCategoryId = null;
 
 const defaultLocation = { lat: 35.6803997, lng: 139.7690174 };
-console.log('テスト');
 
 function initMap() {
   const geocoder = new google.maps.Geocoder();
@@ -44,8 +43,6 @@ centerPin = new google.maps.Marker({
   position: map.getCenter(), // 初期位置をマップの中心に設定
   title: "現在地"
 });
-
-console.log(`デフォルト位置: lat=${defaultLat}, lng=${defaultLng}`);
 
 spots.forEach(function(spot) {
   let marker = new google.maps.Marker({
@@ -89,12 +86,12 @@ spots.forEach(function(spot) {
     });
   });
 
-    // 解除ボタンにイベントリスナーを追加
-    document.getElementById("reset-button").addEventListener("click", function() {
-        currentCategoryId = null;
-        filterSpotsByCategory(null);
-        updateSpotsList(null);
-      });
+  // 解除ボタンにイベントリスナーを追加
+  document.getElementById("reset-button").addEventListener("click", function() {
+      currentCategoryId = null;
+      filterSpotsByCategory(null);
+      updateSpotsList(null);
+  });
 }
 
 // initMapをグローバルスコープに
@@ -113,6 +110,21 @@ function filterSpotsByCategory(categoryId) {
 // filterSpotsByCategoryをグローバルスコープに追加
 window.filterSpotsByCategory = filterSpotsByCategory;
 
+// 都道府県ボタンのイベントリスナー設定
+document.addEventListener("DOMContentLoaded", function() {
+  const prefectureButtons = document.querySelectorAll(".prefecture-btn");
+  prefectureButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const lat = parseFloat(this.dataset.lat);
+      const lng = parseFloat(this.dataset.lng);
+      const newCenter = new google.maps.LatLng(lat, lng);
+      map.setCenter(newCenter);
+      centerPin.setPosition(newCenter);
+      map.setZoom(8);
+      updateSpotsList(currentCategoryId);  // スポットリストを更新
+    });
+  });
+});
 
 function updateInfoCard(spot) {
   // 他の全ての情報カードを非表示にする
@@ -134,6 +146,7 @@ function updateInfoCard(spot) {
   }
 }
 
+// infoCardのxボタン
 function hideInfoCard(event, spotId) {
   // イベントのバブリングを停止
   event.stopPropagation();
@@ -148,6 +161,18 @@ function hideInfoCard(event, spotId) {
   }
 }
 
+window.hideInfoCard = hideInfoCard
+
+// infoCardのリンクのクリックイベントをキャンセルするリスナーを追加
+document.querySelectorAll('.infoCard-link').forEach(link => {
+  link.addEventListener('click', function(event) {
+    // もしクリックしたのがボタンであれば、リンクのイベントを無効化
+    if (event.target.closest('button')) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  });
+});
 
 function showCurrentLocation(){
     if (navigator.geolocation) {
@@ -175,7 +200,16 @@ function showCurrentLocation(){
 window.showCurrentLocation = showCurrentLocation;
 
 function updateSpotsList(categoryId) {
-  const center = map.getCenter();
+  if (!map) {
+    console.error('Map is not initialized.');
+    return;
+  }
+  
+  const center = map.getCenter() || defaultLocation;
+  if (!center) {
+    console.error('マップの中心が利用できません。デフォルトの位置を使用します。');
+  }
+
   const url = categoryId
   ? `/spots/list?latitude=${center.lat()}&longitude=${center.lng()}&category=${categoryId}`
   : `/spots/list?latitude=${center.lat()}&longitude=${center.lng()}`;
@@ -216,8 +250,11 @@ function updateSpotsList(categoryId) {
     .catch(error => console.error('スポットリストの更新に失敗しました：', error));
 }
 
-document.addEventListener("turbo:load", function() {
-  if (!map) initMap(); // マップが初期化されていなければ初期化
+document.addEventListener("DOMContentLoaded", function() {
+  if (!window.google || !window.google.maps) {
+    return;
+  }
+  if (typeof map === 'undefined') initMap(); // マップが初期化されていなければ初期化
   showCurrentLocation();
   updateSpotsList();
 });
