@@ -51,7 +51,7 @@ class SpotsController < ApplicationController
 
   def show
     @spot = Spot.find(params[:id])
-    @review = Review.new
+    @review = Review.new(spot: @spot)
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc)
   end
 
