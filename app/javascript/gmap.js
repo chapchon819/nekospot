@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
       map.setCenter(newCenter);
       centerPin.setPosition(newCenter);
       map.setZoom(8);
+      updateSpotsList(currentCategoryId);  // スポットリストを更新
     });
   });
 });
