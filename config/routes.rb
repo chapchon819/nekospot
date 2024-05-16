@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'rewiews/new'
+  get 'rewiews/create'
   get 'users/show'
   root "static_pages#index"
   devise_for :users, controllers: {
@@ -9,7 +11,9 @@ Rails.application.routes.draw do
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_use', to: 'static_pages#terms_of_use'
   get 'spots/list', to: 'spots#list'
-  resources :spots
+  resources :spots, only: %i[index show] do
+    resources :reviews, only: %i[create update destroy]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
