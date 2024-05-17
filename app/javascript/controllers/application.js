@@ -6,7 +6,7 @@ import { Tabs } from "tailwindcss-stimulus-components"
 application.register('tabs', Tabs)
 
 // Configure Stimulus development experience
-application.debug = false
+application.debug = true
 window.Stimulus   = application
 
 export { application }
