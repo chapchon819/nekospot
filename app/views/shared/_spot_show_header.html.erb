@@ -4,8 +4,8 @@
         <p>投稿した口コミの数に応じて</p>
         <p>バッジがもらえるよ<i class="ph ph-medal fa-lg"></i></p>
         </div>
-        <button type="button" class="text-white text-xs my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+        <%= link_to new_spot_review_path(@spot), class: "btn text-white text-sm my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:accent-hover hover:shadow-lg", data: { turbo_frame: 'review_modal' } do %>
           <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
-        </button>
+        <% end %>
     </div>
 </div>

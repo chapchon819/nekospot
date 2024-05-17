@@ -82,8 +82,6 @@
 
       <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
         <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
-        <p class="text-secondary">coming soon...</p>
-        <%= render "reviews/form" %>
         <% if @reviews.present? %>
           <div id="reviews">
             <%= turbo_frame_tag 'review_modal' do %>
