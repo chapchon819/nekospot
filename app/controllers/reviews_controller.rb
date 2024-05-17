@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     if @review.save
-      flash.now.notice = "口コミを投稿しました"
+      flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", @review),
         turbo_stream.update("flash", partial: "layouts/flash_messages")
