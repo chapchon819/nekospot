@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'terms_of_use', to: 'static_pages#terms_of_use'
   get 'spots/list', to: 'spots#list'
   resources :spots, only: %i[index show] do
-    resources :reviews, only: %i[create update destroy]
+    resources :reviews, only: %i[new create edit update destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

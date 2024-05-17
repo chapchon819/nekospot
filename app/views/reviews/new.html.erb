@@ -1,2 +1,25 @@
-<h1>Rewiews#new</h1>
-<p>Find me in app/views/rewiews/new.html.erb</p>
+<%= turbo_frame_tag "review_modal" do %>
+    <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" data-controller="review-modal" data-review-modal-target="backGround" data-action="click->review-modal#closeBackground" >
+        <div class="modal-content bg-white rounded-xl shadow-lg p-10 w-18 md:w-[450px]" data-review-modal-target="reviewModal">
+            <div class="flex justify-end items-center">
+                <i class="ph ph-x h-6 w-6 hover:text-yellow-500" data-action="click->review-modal#closeModal"></i>
+            </div>
+            <%= form_with model: @review, 
+                            url: spot_reviews_path(@spot),
+                            data: { action: "turbo:submit-end->review-modal#close" },
+                            html: { class: "mx-auto flex items-center justify-center" } do |f| %>
+                <%= f.label :rating, "評価" %>
+                <div class="rating">
+                  <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="review[rating]" value="2" class="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="review[rating]" value="3" class="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="review[rating]" value="4" class="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="review[rating]" value="5" class="mask mask-star-2 bg-orange-400" />
+                </div>
+                <%= f.label :body, "コメント" %>
+                <%= f.text_area :body %>
+                <%= f.submit "投稿する" %>
+            <% end %>
+        </div>
+    </div>
+<% end %>

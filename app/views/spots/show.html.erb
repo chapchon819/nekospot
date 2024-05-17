@@ -85,9 +85,11 @@
         <p class="text-secondary">coming soon...</p>
         <%= render "reviews/form" %>
         <% if @reviews.present? %>
-          <% @spot.reviews.each do |review| %>
-            <%= render "reviews/review", review: review %>
-          <% end %>
+          <div id="reviews">
+            <%= turbo_frame_tag 'review_modal' do %>
+              <%= render @reviews %>
+            <% end %>
+          </div>
         <% else %>
           <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
             <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
@@ -113,11 +115,11 @@
   </button>
 <% end %>
 
-<div>
-  <button type="button" class="py-4 fixed bottom-36 right-6 hidden md:block text-white my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
-    <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
-  </button>
-</div>
+  <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>
+    <button type="button" class="py-4 fixed bottom-36 right-6 hidden md:block text-white my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+      <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+    </button>
+  <% end %>
 
 <%= javascript_include_tag "show_map" %>
 
