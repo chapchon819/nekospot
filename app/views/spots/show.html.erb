@@ -20,7 +20,7 @@
           <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
         </li>
         <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(3件)</a>
+          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(<%= @reviews.present? ? @reviews.count : 0 %>件)</a>
         </li>
       </ul>
 
@@ -80,15 +80,41 @@
         </div>
       </div>
 
-      <div id="reviews-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
-        <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
+      <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
         <% if @reviews.present? %>
           <div id="reviews">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+          <!-- overview - start -->
+          <div>
+          
+            <div class="md:mx-8 my-3 rounded-lg border p-4 mx-auto justify-center items-center">
+              <h2 class="pl-3 mb-3 text-xl font-zenmaru font-bold text-neutral">スポット平均</h2>
+    
+              <div class="mb-0.5 flex items-center gap-2">
+                <!-- stars - start -->
+                <div class="rating rating-md rating-half">
+                <input type="radio" name="rating-10" class="rating-hidden" />
+              
+                <% (1..5).each do |i| %>
+                  <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" <%= 'checked' if @average_rating >= (i - 0.5) && @average_rating < i %> />
+                  <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" <%= 'checked' if @average_rating >= i %> />
+                <% end %>
+                <span class="text-sm font-semibold text-secondary"><%= @average_rating.round(2) %> (<%= @reviews.count %>件)</span>
+              </div>
+                </div>
+              </div>
+          </div>
+          <div class="lg:col-span-2 md:mr-8">
             <%= turbo_frame_tag 'review_modal' do %>
+              <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
+              <div class="grid divide-y">
               <%= render @reviews %>
+              </div>
+              </div>
             <% end %>
           </div>
         <% else %>
+        <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
           <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
             <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
             <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだ口コミがありません</h3>

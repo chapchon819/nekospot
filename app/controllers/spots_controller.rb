@@ -53,6 +53,7 @@ class SpotsController < ApplicationController
     @spot = Spot.find(params[:id])
     @review = Review.new(spot: @spot)
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc)
+    @average_rating = @spot.reviews.average(:rating).to_f
   end
 
   def set_map_data
