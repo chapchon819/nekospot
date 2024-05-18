@@ -50,6 +50,7 @@
         <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @user.name %>の口コミ一覧</h2>
         <% if @reviews.present? %>
             <%= render "users/reviews" %>
+            <%= paginate @reviews %>
         <% else %>
             <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
                 <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
