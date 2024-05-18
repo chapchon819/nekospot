@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+        user: 'ユーザー'
+        review: 'レビュー'
+    attributes:
+      user:
+      review:
+        rating: '評価'
+        body: 'コメント'
