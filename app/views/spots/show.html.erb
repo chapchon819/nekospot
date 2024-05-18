@@ -20,7 +20,7 @@
           <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
         </li>
         <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(<%= @reviews.present? ? @reviews.count : 0 %>件)</a>
+          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(<%= @reviews.present? ? @all_reviews_count : 0 %>件)</a>
         </li>
       </ul>
 
@@ -99,7 +99,7 @@
                   <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" <%= 'checked' if @average_rating >= (i - 0.5) && @average_rating < i %> />
                   <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" <%= 'checked' if @average_rating >= i %> />
                 <% end %>
-                <span class="text-sm font-semibold text-secondary"><%= @average_rating.round(2) %> (<%= @reviews.count %>件)</span>
+                <span class="text-sm font-semibold text-secondary"><%= @average_rating.round(2) %> (<%= @all_reviews_count %>件)</span>
               </div>
                 </div>
               </div>
@@ -110,6 +110,7 @@
               <div class="grid divide-y">
               <%= render @reviews %>
               </div>
+              <%= paginate @reviews %>
               </div>
             <% end %>
           </div>
