@@ -24,7 +24,7 @@
         </li>
       </ul>
 
-      <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+      <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
         <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
           <div class="my-4 flex justify-between">
           <div>
@@ -80,7 +80,7 @@
         </div>
       </div>
 
-      <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+      <div id="reviews-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
         <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
         <% if @reviews.present? %>
           <div id="reviews">
