@@ -1,107 +1,123 @@
 <div class="bg-primary relative md:pb-16 md:mb-0 mb-20">
-<div class="relative overflow-hidden md:mt-16" data-controller="carousel">
-  <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
-    <% @spot.spot_images.each_with_index do |image, index| %>
-      <div data-carousel-target="item" class="inline-block w-full">
-        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
-      </div>
-    <% end %>
-  </div>
-  <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
-  <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
+  <div class="relative overflow-hidden md:mt-16" data-controller="carousel">
+    <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
+      <% @spot.spot_images.each_with_index do |image, index| %>
+        <div data-carousel-target="item" class="inline-block w-full">
+          <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
+        </div>
+      <% end %>
+    </div>
+    <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
+    <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
 </div>
 
 
 <div class="flex flex-col items-center justify-center w-full md:mt-4">
-<div class="md:w-11/12 w-full">
-<div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
-  <ul class="list-reset flex border-b rounded-t-lg">
-    <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-      <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
-    </li>
-    <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-      <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(3件)</a>
-    </li>
-  </ul>
+  <div class="md:w-11/12 w-full">
+    <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
+      <ul class="list-reset flex border-b rounded-t-lg">
+        <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
+        </li>
+        <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">口コミ(3件)</a>
+        </li>
+      </ul>
 
-  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-    <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
-      <div class="my-4 flex justify-between">
-       <div>
-        <p class="text-secondary text-xs"><%= @spot.address %></p>
-        <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
-        <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
-          <div class="inline-flex">
-            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
-          </div>
-          <% if @spot.rating.present? %>
-            <p class="text-secondary">⭐️ <%= @spot.rating %></p>
-          <% else %>
-            <p class="text-secondary">⭐️ 評価なし</p>
-          <% end %>
-        </div>
-        </div>
-        <div class="space-x-2">
-          <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-2x"></i><% end %>
-          <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-bookmark-simple fa-2x"></i><% end %>
-        </div>
-      </div>
-      <% if @spot.opening_hours.present? %>
-      <div class="my-4 text-secondary">
-        <p class="text-sm pb-4 pt-8"><i class="ph-bold ph-clock"></i> 営業時間</p>
-          <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
-      </div>
-      <% end %>
-      <% if @spot.phone_number.present? %>
-      <div class="my-4 text-secondary">
-        <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-phone"></i> 電話番号</p>
-        <p class="text-lg"><%= @spot.phone_number %></p>
-      </div>
-      <% end %>
-      <% if @spot.web_site.present? %>
-      <div class="my-4 text-secondary">
-        <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
-        <%= link_to @spot.web_site, @spot.web_site, class: "text-sm" %>
-      </div>
-      <% end %>
-      <div class="my-4 text-secondary">
-        <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
-        <div class="flex justify-between">
+      <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+        <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
+          <div class="my-4 flex justify-between">
           <div>
-            <p class="text-sm"><%= @spot.postal_code %></p>
-            <p class="text-sm mb-4"><%= @spot.address %></p>
+            <p class="text-secondary text-xs"><%= @spot.address %></p>
+            <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
+            <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
+              <div class="inline-flex">
+                <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
+              </div>
+              <% if @spot.rating.present? %>
+                <p class="text-secondary">⭐️ <%= @spot.rating %></p>
+              <% else %>
+                <p class="text-secondary">⭐️ 評価なし</p>
+              <% end %>
+            </div>
           </div>
-          <div>
-            <p class="text-sm text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500 bottom-0"><i class="ph-fill ph-path"></i> 経路</p>
+          <div class="space-x-2">
+            <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-2x"></i><% end %>
+            <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-bookmark-simple fa-2x"></i><% end %>
           </div>
         </div>
-        <div id="map" class="w-full md:h-64 h-48 rounded-xl" data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
+        <% if @spot.opening_hours.present? %>
+          <div class="my-4 text-secondary">
+            <p class="text-sm pb-4 pt-8"><i class="ph-bold ph-clock"></i> 営業時間</p>
+              <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
+          </div>
+        <% end %>
+        <% if @spot.phone_number.present? %>
+          <div class="my-4 text-secondary">
+            <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-phone"></i> 電話番号</p>
+            <p class="text-lg"><%= @spot.phone_number %></p>
+          </div>
+        <% end %>
+        <% if @spot.web_site.present? %>
+          <div class="my-4 text-secondary">
+            <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
+            <%= link_to @spot.web_site, @spot.web_site, class: "text-sm" %>
+          </div>
+        <% end %>
+        <div class="my-4 text-secondary">
+          <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
+          <div class="flex justify-between">
+            <div>
+              <p class="text-sm"><%= @spot.postal_code %></p>
+              <p class="text-sm mb-4"><%= @spot.address %></p>
+            </div>
+            <div>
+              <p class="text-sm text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500 bottom-0"><i class="ph-fill ph-path"></i> 経路</p>
+            </div>
+          </div>
+          <div id="map" class="w-full md:h-64 h-48 rounded-xl" data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="reviews-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+        <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
+        <% if @reviews.present? %>
+          <div id="reviews">
+            <%= turbo_frame_tag 'review_modal' do %>
+              <%= render @reviews %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
+            <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+            <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだ口コミがありません</h3>
+            <p class="text-sm flex items-center justify-center w-full text-secondary">口コミを投稿してさらに猫スポットを楽しもう！</p>
+            <%= link_to "#", class: "block w-full" do %>
+              <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
+                <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+              </button>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
+    </div>
   </div>
-
-  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
-  <h2 class="text-xl font-zenmaru font-bold text-neutral">口コミ一覧</h2>
-  <p class="text-secondary">coming soon...</p>
-  </div>
-
-</div>
-</div>
-</div>
 </div>
 
-<%= link_to spots_path do %>
-<button class="inline-flex flex-col items-center justify-center px-5 hover:shadow-lg group md:hidden fixed bottom-36 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-50"">
-<i class="ph ph-arrow-left w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-<span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">戻る</span>
-</button>
+<%= link_to spots_path, data: { turbo: false } do %>
+  <button class="inline-flex flex-col items-center justify-center px-5 hover:shadow-lg group md:hidden fixed bottom-36 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-20"">
+    <i class="ph ph-arrow-left w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+    <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">戻る</span>
+  </button>
 <% end %>
 
-<%= link_to "#" do %>
-<button type="button" class="py-4 fixed bottom-36 right-6 hidden md:block text-white my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
-<p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
-</button>
-    <% end %>
+  <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>
+    <button type="button" class="py-4 fixed bottom-36 right-6 hidden md:block text-white my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+      <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+    </button>
+  <% end %>
 
 <%= javascript_include_tag "show_map" %>
 

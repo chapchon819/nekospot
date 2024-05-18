@@ -1,0 +1,7 @@
+<%= turbo_frame_tag review do %>
+    <div class="text-gray-700 border-b border-gray-200 w-full pb-2">
+        <%= review.user.name %>
+        <%= review.rating %>  
+        <%= review.body %>
+    </div>
+<% end %>

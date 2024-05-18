@@ -1,5 +1,9 @@
+<% if flash.any? %>
+  <div id="flash">
 <% flash.each do |message_type, message| %>
     <div class="<%= flash_background_color(message_type) %>">
       <%= message %>
     </div>
-  <% end %>
+<% end %>
+</div>
+<% end %>

@@ -4,17 +4,20 @@
 
 import { application } from "./application"
 
+import AccordionController from "./accordion_controller"
+application.register("accordion", AccordionController)
+
 import CarouselController from "./carousel_controller"
 application.register("carousel", CarouselController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import SidebarController from "./sidebar_controller"
-application.register("sidebar", SidebarController)
-
-import AccordionController from "./accordion_controller"
-application.register("accordion", AccordionController)
+import ReviewModalController from "./review_modal_controller"
+application.register("review-modal", ReviewModalController)
 
 import SearchAccordionController from "./search_accordion_controller"
 application.register("search-accordion", SearchAccordionController)
+
+import SidebarController from "./sidebar_controller"
+application.register("sidebar", SidebarController)
