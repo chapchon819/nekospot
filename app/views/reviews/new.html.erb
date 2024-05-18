@@ -1,16 +1,18 @@
 <%= turbo_frame_tag "review_modal" do %>
     <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" data-controller="review-modal" data-review-modal-target="backGround" data-action="click->review-modal#closeBackground" >
-        <div class="modal-content bg-white rounded-xl shadow-lg p-10 w-18 md:w-[450px]" data-review-modal-target="reviewModal">
-            <div class="flex justify-end items-center">
-                <i class="ph ph-x h-6 w-6 hover:text-yellow-500" data-action="click->review-modal#closeModal"></i>
+        <div class="modal-content relative bg-white rounded-xl shadow-lg p-10 flex flex-col justify-center " data-review-modal-target="reviewModal">
+            <div class="absolute top-3 right-4">
+                <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
             </div>
+            <div class=" mx-auto w-full">
             <%= form_with model: @review, 
                             url: spot_reviews_path(@spot),
                             data: { action: "turbo:submit-end->review-modal#close" },
-                            html: { class: "mx-auto flex items-center justify-center" } do |f| %>
+                            html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
-                <%= f.label :rating, "評価" %>
-                <div class="rating">
+                <div class="relative mb-4 flex flex-col w-full">
+                <%= f.label :rating, "評価", class: "text-sm text-secondary mb-2" %>
+                <div class="rating rating-lg">
                 <input type="radio" name="review[rating]" value="0" class="hidden mask mask-star-2 bg-orange-400" checked/>
                   <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-orange-400"/>
                   <input type="radio" name="review[rating]" value="2" class="mask mask-star-2 bg-orange-400" />
@@ -18,10 +20,16 @@
                   <input type="radio" name="review[rating]" value="4" class="mask mask-star-2 bg-orange-400" />
                   <input type="radio" name="review[rating]" value="5" class="mask mask-star-2 bg-orange-400" />
                 </div>
-                <%= f.label :body, "コメント" %>
-                <%= f.text_area :body %>
-                <%= f.submit "投稿する" %>
+                </div>
+                <div class="relative mb-4 flex flex-col w-full">
+                <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
+                <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
+                </div>
+                <div class="relative mb-4">
+                <%= f.submit "口コミを投稿する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
+                </div>
             <% end %>
+            </div>
         </div>
     </div>
 <% end %>
