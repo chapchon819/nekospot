@@ -12,7 +12,17 @@
 
             <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
                 <div class="w-full mx-auto pb-8">
-                    <% if @bookmark_spots.present? %>
+                <%= search_form_for @q, url: bookmarks_spots_path, html: { id: "searchForm", class: "max-w-md mx-auto w-11/12 py-4" }  do |f| %>
+                    <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <i class="ph ph-magnifying-glass text-secondary"></i>
+                        </div>
+                        <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 ps-10 text-sm text-secondary border rounded-full bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                        <%= f.submit '検索', class: 'text-white absolute end-2 py-2 bottom-2.5 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+                    </div>
+                <% end %>
+                        <% if @bookmark_spots.present? %>
                         <% @bookmark_spots.each do |bookmark_spot| %>
                             <%= render 'spots/spot', spot: bookmark_spot.spot %>
                         <% end %>
