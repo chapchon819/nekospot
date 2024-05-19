@@ -49,6 +49,15 @@ class SpotsController < ApplicationController
     render json: spots_json
   end
 
+  def bookmarks
+    @bookmark_spots = current_user.spot_bookmarks.includes(:spot).order(created_at: :desc)
+    Rails.logger.debug "Bookmark spots: #{@bookmark_spots.inspect}" # デバッグ用
+    @bookmark_spots.each do |bookmark_spot|
+      Rails.logger.debug "Spot: #{bookmark_spot.spot.inspect}" # デバッグ用
+      Rails.logger.debug "Spot images: #{bookmark_spot.spot.spot_images.inspect}" # デバッグ用
+    end
+  end
+
   def show
     @user = current_user
     @spot = Spot.find(params[:id])

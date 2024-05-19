@@ -1,0 +1,7 @@
+<div class='mx-auto'>
+    <% if current_user.bookmark?(spot) %>
+        <%= render 'unbookmark', { spot: spot } %>
+    <% else %>
+        <%= render 'bookmark', { spot: spot } %>
+    <% end %>
+</div>

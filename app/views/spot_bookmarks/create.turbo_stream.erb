@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "bookmark-button-for-spot-#{@spot.id}" do %>
+    <%= render 'spots/unbookmark', spot: @spot %>
+<% end %>

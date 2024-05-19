@@ -1,0 +1,3 @@
+<%= link_to spot_bookmark_path(current_user.spot_bookmarks.find_by(spot_id: spot.id)), id: "unbookmark-button-for-spot-#{spot.id}", data: { turbo_method: :delete } do %>
+    <i class="ph-fill ph-bookmark-simple fa-lg text-secondary"></i>
+<% end %>
