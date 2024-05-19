@@ -50,6 +50,7 @@ class SpotsController < ApplicationController
   end
 
   def show
+    @user = current_user
     @spot = Spot.find(params[:id])
     @review = Review.new(spot: @spot)
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)

@@ -1,6 +1,7 @@
 <%= turbo_frame_tag review do %>
     <div class="flex flex-col gap-3 px-4 py-6 md:p-6 space-y-2">
-        <div class="flex">
+    <div class="flex w-full justify-between">
+        <div class="flex items-center">
             <div>
                 <%= image_tag("IMG_7062.JPG",class: "inline-block rounded-full h-9 w-9") %>
             </div>
@@ -8,6 +9,12 @@
             <span class="block text-sm text-neutral"><%= review.user.name %></span>
             <span class="block text-xs text-secondary"><%= review.created_at.strftime('%Y/%m/%d') %></span>
             </div>
+        </div>
+        <div class="flex space-x-2 items-center">
+        <% if review.user == @user %>
+            <%= render 'reviews/crud_menus', review: review %>
+        <% end %>
+        </div>
         </div>
         <div class="-ml-1 flex gap-0.5">  
             <% rating = review.rating %>
@@ -24,8 +31,11 @@
         </div>
       <!-- stars - end -->
       <p class="text-secondary"><%= review.body %></p>
-      <button class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
-        <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
-      </button>
+      <% unless review.user == current_user %>
+      <div class="flex justify-end space-x-2">
+        <button class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
+            <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
+        </button>
+      <% end %>
     </div>
 <% end %>
