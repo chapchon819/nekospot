@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :spot_bookmarks, dependent: :destroy
-  has_many :bookmark_spots, through: :bookmarks, source: :spot
+  has_many :bookmark_spots, through: :spot_bookmarks, source: :spot
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -33,10 +33,10 @@ class User < ApplicationRecord
   end
 
   def unbookmark(spot)
-    bookmark_boards.destroy(spot)
+    bookmark_spots.destroy(spot)
   end
 
   def bookmark?(spot)
-    bookmark_boards.include?(spot)
+    bookmark_spots.include?(spot)
   end
 end

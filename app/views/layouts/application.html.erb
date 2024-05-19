@@ -24,7 +24,7 @@
       <%= render "shared/before_login_header" %>
     <% end %>
   <% end %>
-    <%= render 'layouts/flash_messages' %>
+    <%= render 'layouts/flash_messages', flash: flash %>
     <%= yield %>
     <%= render "shared/footer" %>
   </body>

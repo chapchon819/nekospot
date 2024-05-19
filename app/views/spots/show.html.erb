@@ -43,7 +43,7 @@
               </div>
               <div class="flex space-x-2">
               <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-lg"></i><% end %>
-              <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-bookmark-simple fa-lg"></i><% end %>
+              <%= render 'bookmark_buttons', { spot: @spot } %>
             </div>
             </div>
         </div>
