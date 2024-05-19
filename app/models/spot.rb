@@ -7,6 +7,7 @@ class Spot < ApplicationRecord
 
   has_many :spot_images, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :spot_bookmarks, dependent: :destroy
   belongs_to :category
   belongs_to :prefecture, class_name: 'Prefecture', foreign_key: 'prefecture_id', optional: true
   validates :name, :latitude, :longitude, :place_id, presence: true, uniqueness: true
