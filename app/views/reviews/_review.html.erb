@@ -24,8 +24,19 @@
         </div>
       <!-- stars - end -->
       <p class="text-secondary"><%= review.body %></p>
-      <button class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
-        <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
-      </button>
+      <% if review.user == @user %>
+      <div class="flex justify-end space-x-2">
+        <button class="text-secondary text-sm drop-shadow-md rounded-lg ">
+            <i class="ph-fill ph-note-pencil fa-lg"></i>
+        </button>
+        <button class="text-secondary text-sm drop-shadow-md rounded-lg ">
+            <i class="ph-fill ph-trash fa-lg"></i>
+        </button>
+      </div>
+      <% else %>
+        <button class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
+            <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
+        </button>
+      <% end %>
     </div>
 <% end %>
