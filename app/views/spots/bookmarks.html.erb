@@ -1,17 +1,64 @@
-<% if @bookmark_spots.present? %>
-  <% @bookmark_spots.each do |bookmark_spot| %>
-      <%= render 'spots/spot', spot: bookmark_spot.spot %>
-  <% end %>
-<% else %>
-    <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>
-    <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
-    <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
-    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだお気に入りがありません</h3>
-    <p class="text-sm flex items-center justify-center w-full text-secondary">気になるスポットを保存してさらに猫スポットを楽しもう！</p>
-    <%= link_to "#", class: "block w-full" do %>
-        <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
-        <p><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを探す</p>
-        </button>
-    <% end %>
+<div class="flex flex-col items-center justify-center w-full md:pt-24 md:bg-primary">
+    <div class="md:w-11/12 w-full">
+        <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
+            <ul class="list-reset flex border-b rounded-t-lg">
+                <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">お気に入り</a>
+                </li>
+                <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">いいね</a>
+                </li>
+            </ul>
+
+            <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+                <div class="w-full mx-auto pb-8">
+                <%= search_form_for @q, url: bookmarks_spots_path, html: { id: "searchForm", class: "max-w-md mx-auto w-11/12 py-4" }  do |f| %>
+                    <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <i class="ph ph-magnifying-glass text-secondary"></i>
+                        </div>
+                        <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 ps-10 text-sm text-secondary border rounded-full bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                        <%= f.submit '検索', class: 'text-white absolute end-2 py-2 bottom-2.5 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+                    </div>
+                <% end %>
+                        <% if @bookmark_spots.present? %>
+                        <div class="md:grid md:grid-cols-3 md:gap-4">
+                        <% @bookmark_spots.each do |bookmark_spot| %>
+                            <%= render 'spots/spot', spot: bookmark_spot.spot %>
+                        <% end %>
+                        </div>
+                    <% else %>
+                        <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>
+                        <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
+                            <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                            <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだお気に入りがありません</h3>
+                            <p class="text-sm flex items-center justify-center w-full text-secondary">気になるスポットを保存してさらに猫スポットを楽しもう！</p>
+                            <%= link_to "#", class: "block w-full" do %>
+                                <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
+                                    <p><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを探す</p>
+                                </button>
+                            <% end %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+
+            <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+            <div class="w-11/12 mx-auto space-y-8 pb-8">
+                <h2 class="text-xl font-zenmaru font-bold text-neutral">いいね一覧</h2>
+                <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
+                    <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  いいねした猫スポットがありません</h3>
+                    <p class="text-sm flex items-center justify-center w-full text-secondary">みんなが投稿した身近な猫スポットを楽しもう！</p>
+                    <%= link_to "#", class: "block w-full" do %>
+                        <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
+                            <p><i class="ph ph-chat-circle-dots fa-lg"></i> 猫スポットを見に行く</p>
+                        </button>
+                    <% end %>
+                </div>
+            </div>    
+            </div>
+        </div>
     </div>
-<% end %>
+</div>
