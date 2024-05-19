@@ -12,12 +12,7 @@
         </div>
         <div class="flex space-x-2 items-center">
         <% if review.user == @user %>
-          <button class="text-secondary text-sm drop-shadow-md rounded-lg ">
-              <i class="ph-fill ph-note-pencil fa-lg"></i>
-          </button>
-          <%= button_to spot_review_path(@spot, review), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } do %>
-            <i class="ph-fill ph-trash fa-lg text-secondary text-sm drop-shadow-md rounded-lg"></i>
-          <% end %>
+            <%= render 'reviews/crud_menus', review: review %>
         <% end %>
         </div>
         </div>
@@ -36,7 +31,7 @@
         </div>
       <!-- stars - end -->
       <p class="text-secondary"><%= review.body %></p>
-      <% unless review.user == @user %>
+      <% unless review.user == current_user %>
       <div class="flex justify-end space-x-2">
         <button class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
             <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
