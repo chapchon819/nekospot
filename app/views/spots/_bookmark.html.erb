@@ -1,3 +1,7 @@
-<%= link_to spot_bookmarks_path(spot_id: spot.id), id: "bookmasrk-button-for-spot-#{spot.id}", data: { turbo_method: :post } do %>
+<% if spot.present? %>
+  <%= link_to spot_bookmarks_path(spot_id: spot.id), id: "bookmark-button-for-spot-#{spot.id}", data: { turbo_method: :post } do %>
     <i class="ph ph-bookmark-simple fa-lg text-secondary"></i>
+  <% end %>
+<% else %>
+  <p>スポット情報がありません</p>
 <% end %>
