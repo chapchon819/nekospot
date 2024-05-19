@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_spot, only: [:new, :create, :edit, :update]
   before_action :set_review, only: [:edit, :update, :destroy]
 

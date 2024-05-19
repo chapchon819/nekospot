@@ -49,6 +49,9 @@ class SpotsController < ApplicationController
     render json: spots_json
   end
 
+  def bookmarks
+  end
+
   def show
     @user = current_user
     @spot = Spot.find(params[:id])
