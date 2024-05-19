@@ -40,7 +40,7 @@ class ReviewsController < ApplicationController
     render turbo_stream: [
       turbo_stream.remove(@review),
       turbo_stream.update("flash", partial: "layouts/flash_messages")
-    ]
+    ], status: :see_other
   end
 
   private

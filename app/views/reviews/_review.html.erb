@@ -15,9 +15,9 @@
           <button class="text-secondary text-sm drop-shadow-md rounded-lg ">
               <i class="ph-fill ph-note-pencil fa-lg"></i>
           </button>
-          <button class="text-secondary text-sm drop-shadow-md rounded-lg ">
-              <i class="ph-fill ph-trash fa-lg"></i>
-          </button>
+          <%= button_to spot_review_path(@spot, review), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } do %>
+            <i class="ph-fill ph-trash fa-lg text-secondary text-sm drop-shadow-md rounded-lg"></i>
+          <% end %>
         <% end %>
         </div>
         </div>
