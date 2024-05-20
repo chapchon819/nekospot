@@ -10,9 +10,9 @@
                 <span><%= spot.category.name %></span>
             </div>
             <%= link_to spot_path(spot) do %>
-                <h2 class="font-bold text-neutral font-zenmaru md:mt-2 md:px-2 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis"><%= spot.name %></h2>
+                <h2 class="font-bold text-neutral font-zenmaru md:mt-2 md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis"><%= spot.name %></h2>
             <% end %>
-            <p class="md:px-2 text-xs text-secondary py-1 dark:text-neutral-500"><%= formatted_address(spot.address) %></p>
+            <p class="md:px-1.5 text-xs text-secondary py-1 dark:text-neutral-500"><%= formatted_address(spot.address) %></p>
             <div class="justify-between flex items-end h-full md:space-x-4 space-x-2">
                 <div class="flex space-x-2">
                     <div class="inline-flex">

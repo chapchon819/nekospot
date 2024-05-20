@@ -21,6 +21,16 @@
                         <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 ps-10 text-sm text-secondary border rounded-full bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
                         <%= f.submit '検索', class: 'text-white absolute end-2 py-2 bottom-2.5 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
                     </div>
+                    <div class="nav-down">
+                        <div class='label-select'>
+                            <%= f.label :spot_category_id_eq, 'カテゴリー', class: 'label' %>
+                            <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  include_blank: '指定なし', class: 'search-select' %>
+                        </div>
+                        <div class='label-select'>
+                            <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label' %>
+                            <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  include_blank: '指定なし', class: 'search-select' %>
+                        </div>
+                    </div>
                 <% end %>
                     <% if @bookmark_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
