@@ -12,21 +12,31 @@
 
             <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
                 <div class="w-full mx-auto pb-8">
-                <%= search_form_for @q, url: bookmarks_spots_path, html: { id: "searchForm", class: "max-w-md mx-auto w-11/12 py-4" }  do |f| %>
-                    <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
-                    <div class="relative">
+                <%= search_form_for @q, url: bookmarks_spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8" }  do |f| %>
+                    <label for="" class="mb-2 text-sm font-medium h-full text-secondary sr-only dark:text-white">検索</label>
+                    <div class="nav-down text-secondary flex items-center h-12">
+                        <div class='label-select border rounded-l-xl h-full text-sm'>
+                            <%= f.label :spot_category_id_eq, 'カテゴリ', class: 'label text-xs' %>
+                            <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  include_blank: '指定なし', class: 'search-select text-sm' %>
+                        </div>
+                        <div class='label-select border h-full text-sm'>
+                            <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label text-xs' %>
+                            <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  include_blank: '指定なし', class: 'search-select text-sm' %>
+                        </div>
+                        <div class="relative w-full h-full text-xs">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <i class="ph ph-magnifying-glass text-secondary"></i>
                         </div>
-                        <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 ps-10 text-sm text-secondary border rounded-full bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
-                        <%= f.submit '検索', class: 'text-white absolute end-2 py-2 bottom-2.5 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+                        <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 ps-10 h-full text-sm text-secondary border rounded-e-lg bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                        <%= f.submit class: 'absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-accent rounded-e-lg border border-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-secondary dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
+                    </div>
                     </div>
                 <% end %>
-                        <% if @bookmark_spots.present? %>
+                    <% if @bookmark_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
-                        <% @bookmark_spots.each do |bookmark_spot| %>
-                            <%= render 'spots/spot', spot: bookmark_spot.spot %>
-                        <% end %>
+                            <% @bookmark_spots.each do |bookmark_spot| %>
+                                <%= render 'spots/spot', spot: bookmark_spot.spot %>
+                            <% end %>
                         </div>
                     <% else %>
                         <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>

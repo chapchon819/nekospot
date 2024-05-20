@@ -1,7 +1,11 @@
-<div class='mx-auto'>
-    <% if current_user.bookmark?(spot) %>
-        <%= render 'unbookmark', { spot: spot } %>
-    <% else %>
-        <%= render 'bookmark', { spot: spot } %>
-    <% end %>
-</div>
+<% if user_signed_in? %>
+    <div class='mx-auto'>
+        <% if current_user.bookmark?(spot) %>
+            <%= render 'unbookmark', { spot: spot } %>
+        <% else %>
+            <%= render 'bookmark', { spot: spot } %>
+        <% end %>
+    </div>
+<% else %>
+    <i class="ph ph-bookmark-simple fa-lg text-secondary"></i>
+<% end %>

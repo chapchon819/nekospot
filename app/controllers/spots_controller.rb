@@ -52,6 +52,11 @@ class SpotsController < ApplicationController
   def bookmarks
     @q = current_user.spot_bookmarks.joins(:spot).ransack(params[:q])
     @bookmark_spots = @q.result(distinct: true).includes(:spot).order(created_at: :desc)
+
+    bookmarked_spots = current_user.spot_bookmarks.joins(:spot).map(&:spot)
+    @categories = bookmarked_spots.map(&:category).uniq
+    prefecture_ids = bookmarked_spots.map(&:prefecture_id).uniq
+    @prefectures = Prefecture.find(prefecture_ids)
   end
 
   def show
