@@ -22,11 +22,11 @@
                         <%= f.submit '検索', class: 'text-white absolute end-2 py-2 bottom-2.5 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
                     </div>
                 <% end %>
-                        <% if @bookmark_spots.present? %>
+                    <% if @bookmark_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
-                        <% @bookmark_spots.each do |bookmark_spot| %>
-                            <%= render 'spots/spot', spot: bookmark_spot.spot %>
-                        <% end %>
+                            <% @bookmark_spots.each do |bookmark_spot| %>
+                                <%= render 'spots/spot', spot: bookmark_spot.spot %>
+                            <% end %>
                         </div>
                     <% else %>
                         <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>
