@@ -27,6 +27,8 @@ class ReviewsController < ApplicationController
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
         turbo_stream.replace(@review),
+        turbo_stream.replace("average_rating", partial: "spots/average_rating", locals: { spot: @spot }),
+        turbo_stream.replace("reviews_count", partial: "spots/reviews_count", locals: { spot: @spot }),
         turbo_stream.update("flash", partial: "layouts/flash_messages")
       ]
     else
@@ -36,7 +38,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy!
-    flash.now[:success] = "口コミを更新しました"
+    flash.now[:success] = "口コミを削除しました"
     render turbo_stream: [
       turbo_stream.remove(@review),
       turbo_stream.update("flash", partial: "layouts/flash_messages")
