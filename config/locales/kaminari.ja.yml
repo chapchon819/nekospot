@@ -1,0 +1,8 @@
+ja:
+  views:
+    pagination:
+      first: <i class="ph ph-caret-double-left"></i>
+      last: <i class="ph ph-caret-double-right"></i>
+      previous: <i class="ph ph-caret-left"></i>
+      next: <i class="ph ph-caret-right"></i>
+      truncate: "..."

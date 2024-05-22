@@ -11,6 +11,7 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     if @review.save
+      @spot.reload
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", @review),
@@ -28,6 +29,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params.except(:spot_id))
+      @spot.reload
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
         turbo_stream.replace(@review),
@@ -41,6 +43,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy!
+    @spot.reload
     flash.now[:success] = "口コミを削除しました"
     render turbo_stream: [
       turbo_stream.remove(@review),
