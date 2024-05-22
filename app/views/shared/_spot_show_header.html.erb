@@ -1,11 +1,11 @@
 <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-secondary px-4 md:hidden">
     <div class="grid h-full max-w-lg grid-cols-2 mx-auto font-medium">
-        <div class="inline-flex flex-col items-center justify-center text-secondary text-xs">
+        <div class="inline-flex flex-col items-left justify-center text-secondary pl-1 text-[10px]">
         <p>投稿した口コミの数に応じて</p>
         <p>バッジがもらえるよ<i class="ph ph-medal fa-lg"></i></p>
         </div>
-        <%= link_to new_spot_review_path(@spot), class: "btn text-white text-sm my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:accent-hover hover:shadow-lg", data: { turbo_frame: 'review_modal' } do %>
-          <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+        <%= link_to new_spot_review_path(@spot), class: "btn text-white text-[16px] my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:accent-hover hover:shadow-lg", data: { turbo_frame: 'review_modal' } do %>
+          <p><i class="ph ph-chat-circle-dots fa-lg"></i> 投稿する</p>
         <% end %>
     </div>
 </div>
