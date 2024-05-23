@@ -80,6 +80,8 @@ gem 'devise-i18n-views'
 
 #画像アップロード
 gem 'carrierwave', '~> 3.0'
+gem "aws-sdk-s3", require: false
+gem 'fog-aws'
 
 # ページネーション
 gem 'kaminari'
