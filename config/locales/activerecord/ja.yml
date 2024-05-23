@@ -5,6 +5,8 @@ ja:
         review: 'レビュー'
     attributes:
       user:
+        name: 'ユーザー名'
+        avatar: 'アイコン'
       review:
         rating: '評価'
         body: 'コメント'
