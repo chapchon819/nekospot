@@ -1,0 +1,27 @@
+<%#<%= turbo_frame_tag "modal" do %>
+<%#  <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" data-controller="review-modal" data-review-modal-target="backGround" data-action="click->review-modal#closeBackground">
+<%#    <div class="modal-content relative bg-white rounded-xl shadow-lg p-10 flex flex-col justify-center" data-review-modal-target="reviewModal">
+<%#      <div class="absolute top-3 right-4">
+<%#        <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
+<%#      </div> %>
+      <div class="mx-auto w-full">
+        <%= form_with model: @user, url: user_registration_path(@user), data: { method: :patch },
+                     html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
+          <%= render "users/shared/error_messages", resource: resource %>
+          <div class="relative mb-4 flex flex-col w-full">
+            <%= f.label :avatar, class: "text-sm text-secondary mb-2" %>
+            <%= f.file_field :avatar, class: "form-control text-sm text-secondary mb-2", accept: 'image/*' %>
+            <%= f.hidden_field :avatar_cache %>
+          </div>
+          <div class="field relative mb-4 flex flex-col w-full">
+            <%= f.label :name, class: "text-sm text-secondary mb-2" %>
+            <%= f.text_field :name, autofocus: true, autocomplete: "ユーザー名", class: "h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg" %>
+          </div>
+          <div class="relative mb-4">
+            <%= f.submit "ユーザー情報を更新する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<%#<% end %>

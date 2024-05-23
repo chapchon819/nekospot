@@ -76,6 +76,12 @@ gem 'ransack'
 
 # i18n
 gem 'rails-i18n', '~> 7.0.0'
+gem 'devise-i18n-views'
+
+#画像アップロード
+gem 'carrierwave', '~> 3.0'
+gem "aws-sdk-s3", require: false
+gem 'fog-aws'
 
 # ページネーション
 gem 'kaminari'

@@ -1,3 +1,4 @@
+<%= turbo_frame_tag 'review_modal' do %>
 <div class="bg-primary relative md:pb-16 md:mb-0 mb-20">
 
 
@@ -15,34 +16,47 @@
   </ul>
 
   <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-    <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
-       <div class="justify-start grid grid-flow-col gap-8 mt-10">
-       <div class="avatar">
-       <div class="w-24 rounded-full">
-       <%= image_tag("IMG_7062.JPG") %>
-       </div>
-     </div>
-        <h2 class="text-xl font-zenmaru font-bold text-neutral flex items-center"><%= @user.name %></h2>
+            <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
+        <div class="justify-start grid grid-flow-col gap-8 mt-10">
+            <div class="avatar">
+                <div class="w-24 rounded-full">
+                <% if @user.avatar.present? %>
+                    <%= image_tag @user.avatar.url %>
+                <% else %>
+                    <%= image_tag("default.png") %>
+                <% end %>
+                </div>
+            </div>
+            <h2 class="text-xl font-zenmaru font-bold text-neutral flex items-center"><%= @user.name %></h2>
         </div>
     </div>
 
     <div class="w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
-    <%= link_to "#", class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-        <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
-    <% end %>
-    <%= link_to terms_of_use_path, class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-        <p><i class="ph ph-file-text fa-lg mr-1"></i> 利用規約</p>
-    <% end %>
-    <%= link_to privacy_policy_path, class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-        <p><i class="ph ph-lock-key fa-lg mr-1"></i> プライバシーポリシー</p>
-    <% end %>
-    <%= link_to "https://twitter.com/819Chapchon", class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-        <p><i class="ph ph-envelope-simple fa-lg mr-1"></i> お問い合わせ</p>
-    <% end %>
-    <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
-        <p><i class="ph ph-sign-out fa-lg mr-1"></i> ログアウト</p>
-    <% end %>
-</div>
+        <div class= "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" onclick="my_modal_3.showModal()" >
+            <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
+        
+        </div>
+        <%= link_to terms_of_use_path, class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+            <p><i class="ph ph-file-text fa-lg mr-1"></i> 利用規約</p>
+        <% end %>
+        <%= link_to privacy_policy_path, class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+            <p><i class="ph ph-lock-key fa-lg mr-1"></i> プライバシーポリシー</p>
+        <% end %>
+        <%= link_to "https://twitter.com/819Chapchon", class: "md:hidden flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+            <p><i class="ph ph-envelope-simple fa-lg mr-1"></i> お問い合わせ</p>
+        <% end %>
+        <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
+            <p><i class="ph ph-sign-out fa-lg mr-1"></i> ログアウト</p>
+        <% end %>
+                    <dialog id="my_modal_3" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <%= render 'users/registrations/edit'%>
+                </div>
+            </dialog>
+    </div>
   </div>
 
   <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
@@ -68,3 +82,4 @@
 </div>
 </div>
 </div>
+  <% end %>

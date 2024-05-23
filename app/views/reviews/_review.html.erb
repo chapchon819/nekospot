@@ -3,7 +3,11 @@
     <div class="flex w-full justify-between">
         <div class="flex items-center">
             <div>
-                <%= image_tag("IMG_7062.JPG",class: "inline-block rounded-full h-9 w-9") %>
+                <% if review.user.avatar.present? %>
+                    <%= image_tag review.user.avatar.url, class: "inline-block rounded-full h-9 w-9" %>
+                <% else %>
+                    <%= image_tag("default.png", class: "inline-block rounded-full h-9 w-9") %>
+                <% end %>
             </div>
             <div class="ml-3">
             <span class="block text-sm text-neutral"><%= review.user.name %></span>
