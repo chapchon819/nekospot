@@ -19,10 +19,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # PUT /resource
-  # def update
-  #   super
-  # end
+def update
+  self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+
+  if resource.update(account_update_params)
+    redirect_to users_show_path(current_user)
+    flash.now[:notice] = "ユーザー情報を更新しました"
+  else
+    render :edit, status: :unprocessable_entity
+  end
+end
 
   # DELETE /resource
   # def destroy
@@ -41,6 +47,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
   def update_resource(resource, params)
     resource.update_without_password(params)
+  end
+
+  def account_update_params
+    devise_parameter_sanitizer.sanitize(:account_update)
   end
 
   # If you have extra params to permit, append them to the sanitizer.

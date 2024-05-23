@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
   has_many :reviews, dependent: :destroy
   has_many :spot_bookmarks, dependent: :destroy
   has_many :bookmark_spots, through: :spot_bookmarks, source: :spot

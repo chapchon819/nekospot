@@ -78,6 +78,9 @@ gem 'ransack'
 gem 'rails-i18n', '~> 7.0.0'
 gem 'devise-i18n-views'
 
+#画像アップロード
+gem 'carrierwave', '~> 3.0'
+
 # ページネーション
 gem 'kaminari'
 
