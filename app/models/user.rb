@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :spot_bookmarks, dependent: :destroy
   has_many :bookmark_spots, through: :spot_bookmarks, source: :spot
+
+  enum role: { general: 0, admin: 1 }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
