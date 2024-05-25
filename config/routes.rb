@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :reviews, only: %i[new create edit update destroy]
     collection do
       get :bookmarks
+      get :map
     end
   end
   resources :spot_bookmarks, only: %i[create destroy]

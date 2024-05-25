@@ -1,7 +1,7 @@
 class SpotsController < ApplicationController
-  before_action :set_map_data, only: :index
+  before_action :set_map_data, only: :map
 
-  def index
+  def map
     @user = current_user
     @q = Spot.ransack(params[:q])
     @spots = @q.result(distinct: true).includes(:spot_images, :category)
