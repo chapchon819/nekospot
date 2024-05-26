@@ -2,8 +2,13 @@ class SpotsController < ApplicationController
   before_action :set_map_data, only: :map
 
   def index
-    @q = Spot.ransack(params[:q])
-    @spots = @q.result(distinct: true).includes(:spot_images, :category)
+    @categories = Category.all
+    @prefectures = Prefecture.all
+    @q_spots = Spot.ransack(params[:q])
+    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(params[:page]).per(12)
+    
+    @q_reviews = Review.ransack(params[:q])
+    @reviews = @q_reviews.result(distinct: true).includes(:spot).page(params[:page]).per(12)
   end
 
   def map
