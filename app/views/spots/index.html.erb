@@ -1,0 +1,100 @@
+<div class="hidden md:block md:ml-64 md:mt-3">
+  <%= render 'layouts/flash_messages', flash: flash %>
+</div>
+<div class="md:flex <%= 'md:mt-16' unless flash.any? %>">
+  <div data-controller="sidebar">
+    <%= render "spots/sidebar" %>
+  </div>
+  <div class="md:flex-1 md:pl-64">
+    <div class="flex flex-col items-center justify-center">
+      <div class="bg-white rounded-b-lg w-full">
+        <div class="mx-auto flex w-full justify-center">
+        <div data-controller="search-accordion">
+         <div class="mx-auto flex justify-center space-x-2 p-4 md:p-8">
+          <button onclick="showCurrentLocation()" class="w-1/2 md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
+            <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
+          </button>
+          <button class="w-1/2 md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
+                  data-action="click->search-accordion#toggle"
+                  data-search-accordion-target="toggleButton">
+                  <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
+          </button>
+          </div>
+          <!-- ここから検索アコーディオンパネル -->
+          <div class="search-accordion overflow-hidden transition-all duration-500 ease-in-out" 
+               data-search-accordion-target="panel">
+               <h3 class="text-secondary font-semibold text-center"><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを絞り込む</h3>
+              <%= render "shared/search", q: @q, url: spots_path %>
+            <section class="bg-white rounded-b-lg rounded-lg shadow-lg">
+              <div class="container p-6 mx-auto">
+                <div class="lg:flex">
+                  <div class="w-full lg:w-1/2">
+                    <h3 class="text-secondary font-semibold">カテゴリーから検索</h3>
+                      <div class="lg:max-w-lg">
+                        <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
+                          <button id="reset-button" class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark">
+                            すべて
+                          </button>
+                          <% Category.all.each do |category| %>
+                            <button data-category-id="<%= category.id %>" class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark">
+                              <%= category.name %>
+                            </button>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="flex items-center justify-center w-full lg:w-1/2">
+                      <div id="region-search" data-controller="accordion" class="w-full py-2 md:py-0 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+                        <div class="w-11/12">
+                          <h3 class="text-secondary font-semibold">エリア検索</h3>
+                        </div>
+                        <% Region.all.each do |region| %>
+                          <div class="accordion w-full p-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+                            <div class="accordion-header" data-action="click->accordion#toggle">
+                              <h3 class="region-title">
+                                <i class="toggle-icon ph ph-plus transform transition-transform duration-300" data-accordion-target="icon"></i>&ensp;<%= region.name %>
+                              </h3>
+                            </div>
+                            <div class="accordion-body overflow-hidden transition-all duration-500 ease-in-out max-h-0" data-accordion-target="body">
+                              <ul class="prefecture-list flex flex-wrap">
+                                <% region.prefectures.each do |prefecture| %>
+                                  <li class="w-1/2">
+                                    <button id="prefecture-<%= prefecture.id %>" 
+                                      name="prefecture-<%= prefecture.id %>" 
+                                      class="prefecture-btn w-full flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" 
+                                      data-prefecture-id="<%= prefecture.id %>" 
+                                      data-lat="<%= prefecture.latitude %>" 
+                                      data-lng="<%= prefecture.longitude %>">
+                                      <%= prefecture.name %>
+                                    </button>
+                                  </li>
+                                <% end %>
+                              </ul>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="w-full flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
+                 data-action="click->search-accordion#close"><i class="ph ph-x">
+                 </i>&ensp;とじる
+                 </button>
+              </section>
+          </div>
+        </div>
+        </div>
+          <% if @spots.any? %>
+            <div class="md:grid md:grid-cols-3 md:gap-4 p-4 pb-12">
+              <% @spots.each do |spot| %>
+                  <%= render 'spots/spot', spot: spot %>
+              <% end %>
+            </div>
+          <% else %>
+            該当のスポットが見つかりません
+          <% end %>
+      </div>
+    </div>
+  </div>

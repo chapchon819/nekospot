@@ -1,7 +1,7 @@
 <% if controller_name == 'static_pages' && action_name == 'index' %>
   <!-- Always show footer on the top page (index) on all devices -->
   <%= render "shared/footer_contents" %>
-<% elsif controller_name != 'spots' || action_name != 'map' %>
+<% elsif controller_name != 'spots' || action_name != 'map' && action_name != 'index' %>
   <!-- Show footer on PC for pages other than spots/index -->
   <div class="<%= 'hidden md:block' %>">
     <%= render "shared/footer_contents" %>
