@@ -2,7 +2,6 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_spot, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_review, only: [:edit, :update, :destroy]
-  before_action :reviews_data, only: [:create, :update, :destroy]
 
   def new
     @review = Review.new
@@ -11,7 +10,7 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     if @review.save
-      @spot.reload
+      reviews_data
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", @review),
@@ -21,6 +20,7 @@ class ReviewsController < ApplicationController
         turbo_stream.update("flash", partial: "layouts/flash_messages")
       ]
     else
+      reviews_data
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params.except(:spot_id))
-      @spot.reload
+      reviews_data
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
         turbo_stream.replace(@review),
@@ -37,13 +37,14 @@ class ReviewsController < ApplicationController
         turbo_stream.update("flash", partial: "layouts/flash_messages")
       ]
     else
+      reviews_data
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @review.destroy!
-    @spot.reload
+    reviews_data
     flash.now[:success] = "口コミを削除しました"
     render turbo_stream: [
       turbo_stream.remove(@review),

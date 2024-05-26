@@ -1,0 +1,6 @@
+<%= button_to edit_spot_review_path(review.spot_id, review.id), method: :get, data: { turbo_frame: 'review_modal' } do %>
+    <i class="ph-fill ph-note-pencil fa-lg text-secondary text-sm drop-shadow-md rounded-lg"></i>
+<% end %>
+<%= button_to spot_review_path(review.spot_id, review.id), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } do %>
+    <i class="ph-fill ph-trash fa-lg text-secondary text-sm drop-shadow-md rounded-lg"></i>
+<% end %>
