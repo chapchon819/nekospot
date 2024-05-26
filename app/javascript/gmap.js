@@ -226,8 +226,8 @@ function updateSpotsList(categoryId) {
             spotElement.className = 'spot-item';
             spotElement.innerHTML = `
             <a href="/spots/${spot.id}" class="block w-full h-full" data-turbo="false">
-              <div class="bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 relative z-10 mb-50 hover:shadow-lg group truncate">
-                <div class="flex-shrink-0 relative rounded-t-xl overflow-hidden h-33 w-32 md:w-1/3 rounded-s-xl md:rounded-se-none">
+              <div class="bg-white border rounded-xl shadow-sm flex mx-auto relative z-10 mb-2 hover:shadow-lg group truncate">
+                <div class="flex-shrink-0 relative rounded-l-xl overflow-hidden h-33 w-32 md:w-1/3 rounded-s-xl md:rounded-se-none">
                   <img src="${imageUrl}" class="w-full h-full absolute top-0 left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110">
                 </div>
                 <div class="flex flex-wrap">

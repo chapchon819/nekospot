@@ -1,0 +1,63 @@
+<div class="search-accordion overflow-hidden transition-all duration-500 ease-in-out z-40" 
+                  data-search-accordion-target="panel">
+                  <h3 class="text-secondary font-semibold text-center mt-24 md:mt-0"><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを絞り込む</h3>
+                <%= render "shared/search", q: @q, url: map_spots_path %>
+              <section class="bg-white rounded-b-lg rounded-lg shadow-lg">
+                <div class="container p-6 mx-auto">
+                  <div class="lg:flex">
+                    <div class="w-full lg:w-1/2">
+                      <h3 class="text-secondary font-semibold">カテゴリーから検索</h3>
+                        <div class="lg:max-w-lg">
+                          <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
+                            <button id="reset-button" class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark">
+                              すべて
+                            </button>
+                            <% Category.all.each do |category| %>
+                              <button data-category-id="<%= category.id %>" class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark">
+                                <%= category.name %>
+                              </button>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+        
+                      <div class="flex items-center justify-center w-full lg:w-1/2">
+                        <div id="region-search" data-controller="accordion" class="w-full py-2 md:py-0 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+                          <div class="w-11/12">
+                            <h3 class="text-secondary font-semibold">エリア検索</h3>
+                          </div>
+                          <% Region.all.each do |region| %>
+                            <div class="accordion w-full p-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+                              <div class="accordion-header" data-action="click->accordion#toggle">
+                                <h3 class="region-title">
+                                  <i class="toggle-icon ph ph-plus transform transition-transform duration-300" data-accordion-target="icon"></i>&ensp;<%= region.name %>
+                                </h3>
+                              </div>
+                              <div class="accordion-body overflow-hidden transition-all duration-500 ease-in-out max-h-0" data-accordion-target="body">
+                                <ul class="prefecture-list flex flex-wrap">
+                                  <% region.prefectures.each do |prefecture| %>
+                                    <li class="w-1/2">
+                                      <button id="prefecture-<%= prefecture.id %>" 
+                                        name="prefecture-<%= prefecture.id %>" 
+                                        class="prefecture-btn w-full flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" 
+                                        data-prefecture-id="<%= prefecture.id %>" 
+                                        data-lat="<%= prefecture.latitude %>" 
+                                        data-lng="<%= prefecture.longitude %>">
+                                        <%= prefecture.name %>
+                                      </button>
+                                    </li>
+                                  <% end %>
+                                </ul>
+                              </div>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <button class="w-full flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
+                 data-action="click->search-accordion#close"><i class="ph ph-x">
+                 </i>&ensp;とじる
+                 </button>
+              </section>
+          </div>
