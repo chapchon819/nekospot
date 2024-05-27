@@ -1,9 +1,9 @@
 <div class="hidden md:block md:fixed md:top-0 md:left-0 md:z-10 w-full">
-    <div class="navbar bg-primary text-secondary ">
+    <div class="navbar bg-primary text-secondary " >
     <div class="flex-1">
     <%= link_to 'NekoSpot', map_spots_path, class: "btn btn-ghost text-xl" %>
     </div>
-    <div class="flex-none">
+    <div class="flex-none" >
     <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
       <button type="button" class="inline-flex flex-col h-full items-center justify-center px-5 hover:bg-gray-50 group">
         <i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
@@ -13,15 +13,16 @@
         <i class="ph-bold ph-list-dashes w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
         <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">一覧</span>
       </button>
-      <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+      <button type="button" data-action="modal#open" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
         <i class="ph-fill ph-heart w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
         <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">お気に入り</span>
       </button>
-        <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+        <button type="button" data-action="modal#open" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group" data-action="click->login-modal#open">
             <i class="ph-bold ph-sign-in w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">ログイン</span>
         </button>
         </div>
+        
     </div>
     </div>
     </div>
@@ -29,52 +30,23 @@
     <% if controller_name == 'spots' && action_name == 'show' %>
     <%= render "shared/spot_show_header" %>
   <% else %>
-<div class="fixed bottom-0 left-0 z-50 w-full h-12 bg-primary border-t border-secondary md:hidden">
-    <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
-        <button type="button" class="inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group">
-        <i class="ph ph-magnifying-glass fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+<div class="fixed bottom-0 left-0 z-50 w-full h-12 bg-primary border-t border-secondary md:hidden" data-controller="modal">
+    <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium" >
+        <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
+            <i class="ph ph-magnifying-glass fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">検索</span>
-        </button>
-        <button type="button" class="inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group">
-        <i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to spots_path, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
+            <i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">一覧</span>
-        </button>
-        <button type="button" class="inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" onclick="my_modal_4.showModal()" >
-        <i class="ph ph-sign-in fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+        <% end %>
+        <button type="button" data-action="modal#open" class="inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group">
+            <i class="ph ph-sign-in fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">ログイン</span>
         </button>
-        <dialog id="my_modal_4" class="modal">
-  <div class="modal-box">
-    <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-secondary">✕</button>
-    </form>
-    <div class="mx-auto flex w-1/2 flex-col gap-2.5 justify-center w-3/5">
-    <%= image_tag("512.png", class: "h-full") %>
-    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-sign-in fa-lg"></i>  ログインして続ける</h3>
-    <div class="text-xs text-secondary items-center justify-center w-full ml-3.5 md:ml-6">
-    <p>&emsp;ログインすると使えるようになる機能</p>
-    <ul class="py-2">
-    <li><i class="ph ph-bookmark-simple fa-lg"></i> お気に入り機能</li>
-    <li><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミ投稿機能</li>
-    <li><i class="ph ph-medal fa-lg"></i> 投稿やチェックインによるメダル獲得</li>
-    <li><i class="ph-fill ph-paw-print fa-lg"></i> みんなの猫スポット投稿 / いいね</li>
-    </ul>
     </div>
-    <%= link_to user_line_omniauth_authorize_path, class: "block w-full", method: :post do %>
-      <button class="bg-line-base text-white hover:bg-line-hover px-3 py-1.5 rounded-full flex items-center justify-center w-full">
-      <%= image_tag("line_64.png", alt: "Logo", class: "h-10 mr-4 ") %>
-  LINEでログイン
-</button>
-    <% end %>
-    <%= link_to user_google_oauth2_omniauth_authorize_path, class: "block w-full", method: :post do %>
-      <button class="bg-white text-google-text hover:bg-google-hover px-4 py-2 border border-google rounded-full flex items-center justify-center w-full">
-      <%= image_tag("g-logo.png", alt: "Logo", class: "h-8 mr-4 ") %>
-  Googleでログイン
-</button>
-    <% end %>
-  </div>
-  </div>
-</dialog>
+    <%= render 'shared/login_modal' %>
+</div>
     </div>
 </div>
 <% end %>
