@@ -54,7 +54,7 @@
 
         
         <!-- infoCard -->
-      <div class="flex flex-col items-center justify-center md:my-8 md:bottom-0 bottom-14 w-full relative">
+      <div class="flex flex-col items-center justify-center md:my-8 md:bottom-0 w-full fixed bottom-14 md:static">
         <% @spots.each do |spot| %>
           <%= link_to spot_path(spot), data: { turbo: false }, class: "w-11/12 rounded-xl infoCard-link" do %>
             <div id="infoCard-<%= spot.id %>" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 md:w-full absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
