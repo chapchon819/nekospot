@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
         if (request.fullpath != "/users/sign_in" && #現在のページのフルパスが、ログインページ、新規登録ページ、非同期通信、TOPページではない場合
             request.fullpath != "/users/sign_up" &&
             request.fullpath != "/users/sign_out" &&
+            !request.fullpath.match?(/^\/spots\/list/) &&
             request.fullpath != "/" &&
             !request.xhr?) # 現在のリクエストが非同期通信ではない場合にtrue
           session[:previous_url] = request.fullpath #現在のページのフルパスを取得するメソッド。
