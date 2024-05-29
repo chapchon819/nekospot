@@ -1,4 +1,4 @@
-<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>">
+<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
   <div class="relative overflow-hidden" data-controller="carousel">
     <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
       <% @spot.spot_images.each_with_index do |image, index| %>
@@ -9,7 +9,7 @@
     </div>
     <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
     <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
-</div>
+  </div>
 
 
 <div class="flex flex-col items-center justify-center w-full md:mt-4">
@@ -25,7 +25,7 @@
       </ul>
 
       <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-        <div class="w-11/12 mx-auto divide-y space-y-8 pb-8" data-controller="login-modal">
+        <div class="w-11/12 mx-auto divide-y space-y-8 pb-8" >
           <div class="my-4 mx-auto">
             <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
             <div class="justify-between w-full flex md:space-x-4 space-x-2 mt-2">
@@ -130,7 +130,7 @@
     </div>
     </div>
   </div>
-</div>
+
 
 <%= link_to spots_path, data: { turbo: false } do %>
   <button class="inline-flex flex-col items-center justify-center px-4 hover:shadow-lg group md:hidden fixed bottom-20 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-20"">
@@ -139,11 +139,20 @@
   </button>
 <% end %>
 
+<% if user_signed_in? %>
   <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>
-    <button type="button" class="py-4 fixed bottom-36 right-6 hidden md:block text-white my-2 inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+    <button type="button" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
       <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
     </button>
   <% end %>
+  <% else %>
+    <button data-action="click->login-modal#openModal" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+      <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+    </button>
+
+  <% end %>
+<%= render 'shared/login_modal' %>
+  </div>
 
 <%= javascript_include_tag "show_map" %>
 
