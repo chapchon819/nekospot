@@ -1,4 +1,4 @@
-document.addEventListener("turbo:load", function() {
+document.addEventListener("DOMContentLoaded", function() {
     window.initMap = function() {
       var spotLocation = { lat: parseFloat(document.getElementById('map').dataset.lat), lng: parseFloat(document.getElementById('map').dataset.lng) };
   

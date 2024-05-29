@@ -7,5 +7,9 @@
         <% end %>
     </div>
 <% else %>
+<div class='mx-auto'>
+    <button data-action="click->login-modal#openModal">
     <i class="ph ph-bookmark-simple fa-lg text-secondary"></i>
+    </button>
+    <%= render 'shared/login_modal' %>
 <% end %>

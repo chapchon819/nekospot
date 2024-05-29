@@ -250,7 +250,7 @@ function updateSpotsList(categoryId) {
     .catch(error => console.error('スポットリストの更新に失敗しました：', error));
 }
 
-document.addEventListener("turbo:load", function() {
+document.addEventListener("DOMContentLoaded", function() {
   if (!window.google || !window.google.maps) {
     return;
   }
