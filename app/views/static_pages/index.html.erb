@@ -1,4 +1,4 @@
-<div class="bg-primary ">
+<div class="bg-primary">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <header class="mb-4 flex items-center justify-between py-4 md:py-8">
       <!-- logo - start -->
@@ -48,7 +48,7 @@
   </div>
 </div>
 
-<section class="min-h-72 bg-white rounded-b-lg rounded-lg shadow-lg">
+<section class="min-h-72 bg-white rounded-b-lg rounded-lg shadow-lg" data-controller="login-modal">
     <div class="container px-6 py-16 mx-auto">
         <div class="items-center lg:flex">
             <div class="w-full lg:w-1/2">
@@ -60,8 +60,8 @@
                     <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-1/2 inline-block rounded-full bg-accent px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
                       <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
                       <% end %>
-                    <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 hover:text-white text-secondary hover:bg-accent bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" onclick="my_modal_3.showModal()"><i class="ph-bold ph-sign-in fa-lg"></i> ログイン</button>
-                    <%= render 'static_pages/login_modal' %>
+                    <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 hover:text-white text-secondary hover:bg-accent bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" data-action="click->login-modal#openModal"><i class="ph-bold ph-sign-in fa-lg"></i> ログイン</button>
+                    
                     </div>
                 </div>
             </div>
@@ -69,6 +69,6 @@
             <div class="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
             <%= image_tag 'TOP画像2.png' %>
             </div>
-
+<%= render 'shared/login_modal' %>
     </div>
 </section>

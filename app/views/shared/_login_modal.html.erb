@@ -1,7 +1,8 @@
-        <dialog data-modal-target="dialog" class="relative rounded-xl shadow-lg p-10 flex flex-col justify-center backdrop:bg-black/80" >
-            <button type="button" data-action="modal#close" class="absolute top-3 right-4" >
-                <i class="ph ph-x h-6 w-6 text-secondary"></i>
-            </button>
+<div class="hidden fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" data-login-modal-target="backGround">
+  <dialog data-login-modal-target="dialog" class="hidden relative rounded-xl shadow-lg p-10 flex flex-col justify-center">
+    <button type="button" data-action="click->login-modal#closeModal" class="absolute top-3 right-4">
+      <i class="ph ph-x h-6 w-6 text-secondary"></i>
+    </button>
       <div class="mx-auto flex flex-col gap-2.5 justify-center w-3/5">
         <%= image_tag("512.png", class: "h-full") %>
         <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-sign-in fa-lg"></i>  ログインして続ける</h3>
@@ -29,3 +30,4 @@
       </div>
     </div>
   </dialog>
+  </div>
