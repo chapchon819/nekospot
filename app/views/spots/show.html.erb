@@ -25,7 +25,7 @@
       </ul>
 
       <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-        <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
+        <div class="w-11/12 mx-auto divide-y space-y-8 pb-8" data-controller="login-modal">
           <div class="my-4 mx-auto">
             <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
             <div class="justify-between w-full flex md:space-x-4 space-x-2 mt-2">
@@ -120,7 +120,7 @@
             <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだ口コミがありません</h3>
             <p class="text-sm flex items-center justify-center w-full text-secondary">口コミを投稿してさらに猫スポットを楽しもう！</p>
             <%= link_to "#", class: "block w-full" do %>
-              <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
+              <button class="bg-accent text-white px-3 py-2 rounded-lg flex mx-auto items-center justify-center text-sm">
                 <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
               </button>
             <% end %>
