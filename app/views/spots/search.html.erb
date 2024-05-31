@@ -1,0 +1,13 @@
+<% if @search_by_name %>
+  <% @spots.each do |spot| %>
+    <li class="w-80 flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-blue-200 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-blue-200 dark:hover:text-gray-300" role="option" data-autocomplete-value="<%= spot.id %>" data-autocomplete-label="<%= spot.name %>">
+      <%= spot.name %>
+    </li>
+  <% end %>
+<% elsif @search_by_address %>
+  <% @spots.each do |spot| %>
+    <li class="w-80 flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-blue-200 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-blue-200 dark:hover:text-gray-300" role="option" data-autocomplete-value="<%= spot.id %>" data-autocomplete-label="<%= spot.address %>">
+      <%= spot.address %>
+    </li>
+  <% end %>
+<% end %>
