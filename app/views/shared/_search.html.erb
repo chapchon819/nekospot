@@ -1,11 +1,15 @@
-
+<div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
 <%= search_form_for @q, url: url, html: { id: "searchForm", class: "max-w-md mx-auto w-11/12 pt-6" }  do |f| %>
     <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
     <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <div class="absolute inset-y-4 start-0 flexed items-center ps-3 pointer-events-none">
         <i class="ph ph-magnifying-glass text-secondary"></i>
         </div>
-        <%= f.search_field :name_or_address_cont, class: 'block w-full p-4 ps-10 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
-        <%= f.submit '検索', class: 'text-white absolute end-2 py-2 bottom-2.5 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+        <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 ps-10 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+        <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
+        <%= f.hidden_field :address, data: { autocomplete_target: 'hidden' } %>
+        <%= f.submit '検索', class: 'text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+        <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
     </div>
 <% end %>
+</div>

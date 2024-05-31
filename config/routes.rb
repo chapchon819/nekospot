@@ -11,11 +11,13 @@ Rails.application.routes.draw do
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_use', to: 'static_pages#terms_of_use'
   get 'spots/list', to: 'spots#list'
+  get 'reviews/search', to: 'reviews#search'
   resources :spots, only: %i[index show] do
     resources :reviews, only: %i[new create edit update destroy]
     collection do
       get :bookmarks
       get :map
+      get :search
     end
   end
   resources :spot_bookmarks, only: %i[create destroy]

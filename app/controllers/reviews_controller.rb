@@ -55,6 +55,26 @@ class ReviewsController < ApplicationController
     ], status: :see_other
   end
 
+  def search
+    query = params[:q]
+    if query.present?
+      @reviews = Review.ransack(spot_name_or_spot_address_or_body_cont: query).result
+      @search_by_spot_name = Review.ransack(spot_name_cont: query).result.exists?
+      @search_by_spot_address = Review.ransack(spot_address_cont: query).result.exists?
+      @search_by_body = Review.ransack(body_cont: query).result.exists?
+    else
+      @reviews = Review.none
+      @search_by_spot_name = false
+      @search_by_spot_address = false
+      @search_by_body = false
+    end
+
+    respond_to do |format|
+      format.html # For normal HTML requests
+      format.json # For AJAX requests
+    end
+  end
+
   private
 
   def review_params
