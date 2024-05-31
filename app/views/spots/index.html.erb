@@ -50,6 +50,7 @@
 
             <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
                 <div class="w-full mx-auto h-screen md:h-full mb-16 md:mb-0">
+                <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
                 <%= search_form_for @q_reviews, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8" }  do |f| %>
                     <label for="" class="mb-2 text-sm font-medium h-full text-secondary sr-only dark:text-white">検索</label>
                     <div class="nav-down text-secondary flex items-center h-12">
@@ -65,8 +66,12 @@
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <i class="ph ph-magnifying-glass text-secondary"></i>
                         </div>
-                        <%= f.search_field :spot_name_or_spot_address_or_body_cont, class: 'block w-full p-4 ps-10 h-full text-sm text-secondary border rounded-e-lg bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                        <%= f.search_field :spot_name_or_spot_address_or_body_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 ps-10 h-full text-sm text-secondary border rounded-e-lg bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                        <%= f.hidden_field :spot_name, data: { autocomplete_target: 'hidden' } %>
+                        <%= f.hidden_field :spot_address, data: { autocomplete_target: 'hidden' } %>
+                        <%= f.hidden_field :body, data: { autocomplete_target: 'hidden' } %>
                         <%= f.submit class: 'absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-accent rounded-e-lg border border-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-secondary dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
+                    </div>
                     </div>
                     </div>
                 <% end %>
