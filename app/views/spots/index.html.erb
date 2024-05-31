@@ -50,7 +50,7 @@
 
             <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
                 <div class="w-full mx-auto h-screen md:h-full mb-16 md:mb-0">
-                <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
+                <div data-controller="autocomplete" data-autocomplete-url-value="/reviews/search" role="combobox">
                 <%= search_form_for @q_reviews, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8" }  do |f| %>
                     <label for="" class="mb-2 text-sm font-medium h-full text-secondary sr-only dark:text-white">検索</label>
                     <div class="nav-down text-secondary flex items-center h-12">
@@ -71,12 +71,13 @@
                         <%= f.hidden_field :spot_address, data: { autocomplete_target: 'hidden' } %>
                         <%= f.hidden_field :body, data: { autocomplete_target: 'hidden' } %>
                         <%= f.submit class: 'absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-accent rounded-e-lg border border-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-secondary dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
+                        <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
                     </div>
                     </div>
                     </div>
                 <% end %>
                     <% if @reviews.present? %>
-                        <div class="md:grid md:grid-cols-3 md:gap-4">
+                        <div class="md:grid md:grid-cols-3 md:gap-4 md:mb-50">
                             <% @reviews.each do |review| %>
                                 <%= render 'spots/review', review: review %>
                             <% end %>
