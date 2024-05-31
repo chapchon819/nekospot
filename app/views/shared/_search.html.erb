@@ -9,7 +9,7 @@
         <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
         <%= f.hidden_field :address, data: { autocomplete_target: 'hidden' } %>
         <%= f.submit '検索', class: 'text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
-        <ul class="list-group" data-autocomplete-target="results"></ul>
+        <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
     </div>
 <% end %>
 </div>
