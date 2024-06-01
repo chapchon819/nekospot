@@ -1,7 +1,6 @@
 require 'csv'
 require 'open-uri'
 require 'json'
-API_KEY = ENV['GMAP_API_KEY']
 
 namespace :Spot do
   desc 'Fetch and save spot details from address'
