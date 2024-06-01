@@ -34,6 +34,56 @@ function initMap() {
     url: mapElement.dataset.islandIcon,
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
+  },
+  "宿泊施設": {
+    url: mapElement.dataset.hotelIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "喫茶店・カフェ・BAR": {
+    url: mapElement.dataset.eatingIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "アニマルカフェ": {
+    url: mapElement.dataset.animalCafeIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "レストラン": {
+    url: mapElement.dataset.restaurantIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "書店": {
+    url: mapElement.dataset.bookIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "雑貨屋": {
+    url: mapElement.dataset.shopIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "公園": {
+    url: mapElement.dataset.parkIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "シェルター": {
+    url: mapElement.dataset.shelterIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "テーマパーク": {
+    url: mapElement.dataset.themeParkIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "銭湯": {
+    url: mapElement.dataset.furoIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
   }
 };
 
