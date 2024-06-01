@@ -1,6 +1,5 @@
 require 'csv'
 require 'open-uri'
-API_KEY = ENV['GMAP_API_KEY']
 
 namespace :Spot do
   desc 'Fetch and save spot details'
