@@ -7,21 +7,23 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-Category.create!(
-  [
-    {name: '猫カフェ'},
-    {name: '島'},
-    {name: '動物園'},
-    {name: '宿泊施設'},
-    {name: '駅・バス停'},
-    {name: '喫茶店・カフェ・BAR'},
-    {name: 'アニマルカフェ'},
-    {name: 'レストラン'},
-    {name: '書店'},
-    {name: '雑貨屋'},
-    {name: '公園'},
-    {name: 'シェルター'},
-    {name: 'テーマパーク'},
-    {name: '銭湯'}
-  ]
-)
+categories = [
+  {name: '猫カフェ'},
+  {name: '島'},
+  {name: '動物園'},
+  {name: '宿泊施設'},
+  {name: '駅・バス停'},
+  {name: '喫茶店・カフェ・BAR'},
+  {name: 'アニマルカフェ'},
+  {name: 'レストラン'},
+  {name: '書店'},
+  {name: '雑貨屋'},
+  {name: '公園'},
+  {name: 'シェルター'},
+  {name: 'テーマパーク'},
+  {name: '銭湯'}
+]
+
+categories.each do |category|
+  Category.find_or_create_by!(name: category[:name])
+end
