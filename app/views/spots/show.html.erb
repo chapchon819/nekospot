@@ -76,7 +76,11 @@
               <p class="text-sm text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500 bottom-0"><i class="ph-fill ph-path"></i> 経路</p>
             </div>
           </div>
-          <div id="map" class="w-full md:h-64 h-48 rounded-xl" data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
+          <div>
+  <iframe frameborder="0" class="w-full md:h-64 h-48 rounded-xl" src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['EMBED_API_KEY'] %>&q=<%= @spot.name %>">
+  </iframe>
+</div>
+          <div id="map"  data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
           </div>
         </div>
       </div>
@@ -133,7 +137,7 @@
 
 
 <%= link_to spots_path, data: { turbo: false } do %>
-  <button class="inline-flex flex-col items-center justify-center px-4 hover:shadow-lg group md:hidden fixed bottom-20 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-20"">
+  <button class="inline-flex flex-col items-center justify-center px-4 hover:shadow-lg group md:hidden fixed bottom-20 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-20">
     <i class="ph ph-arrow-left w-5 h-5 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
     <span class="text-xs text-secondary dark:text-gray-400 group-hover:text-neutral">戻る</span>
   </button>
@@ -153,7 +157,3 @@
   <% end %>
 <%= render 'shared/login_modal' %>
   </div>
-
-<%= javascript_include_tag "show_map" %>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API_KEY'] %>&callback=initMap" async defer></script>
