@@ -23,12 +23,16 @@
                 </div>
 
           <div class="relative mb-4 flex flex-col w-full">
-            <%= f.label :images, "既存の画像", class: "text-sm text-secondary mb-2" %>
+          <% if @review.images.present? %>
+            <%= f.label :images, "投稿済の画像", class: "text-sm text-secondary mb-2" %>
+            <div class="flex">
             <% @review.images.each_with_index do |image, index| %>
-              <div class="flex items-center mb-2">
-                <%= image_tag image.url, class: "w-20 h-20 object-cover mr-2" %>
+              <div class="flex flex-col items-center mb-2">
+                <%= image_tag image.url, class: "w-16 h-16 object-cover rounded mr-2" %>
                 <%= f.check_box :remove_image_at, { multiple: true }, index, nil %> 削除
               </div>
+            <% end %>
+            </div>
             <% end %>
             <%= f.file_field :images, multiple: true %>
             <%= f.hidden_field :images_cache %>
