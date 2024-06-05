@@ -12,15 +12,16 @@
                 <%= render 'shared/error_messages', object: f.object %>
                 <div class="relative mb-4 flex flex-col w-full">
                 <%= f.label :rating, "評価", class: "text-sm text-secondary mb-2" %>
-                <div class="rating rating-lg">
-                    <input type="radio" name="review[rating]" value="0" class="hidden mask mask-star-2 bg-yellow-400" checked/>
-                    <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-yellow-400"/>
-                    <input type="radio" name="review[rating]" value="2" class="mask mask-star-2 bg-yellow-400" />
-                    <input type="radio" name="review[rating]" value="3" class="mask mask-star-2 bg-yellow-400" />
-                    <input type="radio" name="review[rating]" value="4" class="mask mask-star-2 bg-yellow-400" />
-                    <input type="radio" name="review[rating]" value="5" class="mask mask-star-2 bg-yellow-400" />
+                    <div class="rating rating-lg">
+                    <%= f.radio_button :rating, 0, class: "hidden mask mask-star-2 bg-yellow-400", checked: @review.rating == 0 %>
+                    <%= f.radio_button :rating, 1, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 1 %>
+                    <%= f.radio_button :rating, 2, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 2 %>
+                    <%= f.radio_button :rating, 3, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 3 %>
+                    <%= f.radio_button :rating, 4, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 4 %>
+                    <%= f.radio_button :rating, 5, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 5 %>
+                    </div>
                 </div>
-                </div>
+
                 <div class="relative mb-4 flex flex-col w-full">
                 <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
                 <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
