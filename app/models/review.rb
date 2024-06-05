@@ -8,6 +8,13 @@ class Review < ApplicationRecord
   validates :body, length: { maximum: 400 }
   validate :validate_image_count
 
+  # 画像削除を処理するメソッド
+  def remove_image_at_index(index)
+    remain_images = self.images # 現在の画像を複製
+    remain_images.delete_at(index)
+    self.images = remain_images
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["body", "created_at", "id", "id_value", "rating", "spot_id", "updated_at", "user_id"]
   end

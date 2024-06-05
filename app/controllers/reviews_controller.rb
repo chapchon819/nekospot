@@ -28,7 +28,13 @@ class ReviewsController < ApplicationController
   def edit; end
 
   def update
-    if @review.update(review_params.except(:spot_id))
+    @review.assign_attributes(review_params.except(:spot_id))
+    if params[:review][:remove_image_at]
+      params[:review][:remove_image_at].each do |index|
+        @review.remove_image_at_index(index.to_i)
+      end
+    end
+    if @review.save
       reviews_data
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
