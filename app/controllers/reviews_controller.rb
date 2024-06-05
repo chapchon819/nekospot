@@ -29,8 +29,8 @@ class ReviewsController < ApplicationController
 
   def update
     @review.assign_attributes(review_params.except(:spot_id))
-    if params[:review][:remove_image_at]
-      params[:review][:remove_image_at].each do |index|
+    if params[:review][:remove_image_at].present?
+      params[:review][:remove_image_at].split(',').each do |index|
         @review.remove_image_at_index(index.to_i)
       end
     end
