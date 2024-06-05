@@ -35,6 +35,13 @@
         </div>
       <!-- stars - end -->
       <p class="text-secondary"><%= review.body %></p>
+      <% if review.images.present? %>
+        <div class="flex space-x-2">
+        <% review.images.each do |image| %>
+            <%= image_tag image.to_s, class: "inline-block rounded h-16 w-16" %>
+        <% end %>
+        </div>
+    <% end %>
       <% unless review.user == current_user %>
       <div class="flex justify-end space-x-2">
         <button class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">

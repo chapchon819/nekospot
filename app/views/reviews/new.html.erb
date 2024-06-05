@@ -22,6 +22,10 @@
                 </div>
                 </div>
                 <div class="relative mb-4 flex flex-col w-full">
+                    <%= f.file_field :images, multiple: true %>
+                    <%= f.hidden_field :images_cache %>
+                </div>
+                <div class="relative mb-4 flex flex-col w-full">
                 <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
                 <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
                 </div>

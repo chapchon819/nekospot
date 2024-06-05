@@ -110,7 +110,7 @@
             <%= turbo_frame_tag 'review_modal' do %>
               <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
               <div class="grid">
-              <div id="reviews" class="space-y-8 divide-gray-200" >
+              <div id="reviews" class="space-y-8 divide-gray-200 divide-y" >
               <%= render @reviews %>
               </div>
               <%= paginate @reviews %>
