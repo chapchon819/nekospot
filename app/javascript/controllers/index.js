@@ -13,6 +13,9 @@ application.register("carousel", CarouselController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ImageModalController from "./image_modal_controller"
+application.register("image-modal", ImageModalController)
+
 import LoginModalController from "./login_modal_controller"
 application.register("login-modal", LoginModalController)
 
