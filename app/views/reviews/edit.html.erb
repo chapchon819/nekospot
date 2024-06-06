@@ -40,7 +40,6 @@
             </div>
             <% end %>
             <%= f.file_field :images, multiple: true %>
-            <%= f.hidden_field :images_cache %>
           </div>
           <%= f.hidden_field :remove_image_at, value: "", data: { review_modal_target: "removeImageInput" } %>
                 <div class="relative mb-4 flex flex-col w-full">
