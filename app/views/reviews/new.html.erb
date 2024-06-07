@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "review_modal" do %>
     <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" data-controller="review-modal" data-review-modal-target="backGround" data-action="click->review-modal#closeBackground" >
-        <div class="modal-content relative bg-white rounded-xl shadow-lg p-10 flex flex-col justify-center " data-review-modal-target="reviewModal">
+        <div class="modal-content relative bg-white w-72 rounded-xl shadow-lg p-10 flex flex-col justify-center " data-review-modal-target="reviewModal">
             <div class="absolute top-3 right-4">
                 <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
             </div>
@@ -21,8 +21,8 @@
                     <input type="radio" name="review[rating]" value="5" class="mask mask-star-2 bg-yellow-400" />
                 </div>
                 </div>
-                <div class="relative mb-4 flex flex-col w-full">
-                    <%= f.file_field :images, multiple: true %>
+                <div class="relative mb-4 flex flex-col w-full text-secondary">
+                    <%= f.file_field :images, multiple: true, class: "block w-full text-xs text-secondary border border-gray-300 rounded-r-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
                     <%= f.hidden_field :images_cache %>
                 </div>
                 <div class="relative mb-4 flex flex-col w-full">
