@@ -8,7 +8,7 @@ class SpotsController < ApplicationController
     @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(params[:page]).per(12)
     
     @q_reviews = Review.ransack(params[:q])
-    @reviews = @q_reviews.result(distinct: true).includes(:spot).page(params[:page]).per(12)
+    @reviews = @q_reviews.result(distinct: true).select("id, user_id, spot_id, rating, body, created_at, updated_at, images::text AS images").includes(:spot).page(params[:page]).per(12)
   end
 
   def map

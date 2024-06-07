@@ -43,7 +43,7 @@
               </div>
               <div class="flex space-x-2">
               <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-lg"></i><% end %>
-              <%= render 'bookmark_buttons', { spot: @spot } %>
+              
             </div>
             </div>
         </div>
@@ -134,14 +134,6 @@
     </div>
     </div>
   </div>
-
-
-<%= link_to spots_path, data: { turbo: false } do %>
-  <button class="inline-flex flex-col items-center justify-center px-4 hover:shadow-lg group md:hidden fixed bottom-20 right-6 border-white rounded-full py-2 px-4 text-white bg-primary text-center border-secondary z-20">
-    <i class="ph ph-arrow-left w-5 h-5 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-    <span class="text-xs text-secondary dark:text-gray-400 group-hover:text-neutral">戻る</span>
-  </button>
-<% end %>
 
 <% if user_signed_in? %>
   <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>

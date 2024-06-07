@@ -11,7 +11,7 @@
             </div>
             <p class="md:px-1.5 md:mt-2 text-xs text-secondary dark:text-neutral-500"><%= formatted_address(spot.address) %></p>
             <%= link_to spot_path(spot), data: { turbo: false } do %>
-                <h2 class="font-bold text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"><%= spot.name %></h2>
+                <div class="font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"><%= spot.name %></div>
             <% end %>
             <div class="justify-between flex items-end h-full md:space-x-4 space-x-2">
                 <div class="flex space-x-2">
