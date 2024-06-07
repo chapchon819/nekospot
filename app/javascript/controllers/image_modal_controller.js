@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="image-modal"
 export default class extends Controller {
-  static targets = ["imageModal", "image", "carousel", "carouselImage"]
+  static targets = ["imageModal", "image", "carousel", "carouselImage", "indicator"]
 
   connect() {
     this.hideModal();
@@ -58,5 +58,17 @@ export default class extends Controller {
     });
 
     this.currentIndex = index;
+    this.updateIndicators();
+  }
+
+  updateIndicators() {
+    this.indicatorTargets.forEach((indicator, i) => {
+      indicator.style.backgroundColor = i === this.currentIndex ? 'black' : 'gray';
+    });
+  }
+
+  indicatorClick(event) {
+    const index = parseInt(event.currentTarget.dataset.index);
+    this.showImage(index);
   }
 }

@@ -47,10 +47,10 @@
       </div>
     <% end %>
 <!-- モーダル -->
-<div class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden" data-image-modal-target="imageModal">
-    <div class="fixed inset-0 flex items-center justify-center">
+<div class="fixed inset-0 bg-gray-500 bg-opacity-50 hidden z-50" data-image-modal-target="imageModal">
+    <div class="fixed inset-0 flex items-center justify-center z-100">
     <% if review.images.length == 1 %>
-        <div class="bg-white p-4 rounded shadow-md relative">
+        <div class="rounded shadow-md relative">
         <img data-image-modal-target="image" class="max-w-full max-h-full"/>
         <button data-action="click->image-modal#close" class="absolute top-4 right-8 m-4 text-secondary">
             <i class="ph ph-x h-6 w-6 text-secondary"></i>
@@ -58,18 +58,23 @@
         </div>
     <% else %>
               <div class="bg-white p-4 rounded shadow-md relative flex items-center">
-        <button data-action="click->image-modal#prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary">
-          <i class="ph ph-caret-left h-6 w-6"></i>
+        <button data-action="click->image-modal#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full">
+          <i class="ph ph-caret-left"></i>
         </button>
-        <div class="carousel" data-image-modal-target="carousel">
+        <div class="carousel transition duration-700 ease-in-out" data-image-modal-target="carousel">
           <% review.images.each_with_index do |image, index| %>
             <img src="<%= image.url %>" class="max-w-full max-h-full <%= index == 0 ? 'block' : 'hidden' %>" data-image-modal-target="carouselImage"/>
           <% end %>
         </div>
-        <button data-action="click->image-modal#next" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-secondary">
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 mt-4" data-image-modal-target="indicators">
+            <% review.images.each_with_index do |image, index| %>
+              <div class="indicator w-3 h-3 rounded-full <%= index == 0 ? 'bg-secondary' : 'bg-primary' %>" data-image-modal-target="indicator" data-action="click->image-modal#indicatorClick" data-index="<%= index %>"></div>
+            <% end %>
+          </div>
+        <button data-action="click->image-modal#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full">
           <i class="ph ph-caret-right h-6 w-6"></i>
         </button>
-        <button data-action="click->image-modal#close" class="absolute top-4 right-8 m-4 text-secondary">
+        <button data-action="click->image-modal#close" class="absolute top-4 right-6 m-4 text-secondary">
           <i class="ph ph-x h-6 w-6 text-secondary"></i>
         </button>
       </div>
