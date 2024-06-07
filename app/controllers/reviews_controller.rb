@@ -28,7 +28,25 @@ class ReviewsController < ApplicationController
   def edit; end
 
   def update
-    if @review.update(review_params.except(:spot_id))
+  # 現在の画像を保持
+  existing_images = @review.images
+
+  # レビューの更新
+  @review.assign_attributes(review_params.except(:spot_id, :images))
+
+  # 既存の画像に新しい画像を追加
+  if review_params[:images].present?
+    @review.images += review_params[:images]
+  else
+    @review.images = existing_images
+  end
+
+if params[:review][:remove_image_at].present?
+  params[:review][:remove_image_at].split(',').each do |index|
+    @review.remove_image_at_index(index.to_i)
+  end
+end
+    if @review.save
       reviews_data
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
@@ -78,7 +96,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:rating, :body).merge(spot_id: params[:spot_id])
+    params.require(:review).permit(:rating, :body, { images: [] }).merge(spot_id: params[:spot_id])
   end
 
   def set_spot

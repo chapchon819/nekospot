@@ -1,3 +1,4 @@
-<%= link_to spot_bookmark_path(current_user.spot_bookmarks.find_by(spot_id: spot.id)), id: "unbookmark-button-for-spot-#{spot.id}", data: { turbo_method: :delete } do %>
-    <i class="ph-fill ph-bookmark-simple fa-lg text-secondary"></i>
+<%= link_to spot_bookmark_path(current_user.spot_bookmarks.find_by(spot_id: spot.id)), id: "unbookmark-button-for-spot-#{spot.id}", data: { turbo_method: :delete }, class: "inline-flex flex-col items-center justify-center px-2 rounded-full group" do %>
+    <i class="ph-fill ph-heart fa-lg w-5 h-4 mt-2 fa-lg text-red-700"></i>
+    <span class="text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral"><%= spot.spot_bookmarks.count %></span>
 <% end %>
