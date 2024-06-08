@@ -4,12 +4,21 @@ export default class extends Controller {
   static targets = ["panel", "sidebar"];
 
   connect() {
-    this.closePanel(); // 初期状態でパネルを閉じる
+    if (window.innerWidth >= 768) { // PCの場合
+      this.panelTarget.style.maxHeight = "0px"; // 初期状態を閉じた状態に
+    } else { // スマホの場合
+      this.closePanel(); // 初期状態でパネルを閉じる
+    }
   }
 
   toggle() {
     if (window.innerWidth >= 768) { // PCの場合
-      this.toggleAccordion();
+      const panel = this.panelTarget;
+      if (panel.style.maxHeight && panel.style.maxHeight !== "0px") {
+        this.closePanel();
+      } else {
+        this.openPanel();
+      }
     } else { // スマホの場合
       this.openSidebar();
     }
@@ -27,14 +36,12 @@ export default class extends Controller {
 
   openPanel() {
     const panel = this.panelTarget;
-    panel.classList.remove('h-0', 'opacity-0', 'invisible');
-    panel.classList.add('h-auto', 'opacity-100', 'visible');
+    panel.style.maxHeight = `${panel.scrollHeight}px`;
   }
 
   closePanel() {
     const panel = this.panelTarget;
-    panel.classList.remove('h-auto', 'opacity-100', 'visible');
-    panel.classList.add('h-0', 'opacity-0', 'invisible');
+    panel.style.maxHeight = "0px";
   }
 
   openSidebar() {
