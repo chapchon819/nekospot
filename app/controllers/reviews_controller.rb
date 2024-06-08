@@ -70,8 +70,9 @@ end
       turbo_stream.replace("average_rating", partial: "spots/average_rating"),
       turbo_stream.replace("reviews_count", partial: "spots/reviews_count"),
       turbo_stream.replace("review_tab", partial: "spots/review_tab"),
-      turbo_stream.update("flash", partial: "layouts/flash_messages")
-    ], status: :see_other
+      turbo_stream.update("flash", partial: "layouts/flash_messages"),
+      (@review.spot.reviews.count.zero? ? turbo_stream.replace("reviews_list", partial: "spots/no_reviews") : nil)
+    ].compact,status: :see_other
   end
 
   def search
