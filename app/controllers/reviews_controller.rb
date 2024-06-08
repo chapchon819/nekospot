@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
-    if @review.save
+    if validate_images(review_params[:images]) && @review.save
       reviews_data
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
@@ -47,7 +47,7 @@ if params[:review][:remove_image_at].present?
     @review.remove_image_at_index(index.to_i)
   end
 end
-    if @review.save
+    if validate_images(review_params[:images]) && @review.save
       reviews_data
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
@@ -113,5 +113,24 @@ end
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @average_rating = @spot.reviews.average(:rating).to_f
     @all_reviews_count = @spot.reviews.count
+  end
+
+  def validate_images(images)
+    return true if images.blank? || images.all?(&:blank?)
+
+    cleaned_images = images.reject(&:blank?)
+    inappropriate_images = []
+
+    cleaned_images.each do |image|
+      result = Vision.image_analysis(image)
+      inappropriate_images << image unless result
+    end
+
+    if inappropriate_images.any?
+      flash[:error] = '不適切な画像が含まれています'
+      return false
+    end
+
+    true
   end
 end

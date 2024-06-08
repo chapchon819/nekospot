@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 def update
   self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 
-  if resource.update(account_update_params)
+  if validate_avatar(account_update_params[:avatar]) && resource.update(account_update_params)
     redirect_to users_show_path(current_user)
     flash.now[:notice] = "ユーザー情報を更新しました"
   else
@@ -53,6 +53,18 @@ end
     devise_parameter_sanitizer.sanitize(:account_update)
   end
 
+  def validate_avatar(avatar)
+    return true if avatar.blank?
+
+    result = Vision.image_analysis(avatar)
+
+    unless result
+      flash[:error] = '不適切な画像です'
+      return false
+    end
+
+    true
+  end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
   #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])

@@ -186,7 +186,12 @@ function updateInfoCard(spot) {
   var infoCard = document.getElementById(infoCardId);
   if (infoCard) {
     infoCard.classList.remove('hidden');
-    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
+    let imageUrl;
+    if (!spot.image || spot.image === 'default.png') {
+      imageUrl = window.defaultImagePath; // デフォルト画像のURL
+    } else {
+      imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
+    }
     infoCard.querySelector(`#spotImage-${spot.id}`).src = imageUrl;
     infoCard.querySelector(`#spotName-${spot.id}`).textContent = spot.name;
     infoCard.querySelector(`#spotRating-${spot.id}`).textContent = `⭐️ ${spot.rating}`;
@@ -271,7 +276,12 @@ function updateSpotsList(categoryId) {
         frame.innerHTML = '';  // Frame の内容をクリア
 
         data.forEach(spot => {
-            const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
+          let imageUrl;
+          if (!spot.image || spot.image === 'default.png') {
+            imageUrl = window.defaultImagePath; // デフォルト画像のURL
+          } else {
+            imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${spot.image}&key=${apiKey}`;
+          }
             const spotElement = document.createElement('div');
             spotElement.className = 'spot-item';
             spotElement.innerHTML = `
