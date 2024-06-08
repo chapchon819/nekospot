@@ -13,11 +13,12 @@ class ReviewsController < ApplicationController
       reviews_data
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
-        turbo_stream.prepend("reviews", @review),
+        turbo_stream.prepend("reviews", partial: "reviews/review", locals: { review: @review }),
         turbo_stream.replace("average_rating", partial: "spots/average_rating"),
         turbo_stream.replace("reviews_count", partial: "spots/reviews_count"),
         turbo_stream.replace("review_tab", partial: "spots/review_tab"),
-        turbo_stream.update("flash", partial: "layouts/flash_messages")
+        turbo_stream.update("flash", partial: "layouts/flash_messages"),
+        turbo_stream.replace("no_reviews", partial: "reviews/review_list", locals: { spot: @review.spot })
       ]
     else
       reviews_data
