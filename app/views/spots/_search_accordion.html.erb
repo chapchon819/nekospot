@@ -1,6 +1,6 @@
-<div class="search-accordion overflow-hidden transition-all duration-500 ease-in-out z-40" 
+<div class="search-accordion overflow-hidden transition-all duration-500 ease-in-out z-40 w-full" 
                   data-search-accordion-target="panel">
-                  <h3 class="text-secondary font-semibold text-center mt-24 md:mt-0"><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを絞り込む</h3>
+                  <h3 class="text-secondary font-semibold text-center md:mt-0"><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを絞り込む</h3>
                 <%= render "shared/search", q: @q, url: map_spots_path %>
               <section class="bg-white rounded-b-lg rounded-lg shadow-lg">
                 <div class="container p-6 mx-auto">
@@ -55,8 +55,12 @@
                       </div>
                     </div>
                   </div>
-                <button class="w-full flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
+                <button class="hidden w-full md:flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
                  data-action="click->search-accordion#close"><i class="ph ph-x">
+                 </i>&ensp;とじる
+                 </button>
+                <button class="md:hidden w-full flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
+                 data-action="click->search-accordion#closeSidebar"><i class="ph ph-x">
                  </i>&ensp;とじる
                  </button>
               </section>
