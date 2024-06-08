@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "unhelpful-button-for-review-#{@review.id}" do %>
+    <%= render 'reviews/helpful', review: @review %>
+<% end %>
+
+<%= turbo_stream_flash %>
