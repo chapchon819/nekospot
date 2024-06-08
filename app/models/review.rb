@@ -1,6 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :spot
+  has_many :helpfuls, dependent: :destroy
   attr_accessor :images_cache
   mount_uploaders :images, ImageUploader
 
