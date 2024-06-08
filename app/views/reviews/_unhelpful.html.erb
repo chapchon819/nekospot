@@ -1,0 +1,3 @@
+<%= link_to helpful_path(current_user. helpfuls.find_by(review_id: review.id)), id: "unhelpful-button-for-review-#{review.id}", data: { turbo_method: :delete }, class: "w-32 bg-primary text-secondary text-sm px-2 py-2 rounded-lg flex mx-auto items-center justify-center group" do %>
+    <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
+<% end %>

@@ -1,8 +1,11 @@
 class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
+
   has_many :reviews, dependent: :destroy
   has_many :spot_bookmarks, dependent: :destroy
   has_many :bookmark_spots, through: :spot_bookmarks, source: :spot
+  has_many :helpfuls, dependent: :destroy
+  has_many :helpful_reviews, through: :helpfuls, source: :review
 
   enum role: { general: 0, admin: 1 }
   # Include default devise modules. Others available are:
@@ -41,5 +44,17 @@ class User < ApplicationRecord
 
   def bookmark?(spot)
     bookmark_spots.include?(spot)
+  end
+
+  def helpful(review)
+    helpful_reviews << review
+  end
+
+  def unhelpful(review)
+    helpful_reviews.destroy(review)
+  end
+
+  def helpful?(review)
+    helpful_reviews.include?(review)
   end
 end

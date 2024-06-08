@@ -11,17 +11,20 @@
         <div class="mx-auto flex w-full justify-center relative md:static">
           <div data-controller="search-accordion">
             <div class="hidden md:flex mx-auto justify-center space-x-2 p-4 md:p-8 w-full">
-              <button onclick="showCurrentLocation()" class="w-1/2 md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
+              <button onclick="showCurrentLocation()" class="w-full md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
                 <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
               </button>
-              <button class="w-1/2 md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
+              <button class="w-full md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
                       data-action="click->search-accordion#toggle"
                       data-search-accordion-target="toggleButton">
                       <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
               </button>
             </div>
             <!-- ここから検索アコーディオンパネル -->
-              <%= render'spots/search_accordion' %>
+            <div class="hidden md:block overflow-hidden transition-max-height duration-500 ease-in-out" style="max-height: 0;" data-search-accordion-target="panel">
+              <%= render 'spots/search_accordion' %>
+            </div>
+
 
 
         <div class="mx-auto flex w-full justify-center">
@@ -43,15 +46,27 @@
             class="w-screen h-screen md:h-96 md:w-11/12 md:rounded-xl"></div>
         </div>
 
-                    <div class="md:hidden mx-auto flex justify-center space-x-2 p-4 md:p-8 absolute top-2 w-full">
+              <div class="md:hidden mx-auto flex justify-center space-x-2 p-4 md:p-8 absolute top-2 w-full">
               <button onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
                 <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
               </button>
-              <button class="w-1/2 md:w-1/4 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
+              <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
                       data-action="click->search-accordion#toggle"
                       data-search-accordion-target="toggleButton">
                       <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
               </button>
+            </div>
+                        <!-- スマホ用サイドバー -->
+            <div class="fixed inset-0 z-50 flex md:hidden " style="display: none;" data-search-accordion-target="sidebar">
+              <div class="bg-black bg-opacity-50 w-full h-screen" data-action="click->search-accordion#closeSidebar"></div>
+              <div class="bg-white shadow-lg h-full overflow-y-scroll">
+                <div class="p-4">
+                  <button data-action="click->search-accordion#closeSidebar" class="text-gray-600 hover:text-gray-900">
+                    <i class="ph ph-x fa-lg"></i>
+                  </button>
+                </div>
+                <%= render 'spots/search_accordion' %>
+              </div>
             </div>
 
 
