@@ -8,7 +8,9 @@ class SpotsController < ApplicationController
     @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(params[:page]).per(12)
     
     @q_reviews = Review.ransack(params[:q])
-    @reviews = @q_reviews.result(distinct: true).includes(:spot).page(params[:page]).per(12)
+    filtered_reviews = @q_reviews.result(distinct: false).includes(:spot)
+    distinct_reviews = filtered_reviews.select('DISTINCT ON (reviews.id) reviews.id, reviews.user_id, reviews.spot_id, reviews.rating, reviews.body, reviews.created_at, reviews.updated_at, reviews.images')
+    @reviews = distinct_reviews.page(params[:page]).per(12)
   end
 
   def map
