@@ -52,7 +52,7 @@ class SpotsController < ApplicationController
     # JSON形式でスポットのデータをフロントエンドに送り返す
     spots_json = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
-        image: spot.spot_images.first&.image,
+        image: spot.prioritized_spot_image&.image,
         category: spot.category.name,
         category_id: spot.category.id
       )
@@ -78,6 +78,7 @@ class SpotsController < ApplicationController
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @all_reviews_count = @spot.reviews.count
     @average_rating = @spot.reviews.average(:rating).to_f
+    @prioritized_image = @spot.prioritized_spot_image # 優先的に表示する画像を取得
   end
 
   def search
@@ -105,7 +106,7 @@ class SpotsController < ApplicationController
     gon.api_key = ENV['GMAP_API_KEY']
     gon.spots = @spots.map do |spot|
       spot.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
-        image: spot.spot_images.first&.image,
+        image: spot.prioritized_spot_image&.image,
         category: spot.category.name,
         category_id: spot.category.id
       )

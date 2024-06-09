@@ -99,8 +99,9 @@ namespace :Spot do
 
       photo_references = photo_reference_data(spot_data)
       if photo_references.present?
-        photo_references.each do |photo|
-          SpotImage.create!(spot: spot, image: photo)
+        photo_references.each do |photo_reference|
+          has_cat = CatVision.image_analysis(photo_reference) #SpotImageを保存する際にCatVisionモジュールを使って猫が写っているかを判定し、その結果を保存
+          SpotImage.create!(spot: spot, image: photo_reference, cat: has_cat)
         end
         puts "SpotImageを保存しました: #{row['スポット名']}"
         puts "----------"

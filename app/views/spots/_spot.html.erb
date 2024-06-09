@@ -1,10 +1,11 @@
 <div class="bg-white shadow-sm flex md:flex-col mx-auto w-full h-full border rounded-xl md:mb-50 hover:shadow-lg group my-3">
     <div class="flex-shrink-0 rounded-l-xl md:rounded-t-xl md:rounded-b-none relative overflow-hidden h-32 w-1/3 md:h-42 md:w-full md:rounded-t-xl">
         <%= link_to spot_path(spot), data: { turbo: false } do %>
-        <% if spot.spot_images.present? %>
-        <img src="https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=<%= spot.spot_images.first.image %>&key=<%= ENV['GMAP_API_KEY'] %>" class="w-full h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl" alt="Image Description">
+        <% prioritized_image = spot.prioritized_spot_image %>
+        <% if prioritized_image.present? %>
+        <img src="https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=<%= prioritized_image.image %>&key=<%= ENV['GMAP_API_KEY'] %>" class="w-full h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl" alt="Image Description">
         <% else %>
-        <% image_tag('default.png', class: "w-full h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl")%>
+        <% image_tag('default.png', class: "h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-1/2 transform -translate-x-1/2 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl")%>
         <% end %>
         <% end %>
     </div>
