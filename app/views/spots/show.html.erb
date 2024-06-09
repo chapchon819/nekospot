@@ -1,14 +1,31 @@
 <div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
   <div class="relative overflow-hidden" data-controller="carousel">
     <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
-      <% @spot.spot_images.each_with_index do |image, index| %>
+  <% prioritized_image = @spot.prioritized_spot_image %>
+  <% if prioritized_image.present? %>
+    <div data-carousel-target="item" class="inline-block w-full">
+      <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
+    </div>
+  <% else %>
+    <div data-carousel-target="item" class="inline-flex w-full justify-center">
+      <%= image_tag 'default.png', class: "h-full object-cover ", alt: "Default Image" %>
+    </div>
+  <% end %>
+
+  <% if @spot.spot_images.any? %>
+    <% @spot.spot_images.each_with_index do |image, index| %>
+      <% unless image == prioritized_image %>
         <div data-carousel-target="item" class="inline-block w-full">
           <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
         </div>
       <% end %>
+    <% end %>
+  <% end %>
     </div>
+    <% if prioritized_image.present? %>
     <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
     <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
+    <% end %>
   </div>
 
 
@@ -77,7 +94,7 @@
             </div>
           </div>
           <div>
-  <iframe frameborder="0" class="w-full md:h-64 h-48 rounded-xl" src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['EMBED_API_KEY'] %>&q=<%= @spot.name %>">
+  <iframe frameborder="0" class="w-full md:h-64 h-48 rounded-xl" src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['EMBED_API_KEY'] %>&q=<%= @spot.address %>">
   </iframe>
 </div>
           <div id="map"  data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
