@@ -209,6 +209,7 @@ function hideInfoCard(event, spotId) {
   event.stopPropagation();
   // デフォルトのイベントをキャンセル
   event.preventDefault();
+  clearAllAnimations();
 
   const infoCard = document.getElementById(`infoCard-${spotId}`);
   if (infoCard) {
