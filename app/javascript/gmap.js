@@ -144,6 +144,26 @@ spots.forEach(function(spot) {
       filterSpotsByCategory(null);
       updateSpotsList(null);
   });
+
+  // マップの読み込み完了イベント
+  google.maps.event.addListenerOnce(map, 'idle', function() {
+    // 現在地の取得が完了しているかをチェック
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // 現在地取得が完了していたらローディングアニメーションを非表示にする
+        const loadingSpinner = document.getElementById('loading-spinner');
+        if (loadingSpinner) {
+          loadingSpinner.style.display = 'none';
+        }
+      });
+    } else {
+      // 現在地取得がサポートされていない場合もローディングアニメーションを非表示にする
+      const loadingSpinner = document.getElementById('loading-spinner');
+      if (loadingSpinner) {
+        loadingSpinner.style.display = 'none';
+      }
+    }
+  });
 }
 
 // initMapをグローバルスコープに
@@ -233,6 +253,12 @@ document.querySelectorAll('.infoCard-link').forEach(link => {
 });
 
 function showCurrentLocation(){
+    // ローディングアニメーションを表示
+    const loadingSpinner = document.getElementById('loading-spinner');
+    if (loadingSpinner) {
+      loadingSpinner.style.display = 'flex';
+    }
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             const userLocation = {
@@ -242,15 +268,28 @@ function showCurrentLocation(){
             map.setCenter(userLocation);
             centerPin.setPosition(userLocation);
             updateSpotsList(currentCategoryId);
+            // ローディングアニメーションを非表示
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
           }, function() {
             alert('位置情報の取得に失敗しました。');
             map.setCenter(defaultLocation); // 東京の座標
             updateSpotsList(currentCategoryId);
+            // ローディングアニメーションを非表示
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
         });
     } else {
         alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
         map.setCenter(defaultLocation); // 東京の座標
         updateSpotsList(currentCategoryId);
+
+      // ローディングアニメーションを非表示
+      if (loadingSpinner) {
+        loadingSpinner.style.display = 'none';
+      }
     }
 }
 
