@@ -2,6 +2,7 @@ let map, marker, markers = [];
 var apiKey = gon.api_key;
 var spots = gon.spots;
 let currentCategoryId = null;
+let activeMarker = null;
 
 const defaultLocation = { lat: 35.6803997, lng: 139.7690174 };
 
@@ -107,6 +108,7 @@ spots.forEach(function(spot) {
 
     marker.addListener('click', function() {
       updateInfoCard(spot);
+      addBounceAnimation(marker);
     });
   });
 
@@ -318,3 +320,23 @@ document.addEventListener("DOMContentLoaded", function() {
   showCurrentLocation();
   updateSpotsList();
 });
+
+
+function addBounceAnimation(marker) {
+  // 既存のアクティブなマーカーのアニメーションをクリア
+  if (activeMarker) {
+    activeMarker.setAnimation(null);
+  }
+  // クリックされたマーカーにバウンスアニメーションを追加
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  activeMarker = marker;
+}
+
+function clearAllAnimations() {
+  markers.forEach(marker => {
+    marker.setAnimation(null);
+  });
+}
+
+window.addBounceAnimation = addBounceAnimation
+window.clearAllAnimations = clearAllAnimations
