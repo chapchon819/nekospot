@@ -73,26 +73,35 @@
     </div>
 </section>
 
+<section>
+<div class="w-screen h-screen">
 <!-- Slider main container -->
-<div class="swiper w-full h-96">
+<div class="swiper w-full h-1/2">
   <!-- Additional required wrapper -->
-  <div class="swiper-wrapper">
+  <div class="swiper-wrapper ease-linear">
     <!-- Slides -->
-    <div class="swiper-slide">Slide 1</div>
-    <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
+    <% @cat_images.each do |image| %>
+      <div class="swiper-slide">
+            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+      </div>
+    <% end %>
     <!-- ... -->
   </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
-
-  <!-- If we need navigation buttons -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
-  <!-- If we need scrollbar -->
-  <div class="swiper-scrollbar"></div>
 </div>
+<!-- Slider main container -->
+<div class="swiper2 w-full h-1/2">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper ease-linear">
+    <!-- Slides -->
+    <% @cat_images.each do |image| %>
+      <div class="swiper-slide">
+            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+      </div>
+    <% end %>
+    <!-- ... -->
+  </div>
+</div>
+</section>
 
 <!-- Swiper JS -->
 
@@ -100,18 +109,39 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const swiper = new Swiper('.swiper', {
+    slidesPerView: 2,
     direction: 'horizontal', // or 'vertical' depending on your need
+    spaceBetween: 0,
     loop: true,
-    pagination: {
-      el: '.swiper-pagination',
+    speed: 3000, // ループの時間
+    allowTouchMove: false, // スワイプ無効
+    autoplay: {
+      reverseDirection: true, // 逆方向有効化
+      delay: 0, // 途切れなくループ
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+    breakpoints: {
+    767: {
+      slidesPerView: 5,
+      spaceBetween: 0
+    }
+  }
+  });
+    const swiper2 = new Swiper('.swiper2', {
+    slidesPerView: 2,
+    direction: 'horizontal', // or 'vertical' depending on your need
+    spaceBetween: 0,
+    loop: true,
+    speed: 3000, // ループの時間
+    allowTouchMove: false, // スワイプ無効
+    autoplay: {
+      delay: 0, // 途切れなくループ
     },
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
+    breakpoints: {
+    767: {
+      slidesPerView: 5,
+      spaceBetween: 0
+    }
+  }
   });
 });
 </script>
