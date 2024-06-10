@@ -69,39 +69,38 @@
             <div class="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
             <%= image_tag 'TOP画像2.png' %>
             </div>
-<%= render 'shared/login_modal' %>
     </div>
+    <%= render 'shared/login_modal' %>
 </section>
 
-<section>
-<div class="w-screen h-screen">
-<!-- Slider main container -->
-<div class="swiper w-full h-1/2">
-  <!-- Additional required wrapper -->
-  <div class="swiper-wrapper ease-linear">
-    <!-- Slides -->
-    <% @cat_images.each do |image| %>
-      <div class="swiper-slide">
-            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+
+  <div class="w-screen h-screen overflow-hidden">
+    <!-- Slider main container -->
+    <div class="swiper max-w-full h-1/2">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper ease-linear">
+        <!-- Slides -->
+        <% @cat_images.each do |image| %>
+          <div class="swiper-slide">
+              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+          </div>
+        <% end %>
+        <!-- ... -->
       </div>
-    <% end %>
-    <!-- ... -->
-  </div>
-</div>
-<!-- Slider main container -->
-<div class="swiper2 w-full h-1/2">
-  <!-- Additional required wrapper -->
-  <div class="swiper-wrapper ease-linear">
-    <!-- Slides -->
-    <% @cat_images.each do |image| %>
-      <div class="swiper-slide">
-            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+    </div>
+    <div class="swiper2 max-w-full h-1/2">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper !max-w-full">
+        <!-- Slides -->
+        <% @cat_images.each do |image| %>
+          <div class="swiper-slide">
+              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+          </div>
+        <% end %>
+        <!-- ... -->
       </div>
-    <% end %>
-    <!-- ... -->
+    </div>
   </div>
-</div>
-</section>
 
 <!-- Swiper JS -->
 
