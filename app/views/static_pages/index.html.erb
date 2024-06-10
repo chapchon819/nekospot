@@ -1,74 +1,128 @@
 <div class="bg-primary">
-  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-    <header class="mb-4 flex items-center justify-between py-4 md:py-8">
+  <div class="mx-auto max-w-screen-2xl px-4" data-controller="login-modal">
+
+
+    <header class="mx-auto flex items-center justify-between fixed top-0 left-0 z-50 w-full">
       <!-- logo - start -->
-      <a href="/" class="inline-flex items-center gap-2.5 text-xl font-bold text-secondary md:text-3xl font-zenmaru font-bold" aria-label="logo">
+      <a href="/" class="inline-flex px-4 items-center text-3xl text-white font-zenmaru font-bold" aria-label="logo">
 
         NekoSpot
       </a>
       <!-- logo - end -->
 
-      <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-primary px-2.5 py-2 text-sm font-semibold text-secondary ring-indigo-300 focus-visible:ring active:text-gray-700 md:text-base">
-      <div class="drawer drawer-end">
-      <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content">
-        <!-- Page content here -->
-        <label for="my-drawer-4" class="drawer-button btn-circle swap swap-rotate">
-        <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" />
-        
-        <!-- hamburger icon -->
-        <svg class="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"/></svg>
-        
-        
-      </label>
-        </label>
+      <div>
+        <button type="button" data-action="click->login-modal#openModal" class="inline-flex flex-col items-center justify-center py-4 px-4 hover:bg-accent group">
+            <i class="ph-bold ph-sign-in fa-lg w-5 h-4 mt-2 text-white" aria-hidden="true"></i>
+            <span class="text-[12px] text-white dark:text-gray-400">Login</span>
+        </button>
       </div>
-      <div class="drawer-side z-10">
-        <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu p-4 w-80 min-h-full bg-primary text-secondary">
-        <li class="text-right">
-        <label for="my-drawer-4" class="btn-close p-2 btn-circle">
-        <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
-        </label>
-      </li>
-          <!-- Sidebar content here -->
-          <li><a>Sidebar Item </a></li>
-          <li><a>Sidebar Item 2</a></li>
-        </ul>
-      </div>
+    <%= render 'shared/login_modal' %>
     </div>
-
-
-
-      <!-- buttons - end -->
-    </header>
+  </header>
 
 
   </div>
 </div>
 
-<section class="min-h-72 bg-white rounded-b-lg rounded-lg shadow-lg" data-controller="login-modal">
-    <div class="container px-6 py-16 mx-auto">
-        <div class="items-center lg:flex">
-            <div class="w-full lg:w-1/2">
-                <div class="lg:max-w-lg">
-                    <h1 class="text-3xl font-semibold font-zenmaru font-bold text-neutral lg:text-4xl">猫と出会える,ふれあえる<br>スポットが見つかる</h1>
-                    
-                    <p class="mt-3 text-secondary my-6 font-zenmaru">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro beatae error laborum ab amet sunt recusandae? Reiciendis natus perspiciatis optio.</p>
-                    <div class="mx-auto flex md:w-full w-11/12 justify-center gap-2.5 fixed bottom-5 z-50 md:relative">
-                    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-1/2 inline-block rounded-full bg-accent px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
+
+  <div class="w-screen h-screen overflow-hidden relative">
+    <!-- Slider main container -->
+    <div class="swiper max-w-full h-1/2">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper ease-linear">
+        <!-- Slides -->
+        <% @cat_images.each do |image| %>
+          <div class="swiper-slide">
+              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+          </div>
+        <% end %>
+        <!-- ... -->
+      </div>
+    </div>
+    <div class="swiper2 max-w-full h-1/2">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper !max-w-full">
+        <!-- Slides -->
+        <% @cat_images.each do |image| %>
+          <div class="swiper-slide">
+              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+          </div>
+        <% end %>
+        <!-- ... -->
+      </div>
+    </div>
+      <div class="absolute inset-0 bg-neutral-600 bg-opacity-50 flex items-center justify-center z-10">
+
+<section class="min-h-72 rounded-b-lg rounded-lg shadow-lg" data-controller="login-modal">
+    <div class="container md:py-16 mx-auto">
+        <div class="items-center md:flex">
+            <div class="w-full md:w-3/4">
+                <div class="flex md:flex-col items-center justify-center w-full">
+                    <h1 class="hidden md:block text-2xl font-semibold font-zenmaru text-white lg:text-4xl">猫との素敵な出会いをここで</h1>
+                    <div class="mx-auto md:mt-12 flex w-11/12 md:w-full justify-center fixed bottom-5 z-50 md:relative">
+                    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-full inline-block rounded-full bg-accent px-8 py-4 text-center text-sm md:text-base font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
                       <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
                       <% end %>
-                    <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 hover:text-white text-secondary hover:bg-accent bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" data-action="click->login-modal#openModal"><i class="ph-bold ph-sign-in fa-lg"></i> ログイン</button>
                     
                     </div>
                 </div>
             </div>
 
-            <div class="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-            <%= image_tag 'TOP画像2.png' %>
+            <div class="flex-col items-center justify-center w-full md:w-1/2 relative">
+            <h1 class="md:hidden text-2xl font-semibold font-zenmaru text-white md:text-4xl absolute top-4">猫との素敵な出会いをここで</h1>
+            <%= image_tag 'phone.png', :size =>'320x480' %>
             </div>
-<%= render 'shared/login_modal' %>
     </div>
+    <%= render 'shared/login_modal' %>
 </section>
+
+    
+  </div>
+  </div>
+
+    <div class="mx-auto flex w-11/12 justify-center hidden fixed bottom-5 md:right-12 z-50 md:hidden">
+  <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 md:w-1/2 inline-block rounded-full bg-accent px-8 py-4 text-center text-md font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring md:w-1/2" do %>
+    <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+    <% end %>
+  </div>
+
+<!-- Swiper JS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 2,
+    direction: 'horizontal', // or 'vertical' depending on your need
+    spaceBetween: 0,
+    loop: true,
+    speed: 3000, // ループの時間
+    allowTouchMove: false, // スワイプ無効
+    autoplay: {
+      reverseDirection: true, // 逆方向有効化
+      delay: 0, // 途切れなくループ
+    },
+    breakpoints: {
+    767: {
+      slidesPerView: 5,
+      spaceBetween: 0
+    }
+  }
+  });
+    const swiper2 = new Swiper('.swiper2', {
+    slidesPerView: 2,
+    direction: 'horizontal', // or 'vertical' depending on your need
+    spaceBetween: 0,
+    loop: true,
+    speed: 3000, // ループの時間
+    allowTouchMove: false, // スワイプ無効
+    autoplay: {
+      delay: 0, // 途切れなくループ
+    },
+    breakpoints: {
+    767: {
+      slidesPerView: 5,
+      spaceBetween: 0
+    }
+  }
+  });
+});
+</script>

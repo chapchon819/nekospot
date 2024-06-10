@@ -1,5 +1,9 @@
 class StaticPagesController < ApplicationController
-  def index; end
+  def index
+    cat_image_ids = SpotImage.where(cat: true).pluck(:id)
+    random_ids = cat_image_ids.sample(20)
+    @cat_images = SpotImage.where(id: random_ids)
+  end
 
   def privacy_policy; end
 
