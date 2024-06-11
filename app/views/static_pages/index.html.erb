@@ -1,91 +1,78 @@
 <div class="bg-primary">
   <div class="mx-auto max-w-screen-2xl px-4" data-controller="login-modal">
-
-
     <header class="mx-auto flex items-center justify-between fixed top-0 left-0 z-50 w-full">
-      <!-- logo - start -->
       <a href="/" class="inline-flex px-4 items-center text-3xl text-white font-zenmaru font-bold" aria-label="logo">
-
         NekoSpot
       </a>
-      <!-- logo - end -->
-
       <div>
         <button type="button" data-action="click->login-modal#openModal" class="inline-flex flex-col items-center justify-center py-4 px-4 hover:bg-accent group">
             <i class="ph-bold ph-sign-in fa-lg w-5 h-4 mt-2 text-white" aria-hidden="true"></i>
             <span class="text-[12px] text-white dark:text-gray-400">Login</span>
         </button>
       </div>
-    <%= render 'shared/login_modal' %>
-    </div>
-  </header>
-
-
+      <%= render 'shared/login_modal' %>
+    </header>
   </div>
 </div>
 
 
-  <div class="w-screen h-screen overflow-hidden relative">
-    <!-- Slider main container -->
-    <div class="swiper max-w-full h-1/2">
-      <!-- Additional required wrapper -->
-      <div class="swiper-wrapper ease-linear">
-        <!-- Slides -->
-        <% @cat_images.each do |image| %>
-          <div class="swiper-slide">
-              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+
+<div class="w-screen h-screen overflow-hidden relative">
+  <!-- Slider main container -->
+  <div class="swiper max-w-full h-1/2">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper ease-linear">
+      <!-- Slides -->
+      <% @cat_images.each do |image| %>
+        <div class="swiper-slide">
+            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+        </div>
+      <% end %>
+      <!-- ... -->
+    </div>
+  </div>
+  <div class="swiper2 max-w-full h-1/2">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper !max-w-full">
+      <!-- Slides -->
+      <% @cat_images.each do |image| %>
+        <div class="swiper-slide">
+            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+        </div>
+      <% end %>
+      <!-- ... -->
+    </div>
+  </div>
+  <div class="absolute inset-0 bg-neutral-600 bg-opacity-50 flex items-center justify-center z-10">
+    <div class="min-h-72" data-controller="login-modal">
+      <div class="container md:py-16 mx-auto">
+        <div class="items-center w-full md:flex">
+          <div class="w-full md:w-3/4">
+            <div class="flex md:flex-col items-center justify-center w-full">
+              <h1 class="hidden md:block text-2xl font-semibold font-zenmaru text-white lg:text-4xl">猫との素敵な出会いをここで</h1>
+              <div class="mx-auto md:mt-12 flex w-11/12 md:w-full justify-center fixed bottom-5 z-50 md:relative">
+                <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-full inline-block rounded-full bg-accent px-8 py-4 text-center text-sm md:text-base font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
+                  <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+                <% end %>          
+              </div>
+            </div>
           </div>
-        <% end %>
-        <!-- ... -->
+          <div class="mt-4 md:mt-0 flex-col items-center justify-center w-full md:w-1/2 relative ">
+            <h1 class="md:hidden w-full mx-auto text-center text-2xl font-semibold font-zenmaru text-white md:text-4xl absolute top-1 pb-2">猫との素敵な出会いをここで</h1>
+            <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
+            <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
+          </div>
+        </div>
+        <%= render 'shared/login_modal' %>
       </div>
     </div>
-    <div class="swiper2 max-w-full h-1/2">
-      <!-- Additional required wrapper -->
-      <div class="swiper-wrapper !max-w-full">
-        <!-- Slides -->
-        <% @cat_images.each do |image| %>
-          <div class="swiper-slide">
-              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
-          </div>
-        <% end %>
-        <!-- ... -->
-      </div>
-    </div>
-      <div class="absolute inset-0 bg-neutral-600 bg-opacity-50 flex items-center justify-center z-10">
-
-<section class="min-h-72 rounded-b-lg rounded-lg shadow-lg" data-controller="login-modal">
-    <div class="container md:py-16 mx-auto">
-        <div class="items-center md:flex">
-            <div class="w-full md:w-3/4">
-                <div class="flex md:flex-col items-center justify-center w-full">
-                    <h1 class="hidden md:block text-2xl font-semibold font-zenmaru text-white lg:text-4xl">猫との素敵な出会いをここで</h1>
-                    <div class="mx-auto md:mt-12 flex w-11/12 md:w-full justify-center fixed bottom-5 z-50 md:relative">
-                    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-full inline-block rounded-full bg-accent px-8 py-4 text-center text-sm md:text-base font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
-                      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
-                      <% end %>
-                    
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex-col items-center justify-center w-full md:w-1/2 relative">
-            <h1 class="md:hidden text-2xl font-semibold font-zenmaru text-white md:text-4xl absolute top-4">猫との素敵な出会いをここで</h1>
-            <%= image_tag 'phone.png', :size =>'320x480' %>
-            </div>
-    </div>
-    <%= render 'shared/login_modal' %>
-</section>
-
-    
   </div>
-  </div>
-
-    <div class="mx-auto flex w-11/12 justify-center hidden fixed bottom-5 md:right-12 z-50 md:hidden">
-  <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 md:w-1/2 inline-block rounded-full bg-accent px-8 py-4 text-center text-md font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring md:w-1/2" do %>
-    <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+  <div class="mx-auto flex w-11/12 justify-center hidden fixed bottom-5 md:right-12 z-50 md:hidden">
+    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 md:w-1/2 inline-block rounded-full bg-accent px-8 py-4 text-center text-md font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring md:w-1/2" do %>
+      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
     <% end %>
   </div>
-
+</div>
 <!-- Swiper JS -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
