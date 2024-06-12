@@ -5,6 +5,10 @@ class Spot < ApplicationRecord
                    lat_column_name: :latitude,
                    lng_column_name: :longitude
 
+  enum foster_parents: { no_recruitment: 0, recruitment: 1 }
+  enum adoption_event: { not_held: 0, held: 1 }
+  enum age_limit: { no_listed: 0, no_limit: 1, walking_age: 2, three_and_above: 3, six_and_above: 6, middle_school_and_above: 12 }
+
   has_many :spot_images, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :spot_bookmarks, dependent: :destroy
