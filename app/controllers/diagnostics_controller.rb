@@ -13,8 +13,6 @@ class DiagnosticsController < ApplicationController
         #params[:answer_id]で選択された回答を取得しselected_answerにセット
         selected_answer = @question.diagnostic_answers.find(params[:answer_id])
         Rails.logger.debug "選んだ回答: #{selected_answer.inspect}"
-
-
         
         # クッキーでスコアを保存するためにupdate_scores_in_cookieを呼び出す
         update_scores_in_cookie(selected_answer)
@@ -58,12 +56,32 @@ class DiagnosticsController < ApplicationController
                 flash[:error] = "該当するカテゴリが見つかりませんでした。"
                 redirect_to start_diagnostics_path
             else
+            # クッキーから選択された回答を取得
+            selected_answers = cookies[:selected_answers] ? JSON.parse(cookies[:selected_answers]) : []
+            Rails.logger.debug "クッキーに保存された選択された回答: #{cookies[:selected_answers].inspect}"
 
-            spots_with_high_rating = @top_category.spots.where("rating >= ?", 4)
+            # 初期条件を設定
+            spots = @top_category.spots
+            Rails.logger.debug "絞り込み前のスポット: #{spots.inspect}"
+
+            # "新しい家族🐈探し"が含まれている場合
+            if selected_answers.include?("新しい家族🐈探し")
+                spots = spots.where(foster_parents: :recruitment)
+                Rails.logger.debug "新しい家族🐈探しで絞り込んだ後のスポット: #{spots.inspect}"
+            end
+            
+            # "子供連れ"が含まれている場合
+            if selected_answers.include?("子供連れ")
+                spots = spots.where(age_limit: :unlimited)
+                Rails.logger.debug "子供連れで絞り込んだ後のスポット: #{spots.inspect}"
+            end
+            
+            # 高評価のスポットを絞り込み
+            spots_with_high_rating = spots.where("rating >= ?", 4)
             if spots_with_high_rating.exists?
-              @recommend_spot = spots_with_high_rating.sample
+                @recommend_spot = spots_with_high_rating.sample
             else
-              @recommend_spot = @top_category.spots.sample
+                @recommend_spot = spots.sample
             end
           end
         end
