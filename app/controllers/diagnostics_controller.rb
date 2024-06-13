@@ -108,5 +108,6 @@ class DiagnosticsController < ApplicationController
 
     def clear_scores #クッキーを削除
         cookies.delete(:scores)
+        cookies.delete(:selected_answers)
     end
 end
