@@ -1,0 +1,11 @@
+<h1><%= question.question %></h1>
+
+<%= form_with url: diagnostic_answer_question_path(question), method: :post, remote: true do |f| %>
+  <% question.diagnostic_answers.each do |answer| %>
+    <div>
+      <%= radio_button_tag :answer_id, answer.id %>
+      <%= label_tag :answer_id, answer.answer %>
+    </div>
+  <% end %>
+  <%= f.submit "次へ" %>
+<% end %>

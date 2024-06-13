@@ -1,0 +1,11 @@
+<div data-controller="diagnostic">
+  <%= form_with url: answer_question_diagnostic_path(@question), method: :post, remote: true, data: { target: "diagnostic.form" } do |f| %>
+    <% @question.diagnostic_answers.each do |answer| %>
+      <div>
+        <%= radio_button_tag :answer_id, answer.id %>
+        <%= label_tag :answer_id, answer.answer %>
+      </div>
+    <% end %>
+    <%= f.submit "次へ" %>
+  <% end %>
+</div>

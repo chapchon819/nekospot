@@ -1,0 +1,6 @@
+<% if @top_category.present? %>
+    <h1>あなたにおすすめのカテゴリーは<%= @top_category %>です。</h1>
+<% else %>
+    <h1>診断結果が見つかりませんでした。</h1>
+    <%= link_to '診断を再開する', start_diagnostics_path, class: 'btn btn-primary' %>
+<% end %>
