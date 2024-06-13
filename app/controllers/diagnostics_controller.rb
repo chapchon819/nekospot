@@ -30,13 +30,35 @@ class DiagnosticsController < ApplicationController
         scores = cookies[:scores] ? JSON.parse(cookies[:scores]) : {} #cookies[:scores]が存在するかどうかをチェックし、存在すればJSON形式の文字列からRubyのハッシュに変換
         Rails.logger.debug "Scores: #{scores.inspect}"
 
-        @top_category = scores.max_by { |_, score| score }&.first #最もスコアの高いカテゴリを取得
-        
-        if @top_category.nil? #@top_categoryがnilの場合、エラーメッセージを表示診断開始画面にリダイレクト
+        # 最も高いスコアを取得
+        max_score = scores.values.max
+        Rails.logger.debug "Max Score: #{max_score.inspect}"
+
+        # 最も高いスコアを持つカテゴリを全て集める
+        top_categories = scores.select { |_, score| score == max_score }.keys
+        Rails.logger.debug "Top Categories: #{top_categories.inspect}"
+
+        # ランダムに1つのカテゴリ名を選択
+        top_category_name = top_categories.sample
+        Rails.logger.debug "Selected Top Category Name: #{top_category_name.inspect}"
+
+        if top_category_name.nil?
             flash[:error] = "診断結果が見つかりませんでした。診断を最初からやり直してください。"
             redirect_to start_diagnostics_path
-        else #結果ページをレンダリング
-            render 'result'
+        else
+            @top_category = Category.find_by(name: top_category_name)
+            if @top_category.nil?
+                flash[:error] = "該当するカテゴリが見つかりませんでした。"
+                redirect_to start_diagnostics_path
+            else
+
+            spots_with_high_rating = @top_category.spots.where("rating >= ?", 4)
+            if spots_with_high_rating.exists?
+              @recommend_spot = spots_with_high_rating.sample
+            else
+              @recommend_spot = @top_category.spots.sample
+            end
+          end
         end
     end
 
