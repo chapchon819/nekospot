@@ -12,9 +12,16 @@ class DiagnosticsController < ApplicationController
     def answer_question 
         #params[:answer_id]で選択された回答を取得しselected_answerにセット
         selected_answer = @question.diagnostic_answers.find(params[:answer_id])
+        Rails.logger.debug "選んだ回答: #{selected_answer.inspect}"
+
+
         
         # クッキーでスコアを保存するためにupdate_scores_in_cookieを呼び出す
         update_scores_in_cookie(selected_answer)
+
+        # クッキーで回答を保存するためにupdate_answers_in_cookieを呼び出す
+        update_answers_in_cookie(selected_answer)
+        Rails.logger.debug "クッキーに保存された選択された回答: #{cookies[:selected_answers].inspect}"
         
         #次の質問を取得し
         next_question = DiagnosticQuestion.where("id > ?", @question.id).first
@@ -83,6 +90,20 @@ class DiagnosticsController < ApplicationController
         #更新したスコアをクッキーに保存(有効期限は1日)
         cookies[:scores] = { value: JSON.generate(scores), expires: 1.day.from_now }
         Rails.logger.debug "Scores Saved to Cookie: #{cookies[:scores]}"
+    end
+
+    def update_answers_in_cookie(answer)
+        # クッキーから選択された回答を取得しselected_answersに格納
+        selected_answers = cookies[:selected_answers] ? JSON.parse(cookies[:selected_answers]) : []
+        Rails.logger.debug "Initial Selected Answers from Cookie: #{selected_answers.inspect}"
+    
+        # 選択された回答を追加
+        selected_answers << answer.answer
+        Rails.logger.debug "Updated Selected Answers: #{selected_answers.inspect}"
+    
+        # 更新した選択された回答をクッキーに保存(有効期限は1日)
+        cookies[:selected_answers] = { value: JSON.generate(selected_answers), expires: 1.day.from_now }
+        Rails.logger.debug "Selected Answers Saved to Cookie: #{cookies[:selected_answers]}"
     end
 
     def clear_scores #クッキーを削除
