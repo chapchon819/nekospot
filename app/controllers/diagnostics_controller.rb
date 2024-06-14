@@ -7,7 +7,10 @@ class DiagnosticsController < ApplicationController
         session[:diagnostic] = { scores: {} } #セッションに診断のスコアを格納するためのハッシュを初期化
     end
 
-    def show_question ;end #idを使って対象の質問を取得し@questionにセット
+    def show_question #idを使って対象の質問を取得し@questionにセット
+        questions = DiagnosticQuestion.order(:id)
+        @current_question_index = questions.index(@question) + 1
+    end 
     
     def answer_question 
         #params[:answer_id]で選択された回答を取得しselected_answerにセット
