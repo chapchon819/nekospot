@@ -14,7 +14,22 @@ class Spot < ApplicationRecord
   has_many :spot_bookmarks, dependent: :destroy
   belongs_to :category
   belongs_to :prefecture, class_name: 'Prefecture', foreign_key: 'prefecture_id', optional: true
-  validates :name, :latitude, :longitude, :place_id, presence: true, uniqueness: true
+  validates :name, :latitude, :longitude, :place_id, presence: true, uniqueness: true  
+  
+  #enumの日本語化
+  def foster_parents_i18n
+    I18n.t("activerecord.attributes.spot.foster_parents.#{foster_parents}")
+  end
+
+  def adoption_event_i18n
+    I18n.t("activerecord.attributes.spot.adoption_event.#{adoption_event}")
+  end
+
+  def age_limit_i18n
+    I18n.t("activerecord.attributes.spot.age_limit.#{age_limit}")
+  end
+
+
 
   # 猫の画像を優先的に表示させるメソッド
   def prioritized_spot_image #SpotImageの中で、cat属性がtrueのものを優先的に取得し、存在しない場合は最初のSpotImageを取得する

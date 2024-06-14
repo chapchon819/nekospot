@@ -18,24 +18,25 @@
             <%= link_to spot_path(@recommend_spot), data: { turbo: false } do %>
                 <div class="font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"><%= @recommend_spot.name %></div>
             <% end %>
+            <p class="md:hidden text-secondary font-semibold text-sm pt-1">⭐️ <%= @recommend_spot.rating %></p>
             <div class="justify-between flex items-end h-full md:space-x-4 space-x-2">
                 <div class="flex space-x-2">
                     <% if @recommend_spot.foster_parents_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="md:hidden text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.foster_parents %></p>
+                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.foster_parents_i18n %></p>
                         </div>
                     <% end %>
                     <% if @recommend_spot.adoption_event_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.adoption_event %></p>
+                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.adoption_event_i18n %></p>
                         </div>
                     <% end %>
                     <% if @recommend_spot.age_limit_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.age_limit %></p>
+                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.age_limit_i18n %></p>
                         </div>
                     <% end %>
-                        <p class="text-secondary">⭐️ <%= @recommend_spot.rating %></p>
+                    <p class="md:block hidden text-secondary font-semibold text-sm pt-1">⭐️ <%= @recommend_spot.rating %></p>
                 </div>
                 <div class="flex space-x-2">
                     <%= render 'spots/bookmark_buttons', { spot: @recommend_spot } %>
