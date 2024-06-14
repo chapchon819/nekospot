@@ -3,6 +3,7 @@ ja:
     models:
         user: 'ユーザー'
         review: 'レビュー'
+        spot: 'スポット'
     attributes:
       user:
         name: 'ユーザー名'
@@ -10,3 +11,17 @@ ja:
       review:
         rating: '評価'
         body: 'コメント'
+      spot:
+        foster_parents:
+          no_recruitment: '里親募集なし'
+          recruitment: '里親募集中'
+        adoption_event:
+          unheld: '譲渡会開催なし'
+          held: '譲渡会開催あり'
+        age_limit:
+          no_listed: '記載なし'
+          unlimited: '年齢制限なし'
+          walking_age: '歩ける年齢からOK'
+          three_and_above: '3歳以上OK'
+          six_and_above: '6歳以上OK'
+          middle_school_and_above: '中学生以上OK'

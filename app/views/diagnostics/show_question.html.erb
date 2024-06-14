@@ -1,0 +1,32 @@
+<div data-controller="diagnostic">
+    <div class="flex justify-center items-center h-screen w-screen text-secondary">
+        <%= form_with url: answer_question_diagnostic_path(@question), method: :post, data: { diagnostic_target: "form" } do |f| %>
+            <div data-diagnostic-target="errorMessage" class="hidden w-full p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" data-diagnostic-target="errorMessage">
+                <i class="ph-fill ph-paw-print"></i> 回答を選択してください
+            </div>
+            <div class="flex-col font-zenmaru text-2xl font-bold flex justify-center py-8 text-center space-y-4">
+                <h2>Q <%= @current_question_index %></h2>
+                <h2><%= @question.question %></h2>
+            </div>
+            <div class="space-y-4" data-diagnostic-target="answers">
+                <% @question.diagnostic_answers.each do |answer| %>
+                    <div data-action="click->diagnostic#selectAnswer" data-diagnostic-target="answer" data-id="<%= answer.id %>" class="btn flex justify-start items-center bg-primary rounded-full shadow-md hover:shadow-none hover:bg-primary-hover">
+                        <%= radio_button_tag :answer_id, answer.id, class: "hidden" %>
+                        <%= label_tag :answer_id, answer.answer %>
+                    </div>
+                <% end %>
+            </div>
+            
+            <div class="flex justify-center items-center py-8">
+                <%= button_tag type: 'submit', class: "btn bg-accent text-white shadow-md hover:shadow-none hover:bg-accent-hover" do %>
+                    <% if @question.last? %>
+                        結果を見る
+                    <% else %>
+                        次へ
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>
+

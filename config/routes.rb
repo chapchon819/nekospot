@@ -22,6 +22,16 @@ Rails.application.routes.draw do
   end
   resources :spot_bookmarks, only: %i[create destroy]
   resources :helpfuls, only: %i[create destroy]
+  resources :diagnostics, only: [] do
+    member do
+      get 'question', to: 'diagnostics#show_question', as: 'question'
+      post 'answer_question', to: 'diagnostics#answer_question'
+    end
+    collection do
+      get 'start', to: 'diagnostics#start'
+      get 'result', to: 'diagnostics#result'
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
