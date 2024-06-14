@@ -3,6 +3,7 @@ ja:
     models:
         user: 'ユーザー'
         review: 'レビュー'
+        spot: 'スポット'
     attributes:
       user:
         name: 'ユーザー名'

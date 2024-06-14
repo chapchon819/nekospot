@@ -12,6 +12,11 @@ module ApplicationHelper
       turbo_stream.update "flash", partial: "layouts/flash_messages"
     end
 
+    # 猫の画像を優先的に表示させるメソッド
+    def prioritized_spot_image #SpotImageの中で、cat属性がtrueのものを優先的に取得し、存在しない場合は最初のSpotImageを取得する
+      spot_images.find_by(cat: true) || spot_images.first
+    end
+
     def formatted_address(address)
       # 正規表現で都道府県、市区町村、以降の住所を抽出
       match_data = address.match(/(?<prefecture>東京都|北海道|(?:京都|大阪)府|.{2,3}県)(?<city>[^区町村]+[市町村])?(?<ward>[^区町村]*区)?/)

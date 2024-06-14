@@ -1,0 +1,45 @@
+<div class="bg-white shadow-sm flex md:flex-col mx-auto w-full h-full md:w-1/2 border rounded-xl md:mb-50 hover:shadow-lg group my-3">
+    <div class="flex-shrink-0 rounded-l-xl md:rounded-t-xl md:rounded-b-none relative overflow-hidden h-32 w-1/3 md:h-42 md:w-full md:rounded-t-xl">
+        <%= link_to spot_path(@recommend_spot), data: { turbo: false } do %>
+            <% prioritized_image = @recommend_spot.prioritized_spot_image %>
+            <% if prioritized_image.present? %>
+                <img src="https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=<%= prioritized_image.image %>&key=<%= ENV['GMAP_API_KEY'] %>" class="w-full h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl" alt="Image Description">
+            <% else %>
+                <% image_tag('default.png', class: "h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-1/2 transform -translate-x-1/2 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl")%>
+            <% end %>
+        <% end %>
+    </div>
+    <div class="flex flex-wrap w-full md:h-full">
+        <div class="p-4 md:p-2.5 flex flex-col h-full sm:p-7 w-full md:relative">
+            <div class="hidden md:block bg-accent absolute top-0 -mt-3 flex items-center px-3 py-1.5 leading-none w-auto inline-block rounded-full text-xs font-medium uppercase text-white inline-block">
+                <span><%= @recommend_spot.category.name %></span>
+            </div>
+            <p class="md:px-1.5 md:mt-2 text-xs text-secondary dark:text-neutral-500"><%= formatted_address(@recommend_spot.address) %></p>
+            <%= link_to spot_path(@recommend_spot), data: { turbo: false } do %>
+                <div class="font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"><%= @recommend_spot.name %></div>
+            <% end %>
+            <div class="justify-between flex items-end h-full md:space-x-4 space-x-2">
+                <div class="flex space-x-2">
+                    <% if @recommend_spot.foster_parents_before_type_cast == 1 %>
+                        <div class="inline-flex">
+                            <p class="md:hidden text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.foster_parents %></p>
+                        </div>
+                    <% end %>
+                    <% if @recommend_spot.adoption_event_before_type_cast == 1 %>
+                        <div class="inline-flex">
+                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.adoption_event %></p>
+                        </div>
+                    <% end %>
+                    <% if @recommend_spot.age_limit_before_type_cast == 1 %>
+                        <div class="inline-flex">
+                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.age_limit %></p>
+                        </div>
+                    <% end %>
+                        <p class="text-secondary">⭐️ <%= @recommend_spot.rating %></p>
+                </div>
+                <div class="flex space-x-2">
+                    <%= render 'spots/bookmark_buttons', { spot: @recommend_spot } %>
+                </div>
+            </div>
+        </div>
+    </div>

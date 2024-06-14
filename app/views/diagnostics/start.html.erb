@@ -1,11 +1,11 @@
-<div class="flex justify-center items-center w-screen h-screen">
-<div class="">
-    <%= image_tag 'diagnostic.png', :size =>'480x480', class: 'hidden md:block' %>
-    <%= image_tag 'diagnostic.png', :size =>'400x400', class: 'md:hidden' %>
-<div class="flex justify-center items-center">
-    <%= link_to "診断スタート", question_diagnostic_path(@question), class: "inline-flex items-center shadow-md justify-center w-3/4 my-8 px-8 py-4 text-base font-bold leading-6 text-white bg-accent border border-transparent rounded-full md:w-auto hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent" %>
-</div>
-</div>
+<div class="flex justify-center items-center w-screen h-screen md:mt-20">
+    <div>
+        <%= image_tag 'diagnostic.png', :size =>'480x480', class: 'hidden md:block' %>
+        <%= image_tag 'diagnostic.png', :size =>'400x400', class: 'md:hidden' %>
+        <div class="flex justify-center items-center">
+            <%= link_to "診断スタート", question_diagnostic_path(@question), class: "inline-flex items-center shadow-md justify-center w-3/4 my-8 px-8 py-4 text-base font-bold leading-6 text-white bg-accent border border-transparent rounded-full hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent" %>
+        </div>
+    </div>
 </div>
 
 
