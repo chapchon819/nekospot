@@ -1,7 +1,7 @@
 <div data-controller="diagnostic">
     <div class="flex justify-center items-center h-screen w-screen text-secondary">
         <%= form_with url: answer_question_diagnostic_path(@question), method: :post, data: { diagnostic_target: "form" } do |f| %>
-            <div data-diagnostic-target="errorMessage" class="hidden p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" data-diagnostic-target="errorMessage">
+            <div data-diagnostic-target="errorMessage" class="hidden w-full p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" data-diagnostic-target="errorMessage">
                 <i class="ph-fill ph-paw-print"></i> 回答を選択してください
             </div>
             <div class="flex-col font-zenmaru text-2xl font-bold flex justify-center py-8 text-center space-y-4">

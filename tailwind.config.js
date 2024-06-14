@@ -11,7 +11,7 @@ module.exports = {
         'line-click': '#059540',
         'google-hover': '#F2F2F2',
         'google-text': '#1F1F1F',
-        'accent-hover': '#ff5880',
+        'accent-hover': '#FF7D6C',
         'primary-hover': '#F1D0BD',
       },
     },
