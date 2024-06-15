@@ -1,32 +1,33 @@
 <div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
-  <div class="relative overflow-hidden" data-controller="carousel">
-    <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
-      <% prioritized_image = @spot.prioritized_spot_image %>
-      <% if prioritized_image.present? %>
-        <div data-carousel-target="item" class="inline-block w-full">
-          <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
-        </div>
-      <% else %>
-        <div data-carousel-target="item" class="inline-flex w-full justify-center">
-          <%= image_tag 'default.png', class: "h-full object-cover ", alt: "Default Image" %>
-        </div>
-      <% end %>
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <% prioritized_image = @spot.prioritized_spot_image %>
+    <% if prioritized_image.present? %>
+      <div class="swiper-slide h-96 w-full">
+        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
+      </div>
+    <% else %>
+      <div class="swiper-slide h-96 w-full">
+        <%= image_tag 'default.png', class: "w-full h-full object-cover", alt: "Default Image" %>
+      </div>
+    <% end %>
 
-      <% if @spot.spot_images.any? %>
-        <% @spot.spot_images.each_with_index do |image, index| %>
-          <% unless image == prioritized_image %>
-            <div data-carousel-target="item" class="inline-block w-full">
-              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
-            </div>
-          <% end %>
+    <% if @spot.spot_images.any? %>
+      <% @spot.spot_images.each_with_index do |image, index| %>
+        <% unless image == prioritized_image %>
+          <div class="swiper-slide h-96 w-full">
+            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
+          </div>
         <% end %>
       <% end %>
-    </div>
-    <% if prioritized_image.present? %>
-      <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
-      <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
     <% end %>
   </div>
+  <!-- Add Pagination and Navigation -->
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev swiper-button-white"></div>
+  <div class="swiper-button-next swiper-button-white"></div>
+  <div class="swiper-scrollbar"></div>
+</div>
 
   <!-- スポット詳細タブ -->
   <div class="flex flex-col items-center justify-center w-full md:mt-4">
@@ -170,4 +171,36 @@
     <%= render 'shared/login_modal' %>
   </div>
 
+
+  <style>
+  /* 前後ボタンの色 */
+.swiper-button-next::after,
+.swiper-button-prev::after{
+    color: #FAEEE7;
+}
+
+/* ページネーション現在地の色 */
+.swiper-pagination-bullet-active{
+    background-color: #FAEEE7;
+}
+  </style>
+
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  var mySwiper = new Swiper('.mySwiper', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+  });
+});
+</script>
