@@ -63,34 +63,32 @@
                 </div>
               </div>
             </div>
-
-            <div class="my-4 text-secondary">
-              <p class="text-sm pb-4 pt-8"><i class="ph ph-megaphone"></i> 最新情報</p>
-              <a class="twitter-timeline" data-height="300" href="https://twitter.com/819Chapchon?ref_src=twsrc%5Etfw">Tweets by 819Chapchon</a>
-            </div>
-
-
-             
+            <% if @spot.x_account.present? %>
+              <div class="my-4 text-secondary hidden md:block">
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph ph-megaphone"></i> 最新情報</p>
+                <a class="twitter-timeline" data-height="400" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
+              </div>
+            <% end %>
             <% if @spot.opening_hours.present? %>
               <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8"><i class="ph-bold ph-clock"></i> 営業時間</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-clock"></i> 営業時間</p>
                   <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
               </div>
             <% end %>
             <% if @spot.phone_number.present? %>
               <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-phone"></i> 電話番号</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-phone"></i> 電話番号</p>
                 <p class="text-lg"><%= @spot.phone_number %></p>
               </div>
             <% end %>
             <% if @spot.web_site.present? %>
               <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-browser"></i> 公式サイト</p>
                 <%= link_to @spot.web_site, @spot.web_site, class: "text-sm", target: :_blank %>
               </div>
             <% end %>
         <div class="my-4 text-secondary">
-          <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
+          <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-map-pin"></i> 住所</p>
           <div class="flex justify-start">
             <div>
               <p class="text-sm"><%= @spot.postal_code %></p>
