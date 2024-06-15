@@ -1,4 +1,4 @@
-<div class="bg-white shadow-sm flex md:flex-col mx-auto w-full h-full md:w-1/2 border rounded-xl md:mb-50 hover:shadow-lg group my-3">
+<div class="bg-white shadow-sm flex md:flex-col mx-auto w-full h-full md:w-1/2 border rounded-xl md:mb-50 hover:shadow-lg group my-3" data-controller="login-modal">
     <div class="flex-shrink-0 rounded-l-xl md:rounded-t-xl md:rounded-b-none relative overflow-hidden h-32 w-1/3 md:h-42 md:w-full md:rounded-t-xl">
         <%= link_to spot_path(@recommend_spot), data: { turbo: false } do %>
             <% prioritized_image = @recommend_spot.prioritized_spot_image %>
@@ -39,7 +39,22 @@
                     <p class="md:block hidden text-secondary font-semibold text-sm pt-1">⭐️ <%= @recommend_spot.rating %></p>
                 </div>
                 <div class="flex space-x-2">
-                    <%= render 'spots/bookmark_buttons', { spot: @recommend_spot } %>
+                    <% if user_signed_in? %>
+                        <div class='mx-auto'>
+                            <% if current_user.bookmark?(@recommend_spot) %>
+                                <%= render 'spots/unbookmark', { spot: @recommend_spot } %>
+                            <% else %>
+                                <%= render 'spots/bookmark', { spot: @recommend_spot } %>
+                            <% end %>
+                        </div>
+                        <% else %>
+                        <div class='mx-auto'>
+                            <button data-action="click->login-modal#openModal" class= "inline-flex flex-col items-center justify-center px-2 rounded-full group">
+                                <i class="ph-fill ph-heart fa-xl w-full h-4 mt-2 text-gray-400"></i>
+                            <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral"><%= @recommend_spot.spot_bookmarks.count %></span>
+                            </button>
+                        </div>
+                    <% end %>
                 </div>
             </div>
         </div>

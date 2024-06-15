@@ -23,7 +23,7 @@
                     <% end %>
                 </div>
                 <div class="flex justify-center items-center space-x-4 my-8">
-                    <%= link_to start_diagnostics_path, class: 'relative rounded px-5 py-2.5 overflow-hidden group bg-white border border-accent-hover relative hover:bg-gradient-to-r hover:from-white hover:to-accent-active text-accent-hover hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all ease-out duration-300' do %>
+                    <%= link_to start_diagnostics_path, class: 'relative rounded px-5 py-2.5 overflow-hidden group bg-white border border-accent-hover relative hover:bg-gradient-to-r text-accent-hover hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all ease-out duration-300' do %>
                         <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                         <span class="relative">もう一度診断する</span>
                     <% end %>
@@ -42,7 +42,7 @@
 
 <script>
     confetti({
-  spread: 180,
-  particleCount: 150
-});
+    spread: 180,
+    particleCount: 150
+    });
 </script>

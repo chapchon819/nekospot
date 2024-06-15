@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    protect_from_forgery with: :exception #CSRF保護を有効にする
     before_action :config_permitted_parameters, if: :devise_controller?
     after_action :store_location
 
