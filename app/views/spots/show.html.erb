@@ -1,16 +1,12 @@
-<div class="navbar md:hidden bg-primary h-12">
-  <div class="flex-1">
-    <%= link_to :back, data: { turbo: false } do %>
-      <button class="inline-flex items-center font-semibold md:hidden">
-        <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-    <% end %>
-  </div>
-  <div class="flex-none">
-    <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-    </button>
-  </div>
-</div>
+<nav class="md:hidden w-full h-12 ">
+    <div class="navbar bg-primary text-secondary border-b border-primary-hover">
+        <div class="flex-1 items-center mb-3">
+          <%= link_to :back, data: { turbo: false } do %>
+              <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+          <% end %>
+        </div>
+    </div>
+</nav>
 
 
 <div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
@@ -67,7 +63,7 @@
                     <% if @spot.rating.present? %>
                       <p class="text-xs text-white font-semibold py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> <%= @spot.rating %></p>
                     <% else %>
-                      <p class="md:hidden text-xs text-white font-semibold py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> 評価なし</p>
+                      <p class="md:hidden text-xs text-white font-semibold py-2 px-3 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> 評価なし</p>
                     <% end %>
                   </div>
                     <div class="flex space-x-2 md:mb-1">
@@ -85,13 +81,21 @@
                 </div>
                 </div>
                 <div class="flex space-x-2">
-                    <a href="https://twitter.com/<%= @spot.x_account %>" target=”_blank” class= "md:hidden inline-flex items-center justify-end w-auto px-4 py-2 text-base text-sm font-semibold leading-6 text-white bg-secondary border border-transparent rounded-full hover:bg-neutral focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary" do %>
-                    <p><i class="ph-bold ph-x-logo fa-lg"></i> 最新情報をチェック</p>
-                    </a>
                   <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
                 </div>
               </div>
-
+              <% if @spot.x_account.present? %>
+              <div class="flex justify-center items-center md:hidden mt-8 w-full">
+                <a href="https://twitter.com/<%= @spot.x_account %>" target=”_blank” class="w-4/5 relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-secondary transition duration-300 ease-out border-2 border-secondary rounded-full shadow-md group">
+<span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-secondary group-hover:translate-x-0 ease">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+</span>
+<span class="absolute flex items-center justify-center w-full h-full text-secondary transition-all duration-300 transform group-hover:translate-x-full ease"><i class="ph-bold ph-x-logo fa-lg"></i>&ensp;最新情報をチェック</span>
+<span class="relative invisible">Button Text</span>
+</a>
+ 
+              </div>
+              <% end %>
             </div>
             <% if @spot.x_account.present? %>
               <div class="my-4 text-secondary hidden md:block">
