@@ -59,35 +59,36 @@ class DiagnosticsController < ApplicationController
                 flash[:error] = "該当するカテゴリが見つかりませんでした。"
                 redirect_to start_diagnostics_path
             else
-            # クッキーから選択された回答を取得
-            selected_answers = cookies[:selected_answers] ? JSON.parse(cookies[:selected_answers]) : []
-            Rails.logger.debug "クッキーに保存された選択された回答: #{cookies[:selected_answers].inspect}"
+                # クッキーから選択された回答を取得
+                selected_answers = cookies[:selected_answers] ? JSON.parse(cookies[:selected_answers]) : []
+                Rails.logger.debug "クッキーに保存された選択された回答: #{cookies[:selected_answers].inspect}"
 
-            # 初期条件を設定
-            spots = @top_category.spots
-            Rails.logger.debug "絞り込み前のスポット: #{spots.inspect}"
+                # 初期条件を設定
+                spots = @top_category.spots
+                Rails.logger.debug "絞り込み前のスポット: #{spots.inspect}"
 
-            # "新しい家族🐈探し"が含まれている場合
-            if selected_answers.include?("新しい家族🐈探し")
-                spots = spots.where(foster_parents: :recruitment)
-                Rails.logger.debug "新しい家族🐈探しで絞り込んだ後のスポット: #{spots.inspect}"
+                # "新しい家族🐈探し"が含まれている場合
+                if selected_answers.include?("新しい家族🐈探し")
+                    spots = spots.where(foster_parents: :recruitment)
+                    Rails.logger.debug "新しい家族🐈探しで絞り込んだ後のスポット: #{spots.inspect}"
+                end
+                
+                # "子供連れ"が含まれている場合
+                if selected_answers.include?("子供連れ")
+                    spots = spots.where(age_limit: :unlimited)
+                    Rails.logger.debug "子供連れで絞り込んだ後のスポット: #{spots.inspect}"
+                end
+                
+                # 高評価のスポットを絞り込み
+                spots_with_high_rating = spots.where("rating >= ?", 4)
+                if spots_with_high_rating.exists?
+                    @recommend_spot = spots_with_high_rating.sample
+                else
+                    @recommend_spot = spots.sample
+                end
             end
-            
-            # "子供連れ"が含まれている場合
-            if selected_answers.include?("子供連れ")
-                spots = spots.where(age_limit: :unlimited)
-                Rails.logger.debug "子供連れで絞り込んだ後のスポット: #{spots.inspect}"
-            end
-            
-            # 高評価のスポットを絞り込み
-            spots_with_high_rating = spots.where("rating >= ?", 4)
-            if spots_with_high_rating.exists?
-                @recommend_spot = spots_with_high_rating.sample
-            else
-                @recommend_spot = spots.sample
-            end
-          end
         end
+        clear_scores
     end
 
     private
@@ -130,5 +131,6 @@ class DiagnosticsController < ApplicationController
     def clear_scores #クッキーを削除
         cookies.delete(:scores)
         cookies.delete(:selected_answers)
+        Rails.logger.debug "クッキー削除: scores=#{cookies[:scores]}, selected_answers=#{cookies[:selected_answers]}"
     end
 end

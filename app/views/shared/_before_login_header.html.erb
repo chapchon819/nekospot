@@ -1,37 +1,43 @@
-<div class="hidden md:block md:fixed md:top-0 md:left-0 md:z-10 w-full">
-    <div class="navbar bg-primary text-secondary " >
+<div class="hidden md:block md:fixed md:top-0 md:left-0 md:z-10 w-full" data-controller="login-modal">
+  <div class="navbar bg-primary text-secondary " >
     <div class="flex-1">
-    <%= link_to 'NekoSpot', map_spots_path, class: "btn btn-ghost text-xl" %>
+      <%= link_to 'NekoSpot', map_spots_path, class: "btn btn-ghost text-xl" %>
     </div>
     <div class="flex-none" >
-    <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
-      <button type="button" class="inline-flex flex-col h-full items-center justify-center px-5 hover:bg-gray-50 group">
-        <i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-        <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">検索</span>
+      <button type="button" data-action="click->login-modal#openModal" class="btn items-center justify-center h-full border-none px-4 hover:bg-gray-50 group">
+        <i class="ph ph-sign-in fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
       </button>
-      <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
-        <i class="ph-bold ph-list-dashes w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-        <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">一覧</span>
-      </button>
-      <button type="button" data-action="modal#open" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
-        <i class="ph-fill ph-heart w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-        <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">お気に入り</span>
-      </button>
-        <button type="button" data-action="modal#open" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group" data-action="click->login-modal#open">
-            <i class="ph-bold ph-sign-in w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-            <span class="text-sm text-secondary dark:text-gray-400 group-hover:text-neutral">ログイン</span>
-        </button>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn m-1 border-none"><i class="ph ph-list fa-2xl"></i></div>
+          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-primary w-56 rounded-box">
+            <li>
+              <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                  <p><i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;検索</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                  <p><i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to start_diagnostics_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                  <p><i class="ph-fill ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;診断</p>
+              <% end %>
+            </li>
+          </ul>
         </div>
-        
+      </div>
+      <%= render 'shared/login_modal' %>
     </div>
-    </div>
-    </div>
+  </div>
+</div>
 
     <% if controller_name == 'spots' && action_name == 'show' %>
     <%= render "shared/spot_show_header" %>
   <% else %>
 <div class="fixed bottom-0 left-0 z-50 w-full h-12 bg-primary border-t border-secondary md:hidden" data-controller="login-modal">
-    <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium" >
+    <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium" >
         <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
             <i class="ph ph-magnifying-glass fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">検索</span>
@@ -39,6 +45,10 @@
         <%= link_to spots_path, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
             <i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">一覧</span>
+        <% end %>
+        <%= link_to start_diagnostics_path, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
+            <i class="ph-fill ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <span class="text-[9px] text-secondary group-hover:text-neutral">診断</span>
         <% end %>
         <button type="button" data-action="click->login-modal#openModal" class="inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group">
             <i class="ph ph-sign-in fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
