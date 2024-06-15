@@ -60,12 +60,13 @@
                 </div>
                 <div class="flex space-x-2">
                   <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-lg"></i><% end %>
+                  <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
                 </div>
               </div>
             </div>
             <% if @spot.x_account.present? %>
               <div class="my-4 text-secondary hidden md:block">
-                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph ph-megaphone"></i> 最新情報</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
                 <a class="twitter-timeline" data-height="400" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
               </div>
             <% end %>
