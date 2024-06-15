@@ -334,12 +334,11 @@ function updateSpotsList(categoryId) {
                 </div>
                 <div class="flex flex-wrap">
                   <div class="p-4 flex flex-col h-full sm:p-2">
-                    <h3 class="text-lg md:text-xs font-bold text-neutral font-zenmaru overflow-hidden whitespace-nowrap pr-1 line-clamp-1">${spot.name}</h3>
+                    <h3 class="text-lg md:text-xs font-bold text-neutral font-zenmaru whitespace-pre-wrap pr-1 line-clamp-1">${spot.name}</h3>
                     <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
                       <div class="mt-1 inline-flex">
-                        <p class="text-xs text-white py-1 px-1 rounded-full bg-accent dark:text-neutral-500">${spot.category}</p>
+                        <p class="text-xs text-white py-1 px-2 rounded-full bg-accent font-semibold dark:text-neutral-500"><i class="ph-fill ph-star"></i> ${spot.rating}</p>
                       </div>
-                      <p class="mt-1 md:text-sm font-semibold text-secondary">⭐️ ${spot.rating}</p>
                     </div>
                   </div>
                 </div>

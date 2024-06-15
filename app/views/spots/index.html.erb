@@ -39,7 +39,7 @@
                 <% end %>
                     <%= turbo_frame_tag "spots-list" do %>
                     <% if @spots.present? %>
-                        <div class="md:grid md:grid-cols-3 md:gap-4" data-controller="login-modal">
+                        <div class="pb-24 md:grid md:grid-cols-3 md:gap-8 md:p-8" data-controller="login-modal">
                             <% @spots.each do |spot| %>
                                 <%= render 'spots/spot', spot: spot %>
                             <% end %>
@@ -93,7 +93,7 @@
                         </div>
                         <%= paginate @reviews %>
                         <% else %>
-                        <p>レビューがありません</p>
+                        <%= render 'spots/no_reviews' %>
                     <% end %>
                 <% end %>
                 </div> 

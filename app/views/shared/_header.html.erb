@@ -1,5 +1,5 @@
 <nav class="hidden md:block md:fixed md:top-0 md:left-0 md:z-50 w-full">
-    <div class="navbar bg-primary text-primary ">
+    <div class="navbar bg-primary text-secondary">
         <div class="flex-1">
             <%= link_to 'NekoSpot', map_spots_path, class: "btn btn-ghost text-xl" %>
         </div>
@@ -19,7 +19,7 @@
                         </li>
                         <li>
                             <%= link_to start_diagnostics_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph-fill ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;診断</p>
+                                <p><i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;診断</p>
                             <% end %>
                         </li>
                         <li>
@@ -53,11 +53,11 @@
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">一覧</span>
         <% end %>
         <%= link_to start_diagnostics_path, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-        <i class="ph-fill ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+        <i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary group-hover:text-neutral">診断</span>
         <% end %>
         <%= link_to bookmarks_spots_path, method: :get, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-            <i class="ph-fill ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <i class="ph ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">お気に入り</span>
         <% end %>
         <%= link_to users_show_path(current_user), method: :get, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
