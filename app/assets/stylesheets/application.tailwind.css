@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .default {
+        background: none;
+        color: white;
+        border-color: white;
+    }
+    .white {
+        background: none;
+        color: #837176;
+        border-color: #837176;
+    }
+}

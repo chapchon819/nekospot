@@ -7,9 +7,6 @@ import { application } from "./application"
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
-import CarouselController from "./carousel_controller"
-application.register("carousel", CarouselController)
-
 import DiagnosticController from "./diagnostic_controller"
 application.register("diagnostic", DiagnosticController)
 

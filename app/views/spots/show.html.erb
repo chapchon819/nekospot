@@ -1,32 +1,44 @@
-<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
-  <div class="relative overflow-hidden" data-controller="carousel">
-    <div class="whitespace-nowrap transition duration-700 ease-in-out" data-carousel-target="container">
-      <% prioritized_image = @spot.prioritized_spot_image %>
-      <% if prioritized_image.present? %>
-        <div data-carousel-target="item" class="inline-block w-full">
-          <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
-        </div>
-      <% else %>
-        <div data-carousel-target="item" class="inline-flex w-full justify-center">
-          <%= image_tag 'default.png', class: "h-full object-cover ", alt: "Default Image" %>
-        </div>
-      <% end %>
-
-      <% if @spot.spot_images.any? %>
-        <% @spot.spot_images.each_with_index do |image, index| %>
-          <% unless image == prioritized_image %>
-            <div data-carousel-target="item" class="inline-block w-full">
-              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
-            </div>
+<nav class="md:hidden w-full h-12 ">
+    <div class="navbar bg-primary text-secondary border-b border-primary-hover">
+        <div class="flex-1 items-center mb-3">
+          <%= link_to :back, data: { turbo: false } do %>
+              <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
           <% end %>
+        </div>
+    </div>
+</nav>
+
+
+<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <% prioritized_image = @spot.prioritized_spot_image %>
+    <% if prioritized_image.present? %>
+      <div class="swiper-slide h-96 w-full">
+        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
+      </div>
+    <% else %>
+      <div class="swiper-slide h-96 w-full">
+        <%= image_tag 'default.png', class: "w-full h-full object-cover", alt: "Default Image" %>
+      </div>
+    <% end %>
+
+    <% if @spot.spot_images.any? %>
+      <% @spot.spot_images.each_with_index do |image, index| %>
+        <% unless image == prioritized_image %>
+          <div class="swiper-slide h-96 w-full">
+            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
+          </div>
         <% end %>
       <% end %>
-    </div>
-    <% if prioritized_image.present? %>
-      <button data-action="carousel#prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-left"></i></button>
-      <button data-action="carousel#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-white text-3xl bg-opacity-50 rounded-full"><i class="ph-bold ph-caret-right"></i></button>
     <% end %>
   </div>
+  <!-- Add Pagination and Navigation -->
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev swiper-button-white"></div>
+  <div class="swiper-button-next swiper-button-white"></div>
+  <div class="swiper-scrollbar"></div>
+</div>
 
   <!-- スポット詳細タブ -->
   <div class="flex flex-col items-center justify-center w-full md:mt-4">
@@ -47,49 +59,70 @@
               <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
               <div class="justify-between w-full flex md:space-x-4 space-x-2 mt-2">
                 <div class="flex items-center space-x-2">
-                  <div class="inline-flex">
-                    <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.category.name %></p>
-                  </div>
                   <div class="flex">
                     <% if @spot.rating.present? %>
-                      <p class="text-secondary">⭐️ <%= @spot.rating %></p>
+                      <p class="text-xs text-white font-semibold py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> <%= @spot.rating %></p>
                     <% else %>
-                      <p class="text-secondary">⭐️ 評価なし</p>
+                      <p class="md:hidden text-xs text-white font-semibold py-2 px-3 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> 評価なし</p>
                     <% end %>
                   </div>
+                    <div class="flex space-x-2 md:mb-1">
+                    <% if @spot.foster_parents_before_type_cast == 1 %>
+                        <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
+                    <% end %>
+                    <% if @spot.adoption_event_before_type_cast == 1 %>
+                        <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div>
+                    <% end %>
+                    <% if @spot.age_limit_before_type_cast == 1 %>
+                        <div class="hidden">
+                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.age_limit_i18n %></p>
+                        </div>
+                    <% end %>
+                </div>
                 </div>
                 <div class="flex space-x-2">
-                  <%= link_to '#', class: "text-secondary" do %><i class="ph-light ph-export fa-lg"></i><% end %>
+                  <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
                 </div>
               </div>
+              <% if @spot.x_account.present? %>
+              <div class="flex justify-center items-center md:hidden mt-8 w-full">
+                <a href="https://twitter.com/<%= @spot.x_account %>" target=”_blank” class="w-4/5 relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-secondary transition duration-300 ease-out border-2 border-secondary rounded-full shadow-md group">
+<span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-secondary group-hover:translate-x-0 ease">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+</span>
+<span class="absolute flex items-center justify-center w-full h-full text-secondary transition-all duration-300 transform group-hover:translate-x-full ease"><i class="ph-bold ph-x-logo fa-lg"></i>&ensp;最新情報をチェック</span>
+<span class="relative invisible">Button Text</span>
+</a>
+ 
+              </div>
+              <% end %>
             </div>
-
-            <div class="my-4 text-secondary">
-
-<a class="twitter-timeline" href="https://twitter.com/819Chapchon?ref_src=twsrc%5Etfw">Tweets by 819Chapchon</a> 
-
-
-             
+            <% if @spot.x_account.present? %>
+              <div class="my-4 text-secondary hidden md:block">
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
+                <a class="twitter-timeline" data-height="400" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
+              </div>
+            <% end %>
             <% if @spot.opening_hours.present? %>
               <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8"><i class="ph-bold ph-clock"></i> 営業時間</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-clock"></i> 営業時間</p>
                   <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
               </div>
             <% end %>
             <% if @spot.phone_number.present? %>
               <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-phone"></i> 電話番号</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-phone"></i> 電話番号</p>
                 <p class="text-lg"><%= @spot.phone_number %></p>
               </div>
             <% end %>
             <% if @spot.web_site.present? %>
               <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-browser"></i> 公式サイト</p>
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-browser"></i> 公式サイト</p>
                 <%= link_to @spot.web_site, @spot.web_site, class: "text-sm", target: :_blank %>
               </div>
             <% end %>
         <div class="my-4 text-secondary">
-          <p class="text-sm pb-4 pt-8"><i class="ph-fill ph-map-pin"></i> 住所</p>
+          <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-map-pin"></i> 住所</p>
           <div class="flex justify-start">
             <div>
               <p class="text-sm"><%= @spot.postal_code %></p>
@@ -170,4 +203,36 @@
     <%= render 'shared/login_modal' %>
   </div>
 
+
+  <style>
+  /* 前後ボタンの色 */
+.swiper-button-next::after,
+.swiper-button-prev::after{
+    color: #FAEEE7;
+}
+
+/* ページネーション現在地の色 */
+.swiper-pagination-bullet-active{
+    background-color: #FAEEE7;
+}
+  </style>
+
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  var mySwiper = new Swiper('.mySwiper', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+  });
+});
+</script>

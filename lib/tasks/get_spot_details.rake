@@ -88,6 +88,7 @@ namespace :Spot do
           spot_data.merge!(
             prefecture_id: row['都道府県ID'].to_i,
             category_id: row['カテゴリID'].to_i,
+            x_account: row['Xアカウント'],
             foster_parents: row['里親募集'].to_i,
             adoption_event: row['譲渡会の開催'].to_i,
             age_limit: row['年齢制限'].to_i

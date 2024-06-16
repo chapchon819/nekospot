@@ -13,7 +13,7 @@ module.exports = {
         'google-text': '#1F1F1F',
         'accent-hover': '#FF7D6C',
         'accent-active': '#FFB9B0',
-        'primary-hover': '#F1D0BD',
+        'primary-hover': '#cbc2c5',
       },
     },
   },
