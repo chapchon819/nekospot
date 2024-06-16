@@ -25,7 +25,7 @@
       <%= render 'shared/login_modal' %>
     </header>
   </div>
-</div>
+
 
 
 <div data-midnight="default" class="w-screen h-screen overflow-hidden relative">
@@ -61,15 +61,15 @@
           <div class="w-full md:w-3/4">
             <div class="flex md:flex-col items-center justify-center w-full">
               <h1 class="hidden md:block text-2xl font-semibold font-zenmaru text-white lg:text-4xl">猫との素敵な出会いをここで</h1>
-              <div class="mx-auto md:mt-12 flex w-11/12 md:w-full justify-center fixed bottom-5 z-50 md:relative">
-                <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-full inline-block rounded-full bg-accent px-8 py-4 text-center text-sm md:text-base font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring sm:w-1/2 text-base md:w-1/2" do %>
-                  <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
-                <% end %>          
+              <div class="hidden mx-auto md:mt-12 md:flex w-11/12 md:w-full justify-center md:relative">
+                    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-full font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
+      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+    <% end %>
               </div>
             </div>
           </div>
           <div class="mt-4 md:mt-0 flex-col items-center justify-center w-full md:w-1/2 relative ">
-            <h1 class="md:hidden w-full mx-auto text-center text-2xl font-semibold font-zenmaru text-white md:text-4xl absolute top-1 pb-2">猫との素敵な出会いをここで</h1>
+            <h1 class="md:hidden w-full mx-auto text-center text-2xl font-semibold font-zenmaru text-white md:text-4xl absolute top-1">猫との素敵な出会いをここで</h1>
             <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
             <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
           </div>
@@ -78,30 +78,25 @@
       </div>
     </div>
   </div>
-  <div class="mx-auto flex w-11/12 justify-center hidden fixed bottom-5 md:right-12 z-50 md:hidden">
-    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 md:w-1/2 inline-block rounded-full bg-accent px-8 py-4 text-center text-md font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:text-neutral hover:bg-primary focus-visible:ring md:w-1/2" do %>
-      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
-    <% end %>
-  </div>
 </div>
 
 
-<section data-midnight="white" class="py-24">
+<section data-midnight="white" class="pt-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
                   <div class="relative w-full text-center lg:text-left lg:w-2/4">
                       <h2 class="text-4xl font-bold text-secondary font-zenmaru leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">ねこスポット探しをもっと快適に。</h2>
                   </div>
+                  <!-- 後日何か書き加える -->
                   <div class="relative w-full text-center  lg:text-left lg:w-2/4">
-                      <p class="text-lg font-normal text-gray-500 mb-5">We provide all the advantages that can simplify all your financial transactions without any further requirements</p> 
-                      <a href="#" class="flex flex-row items-center justify-center gap-2 text-base font-semibold text-indigo-600 lg:justify-start hover:text-indigo-700 ">Button CTA <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.5 15L11.0858 11.4142C11.7525 10.7475 12.0858 10.4142 12.0858 10C12.0858 9.58579 11.7525 9.25245 11.0858 8.58579L7.5 5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                          </svg>
-                          </a> 
+                      <p class="text-lg font-normal text-gray-500 mb-5"></p> 
+
                   </div>
+                  <!-- ここまで -->
               </div>
 <div class="flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-  <div class="group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent">
+
+  <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
     <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
       <i class="ph ph-magnifying-glass fa-2xl text-accent"></i>
     </div>
@@ -111,8 +106,8 @@
     </p>
     <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
     <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
-  </div>
-  <div class="group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent">
+  <% end %>
+  <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
     <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
       <i class="ph ph-map-pin fa-2xl text-accent"></i>
     </div>
@@ -122,8 +117,8 @@
     </p>
     <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
     <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
-  </div>
-  <div class="group relative w-full bg-primary rounded-2xl shadow-lg p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent">
+  <% end %>
+  <%= link_to start_diagnostics_path, class: "group relative w-full bg-primary rounded-2xl shadow-lg p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
     <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
       <i class="ph ph-paw-print fa-2xl text-accent"></i>
     </div>
@@ -133,8 +128,10 @@
     </p>
     <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
     <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
-  </div>
-  <div class="group relative w-full bg-primary rounded-2xl shadow-lg p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent">
+  <% end %>
+
+
+  <%= link_to spots_path, class: "group relative w-full bg-primary rounded-2xl shadow-lg p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
     <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
       <i class="ph ph-chat-circle-dots fa-2xl text-accent"></i>
     </div>
@@ -144,10 +141,27 @@
     </p>
     <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
     <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
-  </div>
+  <% end %>
+
 </div>
         </div>
+
       </section>
+                <div class="md:hidden flex justify-center items-center w-full mt-20 sticky bottom-4 z-50 mb-20">
+    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
+      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+    <% end %>
+  </div>
+    <div class="hidden md:flex justify-center items-center w-full my-20">
+    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
+      <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
+    <% end %>
+  </div>
+</div>
+
+
+
+
 
 
 
