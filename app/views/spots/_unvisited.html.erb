@@ -1,0 +1,4 @@
+<%= link_to visit_path(current_user.visits.find_by(spot_id: spot.id)), id: "unvisited-button-for-spot-#{spot.id}", data: { turbo_method: :delete }, class: "inline-flex flex-col items-center justify-center px-2 rounded-full group" do %>
+    <i class="ph-fill ph-seal-check fa-xl h-3 w-full mt-2 fa-lg text-red-700"></i>
+    <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral"><%= spot.visits.count %></span>
+<% end %>

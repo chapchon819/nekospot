@@ -1,6 +1,6 @@
 <% if spot.present? %>
   <%= link_to spot_bookmarks_path(spot_id: spot.id), id: "bookmark-button-for-spot-#{spot.id}", data: { turbo_method: :post }, class: "inline-flex flex-col items-center justify-center px-2 rounded-full group" do %>
-    <i class="ph-fill ph-heart fa-xl w-full h-4 mt-2 text-gray-400"></i>
+    <i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i>
     <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral"><%= spot.spot_bookmarks.count %></span>
   <% end %>
 <% else %>

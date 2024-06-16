@@ -31,6 +31,9 @@
     </div>
 
     <div class="w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+        <%= link_to visits_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+            <p><i class="ph ph-file-text fa-lg mr-1"></i> 訪問済みスタンプ</p>
+        <% end %>
         <div class= "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" onclick="my_modal_3.showModal()" >
             <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
         
