@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-    .midnightHeader.default {
+    .default {
         background: none;
         color: white;
+        border-color: white;
     }
-    .midnightHeader.white {
-        background: white;
-        color: "#837176";
+    .white {
+        background: none;
+        color: #837176;
+        border-color: #837176;
     }
 }
