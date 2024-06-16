@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :bookmark_spots, through: :spot_bookmarks, source: :spot
   has_many :helpfuls, dependent: :destroy
   has_many :helpful_reviews, through: :helpfuls, source: :review
+  has_many :visits, dependent: :destroy
+  has_many :visited_spots, through: :visits, source: :spot
 
   enum role: { general: 0, admin: 1 }
   # Include default devise modules. Others available are:
@@ -56,5 +58,17 @@ class User < ApplicationRecord
 
   def helpful?(review)
     helpful_reviews.include?(review)
+  end
+
+  def visited(spot)
+    visited_spots << spot
+  end
+
+  def unvisited(spot)
+    visited_spots.destroy(spot)
+  end
+
+  def visited?(spot)
+    visited_spots.include?(spot)
   end
 end
