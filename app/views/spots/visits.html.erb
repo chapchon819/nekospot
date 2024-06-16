@@ -1,15 +1,18 @@
 <nav class="md:hidden w-full h-12">
-    <div class="navbar bg-primary text-secondary border-b border-primary-hover">
+    <div class="navbar bg-primary text-secondary border-b border-primary-hover h-12">
         <div class="flex-1 items-center">
           <%= link_to :back, data: { turbo: false } do %>
               <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
           <% end %>
         </div>
+        <div class="flex items-center justify-center pr-4">
+        <h2 class="text-xl font-zenmaru font-bold text-neutral py-4">訪問済み一覧</h2>
+        </div>
     </div>
 </nav>
-<div class="w-full mx-auto p-8 mt-12">
+<div class="w-11/12 mx-auto pb-20 mt-12">
     <% if @visited_spots.present? %>
-        <h2 class="text-xl font-zenmaru font-bold text-neutral">訪問済み一覧</h2>
+        
         <div class="md:grid md:grid-cols-3 md:gap-4">
             <% @visited_spots.each do |spot| %>
                 <%= render 'spots/spot', spot: spot.spot %>
