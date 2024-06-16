@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .midnightHeader.default {
+        background: none;
+        color: white;
+    }
+    .midnightHeader.white {
+        background: white;
+        color: "#837176";
+    }
+}
