@@ -14,11 +14,11 @@
     </li>
   </ul>
 
-  <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-            <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
-        <div class="justify-start grid grid-flow-col gap-8 mt-10">
+  <div class="hidden bg-white py-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+    <div class="w-11/12 mx-auto divide-y space-y-8 pb-8 px-4">
+        <div class="justify-start grid grid-flow-col gap-4 mt-10">
             <div class="avatar">
-                <div class="w-24 rounded-full">
+                <div class="w-24 rounded-full <%= user_rank(@user) %>-border">
                 <% if @user.avatar.present? %>
                     <%= image_tag @user.avatar.url %>
                 <% else %>
@@ -26,11 +26,55 @@
                 <% end %>
                 </div>
             </div>
-            <h2 class="text-xl font-zenmaru font-bold text-neutral flex items-center"><%= @user.name %></h2>
+            <div class="mt-5">
+                <h2 class="text-xl font-zenmaru font-bold text-neutral flex items-center"><%= @user.name %></h2>
+                <div class="flex items-center">
+                    <div class="inline-block md:h-9 md:w-9 h-6 w-6">
+                        <%= image_tag(rank_icon(@user)) %>
+                    </div>
+                    <span class="text-xs text-secondary items-start font-semibold"><%= user_rank(@user) %>ランク<span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="w-full py-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+<div class="flex justify-center items-center w-screen md:auto">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg">
+    
+        <div class="stat">
+            <div class="stat-figure text-accent">
+            <i class="ph-bold ph-seal-check fa-2x inline-block stroke-current"></i>
+            </div>
+            <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">訪問済み数</div>
+            <div class="stat-value text-neutral"><%= @user.visits.count %></div>
+            <div class="stat-desc text-secondary">最近の訪問済：<%= @user.visits.present? ? @user.visits.last.created_at.strftime('%Y/%m/%d') : " - " %></div>
+        </div>
+        
+        <div class="stat">
+            <div class="stat-figure text-accent">
+                <i class="ph-bold ph-chat-circle-text fa-2x inline-block stroke-current"></i>
+            </div>
+            <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">レビュー投稿数</div>
+            <div class="stat-value text-neutral"><%= @user.reviews.count %></div>
+            <div class="stat-desc text-secondary">最新のレビュー投稿：<%= @user.reviews.present? ? @user.reviews.last.created_at.strftime('%Y/%m/%d') : " - " %></div>
+        </div>
+        
+        <div class="stat">
+            <div class="stat-figure text-accent">
+                <i class="ph-bold ph-hand-heart fa-2x inline-block stroke-current"></i>
+            </div>
+            <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">参考になった獲得数</div>
+            <div class="stat-value text-neutral"><%= @total_helpfuls %></div>
+            <div class="stat-desc text-secondary">最新の参考になった：<%= @user.reviews.joins(:helpfuls).present? ? @user.reviews.joins(:helpfuls).last.created_at.strftime('%Y/%m/%d') : " - " %></div>
+        </div>
+    
+    </div>
+</div>
+
+    <div class="w-full py-2 mt-8 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+        <%= link_to visits_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+            <p><i class="ph ph-seal-check fa-lg mr-1"></i> 訪問済み一覧</p>
+        <% end %>
         <div class= "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" onclick="my_modal_3.showModal()" >
             <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
         
@@ -47,14 +91,14 @@
         <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
             <p><i class="ph ph-sign-out fa-lg mr-1"></i> ログアウト</p>
         <% end %>
-                    <dialog id="my_modal_3" class="modal">
-                <div class="modal-box">
-                    <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <%= render 'users/registrations/edit'%>
-                </div>
-            </dialog>
+        <dialog id="my_modal_3" class="modal">
+            <div class="modal-box">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <%= render 'users/registrations/edit'%>
+            </div>
+        </dialog>
     </div>
   </div>
 

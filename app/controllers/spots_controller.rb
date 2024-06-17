@@ -69,6 +69,11 @@ class SpotsController < ApplicationController
     @categories = bookmarked_spots.map(&:category).uniq
     prefecture_ids = bookmarked_spots.map(&:prefecture_id).uniq
     @prefectures = Prefecture.find(prefecture_ids)
+    @visited_spots = current_user.visits.includes(:user).order(created_at: :desc)
+  end
+
+  def visits
+    @visited_spots = current_user.visits.includes(:user).order(created_at: :desc)
   end
 
   def show

@@ -13,4 +13,80 @@
         color: #837176;
         border-color: #837176;
     }
+
+    .gold-border {
+            display: inline-block;
+            width: 200px;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            
+            &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            background: linear-gradient(#fefce8, #facc15, rgba(251, 253, 191, 1)) border-box;
+            
+            mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+            mask-clip: padding-box, border-box;
+            mask-composite: exclude;
+
+            -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+            -webkit-mask-clip: padding-box, border-box;
+            -webkit-mask-composite: destination-out;    
+        }
+    }
+
+    .silver-border {
+        display: inline-block;
+        width: 200px;
+        aspect-ratio: 1 / 1;
+        position: relative;
+        
+        &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 5px solid transparent;
+        background: linear-gradient(#fafafa, #737373, #fafafa) border-box;
+        
+        mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        mask-clip: padding-box, border-box;
+        mask-composite: exclude;
+
+        -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        -webkit-mask-clip: padding-box, border-box;
+        -webkit-mask-composite: destination-out;    
+        }
+    }
+
+    .bronze-border {
+        display: inline-block;
+        width: 200px;
+        aspect-ratio: 1 / 1;
+        position: relative;
+        
+        &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 5px solid transparent;
+        background: linear-gradient(#fed7aa, #c2410c, #fed7aa) border-box;
+        
+        mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        mask-clip: padding-box, border-box;
+        mask-composite: exclude;
+
+        -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        -webkit-mask-clip: padding-box, border-box;
+        -webkit-mask-composite: destination-out;    
+        }
+    }
+
+    .beginner-border {
+        border: none;
+    }
 }

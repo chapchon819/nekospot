@@ -1,0 +1,4 @@
+  <%= link_to visits_path(spot_id: spot.id), id: "visited-button-for-spot-#{spot.id}", data: { turbo_method: :post }, class: "inline-flex flex-col items-center justify-center px-2 rounded-full group" do %>
+    <i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i>
+    <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral"><%= spot.visits.count %></span>
+  <% end %>
