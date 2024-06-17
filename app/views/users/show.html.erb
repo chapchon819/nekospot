@@ -40,35 +40,35 @@
 
 <div class="flex justify-center items-center w-screen md:auto">
     <div class="stats stats-vertical lg:stats-horizontal shadow-lg">
-  
-  <div class="stat">
-      <div class="stat-figure text-accent">
-      <i class="ph-bold ph-seal-check fa-2x inline-block stroke-current"></i>
+    
+        <div class="stat">
+            <div class="stat-figure text-accent">
+            <i class="ph-bold ph-seal-check fa-2x inline-block stroke-current"></i>
+            </div>
+            <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">訪問済み数</div>
+            <div class="stat-value text-neutral"><%= @user.visits.count %></div>
+            <div class="stat-desc text-secondary">最近の訪問済：<%= @user.visits.present? ? @user.visits.last.created_at.strftime('%Y/%m/%d') : " - " %></div>
+        </div>
+        
+        <div class="stat">
+            <div class="stat-figure text-accent">
+                <i class="ph-bold ph-chat-circle-text fa-2x inline-block stroke-current"></i>
+            </div>
+            <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">レビュー投稿数</div>
+            <div class="stat-value text-neutral"><%= @user.reviews.count %></div>
+            <div class="stat-desc text-secondary">最新のレビュー投稿：<%= @user.reviews.present? ? @user.reviews.last.created_at.strftime('%Y/%m/%d') : " - " %></div>
+        </div>
+        
+        <div class="stat">
+            <div class="stat-figure text-accent">
+                <i class="ph-bold ph-hand-heart fa-2x inline-block stroke-current"></i>
+            </div>
+            <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">参考になった獲得数</div>
+            <div class="stat-value text-neutral"><%= @total_helpfuls %></div>
+            <div class="stat-desc text-secondary">最新の参考になった：<%= @user.reviews.joins(:helpfuls).present? ? @user.reviews.joins(:helpfuls).last.created_at.strftime('%Y/%m/%d') : " - " %></div>
+        </div>
+    
     </div>
-    <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">訪問済み数</div>
-    <div class="stat-value text-neutral"><%= @user.visits.count %></div>
-    <div class="stat-desc text-secondary">最近の訪問済：<%= @user.visits.present? ? @user.visits.last.created_at.strftime('%Y/%m/%d') : " - " %></div>
-  </div>
-  
-  <div class="stat">
-    <div class="stat-figure text-accent">
-        <i class="ph-bold ph-chat-circle-text fa-2x inline-block stroke-current"></i>
-    </div>
-    <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">レビュー投稿数</div>
-    <div class="stat-value text-neutral"><%= @user.reviews.count %></div>
-    <div class="stat-desc text-secondary">最新のレビュー投稿：<%= @user.reviews.present? ? @user.reviews.last.created_at.strftime('%Y/%m/%d') : " - " %></div>
-  </div>
-  
-  <div class="stat">
-    <div class="stat-figure text-accent">
-        <i class="ph-bold ph-hand-heart fa-2x inline-block stroke-current"></i>
-    </div>
-    <div class="stat-title font-zenmaru font-semibold text-sm text-secondary">参考になった獲得数</div>
-    <div class="stat-value text-neutral"><%= @total_helpfuls %></div>
-    <div class="stat-desc text-secondary">最新の参考になった：<%= @user.reviews.joins(:helpfuls).present? ? @user.reviews.joins(:helpfuls).last.created_at.strftime('%Y/%m/%d') : " - " %></div>
-  </div>
-  
-</div>
 </div>
 
     <div class="w-full py-2 mt-8 origin-top-right bg-white dark:bg-gray-800 text-secondary">
@@ -91,14 +91,14 @@
         <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
             <p><i class="ph ph-sign-out fa-lg mr-1"></i> ログアウト</p>
         <% end %>
-                    <dialog id="my_modal_3" class="modal">
-                <div class="modal-box">
-                    <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <%= render 'users/registrations/edit'%>
-                </div>
-            </dialog>
+        <dialog id="my_modal_3" class="modal">
+            <div class="modal-box">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <%= render 'users/registrations/edit'%>
+            </div>
+        </dialog>
     </div>
   </div>
 
