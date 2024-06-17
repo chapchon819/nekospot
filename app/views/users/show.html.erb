@@ -27,13 +27,13 @@
                 </div>
             </div>
             <div class="mt-5">
-            <h2 class="text-xl font-zenmaru font-bold text-neutral flex items-center"><%= @user.name %></h2>
-            <div class="flex items-center">
-            <div class="inline-block md:h-9 md:w-9 h-6 w-6">
-                <%= image_tag(rank_icon(@user)) %>
-            </div>
-            <span class="text-xs text-secondary items-start font-semibold"><%= user_rank(@user) %>ランク<span>
-            </div>
+                <h2 class="text-xl font-zenmaru font-bold text-neutral flex items-center"><%= @user.name %></h2>
+                <div class="flex items-center">
+                    <div class="inline-block md:h-9 md:w-9 h-6 w-6">
+                        <%= image_tag(rank_icon(@user)) %>
+                    </div>
+                    <span class="text-xs text-secondary items-start font-semibold"><%= user_rank(@user) %>ランク<span>
+                </div>
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
 
     <div class="w-full py-2 mt-8 origin-top-right bg-white dark:bg-gray-800 text-secondary">
         <%= link_to visits_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-            <p><i class="ph ph-file-text fa-lg mr-1"></i> 訪問済み一覧</p>
+            <p><i class="ph ph-seal-check fa-lg mr-1"></i> 訪問済み一覧</p>
         <% end %>
         <div class= "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" onclick="my_modal_3.showModal()" >
             <p><i class="ph ph-pencil-simple fa-lg mr-1 fa-lg"></i> ユーザー情報編集</p>
