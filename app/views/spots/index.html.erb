@@ -12,10 +12,31 @@
 
             <div id="details-tab" class="hidden bg-white py-4 px-4 w-full h-full mb-12 md:mb-0 border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
                 <div class="w-full mx-auto md:h-full h-screen pb-8 ">
+                <div class="grid md:grid-cols-4 md:gap-12">
+                <div class="md:col-span-1">
                 <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
                 <%= search_form_for @q_spots, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8", data: { turbo_frame: "spots-list" } }  do |f| %>
-                    <label for="" class="mb-2 text-sm font-medium h-full text-secondary sr-only dark:text-white">検索</label>
+                    <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-4 start-0 flexed items-center ps-3 pointer-events-none">
+                        <i class="ph ph-magnifying-glass text-secondary"></i>
+                        </div>
+                        <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 ps-10 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                        <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
+                        <%= f.hidden_field :address, data: { autocomplete_target: 'hidden' } %>
+                        <%= f.submit '検索', class: 'text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+                        <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
+                    </div>
                     <div class="nav-down text-secondary flex items-center h-12">
+                    
+                    <div class='label-select border rounded-l-xl h-full text-sm'>
+                    <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-xs' %>
+                    <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+                    </div>
+                    <div class='label-select border rounded-l-xl h-full text-sm'>
+                    <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-xs' %>
+                    <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+                    </div>
                         <div class='label-select border rounded-l-xl h-full text-sm'>
                             <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-xs' %>
                             <%= f.collection_select :category_id_eq, @categories, :id, :name,  include_blank: '指定なし', class: 'search-select text-sm' %>
@@ -28,15 +49,13 @@
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <i class="ph ph-magnifying-glass text-secondary"></i>
                         </div>
-                        <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 ps-10 h-full text-sm text-secondary border rounded-e-lg bg-white focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
-                        <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
-                        <%= f.hidden_field :address, data: { autocomplete_target: 'hidden' } %>
-                        <%= f.submit class: 'absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-accent rounded-e-lg border border-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-secondary dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
-                        <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
+
                     </div>
                     </div>
                     </div>
                 <% end %>
+                </div>
+                <div class="md:col-span-3">
                     <%= turbo_frame_tag "spots-list" do %>
                     <% if @spots.present? %>
                         <div class="pb-24 md:grid md:grid-cols-3 md:gap-8 md:p-8" data-controller="login-modal">
@@ -54,6 +73,7 @@
                     <% end %>
                     <% end %>
                 </div>
+            </div>
             </div>
 
             <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">

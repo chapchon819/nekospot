@@ -19,15 +19,15 @@ class Spot < ApplicationRecord
   
   #enumの日本語化
   def foster_parents_i18n
-    I18n.t("activerecord.attributes.spot.foster_parents.#{foster_parents}")
+    I18n.t("enums.spot.foster_parents.#{foster_parents}")
   end
 
   def adoption_event_i18n
-    I18n.t("activerecord.attributes.spot.adoption_event.#{adoption_event}")
+    I18n.t("enums.spot.adoption_event.#{adoption_event}")
   end
 
   def age_limit_i18n
-    I18n.t("activerecord.attributes.spot.age_limit.#{age_limit}")
+    I18n.t("enums.spot.age_limit.#{age_limit}")
   end
 
 
@@ -42,17 +42,11 @@ class Spot < ApplicationRecord
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   def self.ransackable_attributes(auth_object = nil)
-    ["address", "category_id", "created_at", "id", "latitude", "longitude", "name", "opening_hours", "phone_number", "place_id", "postal_code", "prefecture_id", "rating", "updated_at", "web_site"]
+    ["address", "category_id", "created_at", "id", "latitude", "longitude", "name", "opening_hours", "phone_number", "place_id", "postal_code", "prefecture_id", "rating", "updated_at", "web_site","foster_parents","adoption_event"]
   end
 
   def self.ransackable_associations(auth_object = nil)
     ["category", "prefecture", "spot_images"]
   end
 
-
-  def closest_spot(latitude, longitude)
-      target_location = Geokit::LatLng.new(latitude, longitude)
-      closest_spots = Spots.where.not(id: self.id).closest(origin: target_location, units: :kms, within: 10).first
-      closest_spots
-  end
 end
