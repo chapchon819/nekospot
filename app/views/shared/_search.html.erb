@@ -11,5 +11,15 @@
         <%= f.submit '検索', class: 'text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
         <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
     </div>
+    <div class="md:flex md:space-x-4 flex-col md:flex-row pt-4 pl-8 text-secondary justify-center">
+        <div class='label-select flex h-full text-sm space-x-2'>
+            <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+            <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
+        </div>
+        <div class='label-select flex h-full text-sm space-x-2'>
+            <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+            <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
+        </div>
+    </div>
 <% end %>
 </div>
