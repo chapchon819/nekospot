@@ -9,20 +9,17 @@
             <% end %>
         <% end %>
     </div>
-    <div class="flex flex-wrap w-full md:h-full">
-        <div class="p-2 md:p-2.5 flex flex-col h-full sm:p-7 w-full md:relative">
-            <div class="hidden md:block bg-accent absolute top-0 -mt-3 flex items-center font-semibold px-3 py-1.5 leading-none w-auto inline-block rounded-full text-xs font-medium uppercase text-white inline-block">
+    <div class="flex flex-wrap w-full md:h-full h-28">
+        <div class="p-2 md:p-2.5 flex flex-col h-full sm:p-7 w-full relative">
+            <div class="bg-accent absolute top-0 -mt-3 flex items-center font-semibold px-3 py-1.5 leading-none w-auto rounded-full text-xs uppercase text-white">
                 <span><i class="ph-fill ph-star fa-lg"></i> <%= spot.rating %></span>
             </div>
-            <p class="md:px-1.5 md:mt-2 text-xs text-secondary dark:text-neutral-500"><%= formatted_address(spot.address) %></p>
+            <p class="md:px-1.5 mt-2 text-[10px] text-secondary dark:text-neutral-500"><%= spot.category.name %> / <%= formatted_address(spot.address) %></p>
             <%= link_to spot_path(spot), data: { turbo: false } do %>
                 <div class="font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"><%= spot.name %></div>
             <% end %>
             <div class="justify-between flex items-end h-full md:space-x-4 space-x-2">
                 <div class="flex space-x-2">
-                    <div class="inline-flex">
-                        <p class="md:hidden text-xs text-white font-semibold py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> <%= spot.rating %></p>
-                    </div>
                     <div class="flex space-x-2 md:mb-1">
                     <% if spot.foster_parents_before_type_cast == 1 %>
                         <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
@@ -37,7 +34,7 @@
                     <% end %>
                 </div>
                 </div>
-                <div class="flex px-1">
+                <div class="flex">
                     <%= render 'visited_buttons', { spot: spot } %>
                     <%= render 'bookmark_buttons', { spot: spot } %>
                 </div>

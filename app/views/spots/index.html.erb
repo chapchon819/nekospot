@@ -65,7 +65,9 @@
                             <% @spots.each do |spot| %>
                                 <%= render 'spots/spot', spot: spot %>
                             <% end %>
+                            <div class="flex items-center justify-center">
                             <%= paginate @spots %>
+                            </div>
                         <% unless user_signed_in? %>
                             <%= render 'shared/login_modal' %>
                         <% end %>
