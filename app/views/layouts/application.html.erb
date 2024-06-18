@@ -6,6 +6,12 @@
     <meta name="csrf-token" content="<%= form_authenticity_token %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@819Chapchon" />
+    <meta property="og:url" content="https://nekospot.jp/" />
+    <meta property="og:title" content="NekoSpot" />
+    <meta property="og:description" content="猫スポットの検索を、もっと快適に。" />
+    <meta property="og:image" content="<%= image_url "x_image.png" %>" />
     <%= favicon_link_tag('favicon.png') %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= turbo_frame_tag 'review_modal' %>
