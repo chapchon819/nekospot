@@ -19,7 +19,6 @@ ja:
           unheld: '譲渡会開催なし'
           held: '譲渡会開催あり'
         age_limit:
-          no_listed: '記載なし'
           unlimited: '年齢制限なし(保護者同伴)'
           walking_age: '歩ける年齢から'
           three_and_above: '3歳以上'
