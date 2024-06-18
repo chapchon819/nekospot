@@ -81,20 +81,42 @@
 </div>
 
 
-<section data-midnight="white" class="pt-24">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                  <div class="relative w-full text-center lg:text-left lg:w-2/4">
-                      <h2 class="text-4xl font-bold text-secondary font-zenmaru leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">ねこスポット探しをもっと快適に。</h2>
-                  </div>
-                  <!-- 後日何か書き加える -->
-                  <div class="relative w-full text-center  lg:text-left lg:w-2/4">
-                      <p class="text-lg font-normal text-gray-500 mb-5"></p> 
+  <section data-midnight="white" class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
+          <div class="relative w-full text-center lg:text-left lg:w-2/4">
+              <h2 class="text-4xl font-bold text-secondary font-zenmaru leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">ねこスポット探しをもっと快適に。</h2>
+          </div>
+          <!-- 後日何か書き加える -->
+          <div class="relative w-full text-center  lg:text-left lg:w-2/4">
+              <p class="text-lg font-normal text-gray-500 mb-5"></p> 
 
-                  </div>
-                  <!-- ここまで -->
-              </div>
-<div class="flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
+          </div>
+          <!-- ここまで -->
+      </div>
+      <div class="flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
+        <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
+          <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
+            <i class="ph ph-magnifying-glass fa-2xl text-accent"></i>
+          </div>
+          <h4 class="text-xl font-semibold text-secondary font-zenmaru mb-3 capitalize transition-all duration-500 group-hover:text-white">地図から簡単検索</h4>
+          <p class="text-sm font-normal text-secondary transition-all duration-500 leading-5 group-hover:text-white">
+            カテゴリ・ワード・里親募集の有無等からも検索可能！
+          </p>
+          <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
+          <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
+        <% end %>
+        <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
+          <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
+            <i class="ph ph-map-pin fa-2xl text-accent"></i>
+          </div>
+          <h4 class="text-xl font-semibold text-secondary font-zenmaru mb-3 capitalize transition-all duration-500 group-hover:text-white">豊富な猫スポット数</h4>
+          <p class="text-sm font-normal text-secondary transition-all duration-500 leading-5 group-hover:text-white">
+            全国を網羅(予定)！猫と出会える場所だけを掲載
+          </p>
+          <%= image_tag 'phone.png', size: '320x480', class: "hidden md:block" %>
+          <%= image_tag 'phone.png', size: '260x390', class: "md:hidden mt-4" %>
+        <% end %>
 
   <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full hover:bg-accent" do %>
     <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
@@ -162,22 +184,6 @@
     <% end %>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- Swiper JS -->

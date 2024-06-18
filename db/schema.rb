@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_15_133148) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_16_154955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_133148) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_visits_on_spot_id"
+    t.index ["user_id"], name: "index_visits_on_user_id"
+  end
+
   add_foreign_key "diagnostic_answer_categories", "categories"
   add_foreign_key "diagnostic_answer_categories", "diagnostic_answers"
   add_foreign_key "diagnostic_answers", "diagnostic_questions"
@@ -144,4 +153,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_133148) do
   add_foreign_key "spot_bookmarks", "users"
   add_foreign_key "spot_images", "spots"
   add_foreign_key "spots", "categories"
+  add_foreign_key "visits", "spots"
+  add_foreign_key "visits", "users"
 end

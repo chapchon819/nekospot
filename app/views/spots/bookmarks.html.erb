@@ -6,7 +6,7 @@
                     <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">お気に入り</a>
                 </li>
                 <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">いいね</a>
+                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">訪問済み</a>
                 </li>
             </ul>
 
@@ -56,17 +56,25 @@
 
             <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
             <div class="w-11/12 mx-auto space-y-8 pb-8">
-                <h2 class="text-xl font-zenmaru font-bold text-neutral">いいね一覧</h2>
-                <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
-                    <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
-                    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  いいねした猫スポットがありません</h3>
-                    <p class="text-sm flex items-center justify-center w-full text-secondary">みんなが投稿した身近な猫スポットを楽しもう！</p>
-                    <%= link_to "#", class: "block w-full" do %>
-                        <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
-                            <p><i class="ph ph-chat-circle-dots fa-lg"></i> 猫スポットを見に行く</p>
-                        </button>
+                <h2 class="text-xl font-zenmaru font-bold text-neutral">訪問済み一覧</h2>
+                    <% if @visited_spots.present? %>
+                        <div class="md:grid md:grid-cols-3 md:gap-4">
+                            <% @visited_spots.each do |spot| %>
+                                <%= render 'spots/spot', spot: spot.spot %>
+                            <% end %>
+                        </div>
+                    <% else %>
+                        <div class="mx-auto flex w-full md:w-3/5 flex-col items-center gap-2.5 justify-center">
+                            <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                            <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだ訪問済みスポットはありません</h3>
+                            <p class="text-sm flex items-center justify-center w-full text-secondary">訪問済みスポットを集めてランクアップを目指そう！</p>
+                            <%= link_to "#", class: "block w-full" do %>
+                                <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
+                                    <p><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを探す</p>
+                                </button>
+                            <% end %>
+                        </div>
                     <% end %>
-                </div>
             </div>    
             </div>
         </div>

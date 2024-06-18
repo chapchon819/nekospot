@@ -4,8 +4,16 @@ class SpotsController < ApplicationController
   def index
     @categories = Category.all
     @prefectures = Prefecture.all
+    # params[:q][:adoption_event_eq]が配列になっている場合に対応
+    if params[:q] && params[:q][:adoption_event_eq].is_a?(Array)
+      params[:q][:adoption_event_eq] = params[:q][:adoption_event_eq].first
+    end
     @q_spots = Spot.ransack(params[:q])
-    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(params[:page]).per(12)
+    # params[:page]が配列になっている場合に対応
+    page_param = params[:page].is_a?(Array) ? params[:page].first : params[:page]
+    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12)
+    # パラメータのログを出力
+    Rails.logger.debug "Received parameters: #{params.inspect}"
     
     @q_reviews = Review.ransack(params[:q])
     filtered_reviews = @q_reviews.result(distinct: false).includes(:spot)
@@ -69,6 +77,11 @@ class SpotsController < ApplicationController
     @categories = bookmarked_spots.map(&:category).uniq
     prefecture_ids = bookmarked_spots.map(&:prefecture_id).uniq
     @prefectures = Prefecture.find(prefecture_ids)
+    @visited_spots = current_user.visits.includes(:user).order(created_at: :desc)
+  end
+
+  def visits
+    @visited_spots = current_user.visits.includes(:user).order(created_at: :desc)
   end
 
   def show

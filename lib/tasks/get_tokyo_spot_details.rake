@@ -87,7 +87,11 @@ namespace :Spot do
           # 都道府県IDとカテゴリIDを取得してデータハッシュに追加
           spot_data.merge!(
             prefecture_id: row['都道府県ID'].to_i,
-            category_id: row['カテゴリID'].to_i
+            category_id: row['カテゴリID'].to_i,
+            x_account: row['Xアカウント'],
+            foster_parents: row['里親募集'].to_i,
+            adoption_event: row['譲渡会の開催'].to_i,
+            age_limit: row['年齢制限'].to_i
           )
 
         spot = Spot.create!(spot_data)
@@ -99,8 +103,9 @@ namespace :Spot do
 
       photo_references = photo_reference_data(spot_data)
       if photo_references.present?
-        photo_references.each do |photo|
-          SpotImage.create!(spot: spot, image: photo)
+        photo_references.each do |photo_reference|
+          has_cat = CatVision.image_analysis(photo_reference) #SpotImageを保存する際にCatVisionモジュールを使って猫が写っているかを判定し、その結果を保存
+          SpotImage.create!(spot: spot, image: photo_reference, cat: has_cat)
         end
         puts "SpotImageを保存しました: #{row['スポット名']}"
         puts "----------"

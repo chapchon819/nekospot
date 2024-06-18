@@ -41,7 +41,7 @@ function initMap() {
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
   },
-  "喫茶店・カフェ・BAR": {
+  "飲食店": {
     url: mapElement.dataset.eatingIcon,
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
@@ -51,17 +51,7 @@ function initMap() {
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
   },
-  "レストラン": {
-    url: mapElement.dataset.restaurantIcon,
-    size: new google.maps.Size(52, 52),
-    scaledSize: new google.maps.Size(52, 52)
-  },
-  "書店": {
-    url: mapElement.dataset.bookIcon,
-    size: new google.maps.Size(52, 52),
-    scaledSize: new google.maps.Size(52, 52)
-  },
-  "雑貨屋": {
+  "書店・雑貨店": {
     url: mapElement.dataset.shopIcon,
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
@@ -73,11 +63,6 @@ function initMap() {
   },
   "シェルター": {
     url: mapElement.dataset.shelterIcon,
-    size: new google.maps.Size(52, 52),
-    scaledSize: new google.maps.Size(52, 52)
-  },
-  "テーマパーク": {
-    url: mapElement.dataset.themeParkIcon,
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
   },

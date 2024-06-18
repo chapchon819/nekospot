@@ -18,10 +18,12 @@ Rails.application.routes.draw do
       get :bookmarks
       get :map
       get :search
+      get :visits
     end
   end
   resources :spot_bookmarks, only: %i[create destroy]
   resources :helpfuls, only: %i[create destroy]
+  resources :visits, only: %i[create destroy]
   resources :diagnostics, only: [] do
     member do
       get 'question', to: 'diagnostics#show_question', as: 'question'

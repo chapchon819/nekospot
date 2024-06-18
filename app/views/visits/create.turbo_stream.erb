@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "visited-button-for-spot-#{@spot.id}" do %>
+    <%= render 'spots/unvisited', spot: @spot %>
+<% end %>
+
+<%= turbo_stream_flash %>

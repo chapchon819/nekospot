@@ -9,17 +9,22 @@
                     <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-primary w-56 rounded-box">
                         <li>
                             <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;検索</p>
+                                <p><i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;マップ検索</p>
                             <% end %>
                         </li>
                         <li>
                             <%= link_to spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;一覧</p>
+                                <p><i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;一覧検索</p>
                             <% end %>
                         </li>
                         <li>
                             <%= link_to start_diagnostics_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;診断</p>
+                                <p><i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;猫スポット診断</p>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to bookmarks_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                                <p><i class="ph ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;保存済み</p>
                             <% end %>
                         </li>
                         <li>

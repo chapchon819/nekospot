@@ -48,4 +48,42 @@ module ApplicationHelper
     def devise_mapping
       @devise_mapping ||= Devise.mappings[:user]
     end
+
+    def user_rank(user)
+      rank_by_review = user.reviews.count
+      rank_by_visit = user.visits.count
+
+      if rank_by_review == 0 && rank_by_visit == 0
+        'beginner' #レビューと訪問済が両方０の場合はビギナー
+      elsif rank_by_review >= 20 && rank_by_visit >= 10
+        'gold' #レビュー20以上、訪問済10以上はゴールド
+      elsif rank_by_review >= 10 && rank_by_visit >= 5
+        'silver' #レビュー10以上20未満、訪問済5以上10未満はシルバー
+      else
+        'bronze' #それ以外はブロンズ
+      end
+    end
+
+    def rank_icon(user)
+      case user_rank(user)
+      when 'gold'
+        "gold.png"
+      when 'silver'
+        "silver.png"
+      when 'beginner' 
+        "beginner.png"
+      else 
+        "bronze.png"
+      end
+    end
+
+    def icon_circle_color(user)
+      case user_rank(user)
+      when 'gold'
+        "p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+      when :alert  then "p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+      when :success  then "p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+      else "p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+      end
+    end
   end
