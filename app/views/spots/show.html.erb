@@ -136,8 +136,8 @@
           </div>
         </div>
             <% if @spot.x_account.present? %>
-              <div class="text-secondary hidden md:block md:col-span-1">
-                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
+              <div class="text-secondary hidden md:block md:col-span-1 w-11/12">
+                <p class="text-[16px] pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
                 <a class="twitter-timeline" data-height="500" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
               </div>
             <% end %>
