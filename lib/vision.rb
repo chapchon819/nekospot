@@ -34,7 +34,7 @@ module Vision
           parsed_image["safeSearchAnnotation"].values
         end.flatten
         puts "Parsed result: #{result_arr}"  # パースした結果のログ出力
-        if result_arr.include?("LIKELY") || result_arr.include?("VERY_LIKELY") || result_arr.include?("POSSIBLE")
+        if result_arr.include?("LIKELY") || result_arr.include?("VERY_LIKELY")
           false
         else
           true
