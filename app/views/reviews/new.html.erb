@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "review_modal" do %>
     <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" data-controller="review-modal" data-review-modal-target="backGround" data-action="click->review-modal#closeBackground" >
-        <div class="modal-content relative bg-white w-72 rounded-xl shadow-lg p-10 flex flex-col justify-center " data-review-modal-target="reviewModal">
+        <div class="modal-content relative bg-white w-72 rounded-xl shadow-lg p-8 flex flex-col justify-center " data-review-modal-target="reviewModal">
             <div class="absolute top-3 right-4">
                 <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
             </div>
@@ -8,7 +8,7 @@
             <%= form_with model: @review, 
                             url: spot_reviews_path(@spot),
                             data: { action: "turbo:submit-end->review-modal#close" },
-                            html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
+                            html: { class: "mx-auto flex flex-col items-center justify-center space-y-4" } do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
                 <div class="relative mb-4 flex flex-col w-full">
                 <%= f.label :rating, "評価", class: "text-sm text-secondary mb-2" %>
@@ -30,8 +30,8 @@
                 <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
                 </div>
                 <div class="relative mb-4 flex flex-col w-full">
-                    <%= f.text_field :tag_ids, class: "form-control", id:'tag_ids',\
-                        placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+                <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
+                    <%= text_field_tag 'review[tag_ids][]', '', autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
                 </div>
                 <div class="relative mb-4">
                 <%= f.submit "口コミを投稿する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>

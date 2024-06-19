@@ -9,7 +9,9 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
-    tag_list = params[:review][:tag_ids].split(',')
+    tag_ids_param = params[:review][:tag_ids].first || "[]"
+    tag_list = JSON.parse(tag_ids_param).map { |tag| tag["value"] }
+    Rails.logger.debug "tag_list: #{tag_list.inspect}"
     if validate_images(review_params[:images]) && @review.save
       reviews_data
       @review.save_tags(tag_list)
