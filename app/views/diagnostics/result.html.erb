@@ -3,23 +3,23 @@
         <div class="my-8 flex-col items-center justify-center">
             <% if @top_category.present? %>
                 <% result = result_contents(@top_category)%>
-                <h3 class="pl-4 text-secondary font-zenmaru text-center text-xl font-semibold">あなたにおすすめの猫スポットは<h3>
+                <h3 class="text-secondary font-zenmaru text-center text-[16px] font-semibold">あなたにおすすめの猫スポットは<h3>
                 <div class="flex-col justify-center items-center my-8">
                     <div class="flex justify-center items-center">
-                        <h1 class="text-secondary font-zenmaru text-xl font-bold">＼ <%= result[:content] %> ／</h1>
+                        <h1 class="text-secondary font-zenmaru text-[16px] font-bold">＼ <%= result[:content] %> ／</h1>
                     </div>
                     <div class="flex justify-center items-center">
                         <%= image_tag result[:image], :size =>'60x60' %>
-                        <h1 class="pl-2 text-secondary font-zenmaru text-3xl underline font-semibold"><%= @top_category.name %></h1>
+                        <h1 class="text-secondary font-zenmaru text-3xl underline font-semibold"><%= @top_category.name %></h1>
                     </div>
                 </div>
                 <div class="my-8 flex-col items-center justify-center">
                     <% if @recommend_spot.present? %>
                     <div class="flex-col items-center justify-center">
-                        <h1 class="pl-4 text-secondary font-zenmaru text-center text-lg font-semibold">なかでもおすすめの<span><%= @recommend_spot.category.name %></span>はこちら</h1>
+                        <h1 class="text-secondary font-zenmaru text-center text-[16px] font-semibold">なかでもおすすめの<span><%= @recommend_spot.category.name %></span>はこちら</h1>
                         <%= render 'diagnostics/spot' %>
                     <% else %>
-                        <h1 class="pl-4 text-secondary font-zenmaru text-center text-lg font-semibold">おすすめの猫スポットはありませんでした</h1>
+                        <h1 class="text-secondary font-zenmaru text-center text-lg font-semibold">おすすめの猫スポットはありませんでした</h1>
                     <% end %>
                 </div>
                 <div class="flex justify-center items-center space-x-4 my-8">

@@ -87,8 +87,15 @@ class SpotsController < ApplicationController
   def show
     @user = current_user
     @spot = Spot.find(params[:id])
+    Rails.logger.debug "Received tag_id: #{params[:tag_id]}" # デバッグ用ログ
     @review = Review.new(spot: @spot)
-    @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    if params[:tag_id].present?
+      @reviews = @spot.reviews.joins(:tags).where(tags: { id: params[:tag_id] }).includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+      logger.debug "Filtered reviews for tag_id: #{params[:tag_id]}"
+    else
+      @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+      logger.debug "No tag_id provided, showing all reviews"
+    end
     @all_reviews_count = @spot.reviews.count
     @average_rating = @spot.reviews.average(:rating).to_f
     @prioritized_image = @spot.prioritized_spot_image # 優先的に表示する画像を取得

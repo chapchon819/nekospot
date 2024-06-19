@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_16_154955) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_19_045505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_154955) do
     t.datetime "updated_at", null: false
     t.index ["review_id"], name: "index_helpfuls_on_review_id"
     t.index ["user_id"], name: "index_helpfuls_on_user_id"
+  end
+
+  create_table "review_tags", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "review_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id", "tag_id"], name: "index_review_tags_on_review_id_and_tag_id", unique: true
+    t.index ["review_id"], name: "index_review_tags_on_review_id"
+    t.index ["tag_id"], name: "index_review_tags_on_tag_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -116,6 +126,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_154955) do
     t.index ["category_id"], name: "index_spots_on_category_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -147,6 +164,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_154955) do
   add_foreign_key "diagnostic_answers", "diagnostic_questions"
   add_foreign_key "helpfuls", "reviews"
   add_foreign_key "helpfuls", "users"
+  add_foreign_key "review_tags", "reviews"
+  add_foreign_key "review_tags", "tags"
   add_foreign_key "reviews", "spots"
   add_foreign_key "reviews", "users"
   add_foreign_key "spot_bookmarks", "spots"

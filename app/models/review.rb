@@ -2,6 +2,8 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :spot
   has_many :helpfuls, dependent: :destroy
+  has_many :review_tags, dependent: :destroy
+  has_many :tags, through: :review_tags
   attr_accessor :images_cache
   mount_uploaders :images, ImageUploader
 
@@ -22,6 +24,16 @@ class Review < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     ["spot", "user"]
+  end
+
+  def save_tags(save_review_tags)
+  # 既存のタグをクリアすることで、タグ編集時の重複を防ぐ
+  self.tags.clear
+
+  save_review_tags.each do |new_name| #カラムの中から同じ値がないか探して、あればそのままfindの動き、なければcreateの動きで新たにカラムに保存
+    review_tag = Tag.find_or_create_by(name: new_name)
+    self.tags << review_tag #タグを関連付ける
+  end
   end
 
   private
