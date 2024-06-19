@@ -21,9 +21,11 @@
     <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
     <div class="grid">
         <div id="reviews" class="space-y-8 divide-gray-200 divide-y" >
+        <%= turbo_frame_tag 'reviews' do %>
             <% spot.reviews.each do |review| %>
-                <%= render partial: "reviews/review", locals: { review: review } %>
+                <%= render partial: "reviews/review",  locals: { review: review, spot: @spot } %>
             <% end %>
+        <% end %>
         </div>
     <%= paginate @reviews %>
     </div>

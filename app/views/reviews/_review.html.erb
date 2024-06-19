@@ -35,9 +35,9 @@
     <div class="flex space-x-2">
     <% if review.tags.present? %>
       <% review.tags.each do |tag| %>
-        <div class="inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 bg-primary items-center hover:bg-primary-hover">
-          <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
-        </div>
+        <%= link_to spot_path(@spot, tag_id: tag.id), data: { turbo_frame: "tags_search" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 bg-primary items-center hover:bg-primary-hover" do %>
+            <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+        <% end %>
       <% end %>
     <% end %>
     </div>
