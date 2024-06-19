@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
+    # フォームから送信されたタグの情報を取り出す。空の場合は[]を使う
     tag_ids_param = params[:review][:tag_ids].first || "[]"
     tag_list = JSON.parse(tag_ids_param).map { |tag| tag["value"] }
     Rails.logger.debug "tag_list: #{tag_list.inspect}"
@@ -31,7 +32,7 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @tag_list = @review.review_tags.joins(:tag).pluck('tags.name').join(',')
+    @tag_list = @review.review_tags.joins(:tag).pluck('tags.name').join(', ')
   end
 
   def update
@@ -54,8 +55,9 @@ class ReviewsController < ApplicationController
         @review.remove_image_at_index(index.to_i)
       end
     end
-    # タグのIDリストをカンマで分割して配列にする
-    tag_list = params[:review][:tag_ids].split(',')
+    # 投稿されたタグの情報を取り出す。空の場合は[]を使う
+    tag_ids_param = params[:review][:tag_ids].first || "[]"
+    tag_list = JSON.parse(tag_ids_param).map { |tag| tag["value"] }
 
     # 画像のバリデーションが成功し、レビューが保存できた場合
     if validate_images(review_params[:images]) && @review.save

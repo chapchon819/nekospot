@@ -30,7 +30,7 @@
                 <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
                 </div>
                 <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
+                    <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
                     <%= text_field_tag 'review[tag_ids][]', '', autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
                 </div>
                 <div class="relative mb-4">
