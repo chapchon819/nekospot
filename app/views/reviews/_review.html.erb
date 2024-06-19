@@ -32,11 +32,15 @@
       <% end %>
     </div>
     <p class="text-secondary"><%= review.body %></p>
+    <div class="flex space-x-2">
     <% if review.tags.present? %>
       <% review.tags.each do |tag| %>
-        <%= tag.name %>
+        <div class="inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 bg-primary items-center hover:bg-primary-hover">
+          <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+        </div>
       <% end %>
     <% end %>
+    </div>
     <% if review.images.present? %>
       <div class="flex space-x-2">
         <% review.images.each do |image| %>
