@@ -26,11 +26,14 @@ class Review < ApplicationRecord
     ["spot", "user"]
   end
 
-  def save_tags(save_review_tags) #カラムの中から同じ値がないか探して、あればそのままfindの動き、なければcreateの動きで新たにカラムに保存
-    save_review_tags.each do |new_name|
-      review_tag = Tag.find_or_create_by(name: new_name)
-      self.tags << review_tag
-    end
+  def save_tags(save_review_tags)
+  # 既存のタグをクリアすることで、タグ編集時の重複を防ぐ
+  self.tags.clear
+
+  save_review_tags.each do |new_name| #カラムの中から同じ値がないか探して、あればそのままfindの動き、なければcreateの動きで新たにカラムに保存
+    review_tag = Tag.find_or_create_by(name: new_name)
+    self.tags << review_tag #タグを関連付ける
+  end
   end
 
   private

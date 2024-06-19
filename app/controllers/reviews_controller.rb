@@ -28,29 +28,37 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @tag_list = @review.review_tags.joins(:tag).pluck('tags.name').join(',')
+  end
 
   def update
-  # 現在の画像を保持
-  existing_images = @review.images
+    # 現在のレビューに関連付けられている画像をexisting_imagesに保持
+    existing_images = @review.images
 
-  # レビューの更新
-  @review.assign_attributes(review_params.except(:spot_id, :images))
+    # review_paramsからspot_idとimagesを除いた属性を@reviewに割り当て
+    @review.assign_attributes(review_params.except(:spot_id, :images))
 
-  # 既存の画像に新しい画像を追加
-  if review_params[:images].present?
-    @review.images += review_params[:images]
-  else
-    @review.images = existing_images
-  end
+    # 新しい画像が存在する場合、既存の画像に追加。存在しない場合は、元の画像を保持する。
+    if review_params[:images].present?
+      @review.images += review_params[:images]
+    else
+      @review.images = existing_images
+    end
 
-if params[:review][:remove_image_at].present?
-  params[:review][:remove_image_at].split(',').each do |index|
-    @review.remove_image_at_index(index.to_i)
-  end
-end
+    # 削除する画像のインデックスが指定されている場合、その画像を削除する。インデックスはカンマで分割。
+    if params[:review][:remove_image_at].present?
+      params[:review][:remove_image_at].split(',').each do |index|
+        @review.remove_image_at_index(index.to_i)
+      end
+    end
+    # タグのIDリストをカンマで分割して配列にする
+    tag_list = params[:review][:tag_ids].split(',')
+
+    # 画像のバリデーションが成功し、レビューが保存できた場合
     if validate_images(review_params[:images]) && @review.save
-      reviews_data
+      reviews_data #レビューに関連するデータを更新し
+      @review.save_tags(tag_list) #タグを保存する。
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
         turbo_stream.replace(@review),
