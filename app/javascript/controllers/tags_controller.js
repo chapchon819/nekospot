@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import Tagify from '@yaireo/tagify'
 
 // Connects to data-controller="tags"
 export default class extends Controller {
