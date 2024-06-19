@@ -26,6 +26,13 @@ class Review < ApplicationRecord
     ["spot", "user"]
   end
 
+  def save_tags(save_review_tags) #カラムの中から同じ値がないか探して、あればそのままfindの動き、なければcreateの動きで新たにカラムに保存
+    save_review_tags.each do |new_name|
+      review_tag = Tag.find_or_create_by(name: new_name)
+      self.tags << review_tag
+    end
+  end
+
   private
 
   def validate_image_count

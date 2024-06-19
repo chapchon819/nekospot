@@ -29,6 +29,10 @@
                 <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
                 <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
                 </div>
+                <div class="relative mb-4 flex flex-col w-full">
+                    <%= f.text_field :tag_ids, class: "form-control", id:'tag_ids',\
+                        placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+                </div>
                 <div class="relative mb-4">
                 <%= f.submit "口コミを投稿する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
                 </div>

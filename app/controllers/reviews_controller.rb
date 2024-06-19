@@ -9,8 +9,10 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
+    tag_list = params[:review][:tag_ids].split(',')
     if validate_images(review_params[:images]) && @review.save
       reviews_data
+      @review.save_tags(tag_list)
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", partial: "reviews/review", locals: { review: @review }),
@@ -127,7 +129,7 @@ end
     end
 
     if inappropriate_images.any?
-      flash[:error] = '不適切な画像が含まれています'
+      flash[:alert] = '不適切な画像が含まれています'
       return false
     end
 
