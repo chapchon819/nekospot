@@ -4,6 +4,7 @@ class SpotsController < ApplicationController
   def index
     @categories = Category.all
     @prefectures = Prefecture.all
+    @tags = Tag.all
     # params[:q][:adoption_event_eq]が配列になっている場合に対応
     if params[:q] && params[:q][:adoption_event_eq].is_a?(Array)
       params[:q][:adoption_event_eq] = params[:q][:adoption_event_eq].first

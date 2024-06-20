@@ -27,6 +27,12 @@
                         <%= f.submit '検索', class: 'md:hidden text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
                         <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
                     </div>
+                        <%= f.radio_button :with_tag, '', id: "tag_none", checked: true %>
+                        <%= f.label :with_tag, "指定なし", value: '', id: "tag_none" %>
+                        <% @tags.each do |tag| %>
+                        <%= f.radio_button :with_tag, tag.name, id: "tag_#{tag.id}" %>
+                        <%= f.label :with_tag, tag.name, "tag_#{tag.id}" %>
+                        <% end %>
                     <div class="text-secondary flex-col items-center md:space-y-4">
                     <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
                         <div class='label-select flex h-full text-sm space-x-2'>
@@ -38,8 +44,6 @@
                             <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
                         </div>
                     </div>
-                        <%= f.label :with_tag, "タグで絞り込む" %>
-                        <%= f.search_field :with_tag %>
                     <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4">
                         <div class='label-select h-full md:w-full w-1/2 text-sm'>
                             <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
