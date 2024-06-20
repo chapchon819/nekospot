@@ -30,7 +30,15 @@ class Spot < ApplicationRecord
     I18n.t("enums.spot.age_limit.#{age_limit}")
   end
 
+  # タグに基づいたスポットをフィルタリングするスコープ
+  scope :with_tag, -> (tag_name) {
+    joins(reviews: :tags).where(tags: { name: tag_name }).distinct
+  }
 
+  # Ransackで検索可能なカスタムスコープを指定
+  def self.ransackable_scopes(auth_object = nil)
+    %i[with_tag]
+  end
 
   # 猫の画像を優先的に表示させるメソッド
   def prioritized_spot_image #SpotImageの中で、cat属性がtrueのものを優先的に取得し、存在しない場合は最初のSpotImageを取得する
