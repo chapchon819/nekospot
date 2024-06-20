@@ -23,6 +23,7 @@ class SpotsController < ApplicationController
   end
 
   def map
+    @tags = Tag.all
     @user = current_user
     @q = Spot.ransack(params[:q])
     @spots = @q.result(distinct: true).includes(:spot_images, :category)

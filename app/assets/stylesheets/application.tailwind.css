@@ -89,32 +89,4 @@
     .beginner-border {
         border: none;
     }
-
-    .visually-hidden {
-        /* コンテンツの流れから切り離す */
-        position: absolute;
-        /* 誤ったコードに対処するための回避策 */
-        white-space: nowrap;
-        /* 可能な限り文字サイズを小さくするための処理
-         * (スクリーンリーダー中には height と width が 0 のものを無視するため)
-         */
-        width: 1px;
-        height: 1px;
-        /* オーバーフローしているコンテンツを隠す */
-        overflow: hidden;
-        /* 要素サイズを変更しうるプロパティのリセット */
-        border: 0;
-        padding: 0;
-        /* 要素のどの部分が表示されるかを定義するもの */
-        /* 古いブラウザでは使用できない */
-        clip: rect(0 0 0 0);
-        /* 最近のブラウザ用
-         * コンテンツを非表示にする設定  */
-        clip-path: inset(50%); 
-        /* 今現在なぜ-1pxがここで設定されるかは分かっていないそうです。
-         * それに加えていくつか問題もあるそうです 
-         * (参考: https://github.com/h5bp/html5-boilerplate/issues/1985)
-         */
-        margin: -1px;
-      }
 }
