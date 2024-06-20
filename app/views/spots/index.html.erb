@@ -38,6 +38,8 @@
                             <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
                         </div>
                     </div>
+                        <%= f.label :with_tag, "タグで絞り込む" %>
+                        <%= f.search_field :with_tag %>
                     <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4">
                         <div class='label-select h-full md:w-full w-1/2 text-sm'>
                             <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
