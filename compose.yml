@@ -24,7 +24,15 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  redis:
+    image: "redis:7.0-alpine"
+    volumes:
+      - redis_volume:/data
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
 volumes:
   postgres_data:
   bundle_data:
   node_modules:
+  redis_volume:
