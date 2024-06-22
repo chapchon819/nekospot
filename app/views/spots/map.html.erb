@@ -27,7 +27,7 @@
               <%= render 'spots/search_accordion' %>
             </div>
             <% if params[:q].present? %>
-            <div class="relative flex justify-center items-center ">
+            <div class="hidden md:relative md:flex justify-center items-center ">
               <%= render "spots/search_conditions" %>
             </div>
             <% end %>
@@ -66,6 +66,12 @@
                       <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
               </button>
             </div>
+
+            <% if params[:q].present? %>
+            <div class="md:hidden absolute top-24 w-full flex justify-center items-center ">
+              <%= render "spots/search_conditions" %>
+            </div>
+            <% end %>
                         <!-- スマホ用サイドバー -->
             <div class="fixed inset-0 z-50 flex md:hidden " style="display: none;" data-search-accordion-target="sidebar">
               <div class="bg-black bg-opacity-50 w-full h-screen" data-action="click->search-accordion#closeSidebar"></div>

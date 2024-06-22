@@ -1,18 +1,14 @@
-    <% labels = {
-        "name_or_address_cont" => "フリーワード",
-        "with_tag" => "タグ",
-        "foster_parents_eq" => "里親募集"
-    } %>
-<div role="alert" class="alert shadow-lg w-11/12">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-  <div>
-    <h3 class="font-bold">現在の絞り込み条件</h3>
-    <ul>
-    <% params[:q].each do |key, value| %>
-    <% next if value.blank? %>
-    <li class="text-xs"><strong><%= key %>:</strong> <%= value %></li>
-    <% end %>
-    </ul>
-  </div>
-  <button class="btn btn-sm">解除</button>
+<div role="alert" class="alert shadow-md w-11/12 border-gray-100 mb-8 bg-white max-[600px]:flex max-[600px]:justify-between">
+<div>
+<i class="ph-bold ph-magnifying-glass fa-lg text-accent"></i>
+</div>
+<div class="max-[600px]:text-left">
+    <h3 class="font-bold text-neutral">現在の絞り込み条件</h3>
+    <div class="text-sm text-secondary">
+        <%= search_conditions(params) %>
+    </div>
+</div>
+<div>
+    <%= link_to "解除", map_spots_path, data: { "turbolinks" => false }, class: "btn rounded-lg text-secondary bg-primary border-secondary flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" %>
+</div>
 </div>

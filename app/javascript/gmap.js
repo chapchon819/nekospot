@@ -5,6 +5,7 @@ let currentCategoryId = null;
 let activeMarker = null;
 
 const defaultLocation = { lat: 35.6803997, lng: 139.7690174 };
+let selectedPrefecture = null;  // 都道府県ボタンが押されたかどうかを示す変数
 
 function initMap() {
   const geocoder = new google.maps.Geocoder();
@@ -97,6 +98,9 @@ spots.forEach(function(spot) {
     });
   });
 
+  // カテゴリフィルタを適用
+  filterSpotsByCategory(currentCategoryId);
+
   // ピンのドラッグ終了イベント
   centerPin.addListener('dragend', function() {
     map.setCenter(centerPin.getPosition());
@@ -109,13 +113,32 @@ spots.forEach(function(spot) {
     updateSpotsList(currentCategoryId); // スポットリストを更新
   });
 
-  // 現在地の読み込み
+ // 都道府県ボタンが押されている場合はその位置にセンタリング
+ if (selectedPrefecture) {
+  console.log('Selected Prefecture:', selectedPrefecture); // デバッグ用コンソールログ
+  const newCenter = new google.maps.LatLng(selectedPrefecture.lat, selectedPrefecture.lng);
+  map.setCenter(newCenter);
+  centerPin.setPosition(newCenter);
+  map.setZoom(8);
+  hideLoadingSpinner();
+} else {
   showCurrentLocation();
+}
 
   // カテゴリーボタンにイベントリスナーを追加
-  const buttons = document.querySelectorAll("#category-buttons button");
-  buttons.forEach(button => {
-    button.addEventListener("click", function() {
+  const labels = document.querySelectorAll("#category-buttons label");
+  const radioButtons = document.querySelectorAll("#category-buttons input[type='radio']");
+  const searchForm = document.getElementById('searchForm');
+  labels.forEach(label => {
+    label.addEventListener("click", function() {
+      // 全てのカテゴリボタンのクラスをリセット
+      labels.forEach(lbl => {
+        lbl.classList.remove('bg-primary-hover');
+        lbl.classList.add('bg-primary');
+      });
+      // 選択したボタンの色を変える
+      label.classList.remove('bg-primary');
+      label.classList.add('bg-primary-hover');
       const categoryId = parseInt(this.getAttribute('data-category-id'));
       currentCategoryId = categoryId;
       filterSpotsByCategory(categoryId);
@@ -128,37 +151,58 @@ spots.forEach(function(spot) {
       currentCategoryId = null;
       filterSpotsByCategory(null);
       updateSpotsList(null);
+      const resetButton = document.getElementById("reset-button");
+      resetButton.classList.remove('bg-primary-hover');
+      resetButton.classList.add('bg-primary');
+
+      // 全てのカテゴリボタンのクラスをリセット
+      buttons.forEach(button => {
+        buttons.classList.remove('bg-primary-hover');
+        buttons.classList.add('bg-primary');
+      });
   });
 
   // マップの読み込み完了イベント
   google.maps.event.addListenerOnce(map, 'idle', function() {
+  if (!selectedPrefecture) {
+      hideLoadingSpinner();
+  } else {
     // 現在地の取得が完了しているかをチェック
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         // 現在地取得が完了していたらローディングアニメーションを非表示にする
-        const loadingSpinner = document.getElementById('loading-spinner');
-        if (loadingSpinner) {
-          loadingSpinner.style.display = 'none';
-        }
+        hideLoadingSpinner();
       });
     } else {
       // 現在地取得がサポートされていない場合もローディングアニメーションを非表示にする
-      const loadingSpinner = document.getElementById('loading-spinner');
-      if (loadingSpinner) {
-        loadingSpinner.style.display = 'none';
-      }
+      hideLoadingSpinner();
     }
+  }
   });
 }
 
 // initMapをグローバルスコープに
 window.initMap = initMap;
 
+function hideLoadingSpinner() {
+  const loadingSpinner = document.getElementById('loading-spinner');
+  if (loadingSpinner) {
+    loadingSpinner.style.display = 'none';
+  }
+}
+
+// hideLoadingSpinnerをグローバルスコープに追加
+window.hideLoadingSpinner = hideLoadingSpinner;
+
 function filterSpotsByCategory(categoryId) {
+  console.log('Filtering spots by category ID:', categoryId);
     markers.forEach(marker => {
+      console.log('Marker Category ID:', marker.categoryId);
       if (categoryId === null || marker.categoryId === categoryId) {
+        console.log('Setting marker visible for spot:', marker.title);
         marker.setVisible(true);
       } else {
+        console.log('Hiding marker for spot:', marker.title);
         marker.setVisible(false);
       }
     });
@@ -178,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
       map.setCenter(newCenter);
       centerPin.setPosition(newCenter);
       map.setZoom(8);
+      selectedPrefecture = { lat: lat, lng: lng };  // 都道府県ボタンが押された位置を保存
       updateSpotsList(currentCategoryId);  // スポットリストを更新
     });
   });

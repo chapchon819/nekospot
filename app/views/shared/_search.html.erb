@@ -1,19 +1,47 @@
 <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
-<%= search_form_for @q, url: url, html: { id: "searchForm", class: "mx-auto md:w-full w-11/12 md:mx-6 pt-6" }  do |f| %>
+<%= search_form_for @q, url: url, html: { id: "searchForm", class: "mx-auto md:w-11/12 w-11/12 md:mx-6 pt-6" }  do |f| %>
     <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
     <div class="relative">
         <div class="absolute inset-y-4 start-0 flexed items-center ps-3 pointer-events-none">
         <i class="ph ph-magnifying-glass text-secondary"></i>
         </div>
-        <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 ps-8 text-xs text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名 or 住所' %>
+        <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'block w-full md:11/12 p-4 ps-8 text-xs text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名 or 住所' %>
         <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
         <%= f.hidden_field :address, data: { autocomplete_target: 'hidden' } %>
         <%= f.submit '検索', class: 'text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
         <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
     </div>
+    <div class="md:flex flex-col md:flex-row pt-4 pl-8 md:p-8 text-secondary justify-start items-center md:w-1/2">
+        <div class='label-select flex h-full text-sm space-x-2'>
+            <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+            <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
+        </div>
+        <div class='md:px-8 label-select flex h-full text-sm space-x-2'>
+            <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+            <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
+        </div>
+    </div>
+    <div class="md:flex">
+    <div class="space-x-2 mt-8 mx-4 md:mt-0 md:mx-0 md:w-1/2">
+    <h3 class="text-secondary font-semibold">カテゴリーから検索</h3>
+    <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
+    <label class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark cursor-pointer">
+      <%= f.radio_button :category_id_eq, nil, checked: true, class: 'hidden', id: 'category_all' %>
+      すべて
+    </label>
+    <% @categories.all.each do |category| %>
+      <label class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark cursor-pointer" data-category-id="<%= category.id %>">
+        <%= f.radio_button :category_id_eq, category.id, class: 'hidden', id: "category_#{category.id}" %>
+        <%= category.name %>
+      </label>
+    <% end %>
+    </div>
+  </div>
+  </div>
     <div class="md:flex">
     <div class="space-x-2 mt-8 mx-4 md:mt-4 md:mx-0 md:w-1/2">
         <h3 class="mt-4 mb-3 text-secondary font-semibold">タグから検索</h3>
+        <div  class="flex flex-wrap gap-2 p-4">
         <div class="my-1 inline-flex text-secondary text-xs rounded-lg py-1 px-1.5 bg-primary items-center hover:bg-primary-hover">
             <%= f.radio_button :with_tag, '', id: "tag_none", checked: true %>
             <%= f.label :with_tag, "指定なし", value: '', id: "tag_none" %>
@@ -24,17 +52,9 @@
                 <i class="ph ph-tag"></i>&nbsp;<%= f.label :with_tag, tag.name, "tag_#{tag.id}" %>
             </div>
         <% end %>
-    </div>
-        <div class="md:flex flex-col md:flex-row pt-4 pl-8 md:pl-0 text-secondary justify-start items-center md:w-1/2">
-        <div class='label-select flex h-full text-sm space-x-2'>
-            <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
-            <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
-        </div>
-        <div class='md:px-8 label-select flex h-full text-sm space-x-2'>
-            <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
-            <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
         </div>
     </div>
+
     </div>
 <% end %>
 </div>
