@@ -87,7 +87,6 @@ gem 'fog-aws'
 gem 'kaminari'
 
 # その他
-gem 'activerecord-session_store'
 gem 'redis-rails'
 
 group :development, :test do
@@ -99,6 +98,12 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'rack-mini-profiler', require: false
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs
+  gem 'stackprof'
+  gem 'flamegraph'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
