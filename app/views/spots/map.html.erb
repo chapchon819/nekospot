@@ -20,11 +20,17 @@
                       <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
               </button>
             </div>
+
+            
             <!-- ここから検索アコーディオンパネル -->
             <div class="hidden md:block overflow-hidden transition-max-height duration-500 ease-in-out" style="max-height: 0;" data-search-accordion-target="panel">
               <%= render 'spots/search_accordion' %>
             </div>
-
+            <% if params[:q].present? %>
+            <div class="relative flex justify-center items-center ">
+              <%= render "spots/search_conditions" %>
+            </div>
+            <% end %>
 
 
         <div class="relative mx-auto flex w-full justify-center">
