@@ -116,6 +116,14 @@ spots.forEach(function(spot) {
   const buttons = document.querySelectorAll("#category-buttons button");
   buttons.forEach(button => {
     button.addEventListener("click", function() {
+      // 全てのカテゴリボタンのクラスをリセット
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-primary-hover');
+        btn.classList.add('bg-primary');
+      });
+      // 選択したボタンの色を変える
+      button.classList.remove('bg-primary');
+      button.classList.add('bg-primary-hover');
       const categoryId = parseInt(this.getAttribute('data-category-id'));
       currentCategoryId = categoryId;
       filterSpotsByCategory(categoryId);
@@ -128,6 +136,15 @@ spots.forEach(function(spot) {
       currentCategoryId = null;
       filterSpotsByCategory(null);
       updateSpotsList(null);
+      const resetButton = document.getElementById("reset-button");
+      resetButton.classList.remove('bg-primary-hover');
+      resetButton.classList.add('bg-primary');
+
+      // 全てのカテゴリボタンのクラスをリセット
+      buttons.forEach(button => {
+        buttons.classList.remove('bg-primary-hover');
+        buttons.classList.add('bg-primary');
+      });
   });
 
   // マップの読み込み完了イベント
