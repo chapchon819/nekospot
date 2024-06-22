@@ -8,16 +8,7 @@
         <div class="w-full lg:w-1/2">
           <h3 class="text-secondary font-semibold">カテゴリーから検索</h3>
             <div class="lg:max-w-lg">
-              <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
-                <button id="reset-button" class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark">
-                  すべて
-                </button>
-                <% Category.all.each do |category| %>
-                  <button data-category-id="<%= category.id %>" class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark">
-                    <%= category.name %>
-                  </button>
-                <% end %>
-              </div>
+
             </div>
           </div>
 

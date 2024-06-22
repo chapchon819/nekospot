@@ -97,6 +97,9 @@ spots.forEach(function(spot) {
     });
   });
 
+  // カテゴリフィルタを適用
+  filterSpotsByCategory(currentCategoryId);
+
   // ピンのドラッグ終了イベント
   centerPin.addListener('dragend', function() {
     map.setCenter(centerPin.getPosition());
@@ -113,17 +116,19 @@ spots.forEach(function(spot) {
   showCurrentLocation();
 
   // カテゴリーボタンにイベントリスナーを追加
-  const buttons = document.querySelectorAll("#category-buttons button");
-  buttons.forEach(button => {
-    button.addEventListener("click", function() {
+  const labels = document.querySelectorAll("#category-buttons label");
+  const radioButtons = document.querySelectorAll("#category-buttons input[type='radio']");
+  const searchForm = document.getElementById('searchForm');
+  labels.forEach(label => {
+    label.addEventListener("click", function() {
       // 全てのカテゴリボタンのクラスをリセット
-      buttons.forEach(btn => {
-        btn.classList.remove('bg-primary-hover');
-        btn.classList.add('bg-primary');
+      labels.forEach(lbl => {
+        lbl.classList.remove('bg-primary-hover');
+        lbl.classList.add('bg-primary');
       });
       // 選択したボタンの色を変える
-      button.classList.remove('bg-primary');
-      button.classList.add('bg-primary-hover');
+      label.classList.remove('bg-primary');
+      label.classList.add('bg-primary-hover');
       const categoryId = parseInt(this.getAttribute('data-category-id'));
       currentCategoryId = categoryId;
       filterSpotsByCategory(categoryId);
@@ -172,10 +177,14 @@ spots.forEach(function(spot) {
 window.initMap = initMap;
 
 function filterSpotsByCategory(categoryId) {
+  console.log('Filtering spots by category ID:', categoryId);
     markers.forEach(marker => {
+      console.log('Marker Category ID:', marker.categoryId);
       if (categoryId === null || marker.categoryId === categoryId) {
+        console.log('Setting marker visible for spot:', marker.title);
         marker.setVisible(true);
       } else {
+        console.log('Hiding marker for spot:', marker.title);
         marker.setVisible(false);
       }
     });
