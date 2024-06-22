@@ -76,4 +76,31 @@ module ApplicationHelper
         "bronze.png"
       end
     end
+
+    def search_conditions(params)
+      return "" if params[:q].blank?
+  
+      # キーと表示する名前のマッピング
+      search_names = {
+        "name_or_address_cont" => "フリーワード",
+        "with_tag" => "タグ",
+        "foster_parents_eq" => "里親募集あり",
+        "adoption_event_eq" => "譲渡会開催あり"
+      }
+  
+      # 特定のキーを除外するためのセット
+      excluded_keys = ["name", "address"]
+  
+      conditions = params[:q].to_unsafe_h.map do |key, value|
+        next if value.blank? || excluded_keys.include?(key)
+  
+        attribute_name = search_names[key] || key.humanize
+        "#{attribute_name}: #{value}"
+        # valueが1の場合はkeyのみ表示
+        value_text = value == '1' ? attribute_name : "#{attribute_name}: #{value}"
+        value_text
+      end.compact
+  
+      conditions.join(', ')
+    end
   end
