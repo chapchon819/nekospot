@@ -86,7 +86,11 @@ module ApplicationHelper
         "category_id_eq" => "カテゴリー",
         "with_tag" => "タグ",
         "foster_parents_eq" => "里親募集あり",
-        "adoption_event_eq" => "譲渡会開催あり"
+        "adoption_event_eq" => "譲渡会開催あり",
+        "spot_name_or_spot_address_cont" => "フリーワード",
+        "spot_category_id_eq" => "カテゴリー",
+        "spot_prefecture_id_eq" => "エリア"
+
       }
   
       # 特定のキーを除外するためのセット
@@ -97,7 +101,7 @@ module ApplicationHelper
   
         attribute_name = search_names[key] || key.humanize
         # カテゴリーIDをカテゴリ名に変換
-        if key == "category_id_eq"
+        if key == "category_id_eq" || "spot_category_id_eq"
           category = Category.find_by(id: value)
           value_text = category ? "#{attribute_name}: #{category.name}" : "#{attribute_name}: #{value}"
         else

@@ -38,6 +38,13 @@
                 <% end %>
                 </div>
                 <div class="md:col-span-3">
+                        <% if params[:q].present? %>
+                        <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
+                            <div class="text-sm text-secondary">
+                                <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @bookmark_spots.count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
+                            </div>
+                        </div>
+                        <% end %>
                     <% if @bookmark_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
                             <% @bookmark_spots.each do |bookmark_spot| %>
