@@ -13,12 +13,12 @@
     </div>
   <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
     <label class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark cursor-pointer">
-      <%= f.radio_button :category_id, nil, checked: true, class: 'hidden', id: 'category_all' %>
+      <%= f.radio_button :category_id_eq, nil, checked: true, class: 'hidden', id: 'category_all' %>
       すべて
     </label>
     <% Category.all.each do |category| %>
       <label class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark cursor-pointer" data-category-id="<%= category.id %>">
-        <%= f.radio_button :category_id, category.id, class: 'hidden', id: "category_#{category.id}" %>
+        <%= f.radio_button :category_id_eq, category.id, class: 'hidden', id: "category_#{category.id}" %>
         <%= category.name %>
       </label>
     <% end %>

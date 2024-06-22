@@ -83,6 +83,7 @@ module ApplicationHelper
       # キーと表示する名前のマッピング
       search_names = {
         "name_or_address_cont" => "フリーワード",
+        "category_id_eq" => "カテゴリー",
         "with_tag" => "タグ",
         "foster_parents_eq" => "里親募集あり",
         "adoption_event_eq" => "譲渡会開催あり"
@@ -95,9 +96,14 @@ module ApplicationHelper
         next if value.blank? || excluded_keys.include?(key)
   
         attribute_name = search_names[key] || key.humanize
-        "#{attribute_name}: #{value}"
-        # valueが1の場合はkeyのみ表示
-        value_text = value == '1' ? attribute_name : "#{attribute_name}: #{value}"
+        # カテゴリーIDをカテゴリ名に変換
+        if key == "category_id_eq"
+          category = Category.find_by(id: value)
+          value_text = category ? "#{attribute_name}: #{category.name}" : "#{attribute_name}: #{value}"
+        else
+          # valueが1の場合はkeyのみ表示
+          value_text = value == '1' ? attribute_name : "#{attribute_name}: #{value}"
+        end
         value_text
       end.compact
   
