@@ -67,13 +67,13 @@ module ApplicationHelper
     def rank_icon(user)
       case user_rank(user)
       when 'gold'
-        "gold.png"
+        "gold.webp"
       when 'silver'
-        "silver.png"
+        "silver.webp"
       when 'beginner' 
-        "beginner.png"
+        "beginner.webp"
       else 
-        "bronze.png"
+        "bronze.webp"
       end
     end
 

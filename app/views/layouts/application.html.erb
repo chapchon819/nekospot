@@ -13,6 +13,7 @@
     <meta property="og:description" content="猫スポットの検索を、もっと快適に。" />
     <meta property="og:image" content="<%= image_url "x_image.png" %>" />
     <%= favicon_link_tag('favicon.png') %>
+    <link rel="manifest" href="/manifest.json">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= turbo_frame_tag 'review_modal' %>
     <%= include_gon %>
@@ -54,4 +55,17 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   </body>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service_worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
 </html>

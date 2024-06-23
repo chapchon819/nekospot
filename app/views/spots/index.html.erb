@@ -1,4 +1,24 @@
 <div class="flex flex-col items-center justify-center w-full md:pt-24 md:bg-primary">
+    <div class="md:hidden fixed bottom-16 right-4 z-20">
+    <button class="md:hidden bg-white right-4 btn w-12 h-9 border-none rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+</div>
+    <dialog id="my_modal_2" class="modal">
+    <div class="modal-box">
+        <div class="flex justify-center items-center">
+            <div class="flex flex-col space-y-4 text-left text-secondary">
+                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
+            </div>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+    </dialog>
     <div class="md:w-11/12 w-full">
         <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
             <ul class="list-reset flex border-b rounded-t-lg">
@@ -71,6 +91,16 @@
                 <% end %>
                 </div>
                 <div class="md:col-span-3">
+                    <div class="flex justify-end">
+                        <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                        <dialog id="my_modal_3" class="modal">
+                        <div class="modal-box">
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                        </dialog>
+                    </div>
                     <%= turbo_frame_tag "spots-list" do %>
                         <% if params[:q].present? %>
                         <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
@@ -94,7 +124,7 @@
                         
                         <% else %>
                             <div class="mx-auto flex flex-col items-center gap-2.5 justify-center w-11/12 h-full">
-                                <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                                <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
                                 <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral text-sm md:text-lg"> <i class="ph ph-empty fa-lg"></i>  検索結果がありません</h3>
                                 <p class="text-sm flex items-center justify-center w-full text-secondary">条件を変えて検索してみてね！</p>
                             </div>
@@ -142,6 +172,16 @@
                     </div>
                 </div>
                 <div class="md:col-span-3">
+                    <div class="flex justify-end">
+                        <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                        <dialog id="my_modal_3" class="modal">
+                        <div class="modal-box">
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                        </dialog>
+                    </div>
                     <%= turbo_frame_tag "reviews-list" do %>
                         <% if @reviews.present? %>
                             <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4">
@@ -158,6 +198,10 @@
             </div>
         </div>
     </div>
+
 </div>
+
+
+
 
 

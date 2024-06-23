@@ -22,7 +22,7 @@
                 <% if @user.avatar.present? %>
                     <%= image_tag @user.avatar.url %>
                 <% else %>
-                    <%= image_tag("default.png") %>
+                    <%= image_tag("default.webp") %>
                 <% end %>
                 </div>
             </div>
@@ -33,12 +33,21 @@
                         <%= image_tag(rank_icon(@user)) %>
                     </div>
                     <span class="text-xs text-secondary items-start font-semibold"><%= user_rank(@user) %>ランク<span>
+                    <button class="btn w-6 border-none rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-xl text-primary-hover"></i></button>
+                        <dialog id="my_modal_2" class="modal">
+                        <div class="modal-box">
+                            <%= image_tag("rank.webp") %>
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                        </dialog>
                 </div>
             </div>
         </div>
     </div>
 
-<div class="flex justify-center items-center w-screen md:auto">
+<div class="flex justify-center items-center w-screen md:mx-auto">
     <div class="stats stats-vertical lg:stats-horizontal shadow-lg">
     
         <div class="stat">
@@ -110,7 +119,7 @@
             <%= paginate @reviews %>
         <% else %>
             <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
-                <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
                 <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだ投稿がありません</h3>
                 <p class="text-sm flex items-center justify-center w-full text-secondary">レビューや猫スポットを投稿してさらに猫スポットを楽しもう！</p>
                 <%= link_to "#", class: "block w-full" do %>

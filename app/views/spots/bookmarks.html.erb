@@ -38,6 +38,16 @@
                 <% end %>
                 </div>
                 <div class="md:col-span-3">
+                    <div class="flex justify-end">
+                        <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                        <dialog id="my_modal_3" class="modal">
+                        <div class="modal-box">
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                        </dialog>
+                    </div>
                         <% if params[:q].present? %>
                         <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
                             <div class="text-sm text-secondary">
@@ -54,7 +64,7 @@
                     <% else %>
                         <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>
                         <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
-                            <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                            <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
                             <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだお気に入りがありません</h3>
                             <p class="text-sm flex items-center justify-center w-full text-secondary">気になるスポットを保存してさらに猫スポットを楽しもう！</p>
                             <%= link_to "#", class: "block w-full" do %>
@@ -64,6 +74,8 @@
                             <% end %>
                         </div>
                     <% end %>
+                    <%= render 'spots/sm_info' %>
+
                 </div>
                 </div>
                 </div>
@@ -71,6 +83,26 @@
 
             <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
             <div class="w-11/12 mx-auto space-y-8 pb-8">
+                <div class="flex justify-end">
+                    <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="m_modal_3.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                    <dialog id="m_modal_3" class="modal">
+                    <div class="modal-box">
+                    <div class="flex justify-center items-center">
+                            <div class="flex flex-col space-y-4 text-left text-secondary">
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                                <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                                <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <form method="dialog" class="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                    </dialog>
+                </div>
                 <h2 class="text-xl font-zenmaru font-bold text-neutral">訪問済み一覧</h2>
                     <% if @visited_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
@@ -80,7 +112,7 @@
                         </div>
                     <% else %>
                         <div class="mx-auto flex w-full md:w-3/5 flex-col items-center gap-2.5 justify-center">
-                            <%= image_tag("936.png", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                            <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
                             <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだ訪問済みスポットはありません</h3>
                             <p class="text-sm flex items-center justify-center w-full text-secondary">訪問済みスポットを集めてランクアップを目指そう！</p>
                             <%= link_to "#", class: "block w-full" do %>
@@ -90,6 +122,24 @@
                             <% end %>
                         </div>
                     <% end %>
+                    <button class="md:hidden fixed buttom-8 bg-white right-4 btn w-12 h-9 border-none rounded-full items-center" onclick="m_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                    <dialog id="m_modal_2" class="modal">
+                    <div class="modal-box">
+                        <div class="flex justify-center items-center">
+                            <div class="flex flex-col space-y-4 text-left text-secondary">
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                                <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                                <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <form method="dialog" class="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                    </dialog>
             </div>    
             </div>
         </div>
