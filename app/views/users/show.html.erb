@@ -33,6 +33,15 @@
                         <%= image_tag(rank_icon(@user)) %>
                     </div>
                     <span class="text-xs text-secondary items-start font-semibold"><%= user_rank(@user) %>ランク<span>
+                    <button class="btn w-6 border-none rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-xl text-primary-hover"></i></button>
+                        <dialog id="my_modal_2" class="modal">
+                        <div class="modal-box">
+                            <%= image_tag("rank.webp") %>
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                        </dialog>
                 </div>
             </div>
         </div>
