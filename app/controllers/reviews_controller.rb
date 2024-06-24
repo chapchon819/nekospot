@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
                 end
 
     Rails.logger.debug "tag_list: #{tag_list.inspect}"
-    if validate_images(review_params[:images]) && @review.save
+    if @review.save
       reviews_data
       @review.save_tags(tag_list)
       flash.now[:success] = "口コミを投稿しました"
@@ -69,7 +69,7 @@ class ReviewsController < ApplicationController
               end
 
     # 画像のバリデーションが成功し、レビューが保存できた場合
-    if validate_images(review_params[:images]) && @review.save
+    if @review.save
       reviews_data #レビューに関連するデータを更新し
       @review.save_tags(tag_list) #タグを保存する。
       flash.now[:success] = "口コミを更新しました"
@@ -136,24 +136,5 @@ class ReviewsController < ApplicationController
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @average_rating = @spot.reviews.average(:rating).to_f
     @all_reviews_count = @spot.reviews.count
-  end
-
-  def validate_images(images)
-    return true if images.blank? || images.all?(&:blank?)
-
-    cleaned_images = images.reject(&:blank?)
-    inappropriate_images = []
-
-    cleaned_images.each do |image|
-      result = Vision.image_analysis(image)
-      inappropriate_images << image unless result
-    end
-
-    if inappropriate_images.any?
-      flash[:alert] = '不適切な画像が含まれています'
-      return false
-    end
-
-    true
   end
 end
