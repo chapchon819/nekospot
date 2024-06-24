@@ -15,7 +15,7 @@
                             html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
                 <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :rating, "評価", class: "text-sm text-secondary mb-2" %>
+                <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
                     <div class="rating rating-lg">
                     <%= f.radio_button :rating, 0, class: "hidden mask mask-star-2 bg-yellow-400", checked: @review.rating == 0 %>
                     <%= f.radio_button :rating, 1, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 1 %>

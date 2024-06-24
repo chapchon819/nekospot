@@ -11,7 +11,12 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.build(review_params)
     # フォームから送信されたタグの情報を取り出す。空の場合は[]を使う
     tag_ids_param = params[:review][:tag_ids].first || "[]"
-    tag_list = JSON.parse(tag_ids_param).map { |tag| tag["value"] }
+    tag_list = if tag_ids_param.present?
+                  JSON.parse(tag_ids_param).map { |tag| tag["value"] }
+                else
+                  []
+                end
+                
     Rails.logger.debug "tag_list: #{tag_list.inspect}"
     if validate_images(review_params[:images]) && @review.save
       reviews_data
