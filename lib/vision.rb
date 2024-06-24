@@ -6,7 +6,8 @@ module Vision
   class << self
     def image_analysis(image_file)
       api_url = "https://vision.googleapis.com/v1/images:annotate?key=#{ENV['VISION_API_KEY']}"
-      base64_image = Base64.encode64(image_file.tempfile.read)
+      # CarrierWaveオブジェクトからファイルのパスを取得して読み込む
+      base64_image = Base64.encode64(File.read(image_file.path))
       params = {
         requests: [{
           image: {

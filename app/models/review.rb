@@ -10,6 +10,7 @@ class Review < ApplicationRecord
   validates :rating, presence: true, numericality: { in: 1..5, message: "を入力してください" }
   validates :body, length: { maximum: 400 }
   validate :validate_image_count
+  validate :validate_images
 
   # 画像削除を処理するメソッド
   def remove_image_at_index(index)
@@ -41,6 +42,22 @@ class Review < ApplicationRecord
   def validate_image_count
     if images.size > 3
       errors.add(:images, "画像のアップロードは３枚までです。")
+    end
+  end
+
+  def validate_images
+    return if images.blank? || images.all?(&:blank?)
+
+    cleaned_images = images.reject(&:blank?)
+    inappropriate_images = []
+
+    cleaned_images.each do |image|
+      result = Vision.image_analysis(image)
+      inappropriate_images << image unless result
+    end
+
+    if inappropriate_images.any?
+      errors.add(:images, '不適切な画像が含まれています')
     end
   end
 end

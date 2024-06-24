@@ -6,7 +6,7 @@
           <% if review.user.avatar.present? %>
             <%= image_tag review.user.avatar.url, class: "inline-block rounded-full h-9 w-9" %>
           <% else %>
-            <%= image_tag("default.webp", class: "inline-block rounded-full h-9 w-9") %>
+            <%= image_tag("default.png", class: "inline-block rounded-full h-9 w-9") %>
           <% end %>
         </div>
         <div class="ml-3">
@@ -64,9 +64,9 @@
     <div class="fixed inset-0 flex items-center justify-center z-100">
     <% if review.images.length == 1 %>
         <div class="rounded shadow-md relative">
-        <img data-image-modal-target="image" class="max-w-full max-h-full"/>
-        <button data-action="click->image-modal#close" class="absolute top-4 right-8 m-4 text-secondary">
-            <i class="ph-bold ph-x fa-2xl text-secondary"></i>
+        <img data-image-modal-target="image" class="max-w-96 max-h-96"/>
+        <button data-action="click->image-modal#close" class="absolute top-3 right-4 m-4 text-secondary rounded-full bg-white shadow-md px-2 py-1 items-center">
+            <i class="ph-bold ph-x text-secondary"></i>
         </button>
         </div>
     <% else %>
@@ -76,7 +76,7 @@
         </button>
         <div class="carousel transition duration-700 ease-in-out" data-image-modal-target="carousel">
           <% review.images.each_with_index do |image, index| %>
-            <img src="<%= image.url %>" class="max-w-full max-h-96 <%= index == 0 ? 'block' : 'hidden' %>" data-image-modal-target="carouselImage"/>
+            <img src="<%= image.url %>" class="max-w-96 max-h-96 <%= index == 0 ? 'block' : 'hidden' %>" data-image-modal-target="carouselImage"/>
           <% end %>
         </div>
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 mt-4" data-image-modal-target="indicators">
@@ -87,8 +87,8 @@
         <button data-action="click->image-modal#next" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-primary text-3xl bg-opacity-50 rounded-full">
           <i class="ph-bold ph-caret-right fa-2xl"></i>
         </button>
-        <button data-action="click->image-modal#close" class="absolute top-4 right-6 m-4 text-secondary">
-          <i class="ph ph-x h-6 w-6 text-secondary"></i>
+        <button data-action="click->image-modal#close" class="absolute top-4 right-6 m-4 text-secondary rounded-full bg-white shadow-md px-2 py-1 items-center">
+          <i class="ph-bold ph-x h-6 w-6 text-secondary"></i>
         </button>
       </div>
     <% end %>

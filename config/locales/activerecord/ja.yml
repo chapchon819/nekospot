@@ -11,6 +11,7 @@ ja:
       review:
         rating: '評価'
         body: 'コメント'
+        images: ''
       spot:
         foster_parents:
           no_recruitment: '里親募集なし'

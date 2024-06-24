@@ -11,7 +11,7 @@
                             html: { class: "mx-auto flex flex-col items-center justify-center space-y-4" } do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
                 <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :rating, "評価", class: "text-sm text-secondary mb-2" %>
+                <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
                 <div class="rating rating-lg">
                     <input type="radio" name="review[rating]" value="0" class="hidden mask mask-star-2 bg-yellow-400" checked/>
                     <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-yellow-400"/>
@@ -22,6 +22,7 @@
                 </div>
                 </div>
                 <div class="relative mb-4 flex flex-col w-full text-secondary">
+                    <p class="text-sm py-2">画像(３枚まで)</p>
                     <%= f.file_field :images, multiple: true, class: "block w-full text-xs text-secondary border border-gray-300 rounded-r-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
                     <%= f.hidden_field :images_cache %>
                 </div>
