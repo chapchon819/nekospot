@@ -55,6 +55,12 @@
 
         <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
           <div class="grid md:grid-cols-3">
+            <% if @spot.x_account.present? %>
+              <div class="text-secondary hidden md:block md:col-span-1 w-11/12 md:pl-4">
+                <p class="text-[16px] pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
+                <a class="twitter-timeline" data-height="500" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
+              </div>
+            <% end %>
           <div class="w-11/12 mx-auto divide-y space-y-8 pb-8 md:col-span-2" >
             <div class="my-4 mx-auto">
               <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
@@ -67,19 +73,33 @@
                       <p class="md:hidden text-xs text-white font-semibold py-2 px-3 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> 評価なし</p>
                     <% end %>
                   </div>
-                    <div class="flex space-x-2 md:mb-1">
+                  <div class="flex space-x-2 md:mb-1">
                     <% if @spot.foster_parents_before_type_cast == 1 %>
                         <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
                     <% end %>
                     <% if @spot.adoption_event_before_type_cast == 1 %>
                         <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div>
                     <% end %>
-                    <% if @spot.age_limit_before_type_cast == 1 %>
-                        <div class="hidden">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @spot.age_limit_i18n %></p>
+                  </div>
+                    <button class="btn bg-white border-none w-6 h-6 shadow-none md:rounded-full items-center" onclick="m_modal_3.showModal()"><i class="ph-bold ph-question fa-xl text-primary-hover"></i></button>
+                    <dialog id="m_modal_3" class="modal">
+                    <div class="modal-box">
+                    <div class="flex justify-center items-center">
+                            <div class="flex flex-col space-y-4 text-left text-secondary">
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                                <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                                <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催実績あり</span></div>
+                                <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
+                            </div>
                         </div>
-                    <% end %>
-                </div>
+                    </div>
+                    <form method="dialog" class="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                    </dialog>
                 </div>
                 <div class="flex space-x-2">
                   <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
@@ -135,12 +155,6 @@
           </div>
           </div>
         </div>
-            <% if @spot.x_account.present? %>
-              <div class="text-secondary hidden md:block md:col-span-1 w-11/12">
-                <p class="text-[16px] pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
-                <a class="twitter-timeline" data-height="500" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
-              </div>
-            <% end %>
       </div>
     </div>
 

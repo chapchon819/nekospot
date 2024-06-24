@@ -18,6 +18,11 @@
                     <div class="flex-col items-center justify-center">
                         <h1 class="text-secondary font-zenmaru text-center text-[16px] font-semibold">なかでもおすすめの<span><%= @recommend_spot.category.name %></span>はこちら</h1>
                         <%= render 'diagnostics/spot' %>
+                        <% if @recommend_spot.foster_parents_before_type_cast == 1 || @recommend_spot.adoption_event_before_type_cast == 1 %>
+                        <div class="flex justify-center items-center pt-4">
+                            <p class="w-11/12 text-xs font-semibold text-secondary py-1 px-2 rounded-md bg-primary dark:text-neutral-500"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</p>
+                        </div>
+                        <% end %>
                     <% else %>
                         <h1 class="text-secondary font-zenmaru text-center text-lg font-semibold">おすすめの猫スポットはありませんでした</h1>
                     <% end %>
@@ -33,7 +38,7 @@
                         <span class="relative"><i class="ph ph-x-logo"></i> シェア</span>
                     <% end %>
                     <% else %>
-                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/&text=#{ERB::Util.url_encode("あなたにおすすめの猫スポットは\n#{result[:content]}#{@top_category.name}🐈✨\n\nなかでもおすすめの #{@top_category.name}は...Comeing Soon！データの追加を待ってね🐾\n #NekoSpot #猫スポット診断 \n")}", target: '_blank', class: 'relative rounded px-5 py-2.5 overflow-hidden group bg-accent-hover relative hover:bg-gradient-to-r hover:from-accent-hover hover:to-accent text-white hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all ease-out duration-300' do %>
+                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/&text=#{ERB::Util.url_encode("あなたにおすすめの猫スポットは\n#{result[:content]}#{@top_category.name}🐈✨\n\nなかでもおすすめの #{@top_category.name}は...Comeing Soon！アップデートを待ってね🐾\n #NekoSpot #猫スポット診断 \n")}", target: '_blank', class: 'relative rounded px-5 py-2.5 overflow-hidden group bg-accent-hover relative hover:bg-gradient-to-r hover:from-accent-hover hover:to-accent text-white hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all ease-out duration-300' do %>
                         <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                         <span class="relative"><i class="ph ph-x-logo"></i> シェア</span>
                     <% end %>

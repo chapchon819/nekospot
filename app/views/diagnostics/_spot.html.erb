@@ -5,7 +5,7 @@
             <% if prioritized_image.present? %>
                 <img src="https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=<%= prioritized_image.image %>&key=<%= ENV['GMAP_API_KEY'] %>" class="w-full h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl" alt="Image Description">
             <% else %>
-                <% image_tag('default.png', class: "h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-1/2 transform -translate-x-1/2 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl")%>
+                <% image_tag('default.webp', class: "h-full absolute rounded-l-xl md:rounded-t-xl md:rounded-b-none top-0 left-1/2 transform -translate-x-1/2 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl")%>
             <% end %>
         <% end %>
     </div>
@@ -23,17 +23,12 @@
                 <div class="flex space-x-2">
                     <% if @recommend_spot.foster_parents_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.foster_parents_i18n %></p>
+                            <div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
                         </div>
                     <% end %>
                     <% if @recommend_spot.adoption_event_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.adoption_event_i18n %></p>
-                        </div>
-                    <% end %>
-                    <% if @recommend_spot.age_limit_before_type_cast == 1 %>
-                        <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.age_limit_i18n %></p>
+                            <div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div>
                         </div>
                     <% end %>
                     <p class="md:block hidden text-secondary font-semibold text-sm pt-1">⭐️ <%= @recommend_spot.rating %></p>
@@ -59,3 +54,4 @@
             </div>
         </div>
     </div>
+</div>
