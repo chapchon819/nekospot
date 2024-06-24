@@ -1,4 +1,4 @@
-<nav class="hidden md:block md:fixed md:top-0 md:left-0 md:z-10 w-full">
+<nav class="hidden md:block md:fixed md:top-0 md:left-0 md:z-[100] w-full">
     <div class="navbar bg-primary text-secondary">
         <div class="flex-1">
             <%= link_to 'NekoSpot', map_spots_path, class: "btn btn-ghost text-xl" %>
@@ -6,7 +6,7 @@
         <div class="flex-none">
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn m-1 border-none"><i class="ph ph-list fa-2xl"></i></div>
-                    <ul tabindex="0" class="dropdown-content z-100 menu p-2 shadow bg-primary w-56 rounded-box">
+                    <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-primary w-56 rounded-box">
                         <li>
                             <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
                                 <p><i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;マップ検索</p>
