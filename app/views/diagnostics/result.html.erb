@@ -33,7 +33,7 @@
                         <span class="relative"><i class="ph ph-x-logo"></i> シェア</span>
                     <% end %>
                     <% else %>
-                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/&text=#{ERB::Util.url_encode("あなたにおすすめの猫スポットは\n#{result[:content]}#{@top_category.name}🐈✨\n\nなかでもおすすめの #{@top_category.name}は...Comeing Soon！データの追加を待ってね🐾\n #NekoSpot #猫スポット診断 \n")}", target: '_blank', class: 'relative rounded px-5 py-2.5 overflow-hidden group bg-accent-hover relative hover:bg-gradient-to-r hover:from-accent-hover hover:to-accent text-white hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all ease-out duration-300' do %>
+                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/&text=#{ERB::Util.url_encode("あなたにおすすめの猫スポットは\n#{result[:content]}#{@top_category.name}🐈✨\n\nなかでもおすすめの #{@top_category.name}は...Comeing Soon！アップデートを待ってね🐾\n #NekoSpot #猫スポット診断 \n")}", target: '_blank', class: 'relative rounded px-5 py-2.5 overflow-hidden group bg-accent-hover relative hover:bg-gradient-to-r hover:from-accent-hover hover:to-accent text-white hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all ease-out duration-300' do %>
                         <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                         <span class="relative"><i class="ph ph-x-logo"></i> シェア</span>
                     <% end %>
