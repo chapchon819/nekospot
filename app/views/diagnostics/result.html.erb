@@ -18,6 +18,11 @@
                     <div class="flex-col items-center justify-center">
                         <h1 class="text-secondary font-zenmaru text-center text-[16px] font-semibold">なかでもおすすめの<span><%= @recommend_spot.category.name %></span>はこちら</h1>
                         <%= render 'diagnostics/spot' %>
+                        <% if @recommend_spot.foster_parents_before_type_cast == 1 || @recommend_spot.adoption_event_before_type_cast == 1 %>
+                        <div class="flex justify-center items-center pt-4">
+                            <p class="w-11/12 text-xs font-semibold text-secondary py-1 px-2 rounded-md bg-primary dark:text-neutral-500"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</p>
+                        </div>
+                        <% end %>
                     <% else %>
                         <h1 class="text-secondary font-zenmaru text-center text-lg font-semibold">おすすめの猫スポットはありませんでした</h1>
                     <% end %>

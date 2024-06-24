@@ -23,12 +23,12 @@
                 <div class="flex space-x-2">
                     <% if @recommend_spot.foster_parents_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.foster_parents_i18n %></p>
+                            <div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
                         </div>
                     <% end %>
                     <% if @recommend_spot.adoption_event_before_type_cast == 1 %>
                         <div class="inline-flex">
-                            <p class="text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><%= @recommend_spot.adoption_event_i18n %></p>
+                            <div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div>
                         </div>
                     <% end %>
                     <p class="md:block hidden text-secondary font-semibold text-sm pt-1">⭐️ <%= @recommend_spot.rating %></p>
@@ -54,3 +54,4 @@
             </div>
         </div>
     </div>
+</div>
