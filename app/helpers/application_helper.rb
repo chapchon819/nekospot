@@ -113,4 +113,9 @@ module ApplicationHelper
   
       conditions.join(', ')
     end
+
+    def page_title(title = '')
+      base_title = 'NekoSpot'
+      title.present? ? "#{title} | #{base_title}" : base_title
+    end
   end

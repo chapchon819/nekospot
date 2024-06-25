@@ -1,3 +1,4 @@
+<% content_for(:title, t('diagnostics.start.title')) %>
 <div data-controller="diagnostic">
     <div class="flex justify-center items-center h-screen w-screen text-secondary">
         <%= form_with url: answer_question_diagnostic_path(@question), method: :post, data: { diagnostic_target: "form" } do |f| %>
