@@ -1,58 +1,55 @@
-<div class="md:relative search-accordion overflow-hidden transition-all duration-500 ease-in-out z-40 w-full" 
+<div class="md:relative search-accordion overflow-y-auto transition-all duration-500 ease-in-out z-40 w-full bg-white rounded-b-lg rounded-lg shadow-lg" 
       data-search-accordion-target="panel">
   <h3 class="text-secondary font-semibold text-center md:mt-0"><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを絞り込む</h3>
   <%= render "shared/search", q: @q, url: map_spots_path %>
-  <section class="bg-white rounded-b-lg rounded-lg shadow-lg">
+  <section class="">
     <div class="container p-6 mx-auto">
       <div class="lg:flex">
         <div class="w-full lg:w-1/2">
-          
-            <div class="lg:max-w-lg">
-
-            </div>
-          </div>
-
-          <div class="md:absolute top-48 right-0 flex items-center justify-center w-full lg:w-1/2">
-            <div id="region-search" data-controller="accordion" class="w-full py-2 md:py-0 origin-top-right bg-white dark:bg-gray-800 text-secondary">
-              <div class="w-11/12">
-                <h3 class="text-secondary font-semibold">エリア検索</h3>
-              </div>
-              <% Region.all.each do |region| %>
-                <div class="accordion w-full p-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
-                  <div class="accordion-header" data-action="click->accordion#toggle">
-                    <h3 class="region-title">
-                      <i class="toggle-icon ph ph-plus transform transition-transform duration-300" data-accordion-target="icon"></i>&ensp;<%= region.name %>
-                    </h3>
-                  </div>
-                  <div class="accordion-body overflow-hidden transition-all duration-500 ease-in-out max-h-0" data-accordion-target="body">
-                    <ul class="prefecture-list flex flex-wrap">
-                      <% region.prefectures.each do |prefecture| %>
-                        <li class="w-1/2">
-                          <button id="prefecture-<%= prefecture.id %>" 
-                            name="prefecture-<%= prefecture.id %>" 
-                            class="prefecture-btn w-full flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" 
-                            data-prefecture-id="<%= prefecture.id %>" 
-                            data-lat="<%= prefecture.latitude %>" 
-                            data-lng="<%= prefecture.longitude %>">
-                            <%= prefecture.name %>
-                          </button>
-                        </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                </div>
-              <% end %>
-            </div>
+          <div class="lg:max-w-lg">
           </div>
         </div>
-      </div>
-    <button class="hidden w-full md:flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
+        <div class="md:absolute relative md:top-48 right-0 flex items-center justify-center w-full lg:w-1/2">
+          <div id="region-search" data-controller="accordion" class="w-full py-2 md:mb-12 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+            <div class="w-11/12">
+              <h3 class="text-secondary font-semibold">エリア検索</h3>
+            </div>
+            <% Region.all.each do |region| %>
+              <div class="accordion w-full p-2 mt-2 origin-top-right bg-white dark:bg-gray-800 text-secondary">
+                <div class="accordion-header" data-action="click->accordion#toggle">
+                  <h3 class="region-title">
+                    <i class="toggle-icon ph ph-plus transform transition-transform duration-300" data-accordion-target="icon"></i>&ensp;<%= region.name %>
+                  </h3>
+                </div>
+                <div class="accordion-body overflow-hidden transition-all duration-500 ease-in-out max-h-0" data-accordion-target="body">
+                  <ul class="prefecture-list flex flex-wrap">
+                    <% region.prefectures.each do |prefecture| %>
+                      <li class="w-1/2">
+                        <button id="prefecture-<%= prefecture.id %>" 
+                          name="prefecture-<%= prefecture.id %>" 
+                          class="prefecture-btn w-full flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" 
+                          data-prefecture-id="<%= prefecture.id %>" 
+                          data-lat="<%= prefecture.latitude %>" 
+                          data-lng="<%= prefecture.longitude %>">
+                          <%= prefecture.name %>
+                        </button>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <button class="hidden w-full absolute bottom-0  md:flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
       data-action="click->search-accordion#close"><i class="ph ph-x">
       </i>&ensp;とじる
       </button>
+        </div>
+      </div>
+    </div>
     <button class="md:hidden w-full flex items-center justify-center p-3 capitalize transition-colors duration-300 transform text-secondary hover:bg-gray-100"
       data-action="click->search-accordion#closeSidebar"><i class="ph ph-x">
       </i>&ensp;とじる
-      </button>
+    </button>
   </section>
 </div>
