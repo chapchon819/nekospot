@@ -1,4 +1,24 @@
 ja:
+  spots:
+    index:
+      title: 'ねこスポット一覧'
+    map:
+      title: 'ねこスポットマップ'
+    bookmarks:
+      title: 'お気に入り'
+  diagnostics:
+    start:
+      title: 'ねこスポット診断'
+    result:
+      title: '診断結果'
+  users:
+    show:
+      title: 'マイページ'
+  static_pages:
+    privacy_policy:
+      title: 'プライバシーポリシー'
+    terms_of_use:
+      title: '利用規約'
   enums:
     spot:
       foster_parents:

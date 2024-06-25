@@ -33,13 +33,13 @@
     </div>
     <p class="text-secondary"><%= review.body %></p>
     <div class="flex space-x-2">
-    <% if review.tags.present? %>
-      <% review.tags.each do |tag| %>
-        <%= link_to spot_path(@spot, tag_id: tag.id), data: { turbo_frame: "tags_search" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 bg-primary items-center hover:bg-primary-hover" do %>
-            <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+      <% if review.tags.present? %>
+        <% review.tags.each do |tag| %>
+          <%= link_to spot_path(@spot, tag_id: tag.id), data: { turbo_frame: "tags_search" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 bg-primary items-center hover:bg-primary-hover" do %>
+              <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
     </div>
     <% if review.images.present? %>
       <div class="flex space-x-2">
@@ -52,10 +52,10 @@
         <div class="flex-col justify-center space-x-2">
             <%= render 'reviews/helpful_buttons', { review: review } %>
             <% if review.helpfuls.present? %>
-            <div class="flex justify-center">
-            <p class="pt-1 text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
-            </div>
-        <% end %>
+              <div class="flex justify-center">
+                <p class="pt-1 text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
+              </div>
+            <% end %>
         </div>
     <% end %>
 

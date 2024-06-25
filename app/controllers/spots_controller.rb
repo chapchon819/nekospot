@@ -123,6 +123,8 @@ class SpotsController < ApplicationController
     end
   end
 
+  private
+
   def set_map_data
     @q = Spot.ransack(params[:q])  # フリーワード検索のパラメータを受け取る
     @spots = @q.result(distinct: true).includes(:spot_images, :category)

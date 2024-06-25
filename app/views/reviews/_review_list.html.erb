@@ -2,7 +2,6 @@
     <div>
         <div class="md:mx-8 my-3 rounded-lg border p-4 mx-auto justify-center items-center">
             <h2 class="pl-3 mb-3 text-xl font-zenmaru font-bold text-neutral">スポット平均</h2>
-
             <div class="mb-0.5 flex items-center gap-2">
             <!-- stars - start -->
                 <div class="rating rating-md rating-half" id="average_rating">
@@ -13,23 +12,23 @@
                     <% end %>
                     <span class="text-sm font-semibold text-secondary"><%= @average_rating.round(2) %></span>
                 </div>
-            <span class="text-sm font-semibold text-secondary" id="reviews_count"> (<%= @all_reviews_count %>件)</span>
+                <span class="text-sm font-semibold text-secondary" id="reviews_count"> (<%= @all_reviews_count %>件)</span>
+            </div>
+        </div>
+    </div>
+    <div class="lg:col-span-2 md:mr-8">
+        <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
+        <div class="grid">
+            <div id="reviews" class="space-y-8 divide-gray-200 divide-y" >
+                <%= turbo_frame_tag 'reviews' do %>
+                    <% spot.reviews.each do |review| %>
+                        <%= render partial: "reviews/review",  locals: { review: review, spot: @spot } %>
+                    <% end %>
+                <% end %>
+            </div>
+            <%= paginate @reviews %>
         </div>
     </div>
 </div>
-<div class="lg:col-span-2 md:mr-8">
-    <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
-    <div class="grid">
-        <div id="reviews" class="space-y-8 divide-gray-200 divide-y" >
-        <%= turbo_frame_tag 'reviews' do %>
-            <% spot.reviews.each do |review| %>
-                <%= render partial: "reviews/review",  locals: { review: review, spot: @spot } %>
-            <% end %>
-        <% end %>
-        </div>
-    <%= paginate @reviews %>
-    </div>
-</div>
-
 
 
