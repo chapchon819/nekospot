@@ -1,10 +1,10 @@
 <% if controller_name == 'static_pages' && action_name == 'index' %>
-  <!-- Always show footer on the top page (index) on all devices -->
+  <!-- TOPページではフッターが常に表示される -->
   <%= render "shared/footer_contents" %>
 <% elsif !(controller_name == 'reviews' && action_name == 'search') && !(controller_name == 'spots' && action_name == 'search') %>
-  <!-- For all other pages except reviews/search and spots/search -->
+  <!-- reviews/search と spots/search 以外では -->
   <% unless controller_name == 'spots' && action_name == 'map' %>
-    <!-- Show footer on PC for pages other than spots/map -->
+    <!-- PC画面ではspots/map以外でフッターが表示される -->
     <div class="<%= 'hidden md:block' %>">
       <%= render "shared/footer_contents" %>
     </div>
