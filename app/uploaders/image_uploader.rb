@@ -32,6 +32,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+  process resize_to_limit: [1000, 667]
   # Create different versions of your uploaded files:
   version :thumb do
     process resize_to_fit: [50, 50]
@@ -40,7 +41,20 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w(jpg jpeg gif png webp)
+  end
+
+  process :convert_to_webp
+
+  def convert_to_webp
+    manipulate! do |img|
+      img.format 'webp'
+      img
+    end
+  end
+
+  def filename
+    super.chomp(File.extname(super)) + '.webp' if original_filename.present?
   end
 
   # Override the filename of the uploaded files:
