@@ -182,7 +182,11 @@
                                     </form>
                                 </dialog>
                             </div>
+                            <%= link_to spots_path, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
+                                <i class="ph ph-tag"></i>&nbsp;タグ検索解除
+                            <% end %>
                             <%= turbo_frame_tag "reviews-list" do %>
+                            <%= turbo_frame_tag 'tags_search' do %>
                                 <% if @reviews.present? %>
                                     <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
                                         <% @reviews.each do |review| %>
@@ -195,6 +199,7 @@
                                 <% else %>
                                     <%= render 'spots/no_reviews' %>
                                 <% end %>
+                            <% end %>
                             <% end %>
                         </div> 
                     </div>

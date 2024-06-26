@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'reviews/search', to: 'reviews#search'
   get 'proxy_image', to: 'spots#proxy_image'
   resources :spots, only: %i[index show] do
+    get 'tag_filter/:tag_id', to: 'spots#index', as: :tag_filter_reviews
     resources :reviews, only: %i[new create edit update destroy]
     collection do
       get :bookmarks

@@ -1,5 +1,6 @@
-<div class="flex flex-col items-start mx-auto px-4 py-6 md:h-80 md:p-4 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
-    <p class="font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral"><span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= review.spot.name %></p>        
+<div class="flex flex-col items-start mx-auto w-full px-4 py-6 md:h-80 md:p-4 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
+    <div class="flex flex-col h-full justify-start space-y-2">
+    <p class="font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral whitespace-pre-wrap"><span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= review.spot.name %></p>     
     <div class="flex w-full justify-between">
         <div class="flex items-center">
 
@@ -92,10 +93,21 @@
         </div>
     </div>
 
+    <div class="flex flex-row flex-wrap space-x-2">
+      <% if review.tags.present? %>
+        <% review.tags.each do |tag| %>
+                <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
+                <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+            <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    </div>
+
 
     <% unless review.user == current_user %>
-        <div class="flex-col justify-center space-y-2">
-                        <% if user_signed_in? %>
+        <div class="h-full justify-end w-full flex flex-col mx-auto space-y-2 pt-2">
+            <% if user_signed_in? %>
                 <div class='mx-auto'>
                     <% if current_user.helpful?(review) %>
                         <%= render 'reviews/unhelpful', { review: review } %>

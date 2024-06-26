@@ -20,9 +20,15 @@ class SpotsController < ApplicationController
     Rails.logger.debug "Received parameters: #{params.inspect}"
     
     @q_reviews = Review.ransack(params[:q])
-    filtered_reviews = @q_reviews.result(distinct: false).includes(:user, :spot)
-    distinct_reviews = filtered_reviews.select('DISTINCT ON (reviews.id) reviews.id, reviews.user_id, reviews.spot_id, reviews.rating, reviews.body, reviews.created_at, reviews.updated_at, reviews.images')
-    @reviews = distinct_reviews.page(params[:page]).per(12)
+
+    if params[:tag_id].present?
+      filtered_reviews = Review.review_tag(params[:tag_id])
+      @reviews = filtered_reviews.includes(:user, :spot, :tags).page(params[:page]).per(12)
+    else
+      filtered_reviews = @q_reviews.result(distinct: false).includes(:user, :spot, :tags)
+      distinct_reviews = filtered_reviews.select('DISTINCT ON (reviews.id) reviews.id, reviews.user_id, reviews.spot_id, reviews.rating, reviews.body, reviews.created_at, reviews.updated_at, reviews.images')
+      @reviews = distinct_reviews.page(params[:page]).per(12)
+    end
   end
 
   def map

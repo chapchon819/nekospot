@@ -42,6 +42,9 @@ class Review < ApplicationRecord
     body.length > length
   end
 
+  # タグに基づいたレビューをフィルタリングするスコープ
+  scope :review_tag, ->(tag_id) { joins(:tags).where(tags: { id: tag_id }) }
+
   private
 
   def validate_image_count
