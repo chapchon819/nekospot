@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'terms_of_use', to: 'static_pages#terms_of_use'
   get 'spots/list', to: 'spots#list'
   get 'reviews/search', to: 'reviews#search'
+  get 'proxy_image', to: 'spots#proxy_image'
   resources :spots, only: %i[index show] do
     resources :reviews, only: %i[new create edit update destroy]
     collection do

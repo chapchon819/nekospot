@@ -1,4 +1,5 @@
 class SpotsController < ApplicationController
+  require 'open-uri'
   before_action :set_map_data, only: :map
 
   def index
@@ -136,6 +137,19 @@ class SpotsController < ApplicationController
         category: spot.category.name,
         category_id: spot.category.id
       )
+    end
+  end
+
+
+  def proxy_image
+    photo_reference = params[:photo_reference]
+    url = "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{photo_reference}&key=#{ENV['GMAP_API_KEY']}"
+    
+    begin
+      image_data = open(url).read
+      send_data image_data, type: 'image/jpeg', disposition: 'inline'
+    rescue OpenURI::HTTPError => e
+      render plain: "Image not found", status: :not_found
     end
   end
 
