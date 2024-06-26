@@ -3,8 +3,6 @@
 <% if prioritized_image.present? %>
   <% image_url = proxy_image_url(photo_reference: prioritized_image.image) %>
 <% end %>
-<%= debug(prioritized_image) %>
-<%= debug(image_url) %>
 <% assign_meta_tags title: @spot.name, image: image_url %>
 <nav class="md:hidden w-full h-12 ">
     <div class="navbar bg-primary text-secondary border-b border-primary-hover">
