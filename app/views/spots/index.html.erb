@@ -171,6 +171,21 @@
                                         <% end %>
                                     </div>
                                 <% end %>
+                                <div class="md:mt-8 mt-4 flex flex-row flex-wrap space-x-2 items-center space-y-2">
+                                    <% if @tags.present? %>
+                                        <div class="flex flex-col"><h2 class='text-secondary text-sm font-semibold'>タグ一覧</h2></div>
+                                        <br>
+                                        <%= link_to spots_path, class: "inline-flex text-white text-xs px-4 py-2 mx-auto bg-secondary border border-secondary rounded-lg hover:bg-primary-hover md:mx-0" do %>
+                                            <i class="ph ph-tag"></i>&nbsp;タグ検索解除
+                                        <% end %>
+                                        <br>
+                                        <% @tags.each do |tag| %>
+                                            <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
+                                                <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+                                            <% end %>
+                                        <% end %>
+                                    <% end %>
+                                </div>
                             </div>
                         </div>
                         <div class="md:col-span-3" >
