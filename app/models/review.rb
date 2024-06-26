@@ -45,6 +45,9 @@ class Review < ApplicationRecord
     end
   end
 
+
+
+=begin %>
   def validate_images
     return if images.blank? || images.all?(&:blank?)
 
@@ -60,4 +63,6 @@ class Review < ApplicationRecord
       errors.add(:images, '不適切な画像が含まれています')
     end
   end
+  <%
+=end
 end
