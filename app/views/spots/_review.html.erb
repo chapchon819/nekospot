@@ -16,8 +16,11 @@
                 </div>
             </div>
             <div class="md:ml-2 ml-3">
-                <span class="block text-sm md:text-xs text-neutral"><%= review.user.name %></span>
-                <span class="block text-xs md:text-[9px] text-secondary"><%= review.created_at.strftime('%Y/%m/%d') %></span>
+                <div class="inline-block text-sm md:text-xs text-neutral"><%= review.user.name %></div>                    
+                <div class="inline-block h-4 w-4 items-center pt-0.5">
+                        <%= image_tag(rank_icon(@user)) %>
+                </div>
+                <div class="block text-xs md:text-[9px] text-secondary"><%= review.created_at.strftime('%Y/%m/%d') %></div>
             </div>
         </div>
         <div class="flex space-x-2 items-center">
