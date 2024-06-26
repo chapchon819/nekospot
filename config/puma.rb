@@ -33,3 +33,16 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+before_fork do
+  require 'puma_worker_killer'
+
+  PumaWorkerKiller.config do |config|
+    config.ram           = 512 # total RAM available
+    config.frequency     = 5    # how often to check
+    config.percent_usage = 0.98 # percent of RAM to use before killing
+    config.rolling_restart_frequency = 12 * 3600 # 12 hours in seconds
+    config.reaper_status_logs = true
+  end
+  PumaWorkerKiller.start
+end

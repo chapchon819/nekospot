@@ -88,6 +88,7 @@ gem 'kaminari'
 
 # その他
 gem 'redis-rails'
+gem 'puma_worker_killer'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
