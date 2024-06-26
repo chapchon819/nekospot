@@ -103,6 +103,12 @@
                     </dialog>
                 </div>
                 <div class="flex space-x-2">
+                <div class="items-center">
+                  <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "mt-2 inline-flex flex-col items-center justify-center px-1 group" do %>
+                      <i class="ph-bold ph-x-logo fa-lg w-6 h-3 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+                      <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">シェア</span>
+                  <% end %>
+                  </div>
                   <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
                 </div>
               </div>

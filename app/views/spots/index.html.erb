@@ -111,26 +111,26 @@
                             </div>
                         </div>
                         <% end %>
-                    <% if @spots.present? %>
-                        <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
-                            <% @spots.each do |spot| %>
-                                <%= render 'spots/spot', spot: spot %>
+                        <% if @spots.present? %>
+                            <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
+                                <% @spots.each do |spot| %>
+                                    <%= render 'spots/spot', spot: spot %>
+                                <% end %>
+                                <div class="flex items-center justify-center">
+                                <%= paginate @spots %>
+                                </div>
+                            <% unless user_signed_in? %>
+                                <%= render 'shared/login_modal' %>
                             <% end %>
-                            <div class="flex items-center justify-center">
-                            <%= paginate @spots %>
                             </div>
-                        <% unless user_signed_in? %>
-                            <%= render 'shared/login_modal' %>
+                            
+                            <% else %>
+                                <div class="mx-auto flex flex-col items-center gap-2.5 justify-center w-11/12 h-full">
+                                    <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                                    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral text-sm md:text-lg"> <i class="ph ph-empty fa-lg"></i>  検索結果がありません</h3>
+                                    <p class="text-sm flex items-center justify-center w-full text-secondary">条件を変えて検索してみてね！</p>
+                                </div>
                         <% end %>
-                        </div>
-                        
-                        <% else %>
-                            <div class="mx-auto flex flex-col items-center gap-2.5 justify-center w-11/12 h-full">
-                                <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
-                                <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral text-sm md:text-lg"> <i class="ph ph-empty fa-lg"></i>  検索結果がありません</h3>
-                                <p class="text-sm flex items-center justify-center w-full text-secondary">条件を変えて検索してみてね！</p>
-                            </div>
-                    <% end %>
                     <% end %>
                 </div>
             </div>
@@ -200,7 +200,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 
