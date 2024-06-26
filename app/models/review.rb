@@ -37,6 +37,11 @@ class Review < ApplicationRecord
   end
   end
 
+  # レビューの文字数を判定
+  def long_body?(length = 10)
+    body.length > length
+  end
+
   private
 
   def validate_image_count
@@ -44,8 +49,6 @@ class Review < ApplicationRecord
       errors.add(:images, "画像のアップロードは３枚までです。")
     end
   end
-
-
 
 =begin %>
   def validate_images

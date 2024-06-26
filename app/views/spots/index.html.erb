@@ -184,7 +184,7 @@
                             </div>
                             <%= turbo_frame_tag "reviews-list" do %>
                                 <% if @reviews.present? %>
-                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4">
+                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="image-modal">
                                         <% @reviews.each do |review| %>
                                             <%= render 'spots/review', review: review %>
                                         <% end %>
