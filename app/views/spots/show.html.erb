@@ -52,10 +52,10 @@
       <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
         <ul class="list-reset flex border-b rounded-t-lg">
           <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-            <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">詳細情報</a>
+            <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">詳細情報</a>
           </li>
           <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-            <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" id="review_tab" href="#">口コミ(<%= @reviews.present? ? @all_reviews_count : 0 %>件)</a>
+            <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" id="review_tab" href="#" data-turbo="false">口コミ(<%= @reviews.present? ? @all_reviews_count : 0 %>件)</a>
           </li>
         </ul>
 
@@ -198,7 +198,7 @@
               <%= turbo_frame_tag 'tags_search' do %>
                 <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
                 <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
-                  <i class="ph ph-tag"></i>&nbsp;すべて
+                  <i class="ph ph-tag"></i>&nbsp;タグ検索解除
                 <% end %>
 
                 <div class="grid">

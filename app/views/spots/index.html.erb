@@ -5,6 +5,7 @@
 </div>
     <dialog id="my_modal_2" class="modal">
     <div class="modal-box">
+        <div class="w-full grid md:grid-cols-2">
         <div class="flex justify-center items-center">
             <div class="flex flex-col space-y-4 text-left text-secondary">
                 <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
@@ -16,6 +17,10 @@
                 <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
             </div>
         </div>
+        <div class="flex">
+        <%= image_tag("rank.webp") %>
+        </div>
+        </div>
     </div>
     <form method="dialog" class="modal-backdrop">
         <button>close</button>
@@ -25,10 +30,10 @@
         <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
             <ul class="list-reset flex border-b rounded-t-lg">
                 <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">スポット一覧</a>
+                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">スポット一覧</a>
                 </li>
                 <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">レビュー一覧</a>
+                    <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">レビュー一覧</a>
                 </li>
             </ul>
 
@@ -62,34 +67,34 @@
                         <% end %>
                     </div>
                     <div class="text-secondary flex-col items-center md:space-y-4">
-                    <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
-                        <div class='label-select flex h-full text-sm space-x-2'>
-                            <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
-                            <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
+                        <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
+                            <div class='label-select flex h-full text-sm space-x-2'>
+                                <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+                                <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
+                            </div>
+                            <div class='label-select flex h-full text-sm space-x-2'>
+                                <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+                                <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
+                            </div>
                         </div>
-                        <div class='label-select flex h-full text-sm space-x-2'>
-                            <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
-                            <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
-                        </div>
-                    </div>
-                    <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4">
-                        <div class='label-select h-full md:w-full w-1/2 text-sm'>
-                            <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
-                            <%= f.collection_select :category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
-                        </div>
-                        <div class='label-select h-full md:w-full w-1/2 text-sm md:mb-8'>
-                            <%= f.label :prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
-                            <%= f.collection_select :prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
-                        </div>
+                        <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4">
+                            <div class='label-select h-full md:w-full w-1/2 text-sm'>
+                                <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
+                                <%= f.collection_select :category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                            </div>
+                            <div class='label-select h-full md:w-full w-1/2 text-sm md:mb-8'>
+                                <%= f.label :prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
+                                <%= f.collection_select :prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                            </div>
                         </div>
                         <div class="hidden md:flex justify-center items-center md:mt-16">
-                        <%= f.submit 'この条件で検索する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
-                        <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-                        <span class="relative"></span>
-                        <% end %>
+                            <%= f.submit 'この条件で検索する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
+                                <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+                                <span class="relative"></span>
+                            <% end %>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <% end %>
                 </div>
                 <div class="md:col-span-3">
@@ -136,8 +141,8 @@
             </div>
             </div>
 
-            <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
-                <div class="w-full mx-auto md:h-full h-screen pb-8 ">
+            <div id="review-tab" class="hidden bg-white p-4 w-full h-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+                <div class="w-full mx-auto md:h-full pb-8 ">
                     <div class="grid md:grid-cols-4">
                         <div class="md:col-span-1 md:p-4 md:mt-12">
                             <div data-controller="autocomplete" data-autocomplete-url-value="/reviews/search" role="combobox">
@@ -154,49 +159,71 @@
                                         <%= f.submit class: 'md:hidden text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
                                         <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
                                     </div>
-                                    <div class='label-select border rounded-l-xl h-full text-sm'>
-                                        <%= f.label :spot_category_id_eq, 'カテゴリ', class: 'label text-xs' %>
-                                        <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  include_blank: '指定なし', class: 'search-select text-sm' %>
+                                    <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4 mt-4 text-secondary">
+                                    <div class='label-select h-full md:w-full w-1/2 text-sm'>
+                                        <%= f.label :spot_category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
+                                        <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
                                     </div>
-                                    <div class='label-select border h-full text-sm'>
-                                        <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label text-xs' %>
-                                        <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  include_blank: '指定なし', class: 'search-select text-sm' %>
+                                    <div class='label-select h-full md:w-full w-1/2 text-sm md:mb-8'>
+                                        <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
+                                        <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
                                     </div>
-                                    <div class="hidden md:flex justify-center items-center md:mt-16">
+                                    </div>
+                                    <div class="hidden md:flex justify-center items-center md:mt-8">
                                         <%= f.submit 'この条件で検索する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
                                             <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
                                             <span class="relative"></span>
                                         <% end %>
                                     </div>
                                 <% end %>
+                                <div class="md:mt-8 mt-4 flex flex-row flex-wrap space-x-2 items-center space-y-2">
+                                    <% if @tags.present? %>
+                                        <div class="flex flex-col"><h2 class='text-secondary text-sm font-semibold'>タグ一覧</h2></div>
+                                        <br>
+                                        <%= link_to spots_path, class: "inline-flex text-white text-xs px-4 py-2 mx-auto bg-secondary border border-secondary rounded-lg hover:bg-primary-hover md:mx-0" do %>
+                                            <i class="ph ph-tag"></i>&nbsp;タグ検索解除
+                                        <% end %>
+                                        <br>
+                                        <% @tags.each do |tag| %>
+                                            <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
+                                                <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+                                            <% end %>
+                                        <% end %>
+                                    <% end %>
+                                </div>
                             </div>
                         </div>
+                        <div class="md:col-span-3" >
+                            <div class="flex justify-end">
+                                <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                                <dialog id="my_modal_3" class="modal">
+                                    <div class="modal-box">
+                                    </div>
+                                    <form method="dialog" class="modal-backdrop">
+                                        <button>close</button>
+                                    </form>
+                                </dialog>
+                            </div>
+
+                            <%= turbo_frame_tag "reviews-list" do %>
+                            <%= turbo_frame_tag 'tags_search' do %>
+                                <% if @reviews.present? %>
+                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
+                                        <% @reviews.each do |review| %>
+                                            <%= render 'spots/review', review: review, user: review.user %>
+                                        <% end %>
+                                        
+                                    <%= paginate @reviews %>
+                                    <%= render 'shared/login_modal' %>
+                                    </div>
+                                <% else %>
+                                    <%= render 'spots/no_reviews' %>
+                                <% end %>
+                            <% end %>
+                            <% end %>
+                        </div> 
                     </div>
                 </div>
-                <div class="md:col-span-3">
-                    <div class="flex justify-end">
-                        <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
-                        <dialog id="my_modal_3" class="modal">
-                        <div class="modal-box">
-                        </div>
-                        <form method="dialog" class="modal-backdrop">
-                            <button>close</button>
-                        </form>
-                        </dialog>
-                    </div>
-                    <%= turbo_frame_tag "reviews-list" do %>
-                        <% if @reviews.present? %>
-                            <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4">
-                                <% @reviews.each do |review| %>
-                                    <%= render 'spots/review', review: review %>
-                                <% end %>
-                            </div>
-                            <%= paginate @reviews %>
-                        <% else %>
-                            <%= render 'spots/no_reviews' %>
-                        <% end %>
-                    <% end %>
-                </div> 
             </div>
         </div>
     </div>

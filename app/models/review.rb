@@ -37,6 +37,14 @@ class Review < ApplicationRecord
   end
   end
 
+  # レビューの文字数を判定
+  def long_body?(length = 10)
+    body.length > length
+  end
+
+  # タグに基づいたレビューをフィルタリングするスコープ
+  scope :review_tag, ->(tag_id) { joins(:tags).where(tags: { id: tag_id }) }
+
   private
 
   def validate_image_count
@@ -45,6 +53,7 @@ class Review < ApplicationRecord
     end
   end
 
+=begin %>
   def validate_images
     return if images.blank? || images.all?(&:blank?)
 
@@ -60,4 +69,6 @@ class Review < ApplicationRecord
       errors.add(:images, '不適切な画像が含まれています')
     end
   end
+  <%
+=end
 end
