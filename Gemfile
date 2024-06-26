@@ -116,4 +116,7 @@ end
 # security
 gem 'dotenv-rails'
 
+#動的OGP
+gem 'meta-tags'
+
 
