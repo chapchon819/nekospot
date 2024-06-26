@@ -1,17 +1,20 @@
 <div class="flex flex-col items-start mx-auto px-4 py-6 md:h-80 md:p-4 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
     <p class="font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral"><span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= review.spot.name %></p>        
     <div class="flex w-full justify-between">
-        <div class="items-center">
-            <div>
+        <div class="flex items-center">
+
+            <div class="avatar">
+                <div class="w-12 rounded-full <%= user_rank(@user) %>-border">
                 <% if review.user.avatar.present? %>
-                    <%= image_tag review.user.avatar.url, class: "inline-block rounded-full h-9 w-9" %>
+                    <%= image_tag review.user.avatar.url %>
                 <% else %>
-                    <%= image_tag("default.webp", class: "inline-block rounded-full h-9 w-9") %>
+                    <%= image_tag("default.webp") %>
                 <% end %>
+                </div>
             </div>
-            <div class="ml-3">
-                <span class="block text-sm text-neutral"><%= review.user.name %></span>
-                <span class="block text-xs text-secondary"><%= review.created_at.strftime('%Y/%m/%d') %></span>
+            <div class="md:ml-2 ml-3">
+                <span class="block text-sm md:text-xs text-neutral"><%= review.user.name %></span>
+                <span class="block text-xs md:text-[9px] text-secondary"><%= review.created_at.strftime('%Y/%m/%d') %></span>
             </div>
         </div>
         <div class="flex space-x-2 items-center">

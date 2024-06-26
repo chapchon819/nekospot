@@ -186,7 +186,7 @@
                                 <% if @reviews.present? %>
                                     <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
                                         <% @reviews.each do |review| %>
-                                            <%= render 'spots/review', review: review %>
+                                            <%= render 'spots/review', review: review, user: review.user %>
                                         <% end %>
                                         <%= render 'shared/login_modal' %>
                                     </div>
