@@ -24,7 +24,7 @@
                         </li>
                         <li>
                             <%= link_to bookmarks_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;保存済み</p>
+                                <p><i class="ph ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;お気に入り / 訪問済</p>
                             <% end %>
                         </li>
                         <li>
@@ -61,9 +61,9 @@
         <i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary group-hover:text-neutral">診断</span>
         <% end %>
-        <%= link_to bookmarks_spots_path, method: :get, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-            <i class="ph ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-            <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">お気に入り</span>
+        <%= link_to bookmarks_spots_path, method: :get, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 group" do %>
+            <i class="ph ph-heart fa-lg w-6 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">保存/訪問済</span>
         <% end %>
         <%= link_to users_show_path(current_user), method: :get, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
             <i class="ph ph-user-circle fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
