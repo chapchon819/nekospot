@@ -1,7 +1,7 @@
 <div class="flex flex-col items-start mx-auto px-4 py-6 md:h-80 md:p-4 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
     <p class="font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral"><span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= review.spot.name %></p>        
     <div class="flex w-full justify-between">
-        <div class="flex items-center">
+        <div class="items-center">
             <div>
                 <% if review.user.avatar.present? %>
                     <%= image_tag review.user.avatar.url, class: "inline-block rounded-full h-9 w-9" %>
@@ -90,5 +90,31 @@
     </div>
 
 
-
+    <% unless review.user == current_user %>
+        <div class="flex-col justify-center space-y-2">
+                        <% if user_signed_in? %>
+                <div class='mx-auto'>
+                    <% if current_user.helpful?(review) %>
+                        <%= render 'reviews/unhelpful', { review: review } %>
+                    <% else %>
+                        <%= render 'reviews/helpful', { review: review } %>
+                    <% end %>
+                </div>
+            <% else %>
+            <div class='mx-auto'>
+                <button data-action="click->login-modal#openModal" class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
+                    <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
+                </button>
+                <% if review.helpfuls.present? %>
+                    <p class="text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
+                <% end %>
+            </div>
+            <% end %>
+            <% if review.helpfuls.present? %>
+              <div class="flex justify-center">
+                <p class="pt-1 text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
+              </div>
+            <% end %>
+        </div>
+    <% end %>
 </div>
