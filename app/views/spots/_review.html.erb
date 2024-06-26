@@ -1,6 +1,6 @@
-<div class="flex flex-col items-startmx-auto px-4 py-6 md:h-72 md:p-6 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
-    <p class="font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral"><i class="ph-fill ph-map-pin fa-lg"></i>&nbsp;<%= review.spot.name %></p>
-        <div class="flex w-full justify-between">
+<div class="flex flex-col items-startmx-auto px-4 py-6 md:h-72 md:p-4 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
+    <p class="font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral"><span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= review.spot.name %></p>        
+    <div class="flex w-full justify-between">
         <div class="flex items-center">
             <div>
                 <% if review.user.avatar.present? %>
@@ -20,9 +20,8 @@
             <% end %>
         </div>
     </div>
-    
-    
-    <div class="-ml-2 flex gap-0.5 pl-2">  
+
+        <div class="-ml-2 flex gap-0.5 pl-2 py-2">  
         <% rating = review.rating %>
         <% full_stars = rating %>
         <% empty_stars = 5 - rating %>
@@ -35,10 +34,11 @@
             <i class="ph-fill ph-star fa-lg text-gray-100"></i>
         <% end %>
     </div>
+    
       <!-- stars - end -->
     <div class="review text-secondary text-xs">
         <% if review.body.present? && review.long_body? %>
-            <%= review.body.first(30) %>...<br>
+            <%= review.body.first(30) %>...
             <%= link_to "もっと見る", '#' %>
         <% else %>
             <%= review.body %>
