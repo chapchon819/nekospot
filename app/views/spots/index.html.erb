@@ -136,8 +136,8 @@
             </div>
             </div>
 
-            <div id="review-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
-                <div class="w-full mx-auto md:h-full h-screen pb-8 ">
+            <div id="review-tab" class="hidden bg-white p-4 w-full h-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+                <div class="w-full mx-auto md:h-full pb-8 ">
                     <div class="grid md:grid-cols-4">
                         <div class="md:col-span-1 md:p-4 md:mt-12">
                             <div data-controller="autocomplete" data-autocomplete-url-value="/reviews/search" role="combobox">
@@ -171,7 +171,7 @@
                                 <% end %>
                             </div>
                         </div>
-                        <div class="md:col-span-3">
+                        <div class="md:col-span-3" >
                             <div class="flex justify-end">
                                 <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
                                 <dialog id="my_modal_3" class="modal">
@@ -184,7 +184,7 @@
                             </div>
                             <%= turbo_frame_tag "reviews-list" do %>
                                 <% if @reviews.present? %>
-                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="image-modal">
+                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4">
                                         <% @reviews.each do |review| %>
                                             <%= render 'spots/review', review: review %>
                                         <% end %>
