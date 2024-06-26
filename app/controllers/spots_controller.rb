@@ -1,6 +1,6 @@
 class SpotsController < ApplicationController
   require 'open-uri'
-  before_action :set_map_data, only: :map
+  before_action :set_map_data, only: [:map, :list]
 
   def index
     @categories = Category.all
