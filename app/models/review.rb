@@ -10,7 +10,7 @@ class Review < ApplicationRecord
   validates :rating, presence: true, numericality: { in: 1..5, message: "を入力してください" }
   validates :body, length: { maximum: 400 }
   validate :validate_image_count
-  validate :validate_images
+  #validate :validate_images
 
   # 画像削除を処理するメソッド
   def remove_image_at_index(index)

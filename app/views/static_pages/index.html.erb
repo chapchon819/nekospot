@@ -59,7 +59,7 @@
               <div class="flex md:flex-col items-center justify-center w-full">
                 <h1 class="hidden md:block text-2xl font-semibold font-zenmaru text-white lg:text-4xl">猫との素敵な出会いをここで</h1>
                 <div class="hidden mx-auto md:mt-12 md:flex w-11/12 md:w-full justify-center md:relative">
-                      <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-full font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
+                      <%= link_to map_spots_path, data: { turbo: false }, class: "w-full font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
                         <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
                       <% end %>
                 </div>
@@ -89,7 +89,7 @@
         <!-- ここまで -->
       </div>
       <div class="flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-        <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
+        <%= link_to map_spots_path, data: { turbo: false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
           <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
             <i class="ph ph-magnifying-glass fa-2xl text-accent"></i>
           </div>
@@ -101,7 +101,7 @@
           <%= image_tag 'top_map.webp', size: '320x480' %>
           </div>
         <% end %>
-        <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
+        <%= link_to map_spots_path, data: { turbo: false }, class: "group relative w-full bg-primary shadow-lg rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-full xl:p-7 xl:w-1/4 hover:bg-accent" do %>
           <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
             <i class="ph ph-map-pin fa-2xl text-accent"></i>
           </div>
@@ -141,12 +141,12 @@
     </div>
   </section>
   <div class="md:hidden flex justify-center items-center w-full mt-20 sticky bottom-4 z-50 mb-20">
-    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
+    <%= link_to map_spots_path, data: { turbo: false }, class: "w-11/12 font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
       <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
     <% end %>
   </div>
   <div class="hidden md:flex justify-center items-center w-full my-20">
-    <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "w-11/12 font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
+    <%= link_to map_spots_path, data: { turbo: false }, class: "w-11/12 font-semibold py-4 text-lg text-center text-white transition-colors duration-300 bg-accent rounded-full hover:bg-accent-hover ease px-9 md:w-auto" do %>
       <i class="ph-bold ph-magnifying-glass fa-lg"></i> 猫スポットを探す
     <% end %>
   </div>
