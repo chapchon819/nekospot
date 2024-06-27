@@ -16,6 +16,7 @@ class SpotsController < ApplicationController
     # params[:page]が配列になっている場合に対応
     page_param = params[:page].is_a?(Array) ? params[:page].first : params[:page]
     @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12)
+    @spots_count = @q_spots.result(distinct: true).includes(:spot_images, :category).count
     # パラメータのログを出力
     Rails.logger.debug "Received parameters: #{params.inspect}"
     
