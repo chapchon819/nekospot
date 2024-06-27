@@ -1,6 +1,6 @@
 <% if @review.images.any? %>
   <%# 最初の画像をOGPとして使用 %>
-  <% image_url = @review.images.first.to_s %>
+  <% image_url = @review.images.first.ogp.to_s %>
   <% assign_meta_tags title: @review.spot.name, image: image_url %>
 <% end %>
 <section>
