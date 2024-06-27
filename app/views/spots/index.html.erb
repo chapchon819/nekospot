@@ -122,7 +122,7 @@
                                     <%= render 'spots/spot', spot: spot %>
                                 <% end %>
                                 <div class="flex items-center justify-center">
-                                <%= paginate @spots %>
+                                <%= paginate @spots, window: 2 %>
                                 </div>
                             <% unless user_signed_in? %>
                                 <%= render 'shared/login_modal' %>
