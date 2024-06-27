@@ -48,7 +48,7 @@
     <div class="review text-secondary text-xs">
         <% if review.body.present? && review.long_body? %>
             <%= review.body.first(30) %>...
-            <%= link_to "もっと見る", '#' %>
+            <%= link_to "もっと見る", spot_review_path(review.spot_id, review.id), data: { turbo: false }  %>
         <% else %>
             <%= review.body %>
         <% end %>

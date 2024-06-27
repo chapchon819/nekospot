@@ -118,6 +118,13 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def show
+    review = Review.last
+    @user = review.user if review.present?
+    @review = Review.find(params[:id])
+    @reviews = @user.reviews.includes(:spot)
+  end
+
   private
 
   def review_params

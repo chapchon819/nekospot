@@ -1,0 +1,135 @@
+<% if @review.images.any? %>
+  <%# 最初の画像をOGPとして使用 %>
+  <% image_url = @review.images.first.to_s %>
+  <% assign_meta_tags title: @review.spot.name, image: image_url %>
+<% end %>
+<section>
+    <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
+        <div class="flex flex-wrap items-center mx-auto max-w-7xl">
+        <div class="w-full lg:max-w-lg lg:w-1/2 rounded-xl">
+            <div>
+            <div class="relative w-full max-w-lg">
+                <div class="absolute top-0 rounded-full bg-accent -left-4 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+
+                <div class="absolute rounded-full bg-accent-active -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                <div class="relative">
+
+                    <% if @review.images.present? %>
+                    <div class="swiper w-96 h-96 rounded-md">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <% @review.images.each do |image| %>
+                        <div class="swiper-slide"><%= image_tag image.to_s %></div>
+                        <% end %>
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar"></div>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-start mt-12 mb-16 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
+            <%= link_to spot_path(@review.spot), data: { turbo: false }, class: "mb-8 font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral whitespace-pre-wrap hover:text-secondary" do %>
+                <span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= @review.spot.name %>
+            <% end %>
+        <div class="flex w-full justify-between">
+        <div class="flex items-center">
+
+            <div class="avatar">
+                <div class="w-20 rounded-full <%= user_rank(@user) %>-border">
+                <% if @review.user.avatar.present? %>
+                    <%= image_tag @review.user.avatar.url %>
+                <% else %>
+                    <%= image_tag("default.webp") %>
+                <% end %>
+                </div>
+            </div>
+            <div class="md:ml-2 ml-3 px-4">
+                <div class="inline-block text-sm text-neutral"><%= @review.user.name %></div>                    
+                <div class="inline-block h-6 w-6 items-center pt-2">
+                    <%= image_tag(rank_icon(@user)) %>
+                </div>
+                <div class="block text-xs text-secondary"><%= @review.created_at.strftime('%Y/%m/%d') %></div>
+            </div>
+        </div>
+        <div class="flex space-x-2 items-center">
+            <% if @review.user == current_user %>
+                <%= render 'spots/crud_menus', review: review %>
+            <% end %>
+        </div>
+    </div>
+    <div class="flex w-full items-center px-4 py-2 my-8">
+    <div class="flex gap-0.5">  
+        <% rating = @review.rating %>
+        <% full_stars = rating %>
+        <% empty_stars = 5 - rating %>
+        
+        <% full_stars.times do %>
+            <i class="ph-fill ph-star fa-lg text-yellow-400"></i>
+        <% end %>
+        
+        <% empty_stars.times do %>
+            <i class="ph-fill ph-star fa-lg text-gray-100"></i>
+        <% end %>
+    </div>
+
+    </div>
+
+            <p class="mb-8 text-base leading-relaxed text-left text-gray-500"><%= @review.body %></p>
+            <div class="flex flex-wrap w-full mt-2 -mx-4 text-left">
+                <% if @review.tags.present? %>
+                    <% @review.tags.each do |tag| %>
+                        <%= link_to spots_path(tag_id: tag.id), class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
+                            <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </div>
+                <div class="flex justify-end w-full">
+                <div>
+        <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@review.spot.id}/reviews/#{@review.id}&text=#{ERB::Util.url_encode("「#{@review.spot.name}」のレビューを投稿しました🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded px-5 py-2.5 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
+                <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                <span class="relative text-sm text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>シェア</span>
+        <% end %>
+        </div>
+    </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});
+})
+</script>
