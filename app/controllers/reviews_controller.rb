@@ -123,13 +123,16 @@ class ReviewsController < ApplicationController
     @user = review.user if review.present?
     @review = Review.find(params[:id])
     @reviews = @user.reviews.includes(:spot)
-    image_urls = JSON.parse(@review.images) rescue []
-    first_image_url = image_urls.first 
-    # CarrierWaveでアップローダーインスタンスを作成し、:ogpバージョンのURLを取得
-    ogp_image = ImageUploader.new
-    ogp_image.retrieve_from_store!(File.basename(first_image_url))
-    ogp_image_url = ogp_image.ogp.url
-  
+    # 画像の URL 配列を生成
+    ogp_image_urls = @review.images.map do |image_file_name|
+      image_uploader = ImageUploader.new(@review, :images)
+      image_uploader.retrieve_from_store!(image_file_name)
+      image_uploader.url(:ogp)
+    end
+
+    # ここで ogp_image_urls を使用して何か処理を行う
+    # 例: 最初の画像の URL を使用する
+    @first_ogp_image_url = ogp_image_urls.first
   end
 
   private
