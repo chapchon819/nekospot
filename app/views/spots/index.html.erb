@@ -112,7 +112,7 @@
                         <% if params[:q].present? %>
                         <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
                             <div class="text-sm text-secondary">
-                                <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @spots.count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
+                                <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @spots_count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
                             </div>
                         </div>
                         <% end %>
@@ -122,7 +122,7 @@
                                     <%= render 'spots/spot', spot: spot %>
                                 <% end %>
                                 <div class="flex items-center justify-center">
-                                <%= paginate @spots %>
+                                <%= paginate @spots, window: 2 %>
                                 </div>
                             <% unless user_signed_in? %>
                                 <%= render 'shared/login_modal' %>

@@ -15,7 +15,8 @@ class SpotsController < ApplicationController
     @q_spots = Spot.ransack(params[:q])
     # params[:page]が配列になっている場合に対応
     page_param = params[:page].is_a?(Array) ? params[:page].first : params[:page]
-    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12)
+    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12).padding(2)
+    @spots_count = @q_spots.result(distinct: true).includes(:spot_images, :category).count
     # パラメータのログを出力
     Rails.logger.debug "Received parameters: #{params.inspect}"
     
@@ -112,6 +113,10 @@ class SpotsController < ApplicationController
     @all_reviews_count = @spot.reviews.count
     @average_rating = @spot.reviews.average(:rating).to_f
     @prioritized_image = @spot.prioritized_spot_image # 優先的に表示する画像を取得
+    @spot_image = @spot.prioritized_spot_image
+    if @spot_image
+      @image_url = "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{@spot_image.image}&key=#{ENV['GMAP_API_KEY']}"
+    end
   end
 
   def search
