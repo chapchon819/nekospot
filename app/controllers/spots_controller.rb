@@ -113,10 +113,6 @@ class SpotsController < ApplicationController
     @all_reviews_count = @spot.reviews.count
     @average_rating = @spot.reviews.average(:rating).to_f
     @prioritized_image = @spot.prioritized_spot_image # 優先的に表示する画像を取得
-    @spot_image = @spot.prioritized_spot_image
-    if @spot_image
-      @image_url = "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{@spot_image.image}&key=#{ENV['GMAP_API_KEY']}"
-    end
   end
 
   def search
