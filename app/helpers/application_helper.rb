@@ -157,7 +157,7 @@ module ApplicationHelper
           site_name: site
         },
         twitter: {
-          site:,
+          site: "@819Chapchon",
           card: 'summary_large_image',
           image: image
         }
