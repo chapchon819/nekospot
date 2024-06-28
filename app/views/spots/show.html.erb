@@ -1,9 +1,5 @@
 <% content_for(:title, @spot.name) %>
-<% prioritized_image = @spot.prioritized_spot_image %>
-<% if prioritized_image.present? %>
-  <% image_url = proxy_image_url(photo_reference: prioritized_image.image) %>
-<% end %>
-<% assign_meta_tags title: @spot.name, image: image_url %>
+<% assign_meta_tags title: @spot.name, image: @image_url %>
 <nav class="md:hidden w-full h-12 ">
     <div class="navbar bg-primary text-secondary border-b border-primary-hover">
         <div class="flex-1 items-center mb-3">
@@ -19,9 +15,9 @@
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     
-    <% if prioritized_image.present? %>
+    <% if @prioritized_image.present? %>
       <div class="swiper-slide h-96 w-full">
-        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
+        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{@prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
       </div>
     <% else %>
       <div class="swiper-slide h-96 w-full">
@@ -31,7 +27,7 @@
 
     <% if @spot.spot_images.any? %>
       <% @spot.spot_images.each_with_index do |image, index| %>
-        <% unless image == prioritized_image %>
+        <% unless image == @prioritized_image %>
           <div class="swiper-slide h-96 w-full">
             <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
           </div>
