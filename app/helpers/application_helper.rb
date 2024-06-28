@@ -153,13 +153,13 @@ module ApplicationHelper
           title: title.presence || site,
           description:,
           url: request.original_url,
-          image:,
+          image: image,
           site_name: site
         },
         twitter: {
           site:,
           card: 'summary_large_image',
-          image:
+          image: image
         }
       }
       set_meta_tags(configs)
