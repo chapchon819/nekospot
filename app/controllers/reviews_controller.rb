@@ -123,16 +123,16 @@ class ReviewsController < ApplicationController
     @user = review.user if review.present?
     @review = Review.find(params[:id])
     @reviews = @user.reviews.includes(:spot)
-    # 画像の URL 配列を生成
-    ogp_image_urls = @review.images.map do |image_file_name|
-      image_uploader = ImageUploader.new(@review, :images)
-      image_uploader.retrieve_from_store!(image_file_name)
-      image_uploader.url(:ogp)
-    end
+    # 最初の画像ファイル名を取得
+    first_image_file_name = @review.images.first
 
-    # ここで ogp_image_urls を使用して何か処理を行う
-    # 例: 最初の画像の URL を使用する
-    @first_ogp_image_url = ogp_image_urls.first
+  # 最初の画像ファイル名を取得
+  first_image_file_name = @review.images.first.identifier
+  # アップローダーインスタンスを作成し、最初の画像ファイルをストレージから取得
+  image_uploader = ImageUploader.new(@review, :images)
+  image_uploader.retrieve_from_store!(first_image_file_name)
+  # OGPバージョンのURLを取得
+  @first_ogp_image_url = image_uploader.ogp.url
   end
 
   private
