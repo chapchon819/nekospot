@@ -196,7 +196,6 @@
                 <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
                   <i class="ph ph-tag"></i>&nbsp;タグ検索解除
                 <% end %>
-
                 <div class="grid">
                   <div id="reviews" class="space-y-8 divide-gray-200 divide-y">
                     <%= render @reviews %>
