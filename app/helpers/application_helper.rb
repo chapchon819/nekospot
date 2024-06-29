@@ -1,14 +1,21 @@
 module ApplicationHelper
   include Rails.application.routes.url_helpers
   
-    def flash_background_color(type)
-      case type.to_sym
-      when :notice then "p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
-      when :alert  then "p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-      when :success  then "p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-      else "p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-      end
+  def flash_background_color(type)
+    base_classes = "p-4 text-sm rounded-lg dark:bg-gray-800"
+  
+    # ルートとspot_maps_pathを除外する条件
+    if !current_page?(root_path) && !current_page?(map_spots_path)
+      base_classes += " md:mt-[72px]"
     end
+  
+    case type.to_sym
+    when :notice then "#{base_classes} text-blue-800 bg-blue-50 dark:text-blue-400"
+    when :alert  then "#{base_classes} text-red-800 bg-red-50 dark:text-red-400"
+    when :success then "#{base_classes} text-green-800 bg-green-50 dark:text-green-400"
+    else "#{base_classes} mb-4 text-red-800 bg-red-50 dark:text-red-400"
+    end
+  end
 
     def turbo_stream_flash
       turbo_stream.update "flash", partial: "layouts/flash_messages"

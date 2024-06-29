@@ -3,15 +3,15 @@
 <nav class="md:hidden w-full h-12 ">
     <div class="navbar bg-primary text-secondary border-b border-primary-hover">
         <div class="flex-1 items-center mb-3">
-          <%= link_to :back, data: { turbo: false } do %>
-              <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+          <%= link_to "", class: "back-link", data: { turbo: false, excluded_paths: [user_line_omniauth_authorize_path, user_google_oauth2_omniauth_authorize_path].to_json } do %>
+            <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
           <% end %>
         </div>
     </div>
 </nav>
 
 
-<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
+<div class="bg-primary relative md:pb-16 md:mb-0 mb-20" data-controller="login-modal">
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     
@@ -110,6 +110,7 @@
                       <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">シェア</span>
                   <% end %>
                   </div>
+                  <div><%= render 'visited_buttons', { spot: @spot } %></div>
                   <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
                 </div>
               </div>
@@ -196,9 +197,8 @@
                 <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
                   <i class="ph ph-tag"></i>&nbsp;タグ検索解除
                 <% end %>
-
                 <div class="grid">
-                  <div id="reviews" class="space-y-8 divide-gray-200 divide-y" >
+                  <div id="reviews" class="space-y-8 divide-gray-200 divide-y">
                     <%= render @reviews %>
                   </div>
                   <%= paginate @reviews %>
@@ -232,20 +232,6 @@
     <%= render 'shared/login_modal' %>
   </div>
 
-
-  <style>
-  /* 前後ボタンの色 */
-.swiper-button-next::after,
-.swiper-button-prev::after{
-    color: #FAEEE7;
-}
-
-/* ページネーション現在地の色 */
-.swiper-pagination-bullet-active{
-    background-color: #FAEEE7;
-}
-  </style>
-
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <script>
@@ -263,5 +249,42 @@
     el: '.swiper-scrollbar',
   },
   });
+  const backButton = document.querySelector(".back-link");
+    if (backButton) {
+      const excludedPaths = JSON.parse(backButton.dataset.excludedPaths); // 除外するページのパスを取得
+      const previousPage = document.referrer;
+      let previousPath = previousPage ? new URL(previousPage).pathname : null;
+
+      if (previousPath && !excludedPaths.includes(previousPath)) {
+        backButton.href = previousPage;
+      } else {
+        // 履歴を遡るためのカスタムロジック
+        let historyBackCount = 1;
+        const maxHistoryChecks = 10; // チェックする履歴の最大数
+
+        function checkHistory() {
+          if (historyBackCount > maxHistoryChecks) {
+            backButton.removeAttribute("href"); // リンクを無効にする
+            return;
+          }
+
+          history.go(-historyBackCount);
+          historyBackCount++;
+
+          setTimeout(() => {
+            const newPreviousPage = document.referrer;
+            const newPreviousPath = newPreviousPage ? new URL(newPreviousPage).pathname : null;
+
+            if (newPreviousPath && !excludedPaths.includes(newPreviousPath)) {
+              backButton.href = newPreviousPage;
+            } else {
+              checkHistory(); // さらに遡る
+            }
+          }, 100); // 履歴が更新されるのを待つ
+        }
+
+        checkHistory();
+      }
+    }
 });
 </script>

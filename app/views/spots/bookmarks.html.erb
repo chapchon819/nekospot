@@ -22,7 +22,7 @@
                         <i class="ph ph-magnifying-glass text-secondary"></i>
                         </div>
                         <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 md:p-3 ps-10 md:ps-8 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
-                        <%= f.submit class: 'text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+                        <%= f.submit class: 'text-white absolute fixed inset-y-1.5 end-2 py-1 h-8 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
                         </div>
                     <div class="text-secondary flex-col items-center md:space-y-4">
                     <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
@@ -105,7 +105,6 @@
                     </form>
                     </dialog>
                 </div>
-                <h2 class="text-xl font-zenmaru font-bold text-neutral">訪問済み一覧</h2>
                     <% if @visited_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
                             <% @visited_spots.each do |spot| %>

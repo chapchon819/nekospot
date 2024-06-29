@@ -14,6 +14,16 @@
         border-color: #837176;
     }
 
+    .swiper-pagination-bullet-active{
+        background-color: #FAEEE7;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after{
+        color: #FAEEE7;
+    }
+
+
     .gold-border {
             display: inline-block;
             width: 200px;

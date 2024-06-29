@@ -88,7 +88,6 @@ class DiagnosticsController < ApplicationController
                 end
             end
         end
-        clear_scores
     end
 
     private
