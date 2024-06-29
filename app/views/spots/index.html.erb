@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md:col-span-3" >
+                        <div class="md:col-span-3"  data-controller="login-modal">
                             <div class="flex justify-end">
                                 <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
                                 <dialog id="my_modal_3" class="modal">
@@ -208,19 +208,20 @@
                             <%= turbo_frame_tag "reviews-list" do %>
                             <%= turbo_frame_tag 'tags_search' do %>
                                 <% if @reviews.present? %>
-                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
+                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4">
                                         <% @reviews.each do |review| %>
                                             <%= render 'spots/review', review: review, user: review.user %>
                                         <% end %>
                                         
                                     <%= paginate @reviews %>
-                                    <%= render 'shared/login_modal' %>
+                                    
                                     </div>
                                 <% else %>
                                     <%= render 'spots/no_reviews' %>
                                 <% end %>
                             <% end %>
                             <% end %>
+                            <%= render 'shared/login_modal' %>
                         </div> 
                     </div>
                 </div>
