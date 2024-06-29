@@ -111,7 +111,7 @@
 
 <div class="h-full justify-end mx-auto flex flex-col">
     <div class="w-full flex flex-row mx-auto space-y-2 pt-2 md:space-x-2 space-x-4">
-    <% unless review.user == current_user %>
+        <% unless review.user == current_user %>
             <% if user_signed_in? %>
                 <div class='mx-auto'>
                     <% if current_user.helpful?(review) %>
@@ -121,19 +121,19 @@
                     <% end %>
                 </div>
             <% else %>
-            <div class='mx-auto'>
-                <button data-action="click->login-modal#openModal" class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
-                    <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
-                </button>
-                <% if review.helpfuls.present? %>
-                    <p class="text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
-                <% end %>
-            </div>
+                <div class='mx-auto'>
+                    <button data-action="click->login-modal#openModal" class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
+                        <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
+                    </button>
+                    <% if review.helpfuls.present? %>
+                        <p class="text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
+                    <% end %>
+                </div>
             <% end %>
             <% if review.helpfuls.present? %>
-              <div class="flex justify-center mx-auto">
-                <p class="pt-1 text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
-              </div>
+                <div class="flex justify-center mx-auto">
+                    <p class="pt-1 text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
+                </div>
             <% end %>
         <% end %>
         <div class="hidden md:block">
