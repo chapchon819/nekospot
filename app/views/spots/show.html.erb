@@ -11,7 +11,7 @@
 </nav>
 
 
-<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= 'md:mt-16' unless flash.any? %>" data-controller="login-modal">
+<div class="bg-primary relative md:pb-16 md:mb-0 mb-20" data-controller="login-modal">
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     
@@ -110,6 +110,7 @@
                       <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">シェア</span>
                   <% end %>
                   </div>
+                  <div><%= render 'visited_buttons', { spot: @spot } %></div>
                   <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
                 </div>
               </div>
