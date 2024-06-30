@@ -1,5 +1,5 @@
 <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
-<%= search_form_for @q, url: url, html: { id: "searchForm", class: "mx-auto md:w-11/12 w-11/12 md:mx-6 pt-6" }  do |f| %>
+<%= search_form_for @q, url: url, html: { id: "searchForm", class: "mx-auto md:w-11/12 w-11/12 md:mx-6 pt-6" }, remote: true  do |f| %>
     <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
     <div class="relative">
         <div class="absolute inset-y-4 start-0 flexed items-center ps-3 pointer-events-none">
@@ -26,7 +26,7 @@
     <h3 class="text-secondary font-semibold">カテゴリーから検索</h3>
     <div id="category-buttons" class="flex flex-wrap gap-2 p-4">
     <label class="bg-primary text-sm text-secondary px-2 py-1.5 rounded-full hover:bg-primary-dark cursor-pointer">
-      <%= f.radio_button :category_id_eq, nil, checked: true, class: 'hidden', id: 'category_all' %>
+      <%= f.radio_button :category_id_eq, '', checked: true, class: 'hidden', id: 'category_all' %>
       すべて
     </label>
     <% @categories.all.each do |category| %>

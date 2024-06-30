@@ -7,11 +7,8 @@
                     <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
                         <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">ユーザー情報</a>
                     </li>
-                    <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-                        <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">口コミ一覧</a>
-                    </li>
                 </ul>
-                <div class="hidden bg-white py-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+                <div id="mypage-tab" class="hidden bg-white py-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
                     <div class="w-11/12 mx-auto divide-y space-y-8 pb-8 px-4">
                         <div class="justify-start grid grid-flow-col gap-4 mt-10">
                             <div class="avatar">
@@ -100,7 +97,7 @@
                         </dialog>
                     </div>
                 </div>
-                <div class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+                <div id="mypage-reviews-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
                     <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
                         <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @user.name %>の口コミ一覧</h2>
                         <% if @reviews.present? %>
@@ -122,5 +119,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    <div>
 </div>

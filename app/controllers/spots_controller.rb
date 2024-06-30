@@ -15,10 +15,8 @@ class SpotsController < ApplicationController
     @q_spots = Spot.ransack(params[:q])
     # params[:page]が配列になっている場合に対応
     page_param = params[:page].is_a?(Array) ? params[:page].first : params[:page]
-    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12).padding(2)
+    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12)    
     @spots_count = @q_spots.result(distinct: true).includes(:spot_images, :category).count
-    # パラメータのログを出力
-    Rails.logger.debug "Received parameters: #{params.inspect}"
     
     @q_reviews = Review.ransack(params[:q])
 
@@ -39,21 +37,14 @@ class SpotsController < ApplicationController
     @user = current_user
     @q = Spot.ransack(params[:q])
     @spots = @q.result(distinct: true).includes(:spot_images, :category)
-
+  
     if params[:category].present?
       @spots = @spots.where(category_id: params[:category])
     end
     
-    latitude = params[:latitude].to_f
-    longitude = params[:longitude].to_f
-
     respond_to do |format|
       format.html
-      format.json do
-        render json: {
-          spots: @spots.as_json(include: [:spot_images, :category])
-        }
-      end
+      format.json { render json: @spots.as_json(include: [:spot_images, :category]) }
     end
   end
 
