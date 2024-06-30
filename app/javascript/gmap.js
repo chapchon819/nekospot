@@ -263,7 +263,7 @@ function filterSpotsByCategory(categoryId) {
 window.filterSpotsByCategory = filterSpotsByCategory;
 
 // 都道府県ボタンのイベントリスナー設定
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("turbo:load", function() {
   const prefectureButtons = document.querySelectorAll(".prefecture-btn");
   prefectureButtons.forEach(button => {
     button.addEventListener("click", function() {
