@@ -18,7 +18,9 @@ categories = [
   {name: '書店・雑貨店'},
   {name: '公園'},
   {name: 'シェルター'},
-  {name: '銭湯'}
+  {name: '銭湯'},
+  {name: '神社・寺'},
+  {name: 'その他'}
 ]
 
 categories.each do |category|

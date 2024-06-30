@@ -75,6 +75,16 @@ function initMap() {
     url: mapElement.dataset.furoIcon,
     size: new google.maps.Size(52, 52),
     scaledSize: new google.maps.Size(52, 52)
+  },
+  "神社・寺": {
+    url: mapElement.dataset.shrineIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
+  },
+  "その他": {
+    url: mapElement.dataset.othersIcon,
+    size: new google.maps.Size(52, 52),
+    scaledSize: new google.maps.Size(52, 52)
   }
 };
 
