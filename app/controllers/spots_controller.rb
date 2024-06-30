@@ -37,21 +37,14 @@ class SpotsController < ApplicationController
     @user = current_user
     @q = Spot.ransack(params[:q])
     @spots = @q.result(distinct: true).includes(:spot_images, :category)
-
+  
     if params[:category].present?
       @spots = @spots.where(category_id: params[:category])
     end
     
-    latitude = params[:latitude].to_f
-    longitude = params[:longitude].to_f
-
     respond_to do |format|
       format.html
-      format.json do
-        render json: {
-          spots: @spots.as_json(include: [:spot_images, :category])
-        }
-      end
+      format.json { render json: @spots.as_json(include: [:spot_images, :category]) }
     end
   end
 

@@ -10,6 +10,10 @@ let selectedPrefecture = null;  // 都道府県ボタンが押されたかどう
 function initMap() {
   const geocoder = new google.maps.Geocoder();
   const mapElement = document.getElementById('map');
+  if (!mapElement) {
+    console.error("Map element not found.");
+    return;
+  }
   const defaultLat = parseFloat(mapElement.dataset.lat) || defaultLocation.lat;
   const defaultLng = parseFloat(mapElement.dataset.lng) || defaultLocation.lng;
 
@@ -147,11 +151,11 @@ spots.forEach(function(spot) {
   });
 
   // 解除ボタンにイベントリスナーを追加
-  document.getElementById("reset-button").addEventListener("click", function() {
+  document.getElementById("category_all").addEventListener("click", function() {
       currentCategoryId = null;
       filterSpotsByCategory(null);
       updateSpotsList(null);
-      const resetButton = document.getElementById("reset-button");
+      const resetButton = document.getElementById("category_all");
       resetButton.classList.remove('bg-primary-hover');
       resetButton.classList.add('bg-primary');
 
@@ -193,6 +197,53 @@ function hideLoadingSpinner() {
 
 // hideLoadingSpinnerをグローバルスコープに追加
 window.hideLoadingSpinner = hideLoadingSpinner;
+
+document.addEventListener("turbo:load", () => {
+  const form = document.querySelector('#searchForm');
+
+  if (form) {
+    form.addEventListener("ajax:success", (event) => {
+      const [data, status, xhr] = event.detail;
+      updateMap(data);
+    });
+
+    form.addEventListener("ajax:error", (event) => {
+      console.error("Error fetching search results");
+    });
+  }
+
+  function updateMap(spots) {
+    // 既存のマーカーをクリア
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+
+    // 新しいマーカーを追加
+    spots.forEach(spot => {
+      const marker = new google.maps.Marker({
+        position: { lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude) },
+        map: map,
+        title: spot.name,
+        icon: icons[spot.category] || null // カテゴリアイコンを適用
+      });
+
+      markers.push(marker);
+
+      marker.addListener('click', function() {
+        updateInfoCard(spot);
+        addBounceAnimation(marker);
+      });
+    });
+
+    // カテゴリフィルタを適用
+    filterSpotsByCategory(currentCategoryId);
+  }
+
+  // マップ初期化
+  if (typeof initMap === 'function') {
+    initMap();
+  }
+});
+
 
 function filterSpotsByCategory(categoryId) {
   console.log('Filtering spots by category ID:', categoryId);
