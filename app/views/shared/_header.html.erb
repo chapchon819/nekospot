@@ -8,33 +8,33 @@
                 <div tabindex="0" role="button" class="btn m-1 border-none"><i class="ph ph-list fa-2xl"></i></div>
                     <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-primary w-56 rounded-box">
                         <li>
-                            <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;マップ検索</p>
+                            <%= link_to map_spots_path, data: { turbo: false }, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 text-neutral dark:hover:text-white" do %>
+                                <p><i class="ph-bold ph-magnifying-glass w-5 h-5 mb-2 text-neutral group-hover:text-secondary" aria-hidden="true"></i>&emsp;マップ検索</p>
                             <% end %>
                         </li>
                         <li>
-                            <%= link_to spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;一覧検索</p>
+                            <%= link_to spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 text-neutral transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                                <p><i class="ph-bold ph-list-dashes fa-lg w-5 h-4 mt-2 font-semibold text-neutral group-hover:text-secondary" aria-hidden="true"></i>&emsp;一覧検索</p>
                             <% end %>
                         </li>
                         <li>
-                            <%= link_to start_diagnostics_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;猫スポット診断</p>
+                            <%= link_to start_diagnostics_path, class: "flex items-center p-3 text-sm capitalize transition-colors text-neutral duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                                <p><i class="ph-fill ph-paw-print fa-lg w-5 h-4 mt-2 font-semibold text-neutral group-hover:text-secondary" aria-hidden="true"></i>&emsp;猫スポット診断</p>
                             <% end %>
                         </li>
                         <li>
-                            <%= link_to bookmarks_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-heart fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;お気に入り / 訪問済</p>
+                            <%= link_to bookmarks_spots_path, class: "flex items-center p-3 text-sm capitalize transition-colors text-neutral duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                                <p><i class="ph-bold ph-heart fa-lg w-5 h-4 mt-2 font-semibold text-neutral group-hover:text-secondary" aria-hidden="true"></i>&emsp;お気に入り / 訪問済</p>
                             <% end %>
                         </li>
                         <li>
-                            <%= link_to users_show_path(current_user), class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
-                                <p><i class="ph ph-user-circle fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>&emsp;Myページ</p>
+                            <%= link_to users_show_path(current_user), class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform text-neutral dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                                <p><i class="ph-bold ph-user-circle fa-lg w-5 h-4 mt-2 font-semibold text-neutral group-hover:text-secondary" aria-hidden="true"></i>&emsp;Myページ</p>
                             <% end %>
                         </li>
                         <li>
-                            <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
-                                <p><i class="ph ph-sign-out fa-lg mr-1"></i> ログアウト</p>
+                            <%= link_to destroy_user_session_path, class: "flex items-center p-3 text-sm capitalize transition-colors duration-300 transform text-neutral dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", data: { turbo_method: :delete } do %>
+                                <p><i class="ph-bold ph-sign-out fa-lg mr-1 font-semibold text-neutral group-hover:text-secondary"></i> ログアウト</p>
                             <% end %>
                         </li>
                     </ul>
@@ -49,7 +49,7 @@
 <% else %>
 <div class="fixed bottom-0 left-0 z-50 w-full h-12 bg-primary border-t border-primary-hover md:hidden">
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
-        <%= link_to map_spots_path, data: { "turbolinks" => false }, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
+        <%= link_to map_spots_path, data: { turbo: false }, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
             <i class="ph ph-magnifying-glass fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">検索</span>
         <% end %>
