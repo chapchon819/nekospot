@@ -117,17 +117,17 @@ spots.forEach(function(spot) {
     updateSpotsList(currentCategoryId); // スポットリストを更新
   });
 
- // 都道府県ボタンが押されている場合はその位置にセンタリング
- if (selectedPrefecture) {
-  console.log('Selected Prefecture:', selectedPrefecture); // デバッグ用コンソールログ
-  const newCenter = new google.maps.LatLng(selectedPrefecture.lat, selectedPrefecture.lng);
-  map.setCenter(newCenter);
-  centerPin.setPosition(newCenter);
-  map.setZoom(8);
-  hideLoadingSpinner();
-} else {
-  showCurrentLocation();
-}
+  // 初期化時のセンタリング処理
+  if (selectedPrefecture) {
+    console.log('Selected Prefecture:', selectedPrefecture);
+    const newCenter = new google.maps.LatLng(selectedPrefecture.lat, selectedPrefecture.lng);
+    map.setCenter(newCenter);
+    centerPin.setPosition(newCenter);
+    map.setZoom(8);
+    hideLoadingSpinner();
+  } else {
+      showCurrentLocation();
+  }
 
   // カテゴリーボタンにイベントリスナーを追加
   const labels = document.querySelectorAll("#category-buttons label");
@@ -148,22 +148,6 @@ spots.forEach(function(spot) {
       filterSpotsByCategory(categoryId);
       updateSpotsList(categoryId);
     });
-  });
-
-  // 解除ボタンにイベントリスナーを追加
-  document.getElementById("category_all").addEventListener("click", function() {
-      currentCategoryId = null;
-      filterSpotsByCategory(null);
-      updateSpotsList(null);
-      const resetButton = document.getElementById("category_all");
-      resetButton.classList.remove('bg-primary-hover');
-      resetButton.classList.add('bg-primary');
-
-      // 全てのカテゴリボタンのクラスをリセット
-      buttons.forEach(button => {
-        buttons.classList.remove('bg-primary-hover');
-        buttons.classList.add('bg-primary');
-      });
   });
 
   // マップの読み込み完了イベント
@@ -269,12 +253,13 @@ document.addEventListener("turbo:load", function() {
     button.addEventListener("click", function() {
       const lat = parseFloat(this.dataset.lat);
       const lng = parseFloat(this.dataset.lng);
+      selectedPrefecture = { lat: lat, lng: lng };
+      console.log('Prefecture button clicked:', selectedPrefecture); // デバッグ用
       const newCenter = new google.maps.LatLng(lat, lng);
       map.setCenter(newCenter);
       centerPin.setPosition(newCenter);
       map.setZoom(8);
-      selectedPrefecture = { lat: lat, lng: lng };  // 都道府県ボタンが押された位置を保存
-      updateSpotsList(currentCategoryId);  // スポットリストを更新
+      updateSpotsList(currentCategoryId);
     });
   });
 });
@@ -334,6 +319,10 @@ document.querySelectorAll('.infoCard-link').forEach(link => {
 });
 
 function showCurrentLocation(){
+  if (selectedPrefecture) {
+    // selectedPrefectureが設定されている場合は現在地を取得しない
+    return;
+  }
     // ローディングアニメーションを表示
     const loadingSpinner = document.getElementById('loading-spinner');
     if (loadingSpinner) {
@@ -437,7 +426,6 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
   if (typeof map === 'undefined') initMap(); // マップが初期化されていなければ初期化
-  showCurrentLocation();
   updateSpotsList();
 });
 
