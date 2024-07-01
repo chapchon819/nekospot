@@ -9,11 +9,8 @@
 <% else %>
 <div class='mx-auto'>
     <button data-action="click->login-modal#openModal" class="bg-primary text-secondary text-sm px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
-        <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった</p>
+        <p><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった <span class="px-2 py-1.5 rounded-full bg-white text-secondary text-[9px]"><%= review.helpfuls.count %></span></p>
     </button>
-    <% if review.helpfuls.present? %>
-        <p class="text-[10px] text-secondary dark:text-gray-400 group-hover:text-neutral">この口コミは<%= review.helpfuls.count %>人の参考になりました</p>
-    <% end %>
     <%= render 'shared/login_modal' %>
 </div>
 <% end %>
