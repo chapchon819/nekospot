@@ -292,7 +292,7 @@ function updateInfoCard(spot) {
     }
     infoCard.querySelector(`#spotImage-${spot.id}`).src = imageUrl;
     infoCard.querySelector(`#spotName-${spot.id}`).textContent = spot.name;
-    infoCard.querySelector(`#spotRating-${spot.id}`).textContent = `⭐️ ${spot.rating}`;
+    infoCard.querySelector(`#spotRating-${spot.id}`).textContent = `⭐️ ${spot.rating !== null && spot.rating !== undefined ? spot.rating : '評価なし'}`;
     infoCard.querySelector(`#spotCategory-${spot.id}`).textContent = spot.category;
   } else {
     console.error('Info card element not found:', infoCardId);
