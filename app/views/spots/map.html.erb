@@ -26,91 +26,93 @@
               <%= render 'spots/search_accordion' %>
             </div>
             <% if params[:q].present? %>
-            <div class="hidden md:relative md:flex justify-center items-center ">
-              <%= render "spots/search_conditions" %>
-            </div>
-            <% end %>
-        <div class="relative mx-auto flex w-full justify-center">
-          <!-- ローディングアニメーション -->
-          <div id="loading-spinner" class="absolute inset-0 md:inset-auto md:w-11/12 md:h-96 md:rounded-xl flex items-center text-secondary font-zenmaru justify-center bg-gray-100 z-10">
-            <div class="flex-col">
-              <div class="animate-spin rounded-full mb-2 h-16 w-16 border-t-4 border-b-4 border-secondary"></div>
-                <p>loading...</p>
+              <div class="hidden md:relative md:flex justify-center items-center ">
+                <%= render "spots/search_conditions" %>
               </div>
-            </div>
-            <!-- Map表示部分 -->
-            <div id="map"
-              data-cafe-icon="<%= asset_path('cafe.webp') %>"
-              data-zoo-icon="<%= asset_path('zoo.webp') %>"
-              data-island-icon="<%= asset_path('island.webp') %>"
-              data-hotel-icon="<%= asset_path('hotel.webp') %>"
-              data-eating-icon="<%= asset_path('eating.webp') %>"
-              data-animal-cafe-icon="<%= asset_path('animal_cafe.webp') %>"
-              data-shop-icon="<%= asset_path('shop.webp') %>"
-              data-park-icon="<%= asset_path('park.webp') %>"
-              data-shelter-icon="<%= asset_path('shelter.webp') %>"
-              data-furo-icon="<%= asset_path('furo.webp') %>"
-              data-shrine-icon="<%= asset_path('shrine.webp') %>"
-              data-others-icon="<%= asset_path('others.webp') %>"
-              data-lat="35.6895" data-lng="139.6917" 
-              class="w-screen h-screen md:h-96 md:w-11/12 md:rounded-xl">
-            </div>
-          </div>
-          <div class="md:hidden mx-auto flex justify-center space-x-2 p-4 md:p-8 absolute top-2 w-full">
-            <button onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
-              <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
-            </button>
-            <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
-                    data-action="click->search-accordion#toggle"
-                    data-search-accordion-target="toggleButton">
-                    <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
-            </button>
-          </div>
-          <% if params[:q].present? %>
-            <div class="md:hidden absolute top-24 w-full flex justify-center items-center ">
-              <%= render "spots/search_conditions" %>
-            </div>
-          <% end %>
-          <!-- スマホ用サイドバー -->
-          <div class="fixed inset-0 z-50 flex md:hidden " style="display: none;" data-search-accordion-target="sidebar">
-            <div class="bg-black bg-opacity-50 w-full h-screen" data-action="click->search-accordion#closeSidebar"></div>
-            <div class="bg-white shadow-lg h-full overflow-y-scroll">
-              <div class="p-4">
-                <button data-action="click->search-accordion#closeSidebar" class="text-gray-600 hover:text-gray-900">
-                  <i class="ph ph-x fa-lg"></i>
+            <% end %>
+            <div class="relative mx-auto flex w-full justify-center">
+              <!-- ローディングアニメーション -->
+              <div id="loading-spinner" class="absolute inset-0 md:inset-auto md:w-11/12 md:h-96 md:rounded-xl flex items-center text-secondary font-zenmaru justify-center bg-gray-100 z-10">
+                <div class="flex-col">
+                  <div class="animate-spin rounded-full mb-2 h-16 w-16 border-t-4 border-b-4 border-secondary"></div>
+                    <p>loading...</p>
+                  </div>
+                </div>
+                <!-- Map表示部分 -->
+                <div id="map"
+                  data-cafe-icon="<%= asset_path('cafe.webp') %>"
+                  data-zoo-icon="<%= asset_path('zoo.webp') %>"
+                  data-island-icon="<%= asset_path('island.webp') %>"
+                  data-hotel-icon="<%= asset_path('hotel.webp') %>"
+                  data-eating-icon="<%= asset_path('eating.webp') %>"
+                  data-animal-cafe-icon="<%= asset_path('animal_cafe.webp') %>"
+                  data-shop-icon="<%= asset_path('shop.webp') %>"
+                  data-park-icon="<%= asset_path('park.webp') %>"
+                  data-shelter-icon="<%= asset_path('shelter.webp') %>"
+                  data-furo-icon="<%= asset_path('furo.webp') %>"
+                  data-shrine-icon="<%= asset_path('shrine.webp') %>"
+                  data-others-icon="<%= asset_path('others.webp') %>"
+                  data-lat="35.6895" data-lng="139.6917" 
+                  class="w-screen h-screen md:h-96 md:w-11/12 md:rounded-xl">
+                </div>
+              </div>
+              <div class="md:hidden mx-auto flex justify-center space-x-2 p-4 md:p-8 absolute top-2 w-full">
+                <button onclick="showCurrentLocation()" class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2">
+                  <i class="ph-bold ph-gps fa-lg"></i> 現在地を表示
+                </button>
+                <button class="w-1/2 btn inline-block rounded-full py-3 font-sans text-center text-sm font-semibold outline-none transition duration-100 text-secondary hover:bg-primary-hover bg-primary focus-visible:ring sm:w-1/2 md:w-1/2" 
+                        data-action="click->search-accordion#toggle"
+                        data-search-accordion-target="toggleButton">
+                        <i class="ph-bold ph-list-magnifying-glass fa-lg"></i> 絞り込み
                 </button>
               </div>
-              <%= render 'spots/search_accordion' %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- infoCard -->
-      <div class="flex flex-col items-center justify-center md:my-8 md:px-4 md:bottom-0 w-full fixed bottom-14 md:static">
-        <% @spots.each do |spot| %>
-          <%= link_to spot_path(spot), data: { turbo: false }, class: "w-11/12 rounded-xl infoCard-link" do %>
-            <div id="infoCard-<%= spot.id %>" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 md:w-full absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
-              <!-- ×ボタン -->
-              <button onclick="hideInfoCard(event, <%= spot.id %>)" class="absolute top-1 right-2 text-secondary focus:outline-none z-20 md:hidden">
-                <i class="ph ph-x"></i>
-              </button>  
-              <div class="flex-shrink-0 relative overflow-hidden h-33 w-32 md:w-1/3 md:rounded-se-none">
-                  <img id="spotImage-<%= spot.id %>" class="w-full h-full absolute top-0 rounded-l-xl left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-l-xl" src="" alt="Image Description">
-              </div>
-              <div class="flex flex-wrap">
-                <div class="p-4 flex flex-col h-full md:p-7">
-                  <h3 id="spotName-<%= spot.id %>" class="md:text-lg px-2 font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"></h3>
-                  <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
-                    <div class="inline-flex">
-                      <p id="spotCategory-<%= spot.id %>" class="hidden md:block text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"></p>
-                    </div>
-                    <p id="spotRating-<%= spot.id %>" class="md:text-secondary text-white text-xs font-semibold py-1 px-2 rounded-full bg-accent md:bg-white md:text-sm"></p>
+              <% if params[:q].present? %>
+                <div class="md:hidden absolute top-24 w-full flex justify-center items-center ">
+                  <%= render "spots/search_conditions" %>
+                </div>
+              <% end %>
+              <!-- スマホ用サイドバー -->
+              <div class="fixed inset-0 z-50 flex md:hidden " style="display: none;" data-search-accordion-target="sidebar">
+                <div class="bg-black bg-opacity-50 w-full h-screen" data-action="click->search-accordion#closeSidebar"></div>
+                <div class="bg-white shadow-lg h-full overflow-y-scroll">
+                  <div class="p-4">
+                    <button data-action="click->search-accordion#closeSidebar" class="text-gray-600 hover:text-gray-900">
+                      <i class="ph ph-x fa-lg"></i>
+                    </button>
                   </div>
+                  <%= render 'spots/search_accordion' %>
                 </div>
               </div>
             </div>
-          <% end %>
-        <% end %>
+          </div>
+          <!-- infoCard -->
+          <div class="flex flex-col items-center justify-center md:my-8 md:bottom-0 w-full fixed bottom-14 md:static">
+            <% @spots.each do |spot| %>
+              <%= link_to spot_path(spot), data: { turbo: false }, class: "w-11/12 rounded-xl infoCard-link" do %>
+                <div id="infoCard-<%= spot.id %>" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 md:w-full absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
+                  <!-- ×ボタン -->
+                  <button onclick="hideInfoCard(event, <%= spot.id %>)" class="absolute top-1 right-2 text-secondary focus:outline-none z-20 md:hidden">
+                    <i class="ph ph-x"></i>
+                  </button>  
+                  <div class="flex-shrink-0 relative overflow-hidden h-33 w-32 md:w-1/3 md:rounded-se-none">
+                      <img id="spotImage-<%= spot.id %>" class="w-full h-full absolute top-0 rounded-l-xl left-0 object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-l-xl" src="" alt="Image Description">
+                  </div>
+                  <div class="flex flex-wrap">
+                    <div class="p-4 flex flex-col h-full md:p-7">
+                      <h3 id="spotName-<%= spot.id %>" class="md:text-lg px-2 font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"></h3>
+                      <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
+                        <div class="inline-flex">
+                          <p id="spotCategory-<%= spot.id %>" class="hidden md:block text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"></p>
+                        </div>
+                        <p id="spotRating-<%= spot.id %>" class="md:text-secondary text-white text-xs font-semibold py-1 px-2 rounded-full bg-accent md:bg-white md:text-sm"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
