@@ -116,6 +116,8 @@ module ApplicationHelper
         elsif key == "prefecture_id_eq" || key == "spot_prefecture_id_eq"
           prefecture = Prefecture.find_by(id: value)
           value_text = prefecture ? "#{attribute_name}: #{prefecture.name}" : "#{attribute_name}: #{value}"
+        elsif key == "foster_parents_eq" || key == "adoption_event_eq"
+          value_text = attribute_name
         else
           # valueが1の場合はkeyのみ表示
           value_text = value == '1' ? attribute_name : "#{attribute_name}: #{value}"
