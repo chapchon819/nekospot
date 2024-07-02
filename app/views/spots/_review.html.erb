@@ -98,10 +98,10 @@
         </div>
     </div>
 
-    <div class="flex flex-row flex-wrap space-x-2">
+    <div class="flex flex-row flex-wrap space-x-2 md:overflow-hidden md:whitespace-nowrap md:overflow-ellipsis">
       <% if review.tags.present? %>
         <% review.tags.each do |tag| %>
-                <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
+                <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
                 <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
             <% end %>
         <% end %>
