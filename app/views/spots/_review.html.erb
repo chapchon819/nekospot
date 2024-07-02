@@ -1,9 +1,9 @@
 <div class="flex flex-col items-start mx-auto w-full px-4 py-6 md:h-80 md:p-4 space-y-2 justify-center border-b md:border md:shadow-sm md:rounded-xl md:hover:shadow-lg" data-controller="image-modal">
     <div class="flex flex-col h-full justify-start space-y-2">
-    <%= link_to spot_path(review.spot), data: { turbo: false }, class: "font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral whitespace-pre-wrap hover:text-secondary" do %>
+    <%= link_to spot_path(review.spot), data: { turbo: false }, class: "mb-2.5 md:mb-0 font-bold flex items-center justify-start w-full font-zenmaru text-sm text-neutral whitespace-pre-wrap hover:text-secondary" do %>
         <span><i class="ph-fill ph-map-pin fa-lg inline-block"></i></span>&nbsp;<%= review.spot.name %>
     <% end %>
-    <div class="flex w-full justify-between">
+    <div class="flex md:w-full justify-between mb-2.5 md:mb-4">
         <div class="flex items-center">
 
             <div class="avatar">
@@ -98,10 +98,10 @@
         </div>
     </div>
 
-    <div class="flex flex-row flex-wrap space-x-2">
+    <div class="my-2 md:my-0 flex flex-row flex-wrap space-x-2 md:overflow-hidden md:whitespace-nowrap md:overflow-ellipsis">
       <% if review.tags.present? %>
         <% review.tags.each do |tag| %>
-                <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1.5 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
+                <%= link_to spots_path(tag_id: tag.id), data: { turbo_frame: "reviews_list" }, class: "inline-flex text-secondary text-xs rounded-lg py-1 px-2 border border-secondary items-center hover:bg-primary-hover" do %>
                 <i class="ph ph-tag"></i>&nbsp;<%= tag.name %>
             <% end %>
         <% end %>
