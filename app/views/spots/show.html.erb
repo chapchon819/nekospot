@@ -10,8 +10,8 @@
     </div>
 </nav>
 
-
-<div class="bg-primary relative md:pb-16 md:mb-0 mb-20" data-controller="login-modal">
+<% flash.empty? ? flash_class = "md:mt-16" : flash_class = "" %>
+<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= flash_class %>" data-controller="login-modal">
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     
