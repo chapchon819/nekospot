@@ -48,6 +48,33 @@
         <% end %>
       </div>
     <% end %>
+          <div class="h-full justify-end mx-auto flex flex-col">
+        <div class="w-full flex flex-row mx-auto space-y-2 pt-2 md:space-x-2 space-x-4">
+            <% unless review.user == current_user %>
+                <% if user_signed_in? %>
+                    <div class='mx-auto'>
+                        <% if current_user.helpful?(review) %>
+                            <%= render 'reviews/unhelpful', { review: review } %>
+                        <% else %>
+                            <%= render 'reviews/helpful', { review: review } %>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <div class='mx-auto'>
+                        <button data-action="click->login-modal#openModal" class="bg-primary text-secondary  px-3 drop-shadow-md py-2 rounded-lg flex mx-auto items-center justify-center">
+                            <p class="text-sm"><i class="ph ph-fill ph-hand-heart fa-lg"></i> 参考になった <span class="px-2 py-1.5 rounded-full bg-white text-secondary text-[9px]"><%= review.helpfuls.count %></span></p>
+                        </button>
+                    </div>
+                <% end %>
+            <% end %>
+            <div>
+                <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{review.spot.id}/reviews/#{review.id}&text=#{ERB::Util.url_encode("「#{review.spot.name}」の口コミを投稿しました🐈✨\n ##{review.spot.name.gsub(/[\s()（）【】]/, '')} #NekoSpot \n")}", target: '_blank', class: "relative rounded px-3 py-2.5 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
+                        <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                        <span class="relative text-sm text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>シェア</span>
+                <% end %>
+            </div>
+        </div>
+    </div>
 
     <!-- モーダル -->
     <div class="fixed inset-0 bg-gray-500 bg-opacity-50 hidden z-50" data-image-modal-target="imageModal">
@@ -85,5 +112,6 @@
       </div>
     </div>
   </div>
+
 <% end %>
 
