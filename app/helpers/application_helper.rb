@@ -5,7 +5,7 @@ module ApplicationHelper
     base_classes = "p-4 text-sm rounded-lg dark:bg-gray-800"
   
     # ルートとspot_maps_pathを除外する条件
-    if !current_page?(root_path) && !current_page?(map_spots_path)
+    if !current_page?(root_path) && !current_page?(map_spots_path) && !current_page?(spot_path(@spot))
       base_classes += " md:mt-[72px]"
     end
   
