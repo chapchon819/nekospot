@@ -53,7 +53,7 @@
                                         <%= f.submit '検索', class: 'md:hidden text-white absolute fixed inset-y-2 end-2 py-2 h-9 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
                                         <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
                                     </div>
-                                    <div class="space-x-2 mt-4 ">
+                                    <div class="space-x-2 my-4 ">
                                         <div class="my-1 inline-flex text-secondary text-xs rounded-lg py-1 px-1.5 bg-primary items-center hover:bg-primary-hover">
                                             <%= f.radio_button :with_tag, '', id: "tag_none", checked: true %>
                                             <%= f.label :with_tag, "指定なし", value: '', id: "tag_none" %>
@@ -66,7 +66,7 @@
                                         <% end %>
                                     </div>
                                     <div class="text-secondary flex-col items-center md:space-y-4">
-                                        <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
+                                        <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2 mb-4 md:mb-0">
                                             <div class='label-select flex h-full text-sm space-x-2'>
                                                 <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
                                                 <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
@@ -76,7 +76,7 @@
                                                 <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
                                             </div>
                                         </div>
-                                        <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4">
+                                        <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4 mb-4 md:mb-0">
                                             <div class='label-select h-full md:w-full w-1/2 text-sm'>
                                                 <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
                                                 <%= f.collection_select :category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
@@ -176,7 +176,7 @@
                                             <% end %>
                                         </div>
                                     <% end %>
-                                    <div class="md:mt-8 mt-4 flex flex-row flex-wrap space-x-2 items-center space-y-2">
+                                    <div class="md:mt-8 mb-8 flex flex-row flex-wrap space-x-2 items-center space-y-2">
                                         <% if @tags.present? %>
                                             <div class="flex flex-col"><h2 class='text-secondary text-sm font-semibold'>タグ一覧</h2></div>
                                             <br>
