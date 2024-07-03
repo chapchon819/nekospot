@@ -42,7 +42,6 @@
 - レスポンシブ
 ### 本リリース
 - レビューに複数枚画像を投稿可能にする
-- 不適切な画像を判定
 - タグ機能
 - 「参考になった」ボタン
 - 訪問済機能
@@ -51,7 +50,7 @@
 - スポット詳細にX埋め込み(PC画面のみ。スマホ画面はリンクボタンで対応)
 - Xシェア
 - PWAによる擬似モバイルアプリ化
-## 🐈 機能の実装方針予定（検証未）
+## 🐈 機能の実装方針予定
 |  | 使用技術 |
 | ---- | ---- |
 | フロントエンド | TailwindCSS（＋daisyUI）<br>JavaScript<br>Hotwire |
@@ -59,7 +58,7 @@
 | データベース | PostgreSQL |
 | インフラ | Heroku<br>AmazonS3 |
 | API | Google Maps JavaScript API<br>Google Places API<br>Google Geolocation API<br>Google Cloud Vision API |
-| CL/CI | GithubActions |
+| CI/CD | GithubActions |
 | その他 | Docker |
 ## 画面遷移図(未修正)
 https://www.figma.com/file/I5K5nm237QJwWo64gCTjdm/Nekospot?type=design&node-id=0%3A1&mode=design&t=8og5QESets43UqBY-1
