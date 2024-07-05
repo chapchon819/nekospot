@@ -14,9 +14,15 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    # 明示的にRedisからセッションを削除する
+    if session[:session_id]
+      redis_store = ActiveSupport::Cache::RedisStore.new(url: ENV['REDIS_URL'], namespace: 'session')
+      redis_store.delete(session[:session_id])
+    end
+
+    super
+  end
 
   # protected
 

@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   root "static_pages#index"
   devise_for :users, controllers: {
     omniauth_callbacks: "omniauth_callbacks",
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
   }
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/auth/failure' => 'omniauth_callbacks#failure'
+  end
   get 'static_pages/index'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_use', to: 'static_pages#terms_of_use'

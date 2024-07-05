@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception #CSRF保護を有効にする
     before_action :config_permitted_parameters, if: :devise_controller?
     after_action :store_location
+    before_action :log_session_details
 
     # アクセスされたページのURLをセッションに保存するメソッド
     def store_location
@@ -11,7 +12,7 @@ class ApplicationController < ActionController::Base
             !request.fullpath.match?(/^\/spots\/list/) &&
             request.fullpath != "/" &&
             !request.xhr?) # 現在のリクエストが非同期通信ではない場合にtrue
-          session[:previous_url] = request.fullpath #現在のページのフルパスを取得するメソッド。
+          session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/ || request.xhr? #現在のページのフルパスを取得するメソッド。
         end
     end
   
@@ -24,5 +25,17 @@ class ApplicationController < ActionController::Base
       def config_permitted_parameters
         devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
         devise_parameter_sanitizer.permit(:account_update, keys: [:avatar, :name, :avatar_cache])
+      end
+
+      def log_session_details
+        Rails.logger.info("Session ID: #{session.id}")
+        Rails.logger.info("Session Data: #{session.to_hash}")
+        Rails.logger.info("CSRF Token: #{session[:_csrf_token]}")
+      end
+
+      def verify_session_id
+        if session[:saved_session_id] && session[:saved_session_id] != session.id
+          Rails.logger.warn("Session ID mismatch: expected #{session[:saved_session_id]}, got #{session.id}")
+        end
       end
 end
