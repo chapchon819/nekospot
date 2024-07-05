@@ -35,6 +35,7 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
+preload_app!
 
 before_fork do
   require 'puma_worker_killer'

@@ -1,10 +1,17 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action :log_session_details, only: [:failure, :google_oauth2, :line]
+
     def google_oauth2
+      logger.debug "Entering OmniauthCallbacksController#google_oauth2"
         basic_action
     end
 
     def line
       basic_action
+    end
+
+    def failure
+      redirect_to root_path
     end
   
     private
@@ -23,10 +30,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
       #ログイン後のflash messageとリダイレクト先を設定
       flash[:notice] = "ログインしました"
-      redirect_to after_sign_in_path_for(resource)
+      redirect_to after_sign_in_path_for(@profile)
     end
   
     def fake_email(uid, provider)
       "#{auth.uid}-#{auth.provider}@example.com"
+    end
+  
+    def log_session_details
+      Rails.logger.info("Session ID: #{session.id}")
+      Rails.logger.info("Session Data: #{session.to_hash}")
+      Rails.logger.info("CSRF Token: #{session[:_csrf_token]}")
     end
 end
