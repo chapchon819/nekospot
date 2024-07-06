@@ -21,6 +21,7 @@ class ReviewsController < ApplicationController
     if @review.save
       reviews_data
       @review.save_tags(tag_list)
+      
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", partial: "reviews/review", locals: { review: @review }),

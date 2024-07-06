@@ -6,6 +6,8 @@ class Review < ApplicationRecord
   has_many :tags, through: :review_tags
   attr_accessor :images_cache
   mount_uploaders :images, ImageUploader
+  process_in_background :images
+
 
   validates :rating, presence: true, numericality: { in: 1..5, message: "を入力してください" }
   validates :body, length: { maximum: 400 }
