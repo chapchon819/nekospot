@@ -21,6 +21,12 @@ class ReviewsController < ApplicationController
     if @review.save
       reviews_data
       @review.save_tags(tag_list)
+
+      # 画像アップロードを非同期に行う
+      @review.images.each do |image|
+        ImageUploadJob.perform_later(image)
+      end
+      
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", partial: "reviews/review", locals: { review: @review }),

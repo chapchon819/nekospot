@@ -86,6 +86,9 @@ gem 'fog-aws'
 # ページネーション
 gem 'kaminari'
 
+#バックグラウンド処理
+gem 'sidekiq'
+
 # その他
 gem 'redis-rails'
 gem 'puma_worker_killer'
