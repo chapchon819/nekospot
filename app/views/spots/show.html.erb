@@ -103,12 +103,15 @@
                     </form>
                     </dialog>
                 </div>
-                <div class="flex space-x-2">
-                <div class="items-center">
-                  <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "mt-2 inline-flex flex-col items-center justify-center px-1 group" do %>
-                      <i class="ph-bold ph-x-logo fa-lg w-6 h-3 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-                      <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">シェア</span>
-                  <% end %>
+                <div class="flex space-x-2 items-center">
+                  <div class="items-center">
+                    <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+                    <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+                  </div>
+                  <div class="items-center">
+                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "mt-2 inline-flex flex-col items-center justify-center px-1 group" do %>
+                      <%= image_tag "logo-black.png", size: "24x24" %>
+                    <% end %>
                   </div>
                   <div><%= render 'visited_buttons', { spot: @spot } %></div>
                   <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
