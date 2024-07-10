@@ -12,6 +12,52 @@
     <meta property="og:title" content="NekoSpot" />
     <meta property="og:description" content="猫スポットの検索を、もっと快適に。" />
     <meta property="og:image" content="<%= image_url "x_image.png" %>" />
+    <!-- ↓iPhone用にURLバーを表示しない設定を追加↓ -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.webmanifest" />
+    <!-- ↓iPhone用にアイコン設定を追加↓ -->
+    <link rel="apple-touch-icon" href="images/icons-192.png" />
+    <!-- ↓iPhone用にスプラッシュ画面の設定を追加↓ -->
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-640x1136.png"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-750x1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-1080x1920.png"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-1125x2436.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-828x1792.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-1242x2688.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-1170x2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/launch-1284x2778.png"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
     <%= favicon_link_tag('favicon.png') %>
     <link rel="manifest" href="/manifest.json">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
