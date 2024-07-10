@@ -75,7 +75,7 @@
                         </button>
                         <div class="carousel transition duration-700 ease-in-out" data-image-modal-target="carousel">
                             <% review.images.each_with_index do |image, index| %>
-                                <img src="<%= image.url %>" class="max-w-96 max-h-96 <%= index == 0 ? 'block' : 'hidden' %>" data-image-modal-target="carouselImage"/>
+                                <img src="<%= image.url %>" class="w-screen md:max-w-96 max-h-96 <%= index == 0 ? 'block' : 'hidden' %>" data-image-modal-target="carouselImage"/>
                             <% end %>
                         </div>
                         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 mt-4" data-image-modal-target="indicators">
