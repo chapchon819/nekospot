@@ -67,12 +67,12 @@
                                     </div>
                                     <div class="text-secondary flex-col items-center md:space-y-4">
                                         <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2 mb-4 md:mb-0">
-                                            <div class='label-select flex h-full text-sm space-x-2'>
-                                                <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+                                            <div class='label-select flex h-full text-sm space-x-2 items-center'>
+                                                <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm checkbox checkbox-sm checkbox-secondary [--chkbg:theme(colors.secondary)] [--chkfg:white]' }, 1, nil %>
                                                 <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
                                             </div>
-                                            <div class='label-select flex h-full text-sm space-x-2'>
-                                                <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm' }, 1, nil %>
+                                            <div class='label-select flex h-full text-sm space-x-2 items-center'>
+                                                <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm checkbox checkbox-sm checkbox-secondary [--chkbg:theme(colors.secondary)] [--chkfg:white]' }, 1, nil %>
                                                 <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
                                             </div>
                                         </div>
@@ -108,6 +108,12 @@
                                 </dialog>
                             </div>
                             <%= turbo_frame_tag "spots-list" do %>
+                                <div class="">
+                                並び替え
+                                <%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %> / 
+                                <%= sort_link(@q_spots, :created_at, "デフォルト", { default_order: :asc }) %> / 
+                                <%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %>
+                                </div>
                                 <% if params[:q].present? %>
                                     <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
                                         <div class="text-sm text-secondary">
