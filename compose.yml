@@ -33,6 +33,9 @@ services:
       - "6379:6379"
   sidekiq:
     build: .
+    environment:
+      RAILS_ENV: development
+      REDIS_URL: redis://redis:6379
     command: bundle exec sidekiq
     volumes:
       - .:/app

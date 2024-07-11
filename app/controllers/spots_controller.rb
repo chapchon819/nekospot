@@ -15,7 +15,7 @@ class SpotsController < ApplicationController
     @q_spots = Spot.ransack(params[:q])
     # params[:page]が配列になっている場合に対応
     page_param = params[:page].is_a?(Array) ? params[:page].first : params[:page]
-    @spots = @q_spots.result(distinct: true).includes(:spot_images, :category).page(page_param.to_i).per(12)    
+    @spots =apply_sort_scope(@q_spots.result(distinct: true)).includes(:spot_images, :category).page(page_param.to_i).per(12)
     @spots_count = @q_spots.result(distinct: true).includes(:spot_images, :category).count
     
     @q_reviews = Review.ransack(params[:q])
@@ -25,8 +25,8 @@ class SpotsController < ApplicationController
       @reviews = filtered_reviews.includes(:user, :spot, :tags).page(params[:page]).per(12)
     else
       filtered_reviews = @q_reviews.result(distinct: false).includes(:user, :spot, :tags)
-      distinct_reviews = filtered_reviews.select('DISTINCT ON (reviews.id) reviews.id, reviews.user_id, reviews.spot_id, reviews.rating, reviews.body, reviews.created_at, reviews.updated_at, reviews.images')
-      @reviews = distinct_reviews.page(params[:page]).per(12)
+      #distinct_reviews = filtered_reviews.select('DISTINCT ON (reviews.id) reviews.id, reviews.user_id, reviews.spot_id, reviews.rating, reviews.body, reviews.created_at, reviews.updated_at, reviews.images')
+      @reviews = filtered_reviews.page(params[:page]).per(12)
     end
   end
 
@@ -137,6 +137,19 @@ class SpotsController < ApplicationController
   end
 
   private
+
+  def apply_sort_scope(spots)
+    case params[:q]&.dig(:s)
+    when 'rating desc'
+      spots.sorted_by_rating
+    when 'created_at asc'
+      spots.sorted_by_created_at_asc
+    when 'created_at desc'
+      spots.sorted_by_created_at_desc
+    else
+      spots
+    end
+  end
 
   def set_map_data
     @q = Spot.ransack(params[:q])  # フリーワード検索のパラメータを受け取る

@@ -10,101 +10,98 @@
                     <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#">訪問済み</a>
                 </li>
             </ul>
-
             <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-                <div class="w-full mx-auto md:h-full h-screen pb-8 ">
-                <div class="grid md:grid-cols-4">
-                <div class="md:col-span-1 md:p-4 md:mt-12">
-                <%= search_form_for @q, url: bookmarks_spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8 md:py-4" }  do |f| %>
-                    <label for="" class="mb-2 text-sm font-medium h-full text-secondary sr-only dark:text-white">検索</label>
-                        <div class="relative">
-                        <div class="absolute inset-y-4 md:inset-y-3 start-0 flexed items-center ps-3 pointer-events-none">
-                        <i class="ph ph-magnifying-glass text-secondary"></i>
+                <div class="w-full mx-auto md:h-full pb-8 ">
+                    <div class="grid md:grid-cols-4">
+                        <div class="md:col-span-1 md:pr-8 md:pl-4 md:mt-12">
+                            <%= search_form_for @q, url: bookmarks_spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8 md:py-4" }  do |f| %>
+                                <label for="" class="mb-2 text-sm font-medium h-full text-secondary sr-only dark:text-white">検索</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-4 md:inset-y-3 start-0 flexed items-center ps-3 pointer-events-none">
+                                        <i class="ph ph-magnifying-glass text-secondary"></i>
+                                    </div>
+                                    <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 md:pl-4 md:mx-2 ps-10 md:ps-8 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                                    <%= f.submit class: 'text-white absolute fixed inset-y-1.5 end-2 py-1 md:py-0 h-10 md:h-6 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
+                                </div>
+                                <div class="text-secondary flex-col items-center md:space-y-4">
+                                    <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
+                                        <div class='label-select h-full md:w-full w-1/2 text-sm'>
+                                            <%= f.label :spot_category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
+                                            <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                                        </div>
+                                        <div class='label-select h-full md:w-full w-1/2 text-sm'>
+                                            <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
+                                            <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% end %>
                         </div>
-                        <%= f.search_field :spot_name_or_spot_address_cont, class: 'block w-full p-4 md:p-3 ps-10 md:ps-8 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
-                        <%= f.submit class: 'text-white absolute fixed inset-y-1.5 end-2 py-1 h-8 bg-accent hover:bg-accent-hover focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-full text-sm px-4 py-0.5' %>
-                        </div>
-                    <div class="text-secondary flex-col items-center md:space-y-4">
-                    <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2">
-                        <div class='label-select h-full md:w-full w-1/2 text-sm'>
-                            <%= f.label :spot_category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
-                            <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
-                        </div>
-                        <div class='label-select h-full md:w-full w-1/2 text-sm'>
-                            <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
-                            <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
-                        </div>
-                        </div>
-                        </div>
-                <% end %>
-                </div>
-                <div class="md:col-span-3">
-                    <div class="flex justify-end">
-                        <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
-                        <dialog id="my_modal_3" class="modal">
-                        <div class="modal-box">
-                        </div>
-                        <form method="dialog" class="modal-backdrop">
-                            <button>close</button>
-                        </form>
-                        </dialog>
-                    </div>
-                        <% if params[:q].present? %>
-                        <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
-                            <div class="text-sm text-secondary">
-                                <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @bookmark_spots.count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
+                        <div class="md:col-span-3">
+                            <div class="flex justify-end">
+                                <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center shadow-lg" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                                <dialog id="my_modal_3" class="modal">
+                                    <div class="modal-box">
+                                    </div>
+                                    <form method="dialog" class="modal-backdrop">
+                                        <button>close</button>
+                                    </form>
+                                </dialog>
                             </div>
-                        </div>
-                        <% end %>
-                    <% if @bookmark_spots.present? %>
-                        <div class="md:grid md:grid-cols-3 md:gap-4">
-                            <% @bookmark_spots.each do |bookmark_spot| %>
-                                <%= render 'spots/spot', spot: bookmark_spot.spot %>
+                            <% if params[:q].present? %>
+                                <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
+                                    <div class="text-sm text-secondary">
+                                        <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @bookmark_spots.count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
+                                    </div>
+                                </div>
                             <% end %>
-                        </div>
-                    <% else %>
-                        <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>
-                        <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
-                            <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
-                            <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだお気に入りがありません</h3>
-                            <p class="text-sm flex items-center justify-center w-full text-secondary">気になるスポットを保存してさらに猫スポットを楽しもう！</p>
-                            <%= link_to "#", class: "block w-full" do %>
-                                <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
-                                    <p><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを探す</p>
-                                </button>
+                            <% if @bookmark_spots.present? %>
+                                <div class="md:grid md:grid-cols-3 md:gap-4">
+                                    <% @bookmark_spots.each do |bookmark_spot| %>
+                                        <%= render 'spots/spot', spot: bookmark_spot.spot %>
+                                    <% end %>
+                                </div>
+                            <% else %>
+                                <h2 class="text-xl font-zenmaru font-bold text-neutral">お気に入り一覧</h2>
+                                <div class="mx-auto flex w-1/2 flex-col items-center gap-2.5 justify-center w-3/5">
+                                    <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                                    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral"> <i class="ph ph-empty fa-lg"></i>  まだお気に入りがありません</h3>
+                                    <p class="text-sm flex items-center justify-center w-full text-secondary">気になるスポットを保存してさらに猫スポットを楽しもう！</p>
+                                    <%= link_to "#", class: "block w-full" do %>
+                                        <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
+                                            <p><i class="ph ph-magnifying-glass fa-lg"></i> 猫スポットを探す</p>
+                                        </button>
+                                    <% end %>
+                                </div>
                             <% end %>
+                            <%= render 'spots/sm_info' %>
                         </div>
-                    <% end %>
-                    <%= render 'spots/sm_info' %>
-
-                </div>
-                </div>
+                    </div>
                 </div>
             </div>
-
             <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
-            <div class="w-11/12 mx-auto space-y-8 pb-8">
-                <div class="flex justify-end">
-                    <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="m_modal_3.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
-                    <dialog id="m_modal_3" class="modal">
-                    <div class="modal-box">
-                    <div class="flex justify-center items-center">
-                            <div class="flex flex-col space-y-4 text-left text-secondary">
-                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
-                                <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
-                                <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
-                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
-                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
-                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
-                                <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
+                <div class="w-11/12 mx-auto space-y-8 pb-8">
+                    <div class="flex justify-end">
+                        <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center" onclick="m_modal_3.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
+                        <dialog id="m_modal_3" class="modal">
+                            <div class="modal-box">
+                                <div class="flex justify-center items-center">
+                                    <div class="flex flex-col space-y-4 text-left text-secondary">
+                                        <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                                        <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                                        <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                                        <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                                        <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                                        <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
+                                        <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <form method="dialog" class="modal-backdrop">
+                                <button>close</button>
+                            </form>
+                        </dialog>
                     </div>
-                    <form method="dialog" class="modal-backdrop">
-                        <button>close</button>
-                    </form>
-                    </dialog>
-                </div>
                     <% if @visited_spots.present? %>
                         <div class="md:grid md:grid-cols-3 md:gap-4">
                             <% @visited_spots.each do |spot| %>
@@ -125,24 +122,24 @@
                     <% end %>
                     <button class="md:hidden fixed buttom-8 bg-white right-4 btn w-12 h-9 border-none rounded-full items-center" onclick="m_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
                     <dialog id="m_modal_2" class="modal">
-                    <div class="modal-box">
-                        <div class="flex justify-center items-center">
-                            <div class="flex flex-col space-y-4 text-left text-secondary">
-                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
-                                <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
-                                <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
-                                <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
-                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
-                                <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
-                                <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
+                        <div class="modal-box">
+                            <div class="flex justify-center items-center">
+                                <div class="flex flex-col space-y-4 text-left text-secondary">
+                                    <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                                    <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                                    <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                                    <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                                    <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                                    <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催あり</span></div>
+                                    <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <form method="dialog" class="modal-backdrop">
-                        <button>close</button>
-                    </form>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
                     </dialog>
-            </div>    
+                </div>    
             </div>
         </div>
     </div>
