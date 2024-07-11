@@ -97,7 +97,18 @@
                             </div>
                         </div>
                         <div class="md:col-span-3">
-                            <div class="flex justify-end">
+                            <div class="flex justify-end items-center">
+                                <div class="dropdown dropdown-end">
+                                    <div tabindex="0" role="button" class="hidden md:btn m-1 bg-white border-none md:rounded-full items-center shadow-lg">
+                                        <i class="ph-bold ph-sort-descending fa-2xl text-primary-hover"></i>
+                                        <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">並び替え</span>
+                                    </div>
+                                    <ul tabindex="0" class="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 shadow-lg text-neutral">
+                                        <li><%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %></li>
+                                        <li><%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %></li>
+                                        <li><%= sort_link(@q_spots, :created_at, "デフォルト", { default_order: :asc }) %></li>
+                                    </ul>
+                                </div>
                                 <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center shadow-lg" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
                                 <dialog id="my_modal_3" class="modal">
                                     <div class="modal-box">
@@ -108,13 +119,20 @@
                                 </dialog>
                             </div>
                             <%= turbo_frame_tag "spots-list" do %>
-                                <div class="">
-                                並び替え
-                                <%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %> / 
-                                <%= sort_link(@q_spots, :created_at, "デフォルト", { default_order: :asc }) %> / 
-                                <%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %>
+                                <div class="flex justify-end items-center mb-8 md:hidden">
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn bg-white border-none md:rounded-full items-center shadow-lg">
+                                            <i class="ph-bold ph-sort-descending fa-2xl text-primary-hover"></i>
+                                            <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">並び替え</span>
+                                        </div>
+                                        <ul tabindex="0" class="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 shadow-lg text-neutral">
+                                            <li><%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %></li>
+                                            <li><%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %></li>
+                                            <li><%= sort_link(@q_spots, :created_at, "デフォルト", { default_order: :asc }) %></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <% if params[:q].present? %>
+                                <% if params[:q].present? && params[:q][:s].blank? %>
                                     <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
                                         <div class="text-sm text-secondary">
                                             <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @spots_count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
