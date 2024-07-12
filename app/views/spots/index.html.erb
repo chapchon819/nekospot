@@ -126,9 +126,9 @@
                                             <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">並び替え</span>
                                         </div>
                                         <ul tabindex="0" class="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 shadow-lg text-neutral">
-                                            <li><%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %></li>
-                                            <li><%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %></li>
-                                            <li><%= sort_link(@q_spots, :created_at, "デフォルト", { default_order: :asc }) %></li>
+                                            <li><li><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li></li>
+                                            <li><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
+                                            <li><%= sort_link(@q_spots, 'created_at asc', '古い順', { default_order: :asc }) %></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -13,10 +13,11 @@ class SpotsController < ApplicationController
       params[:q][:adoption_event_eq] = params[:q][:adoption_event_eq].first
     end
     @q_spots = Spot.ransack(params[:q])
-    # params[:page]が配列になっている場合に対応
     page_param = params[:page].is_a?(Array) ? params[:page].first : params[:page]
-    @spots =apply_sort_scope(@q_spots.result(distinct: true)).includes(:spot_images, :category).page(page_param.to_i).per(12)
-    @spots_count = @q_spots.result(distinct: true).includes(:spot_images, :category).count
+    sorted_spots = apply_sort_scope(@q_spots.result(distinct: true))
+    @spots = sorted_spots.includes(:spot_images, :category).page(page_param.to_i).per(12)
+    Rails.logger.debug "SQL Query for spots: #{@spots.to_sql}"
+    @spots_count = sorted_spots.count
     
     @q_reviews = Review.ransack(params[:q])
 
@@ -141,12 +142,16 @@ class SpotsController < ApplicationController
   def apply_sort_scope(spots)
     case params[:q]&.dig(:s)
     when 'rating desc'
-      spots.sorted_by_rating
+      Rails.logger.debug "Applying sorted_by_rating scope"
+      spots.reorder(Arel.sql('rating DESC NULLS LAST'))
     when 'created_at asc'
-      spots.sorted_by_created_at_asc
+      Rails.logger.debug "Applying sorted_by_created_at_asc scope"
+      spots.reorder(:created_at)
     when 'created_at desc'
-      spots.sorted_by_created_at_desc
+      Rails.logger.debug "Applying sorted_by_created_at_desc scope"
+      spots.reorder(created_at: :desc)
     else
+      Rails.logger.debug "No specific sorting applied"
       spots
     end
   end
