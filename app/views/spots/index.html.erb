@@ -39,7 +39,7 @@
             <div id="details-tab" class="hidden bg-white py-4 px-4 w-full h-full mb-12 md:mb-0 border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
                 <div class="w-full mx-auto md:h-full pb-8 ">
                     <div class="grid md:grid-cols-4">
-                        <div class="md:col-span-1 md:p-4 md:mt-12">
+                        <div class="md:block md:col-span-1 md:p-4 md:mt-12 hidden">
                             <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
                                 <%= search_form_for @q_spots, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8 md:py-4", data: { turbo_frame: "spots-list" } }  do |f| %>
                                     <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="md:col-span-3">
-                            <div class="flex justify-end items-center">
+                            <div class="flex justify-end items-center" data-controller="drawer">
                                 <div class="dropdown dropdown-end">
                                     <div tabindex="0" role="button" class="hidden md:btn m-1 bg-white border-none md:rounded-full items-center shadow-lg">
                                         <i class="ph-bold ph-sort-descending fa-2xl text-primary-hover"></i>
@@ -119,17 +119,91 @@
                                 </dialog>
                             </div>
                             <%= turbo_frame_tag "spots-list" do %>
-                                <div class="flex justify-end items-center mb-8 md:hidden">
-                                    <div class="dropdown dropdown-end">
-                                        <div tabindex="0" role="button" class="btn bg-white border-none md:rounded-full items-center shadow-lg">
+                                <div class="md:hidden" data-controller="dropdown">
+                                    <div class="join bg-primary fixed bottom-16 left-1/2 transform -translate-x-1/2 z-10" >
+                                        <button tabindex="0" class="btn join-item border-secondary" data-action="dropdown#toggle click@window->dropdown#hide">
                                             <i class="ph-bold ph-sort-descending fa-2xl text-primary-hover"></i>
                                             <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">並び替え</span>
-                                        </div>
-                                        <ul tabindex="0" class="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 shadow-lg text-neutral">
-                                            <li><li><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li></li>
-                                            <li><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
-                                            <li><%= sort_link(@q_spots, 'created_at asc', '古い順', { default_order: :asc }) %></li>
-                                        </ul>
+                                        </button>
+                                        <button class="btn join-item rounded-r-lg border-secondary bg-primary hover:bg-primary" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="drawer-swipe">
+                                            <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>
+                                            <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">絞り込み</span>
+                                        </button>
+                                    </div>
+                                    <ul  
+                                    data-dropdown-target="menu"
+                                    class="hidden transition transform fixed bottom-28 z-10 w-52 bg-primary rounded-lg px-4 pt-2 pb-4 space-y-4 text-sm shadow-lg text-neutral"
+                                    data-transition-enter-from="opacity-0 scale-95"
+                                    data-transition-enter-to="opacity-100 scale-100"
+                                    data-transition-leave-from="opacity-100 scale-100"
+                                    data-transition-leave-to="opacity-0 scale-95"
+                                    >
+                                        <li><li><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li></li>
+                                        <li><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
+                                        <li><%= sort_link(@q_spots, 'created_at asc', 'デフォルト', { default_order: :asc }) %></li>
+                                    </ul>
+                                </div>
+
+                                <!-- drawer component -->
+                                <div id="drawer-swipe" class="md:hidden fixed z-40 w-full overflow-y-auto bg-white border-t border-gray-200 rounded-t-lg dark:border-gray-700 dark:bg-gray-800 transition-transform bottom-0 left-0 right-0 translate-y-full bottom-[60px]" tabindex="-1" aria-labelledby="drawer-swipe-label">
+                                    <div class="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700" data-drawer-toggle="drawer-swipe">
+                                        <span class="absolute w-8 h-1 -translate-x-1/2 bg-gray-300 rounded-lg top-3 left-1/2 dark:bg-gray-600"></span>
+                                        <h5 id="drawer-swipe-label" class="inline-flex items-center text-base text-gray-500 dark:text-gray-400 font-medium">
+                                        <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>&ensp;絞り込み</h5>
+                                    </div>
+                                    <div data-controller="autocomplete" data-autocomplete-url-value="/spots/search" role="combobox">
+                                        <%= search_form_for @q_spots, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto px-8 pb-16", data: { turbo_frame: "spots-list" } }  do |f| %>
+                                            <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
+                                            <div class="relative">
+                                                <div class="absolute inset-y-4 md:inset-y-3 start-0 flexed items-center ps-3 pointer-events-none">
+                                                    <i class="ph ph-magnifying-glass text-secondary"></i>
+                                                </div>
+                                                <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 md:p-3 ps-10 md:ps-8 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                                                <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
+                                                <%= f.hidden_field :address, data: { autocomplete_target: 'hidden' } %>
+                                                <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
+                                            </div>
+                                            <div class="space-x-2 mt-8 mb-4">
+                                                <div class="my-1 inline-flex text-secondary text-xs rounded-lg py-1 px-1.5 bg-primary items-center hover:bg-primary-hover">
+                                                    <%= f.radio_button :with_tag, '', id: "tag_none", checked: true %>
+                                                    <%= f.label :with_tag, "指定なし", value: '', id: "tag_none" %>
+                                                </div>
+                                                <% @tags.each do |tag| %>
+                                                    <div class="my-1 group inline-flex text-secondary text-xs rounded-lg py-1 px-1.5 bg-primary items-center hover:bg-primary-hover">
+                                                        <%= f.radio_button :with_tag, tag.name, id: "tag_#{tag.id}" %>
+                                                        <i class="ph ph-tag"></i>&nbsp;<%= f.label :with_tag, tag.name, "tag_#{tag.id}" %>
+                                                    </div>
+                                                <% end %>
+                                            </div>
+                                            <div class="text-secondary flex-col items-center md:space-y-4">
+                                                <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2 mb-4 md:mb-0">
+                                                    <div class='label-select flex h-full text-sm space-x-2 items-center'>
+                                                        <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm checkbox checkbox-sm checkbox-secondary [--chkbg:theme(colors.secondary)] [--chkfg:white]' }, 1, nil %>
+                                                        <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
+                                                    </div>
+                                                    <div class='label-select flex h-full text-sm space-x-2 items-center'>
+                                                        <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm checkbox checkbox-sm checkbox-secondary [--chkbg:theme(colors.secondary)] [--chkfg:white]' }, 1, nil %>
+                                                        <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
+                                                    </div>
+                                                </div>
+                                                <div class="flex space-x-4 mb-4">
+                                                    <div class='label-select h-full md:w-full w-1/2 text-sm'>
+                                                        <%= f.label :category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
+                                                        <%= f.collection_select :category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                                                    </div>
+                                                    <div class='label-select h-full md:w-full w-1/2 text-sm md:mb-8'>
+                                                        <%= f.label :prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
+                                                        <%= f.collection_select :prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-center items-center mt-8 mb-4">
+                                                    <%= f.submit 'この条件で検索する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
+                                                        <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+                                                        <span class="relative"></span>
+                                                    <% end %>
+                                                </div>
+                                            </div>
+                                        <% end %>
                                     </div>
                                 </div>
                                 <% if params[:q].present? && params[:q][:s].blank? %>
@@ -140,7 +214,7 @@
                                     </div>
                                 <% end %>
                                 <% if @spots.present? %>
-                                    <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
+                                    <div class="pb-16 pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4" data-controller="login-modal">
                                         <% @spots.each do |spot| %>
                                             <%= render 'spots/spot', spot: spot %>
                                         <% end %>

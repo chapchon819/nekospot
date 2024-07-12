@@ -4,6 +4,7 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.4",
+    "@stimulus-components/dropdown": "^3.0.0",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.10.1",
     "esbuild": "^0.21.4",

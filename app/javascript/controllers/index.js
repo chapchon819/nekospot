@@ -4,11 +4,17 @@
 
 import { application } from "./application"
 
+import Dropdown from '@stimulus-components/dropdown'
+application.register('dropdown', Dropdown)
+
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
 import DiagnosticController from "./diagnostic_controller"
 application.register("diagnostic", DiagnosticController)
+
+import DrawerController from "./drawer_controller"
+application.register("drawer", DrawerController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
