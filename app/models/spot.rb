@@ -1,4 +1,6 @@
 class Spot < ApplicationRecord
+  require 'mini_magick'
+  
   acts_as_mappable default_units: :kms,
                    default_formula: :sphere,
                    distance_field_name: :distance,
@@ -45,6 +47,15 @@ class Spot < ApplicationRecord
   # 猫の画像を優先的に表示させるメソッド
   def prioritized_spot_image #SpotImageの中で、cat属性がtrueのものを優先的に取得し、存在しない場合は最初のSpotImageを取得する
     spot_images.find_by(cat: true) || spot_images.first
+  end
+
+  def processed_image_url(image_url)
+    image = MiniMagick::Image.open(image_url)
+    image.resize "1200x630"
+    image.format "png"
+    processed_image_path = Rails.root.join("public", "uploads", "processed_image_#{id}.png")
+    image.write(processed_image_path)
+    "/uploads/processed_image_#{id}.png"
   end
 
   # Geocoding setup
