@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
     get '/users/auth/failure' => 'omniauth_callbacks#failure'
   end
+  get 'spot_images/:photo_reference', to: 'spot_images#show', as: 'spot_image_proxy'
   get 'static_pages/index'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_use', to: 'static_pages#terms_of_use'
@@ -32,6 +33,11 @@ Rails.application.routes.draw do
       get :map
       get :search
       get :visits
+    end
+  end
+  resources :screenshots, only: [:create] do
+    collection do
+      post :update_meta_tags
     end
   end
   resources :spot_bookmarks, only: %i[create destroy]

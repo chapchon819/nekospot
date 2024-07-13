@@ -17,7 +17,7 @@
     
     <% if @prioritized_image.present? %>
       <div class="swiper-slide h-96 w-full">
-        <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{@prioritized_image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
+        <%= image_tag spot_image_proxy_url(@prioritized_image.image), class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
       </div>
     <% else %>
       <div class="swiper-slide h-96 w-full">
