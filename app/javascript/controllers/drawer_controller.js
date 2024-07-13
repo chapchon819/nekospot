@@ -5,30 +5,39 @@ export default class extends Controller {
   static targets = ["drawer"];
 
   connect() {
-    this.drawer = document.getElementById('drawer-swipe');
-    document.querySelectorAll('[data-drawer-show]').forEach(button => {
+    this.initializeDrawer('drawer-swipe');
+    this.initializeDrawer('review-drawer-swipe');
+    this.initializeDrawer('no-review-drawer-swipe');
+  }
+
+  initializeDrawer(drawerId) {
+    const drawer = document.getElementById(drawerId);
+    if (!drawer) return;
+
+    document.querySelectorAll(`[data-drawer-show="${drawerId}"]`).forEach(button => {
       button.addEventListener('click', () => {
         this.showBackdrop();
       });
     });
-    this.drawer.querySelector('[data-drawer-toggle]').addEventListener('click', () => {
+
+    drawer.querySelector('[data-drawer-toggle]').addEventListener('click', () => {
       this.hideBackdrop();
     });
 
     // Drawer open events
-    this.drawer.addEventListener('show.bs.drawer', () => {
+    drawer.addEventListener('show.bs.drawer', () => {
       this.showBackdrop();
     });
 
     // Drawer close events
-    this.drawer.addEventListener('hidden.bs.drawer', () => {
+    drawer.addEventListener('hidden.bs.drawer', () => {
       this.hideBackdrop();
     });
 
     // Handling swipe or any other transition that triggers open/close
-    this.drawer.addEventListener('transitionend', (event) => {
+    drawer.addEventListener('transitionend', (event) => {
       if (event.propertyName === 'transform') {
-        if (this.drawer.classList.contains('translate-y-full')) {
+        if (drawer.classList.contains('translate-y-full')) {
           this.hideBackdrop();
         } else {
           this.showBackdrop();
@@ -36,10 +45,10 @@ export default class extends Controller {
       }
     });
 
-    // 検索ボタンが押された時もオーバーレイを閉じる
-    this.drawer.querySelectorAll('form').forEach(form => {
+    // Handle form submission within the drawer
+    drawer.querySelectorAll('form').forEach(form => {
       form.addEventListener('submit', () => {
-        this.drawer.classList.add('translate-y-full');
+        drawer.classList.add('translate-y-full');
         this.hideBackdrop();
       });
     });
@@ -61,7 +70,9 @@ export default class extends Controller {
 
       // Add event listener to close the drawer when the backdrop is clicked
       this.backdrop.addEventListener('click', () => {
-        this.drawer.classList.add('translate-y-full');
+        document.querySelectorAll('.drawer.open').forEach(drawer => {
+          drawer.classList.add('translate-y-full');
+        });
         this.hideBackdrop();
       });
     }

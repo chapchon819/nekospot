@@ -137,7 +137,7 @@
                         <div class="grid md:grid-cols-4">
                             <div class="md:col-span-1 md:p-4 md:mt-12">
                                 <div data-controller="autocomplete" data-autocomplete-url-value="/reviews/search" role="combobox">
-                                    <%= search_form_for @q_reviews, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8 md:py-4", data: { turbo_frame: "reviews-list" } }  do |f| %>
+                                    <%= search_form_for @q_reviews, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-8 md:py-4 hidden md:block", data: { turbo_frame: "reviews-list" } }  do |f| %>
                                         <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
                                         <div class="relative">
                                             <div class="absolute inset-y-4 md:inset-y-3 start-0 flexed items-center ps-3 pointer-events-none">
@@ -167,7 +167,7 @@
                                             <% end %>
                                         </div>
                                     <% end %>
-                                    <div class="md:mt-8 mb-8 flex flex-row flex-wrap space-x-2 items-center space-y-2">
+                                    <div class="my-8 flex flex-row flex-wrap space-x-2 items-center space-y-2">
                                         <% if @tags.present? %>
                                             <div class="flex flex-col"><h2 class='text-secondary text-sm font-semibold'>タグ一覧</h2></div>
                                             <br>
@@ -195,9 +195,15 @@
                                         </form>
                                     </dialog>
                                 </div>
+
                                 <%= turbo_frame_tag "reviews-list" do %>
                                     <%= turbo_frame_tag 'tags_search' do %>
                                         <% if @reviews.present? %>
+                                            <button class="btn md:hidden fixed bottom-16 left-1/2 transform -translate-x-1/2 rounded-lg border-secondary bg-primary hover:bg-primary z-10" data-drawer-target="review-drawer-swipe" data-drawer-show="review-drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="review-drawer-swipe">
+                                                <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>
+                                                <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">絞り込み</span>
+                                            </button>
+                                            <%= render "spots/review_drawer_swipe"%>
                                             <div class="pb-24 md:pb-16 md:pt-8 md:grid md:grid-cols-3 md:gap-8 md:pr-8 md:pl-4">
                                                 <% @reviews.each do |review| %>
                                                     <%= render 'spots/review', review: review, user: review.user %>
@@ -205,7 +211,18 @@
                                                 <%= paginate @reviews %>
                                             </div>
                                         <% else %>
-                                            <%= render 'spots/no_reviews' %>
+                                            <div class="">
+                                                <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
+                                                <div class="mx-auto flex flex-col items-center justify-center w-3/5">
+                                                    <%= image_tag("936.webp", class: "h-full md:h-64 md:w-56 flex items-center justify-center") %>
+                                                    <h3 class="font-bold flex items-center justify-center w-full font-zenmaru text-neutral text-sm md:text-lg"> <i class="ph ph-empty fa-lg"></i>  まだ口コミがありません</h3>
+                                                    <button class="btn md:hidden mt-4 mb-24 flex justify-center rounded-lg border-secondary bg-primary hover:bg-primary z-10 w-48" data-drawer-target="no-review-drawer-swipe" data-drawer-show="no-review-drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="no-review-drawer-swipe">
+                                                        <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>
+                                                        <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">絞り込み条件を変更</span>
+                                                    </button>
+                                                    <%= render "spots/no_review_drawer_swipe"%>
+                                                </div>
+                                            </div>
                                         <% end %>
                                     <% end %>
                                 <% end %>
