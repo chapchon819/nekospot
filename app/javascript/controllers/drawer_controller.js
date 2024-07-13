@@ -35,6 +35,14 @@ export default class extends Controller {
         }
       }
     });
+
+    // 検索ボタンが押された時もオーバーレイを閉じる
+    this.drawer.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', () => {
+        this.drawer.classList.add('translate-y-full');
+        this.hideBackdrop();
+      });
+    });
   }
 
   showBackdrop() {
