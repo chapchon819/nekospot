@@ -29,7 +29,7 @@
       <% @spot.spot_images.each_with_index do |image, index| %>
         <% unless image == @prioritized_image %>
           <div class="swiper-slide h-96 w-full">
-            <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
+            <%= image_tag spot_image_proxy_url(image.image), class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
           </div>
         <% end %>
       <% end %>
