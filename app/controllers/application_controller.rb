@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
             request.fullpath != "/users/sign_out" &&
             !request.fullpath.match?(/^\/spots\/list/) &&
             request.fullpath != "/" &&
+            !request.fullpath.match?(/^https:\/\/lh3\.googleusercontent\.com\/places\//) && # Google PlacesのURLを除外
+            !request.fullpath.match?(/^\/spot_images\//) &&
             !request.xhr?) # 現在のリクエストが非同期通信ではない場合にtrue
           session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/ || request.xhr? #現在のページのフルパスを取得するメソッド。
         end

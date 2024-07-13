@@ -207,6 +207,13 @@
         <div class="lg:col-span-2 md:mr-8">
           <%= turbo_frame_tag 'review_modal' do %>
             <%= turbo_frame_tag 'tags_search' do %>
+              <turbo-frame id="set_aside_tray" src="/spots/<%= @spot.id %>">
+                  <div class="flex-col">
+                    <span class="loading loading-spinner loading-lg text-secondary"></span>
+                    <p>loading...</p>
+                  </div>
+                </div>
+              </turbo-frame>
               <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
               <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
                 <i class="ph ph-tag"></i>&nbsp;タグ検索解除
