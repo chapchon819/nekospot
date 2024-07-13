@@ -68,7 +68,7 @@
                 <% end %>
             <% end %>
             <div>
-                <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{review.spot.id}/reviews/#{review.id}&text=#{ERB::Util.url_encode("「#{review.spot.name}」の口コミを投稿しました🐈✨\n ##{review.spot.name.gsub(/[\s()（）【】]/, '')} #NekoSpot \n")}", target: '_blank', class: "relative rounded px-3 py-2.5 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
+                <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{review.spot.id}/reviews/#{review.id}&text=#{ERB::Util.url_encode("「#{review.spot.name}」の口コミを投稿しました🐈✨\n ##{review.spot.name.gsub(/[\s()（）【】]/, '')} #NekoSpot \n")}", target: '_blank', class: "relative rounded md:px-3 py-2.5 px-2 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
                         <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                         <span class="relative text-sm text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>シェア</span>
                 <% end %>

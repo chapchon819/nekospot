@@ -1,0 +1,38 @@
+<div id="review-drawer-swipe" class="md:hidden fixed z-40 w-full overflow-y-auto bg-white border-t border-gray-200 rounded-t-lg dark:border-gray-700 dark:bg-gray-800 transition-transform bottom-0 left-0 right-0 translate-y-full bottom-[60px]" tabindex="-1" aria-labelledby="drawer-swipe-label">
+    <div class="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700" data-drawer-toggle="review-drawer-swipe">
+        <span class="absolute w-8 h-1 -translate-x-1/2 bg-gray-300 rounded-lg top-3 left-1/2 dark:bg-gray-600"></span>
+        <h5 id="drawer-swipe-label" class="inline-flex items-center text-base text-gray-500 dark:text-gray-400 font-medium">
+        <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>&ensp;絞り込み</h5>
+    </div>
+    <div data-controller="autocomplete" data-autocomplete-url-value="/reviews/search" role="combobox">
+        <%= search_form_for @q_reviews, url: spots_path, html: { id: "searchForm", class: "max-w-lg mx-auto py-4 px-8", data: { turbo_frame: "reviews-list" } }  do |f| %>
+            <label for="" class="mb-2 text-sm font-medium text-secondary sr-only dark:text-white">検索</label>
+            <div class="relative">
+                <div class="absolute inset-y-4 md:inset-y-3 start-0 flexed items-center ps-3 pointer-events-none">
+                    <i class="ph ph-magnifying-glass text-secondary"></i>
+                </div>
+                <%= f.search_field :spot_name_or_spot_address_or_body_cont, data: { autocomplete_target: 'input' }, class: 'block w-full p-4 md:p-3 ps-10 md:ps-8 text-sm text-secondary border border-secondary rounded-full bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder: '猫スポット名または住所' %>
+                <%= f.hidden_field :spot_name, data: { autocomplete_target: 'hidden' } %>
+                <%= f.hidden_field :spot_address, data: { autocomplete_target: 'hidden' } %>
+                <%= f.hidden_field :body, data: { autocomplete_target: 'hidden' } %>
+                <ul class="list-group absolute w-full bg-white p-2 shadow z-[1] rounded-box" data-autocomplete-target="results"></ul>
+            </div>
+            <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4 mt-8 text-secondary">
+                <div class='label-select h-full md:w-full w-1/2 text-sm'>
+                    <%= f.label :spot_category_id_eq, 'カテゴリ', class: 'label text-sm font-semibold' %>
+                    <%= f.collection_select :spot_category_id_eq, @categories, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                </div>
+                <div class='label-select h-full md:w-full w-1/2 text-sm md:mb-8'>
+                    <%= f.label :spot_prefecture_id_eq, '都道府県', class: 'label text-sm font-semibold' %>
+                    <%= f.collection_select :spot_prefecture_id_eq, @prefectures, :id, :name,  { include_blank: '指定なし' }, { class: 'search-select bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' } %>
+                </div>
+            </div>
+            <div class="flex justify-center items-center mb-16 mt-8">
+                <%= f.submit 'この条件で検索する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
+                    <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+                    <span class="relative"></span>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>

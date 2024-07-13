@@ -90,6 +90,9 @@ gem 'kaminari'
 #バックグラウンド処理
 gem 'sidekiq'
 
+gem 'faraday'
+gem 'faraday-follow_redirects'
+
 # その他
 gem 'redis-rails'
 gem 'puma_worker_killer'

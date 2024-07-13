@@ -3,7 +3,7 @@
         <%= link_to spot_path(spot), data: { turbo: false } do %>
             <% prioritized_image = spot.prioritized_spot_image %>
             <% if prioritized_image.present? %>
-                <img src="https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=<%= prioritized_image.image %>&key=<%= ENV['GMAP_API_KEY'] %>" class="w-full h-full absolute rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl" alt="Image Description">
+                <%= image_tag spot_image_proxy_url(prioritized_image.image), class: "w-full h-full absolute rounded-t-xl md:rounded-b-none top-0 left-0 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl", alt: "Image Description" %>
             <% else %>
                 <% image_tag('default.webp', class: "h-full absolute rounded-t-xl rounded-b-none top-0 left-1/2 transform -translate-x-1/2 md:left-none object-cover transition-transform duration-200 ease-in-out group-hover:scale-110 group-hover:rounded-xl")%>
             <% end %>
@@ -12,7 +12,7 @@
     <div class="flex flex-wrap w-full md:h-full h-28">
         <div class="p-2 md:p-2.5 flex flex-col h-full sm:p-7 w-full relative">
             <div class="bg-accent absolute top-0 -mt-3 flex items-center font-semibold px-3 py-1.5 leading-none w-auto rounded-full text-xs uppercase text-white">
-                <span><i class="ph-fill ph-star fa-lg"></i> <%= spot.rating || '評価なし' %></span>
+                <span><i class="ph-fill ph-star fa-lg"></i> <%= spot.rating.nil? ? '評価なし' : spot.rating %></span>
             </div>
             <p class="md:px-1.5 mt-2 text-[10px] text-secondary dark:text-neutral-500"><%= spot.category.name %> / <%= formatted_address(spot.address) %></p>
             <%= link_to spot_path(spot), data: { turbo: false } do %>

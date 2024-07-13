@@ -118,9 +118,14 @@
   </div>
 </div>
 
-<script>
-  window.defaultImagePath = "<%= asset_path('default-1920x1080.png') %>";
-</script>
+<% @spots.each do |spot| %>
+  <% prioritized_image = spot.prioritized_spot_image %>
+  <script>
+    window.defaultImagePath = "<%= asset_path('default-1920x1080.png') %>";
+    window.prioritizedImageUrls ||= {};
+    window.prioritizedImageUrls["<%= spot.id %>"] = "<%= prioritized_image ? spot_image_proxy_url(prioritized_image.image) : asset_path('default-1920x1080.png') %>";
+  </script>
+<% end %>
 
 <%= javascript_include_tag "gmap" %>
 

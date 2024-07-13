@@ -40,9 +40,7 @@ class Spot < ApplicationRecord
     %i[with_tag]
   end
 
-  scope :sorted_by_rating, -> { order(rating: :desc) }
-  scope :sorted_by_created_at_asc, -> { order(created_at: :asc) }
-  scope :sorted_by_created_at_desc, -> { order(created_at: :desc) }
+
 
   # 猫の画像を優先的に表示させるメソッド
   def prioritized_spot_image #SpotImageの中で、cat属性がtrueのものを優先的に取得し、存在しない場合は最初のSpotImageを取得する
