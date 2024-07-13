@@ -62,6 +62,13 @@
               <a class="twitter-timeline" data-height="500" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
             </div>
           <% end %>
+          <div class="flex w-full md:hidden space-x-2 items-center mb-2 justify-end">
+            <div class="line-it-button md:hidden" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+            <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded md:px-3 px-2 py-0 md:py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
+              <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+              <span class="relative md:text-sm text-[10px] text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>&nbsp;シェア</span>
+            <% end %>
+          </div>
           <div class="w-11/12 mx-auto divide-y space-y-8 pb-8 md:col-span-2" >
             <div class="my-4 mx-auto">
               <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
@@ -107,10 +114,7 @@
                     <div class="hidden md:block">
                       <div class="line-it-button" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="large" data-count="false" data-ver="3" style="display: none;"></div>
                     </div>
-                    <div class="md:hidden">
-                      <div class="line-it-button md:hidden" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
-                    </div>
-                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded md:px-3 px-2 py-0 md:py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
+                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "hidden md:block relative rounded md:px-3 px-2 py-0 md:py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
                       <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                       <span class="relative md:text-sm text-[10px] text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>&nbsp;シェア</span>
                     <% end %>
