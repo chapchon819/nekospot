@@ -1,4 +1,5 @@
 <% content_for(:title, @spot.name) %>
+<% @image_url = spot_image_proxy_url(@prioritized_image.image) %>
 <% assign_meta_tags title: @spot.name, image: @image_url %>
 <nav class="md:hidden w-full h-12 ">
     <div class="navbar bg-primary text-secondary border-b border-primary-hover">
