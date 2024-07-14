@@ -49,9 +49,9 @@
                                         <i class="ph-bold ph-arrows-down-up fa-2xl text-primary-hover"></i>
                                         <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">
                                             <%= case @current_sort
-                                            when "rating desc" then "高評価"
-                                            when "created_at desc" then "新着順"
-                                            else "標準"
+                                            when "rating desc" then "&emsp;高評価"
+                                            when "created_at desc" then "&emsp;新着順"
+                                            else "&emsp;&emsp;標準"
                                             end %>
                                         </span>
                                     </div>
@@ -72,7 +72,7 @@
                             </div>
                             <%= turbo_frame_tag "spots-list" do %>
                                 <div class="md:hidden" data-controller="dropdown">
-                                    <div class="join bg-primary fixed bottom-16 left-1/5  transform -translate-x-1/5 z-10" data-controller="sort">
+                                    <div class="join bg-primary rounded-full fixed bottom-16 left-[calc(50%-30px)] transform -translate-x-1/2 z-10" data-controller="sort">
                                         <button tabindex="0" class="btn join-item border-secondary" data-action="dropdown#toggle click@window->dropdown#hide" data-sort-target="sortButton" data-current-sort="<%= @current_sort %>">
                                             <i class="ph-bold ph-arrows-down-up fa-2xl text-primary-hover"></i>
                                             <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">
@@ -83,14 +83,14 @@
                                                     end %>
                                             </span>
                                         </button>
-                                        <button class="btn join-item rounded-r-lg border-secondary bg-primary hover:bg-primary" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="drawer-swipe" data-drawer-body-scrolling="true">
+                                        <button class="btn join-item rounded-r-full border-secondary bg-primary hover:bg-primary" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="drawer-swipe" data-drawer-body-scrolling="true">
                                             <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>
                                             <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">絞り込み</span>
                                         </button>
                                     </div>
                                     <ul  
                                     data-dropdown-target="menu"
-                                    class="hidden transition transform fixed bottom-28 z-10 w-52 bg-primary rounded-lg px-4 pt-2 pb-4 space-y-4 text-sm shadow-lg text-neutral"
+                                    class="hidden transition transform fixed bottom-28 z-10 w-52 bg-primary rounded-lg text-sm shadow-lg text-neutral"
                                     data-transition-enter-from="opacity-0 scale-95"
                                     data-transition-enter-to="opacity-100 scale-100"
                                     data-transition-leave-from="opacity-100 scale-100"
@@ -98,9 +98,9 @@
                                     data-sort-target="sortOptions"
                                     data-action="click->sort#updateSortLabel"
                                     >
-                                        <li class="w-full hover:bg-primary-hover"><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li>
-                                        <li class="w-full hover:bg-primary-hover"><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
-                                        <li class="w-full hover:bg-primary-hover"><%= sort_link(@q_spots, 'created_at asc', '標準', { default_order: :asc }) %></li>
+                                        <li class="w-full rounded-t-lg px-4 py-2 hover:bg-primary-hover"><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li>
+                                        <li class="w-full px-4 py-2 hover:bg-primary-hover"><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
+                                        <li class="w-full rounded-b-lg px-4 py-2 hover:bg-primary-hover"><%= sort_link(@q_spots, 'created_at asc', '標準', { default_order: :asc }) %></li>
                                     </ul>
                                 </div>
 
