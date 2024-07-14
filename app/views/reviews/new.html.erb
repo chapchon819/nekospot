@@ -5,39 +5,46 @@
                 <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
             </div>
             <div class=" mx-auto w-full">
-            <%= form_with model: @review, 
-                            url: spot_reviews_path(@spot),
-                            data: { action: "turbo:submit-end->review-modal#close" },
-                            html: { class: "mx-auto flex flex-col items-center justify-center space-y-4" } do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
-                <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
-                <div class="rating rating-lg">
-                    <input type="radio" name="review[rating]" value="0" class="hidden mask mask-star-2 bg-yellow-400" checked/>
-                    <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-yellow-400"/>
-                    <input type="radio" name="review[rating]" value="2" class="mask mask-star-2 bg-yellow-400" />
-                    <input type="radio" name="review[rating]" value="3" class="mask mask-star-2 bg-yellow-400" />
-                    <input type="radio" name="review[rating]" value="4" class="mask mask-star-2 bg-yellow-400" />
-                    <input type="radio" name="review[rating]" value="5" class="mask mask-star-2 bg-yellow-400" />
-                </div>
-                </div>
-                <div class="relative mb-4 flex flex-col w-full text-secondary">
-                    <p class="text-sm py-2">画像(３枚まで)</p>
-                    <%= f.file_field :images, multiple: true, class: "block w-full text-xs text-secondary border border-gray-300 rounded-r-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
-                    <%= f.hidden_field :images_cache %>
-                </div>
-                <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
-                <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
-                </div>
-                <div class="relative mb-4 flex flex-col w-full">
-                    <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
-                    <%= text_field_tag 'review[tag_ids][]', '', autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
-                </div>
-                <div class="relative mb-4">
-                <%= f.submit "口コミを投稿する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
-                </div>
-            <% end %>
+                <%= form_with model: @review, 
+                                url: spot_reviews_path(@spot),
+                                data: { action: "turbo:submit-start->review-modal#showLoadingSpinner turbo:submit-end->review-modal#hideLoadingSpinner turbo:submit-end->review-modal#close" },
+                                html: { class: "mx-auto flex flex-col items-center justify-center space-y-4" } do |f| %>
+                    <%= render 'shared/error_messages', object: f.object %>
+                    <div class="relative mb-4 flex flex-col w-full">
+                        <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
+                        <div class="rating rating-lg">
+                            <input type="radio" name="review[rating]" value="0" class="hidden mask mask-star-2 bg-yellow-400" checked/>
+                            <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-yellow-400"/>
+                            <input type="radio" name="review[rating]" value="2" class="mask mask-star-2 bg-yellow-400" />
+                            <input type="radio" name="review[rating]" value="3" class="mask mask-star-2 bg-yellow-400" />
+                            <input type="radio" name="review[rating]" value="4" class="mask mask-star-2 bg-yellow-400" />
+                            <input type="radio" name="review[rating]" value="5" class="mask mask-star-2 bg-yellow-400" />
+                        </div>
+                    </div>
+                    <div class="relative mb-4 flex flex-col w-full text-secondary">
+                        <p class="text-sm py-2">画像(３枚まで)</p>
+                        <%= f.file_field :images, multiple: true, class: "block w-full text-xs text-secondary border border-gray-300 rounded-r-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
+                        <%= f.hidden_field :images_cache %>
+                    </div>
+                    <div class="relative mb-4 flex flex-col w-full">
+                        <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
+                        <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
+                    </div>
+                    <div class="relative mb-4 flex flex-col w-full">
+                        <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
+                        <%= text_field_tag 'review[tag_ids][]', '', autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
+                    </div>
+                    <div class="relative mb-4">
+                        <%= f.submit "口コミを投稿する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+        <!-- Loading Spinner Modal -->
+        <div data-review-modal-target="loadingSpinner" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+            <div class="flex-col text-primary">
+                <%= image_tag 'default.webp', size: '60x60', class: 'justify-center animate-bounce' %>
+                <p>loading...</p>
             </div>
         </div>
     </div>
