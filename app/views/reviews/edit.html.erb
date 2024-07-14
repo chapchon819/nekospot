@@ -1,60 +1,67 @@
 <%= turbo_frame_tag "review_modal" do %>
-    <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" 
+  <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-50" 
             data-controller="review-modal" 
             data-review-modal-target="backGround"
             data-spot-id="<%= @spot.id %>" 
-            data-action="click->review-modal#closeBackground" >
-        <div class="modal-content relative bg-white rounded-xl shadow-lg p-10 flex flex-col justify-center " data-review-modal-target="reviewModal">
-            <div class="absolute top-3 right-4">
-                <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
+            data-action="click->review-modal#closeBackground">
+    <div class="modal-content relative bg-white rounded-xl shadow-lg py-4 px-8 flex flex-col justify-center w-screen md:w-80 h-[550px]" data-review-modal-target="reviewModal">
+      <div class="absolute top-3 right-4">
+          <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
+      </div>
+      <div class=" mx-auto w-full">
+        <%= form_with model: [@spot, @review], 
+                        url: spot_review_path(@spot, @review),
+                        data: { action: "turbo:submit-start->review-modal#showLoadingSpinner turbo:submit-end->review-modal#hideLoadingSpinner turbo:submit-end->review-modal#close" },
+                        html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+          <div class="relative md:mb-4 mb-2.5 flex flex-col w-full">
+            <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
+            <div class="rating rating-lg">
+              <%= f.radio_button :rating, 0, class: "hidden mask mask-star-2 bg-yellow-400", checked: @review.rating == 0 %>
+              <%= f.radio_button :rating, 1, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 1 %>
+              <%= f.radio_button :rating, 2, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 2 %>
+              <%= f.radio_button :rating, 3, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 3 %>
+              <%= f.radio_button :rating, 4, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 4 %>
+              <%= f.radio_button :rating, 5, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 5 %>
             </div>
-            <div class=" mx-auto w-full">
-            <%= form_with model: [@spot, @review], 
-                            url: spot_review_path(@spot, @review),
-                            data: { action: "turbo:submit-end->review-modal#close" },
-                            html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
-                <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
-                    <div class="rating rating-lg">
-                    <%= f.radio_button :rating, 0, class: "hidden mask mask-star-2 bg-yellow-400", checked: @review.rating == 0 %>
-                    <%= f.radio_button :rating, 1, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 1 %>
-                    <%= f.radio_button :rating, 2, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 2 %>
-                    <%= f.radio_button :rating, 3, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 3 %>
-                    <%= f.radio_button :rating, 4, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 4 %>
-                    <%= f.radio_button :rating, 5, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 5 %>
-                    </div>
-                </div>
-          <div class="relative mb-4 flex flex-col w-full">
-          <% if @review.images.present? %>
-            <%= f.label :images, "投稿済の画像", class: "text-sm text-secondary mb-2" %>
-            <div class="flex justify-start items-center gap-4">
-            <% @review.images.each_with_index do |image, index| %>
-              <div class="flex flex-col items-center mb-2" id="image-<%= index %>">
-                <%= image_tag image.url, class: "w-16 h-16 object-cover rounded mb-0.5" %>
-                <button type="button" class="remove-image-btn" data-action="click->review-modal#removeImage" data-index="<%= index %>" data-review-id="<%= @review.id %>">
-                  <i class="ph ph-trash fa-lg text-secondary"></i>
-                </button>
+          </div>
+          <div class="relative mb-2.5 md:mb-4 flex flex-col w-full">
+            <% if @review.images.present? %>
+              <%= f.label :images, "投稿済の画像", class: "text-sm text-secondary mb-2" %>
+              <div class="flex justify-start items-center gap-4">
+                <% @review.images.each_with_index do |image, index| %>
+                  <div class="flex flex-col items-center mb-2" id="image-<%= index %>">
+                    <%= image_tag image.url, class: "w-16 h-16 object-cover rounded mb-0.5" %>
+                    <button type="button" class="remove-image-btn" data-action="click->review-modal#removeImage" data-index="<%= index %>" data-review-id="<%= @review.id %>">
+                      <i class="ph ph-trash fa-lg text-secondary"></i>
+                    </button>
+                  </div>
+                <% end %>
               </div>
-            <% end %>
-            </div>
             <% end %>
             <%= f.file_field :images, multiple: true %>
           </div>
           <%= f.hidden_field :remove_image_at, value: "", data: { review_modal_target: "removeImageInput" } %>
-                <div class="relative mb-4 flex flex-col w-full">
-                <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
-                <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
-                </div>
-                <div class="relative mb-4 flex flex-col w-full">
-                    <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
-                    <%= text_field_tag 'review[tag_ids][]', @tag_list, autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
-                </div>
-                <div class="relative mb-4">
-                <%= f.submit "口コミを更新する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
-                </div>
-            <% end %>
-            </div>
+          <div class="mb-2.5 md:mb-4 flex flex-col w-full">
+            <%= f.label :body, "コメント", class: "mb-1 text-sm text-secondary" %>
+            <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-16 md:h-24 text-gray-900 text-sm rounded-lg" %>
+          </div>
+          <div class="mb-2.5 md:mb-4 flex flex-col w-full">
+            <%= f.label :tag_ids, "タグ", class: "mb-1 text-sm text-secondary" %>
+            <%= text_field_tag 'review[tag_ids][]', @tag_list, autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
+          </div>
+          <div class="mb-16 md:mb-4">
+            <%= f.submit "口コミを更新する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <!-- Loading Spinner Modal -->
+    <div data-review-modal-target="loadingSpinner" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+        <div class="flex-col text-primary">
+            <%= image_tag 'default.webp', size: '60x60', class: 'justify-center animate-bounce' %>
+            <p>loading...</p>
         </div>
     </div>
+  </div>
 <% end %>
