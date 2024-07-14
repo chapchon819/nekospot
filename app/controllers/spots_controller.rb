@@ -18,6 +18,7 @@ class SpotsController < ApplicationController
     @spots = sorted_spots.includes(:spot_images, :category).page(page_param.to_i).per(12)
     Rails.logger.debug "SQL Query for spots: #{@spots.to_sql}"
     @spots_count = sorted_spots.count
+    @current_sort = params.dig(:q, :s) || "created_at asc"
     
     @q_reviews = Review.ransack(params[:q])
 

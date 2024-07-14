@@ -382,6 +382,8 @@ GEM
       logger
       rack (>= 2.2.4)
       redis-client (>= 0.22.2)
+    sitemap_generator (6.3.0)
+      builder (~> 3.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -462,6 +464,7 @@ DEPENDENCIES
   ransack
   redis-rails
   sidekiq
+  sitemap_generator (~> 6.3)
   sprockets-rails
   stackprof
   stimulus-rails

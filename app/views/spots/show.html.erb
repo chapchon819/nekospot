@@ -1,5 +1,5 @@
 <% content_for(:title, @spot.name) %>
-<% @image_url = spot_image_proxy_url(@prioritized_image.image) %>
+<% @image_url = @spot.processed_image_url(spot_image_proxy_url(@prioritized_image.image)) %>
 <% assign_meta_tags title: @spot.name, image: @image_url %>
 <nav class="md:hidden w-full h-12 ">
     <div class="navbar bg-primary text-secondary border-b border-primary-hover">
@@ -102,17 +102,13 @@
                     </form>
                   </dialog>
                 </div>
-                <div class="flex space-x-2 items-center">
+                <div class="flex space-x-2 items-start">
                   <div class="flex space-x-2 justify-center items-center">
-                    <div class="hidden md:block">
-                      <div class="line-it-button" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="large" data-count="false" data-ver="3" style="display: none;"></div>
+                    <div class="">
+                      <div class="line-it-button" data-lang="ja" data-type="share-c" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
                     </div>
-                    <div class="md:hidden">
-                      <div class="line-it-button md:hidden" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
-                    </div>
-                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded md:px-3 px-2 py-0 md:py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
-                      <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                      <span class="relative md:text-sm text-[10px] text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>&nbsp;シェア</span>
+                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "" do %>
+                      <%= image_tag 'x-logo.png', size: '20x20' %>
                     <% end %>
                   </div>
                   <div><%= render 'visited_buttons', { spot: @spot } %></div>
@@ -167,8 +163,7 @@
               <% end %>
             </div>
             <div class="my-4 text-secondary w-full border-t">
-              <p class="text-sm pb-4 pt-8 font-bold"><i class="ph ph-export"></i> シェア</p>
-              <div class="flex space-x-2 justify-center items-center">
+              <div class="flex space-x-2 justify-end items-center my-8">
                 <div class="line-it-button" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="large" data-count="false" data-ver="3" style="display: none;"></div>
                 <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded px-3 py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
                   <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>

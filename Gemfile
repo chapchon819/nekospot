@@ -126,4 +126,7 @@ gem 'dotenv-rails'
 #動的OGP
 gem 'meta-tags'
 
+#サイトマップ作成
+gem 'sitemap_generator', '~> 6.3'
+
 

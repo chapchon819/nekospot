@@ -81,10 +81,16 @@ class DiagnosticsController < ApplicationController
                 
                 # 高評価のスポットを絞り込み
                 spots_with_high_rating = spots.where("rating >= ?", 4)
-                if spots_with_high_rating.exists?
-                    @recommend_spot = spots_with_high_rating.sample
-                else
-                    @recommend_spot = spots.sample
+                
+                # クッキーから@recommend_spotを取得
+                if cookies[:recommend_spot]
+                    @recommend_spot = Spot.find_by(id: cookies[:recommend_spot])
+                end
+
+                # @recommend_spotがクッキーに存在しない場合、ランダムに選んでクッキーに保存
+                if @recommend_spot.nil?
+                    @recommend_spot = spots_with_high_rating.exists? ? spots_with_high_rating.sample : spots.sample
+                    cookies[:recommend_spot] = @recommend_spot.id if @recommend_spot
                 end
             end
         end

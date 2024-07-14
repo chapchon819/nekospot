@@ -33,7 +33,7 @@
         <!-- Slides -->
         <% @cat_images.each do |image| %>
           <div class="swiper-slide">
-              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+            <%= image_tag spot_image_proxy_url(image.image), class: "block w-full h-full object-cover", alt: "Swiper Image" %>
           </div>
         <% end %>
         <!-- ... -->
@@ -45,7 +45,7 @@
         <!-- Slides -->
         <% @cat_images.each do |image| %>
           <div class="swiper-slide">
-              <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{image.image}&key=#{ENV['GMAP_API_KEY']}", class: "block w-full h-full object-cover" %>
+            <%= image_tag spot_image_proxy_url(image.image), class: "block w-full h-full object-cover", alt: "Swiper Image" %>
           </div>
         <% end %>
         <!-- ... -->
