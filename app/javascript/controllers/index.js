@@ -7,6 +7,9 @@ import { application } from "./application"
 import Dropdown from '@stimulus-components/dropdown'
 application.register('dropdown', Dropdown)
 
+import RadioTagsController from "./radio_tags_controller"
+application.register("radio-tags", RadioTagsController)
+
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
