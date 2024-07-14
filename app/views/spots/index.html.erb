@@ -213,7 +213,7 @@
                                 <%= turbo_frame_tag "reviews-list" do %>
                                     <%= turbo_frame_tag 'tags_search' do %>
                                         <% if @reviews.present? %>
-                                            <button class="btn md:hidden fixed bottom-16 left-1/2 transform -translate-x-1/2 rounded-lg border-secondary bg-primary hover:bg-primary z-10" data-drawer-target="review-drawer-swipe" data-drawer-show="review-drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="review-drawer-swipe" data-drawer-body-scrolling="true">
+                                            <button class="btn md:hidden w-1/2 fixed bottom-16 left-1/2 transform -translate-x-1/2 rounded-full border-secondary bg-primary hover:bg-primary z-10" data-drawer-target="review-drawer-swipe" data-drawer-show="review-drawer-swipe" data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]" data-drawer-backdrop="true" aria-controls="review-drawer-swipe" data-drawer-body-scrolling="true">
                                                 <i class="ph-bold ph-list-magnifying-glass fa-2xl text-primary-hover"></i>
                                                 <span class="text-[12px] text-secondary dark:text-gray-400 group-hover:text-neutral">絞り込み</span>
                                             </button>
