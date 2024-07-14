@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'spots/list', to: 'spots#list'
   get 'reviews/search', to: 'reviews#search'
   get 'proxy_image', to: 'spots#proxy_image'
+  get '/sitemap', to: redirect("https://s3-ap-northeast-1.amazonaws.com/#{ENV['BUCKET_NAME']}/sitemaps/sitemap.xml.gz")
   resources :spots, only: %i[index show] do
     get 'tag_filter/:tag_id', to: 'spots#index', as: :tag_filter_reviews
     resources :reviews, only: %i[new create show edit update destroy]

@@ -40,3 +40,6 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+# Ignore sitemap file
+/public/sitemap.xml.gz
