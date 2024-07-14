@@ -56,9 +56,9 @@
                                         </span>
                                     </div>
                                     <ul tabindex="0" class="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 shadow-lg text-neutral" data-sort-target="sortOptions" data-action="click->sort#updateSortLabel">
-                                        <li><%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %></li>
-                                        <li><%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %></li>
-                                        <li><%= sort_link(@q_spots, :created_at, "標準", { default_order: :asc }) %></li>
+                                        <li class="w-full hover:bg-primary"><%= sort_link(@q_spots, :rating, "高評価", { default_order: :desc }) %></li>
+                                        <li class="w-full hover:bg-primary"><%= sort_link(@q_spots, :created_at, "新着順", { default_order: :desc }) %></li>
+                                        <li class="w-full hover:bg-primary"><%= sort_link(@q_spots, :created_at, "標準", { default_order: :asc }) %></li>
                                     </ul>
                                 </div>
                                 <button class="hidden md:btn bg-white w-12 h-9 border-none md:rounded-full items-center shadow-lg" onclick="my_modal_2.showModal()"><i class="ph-bold ph-question fa-2xl text-primary-hover"></i></button>
@@ -98,9 +98,9 @@
                                     data-sort-target="sortOptions"
                                     data-action="click->sort#updateSortLabel"
                                     >
-                                        <li><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li>
-                                        <li><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
-                                        <li><%= sort_link(@q_spots, 'created_at asc', '標準', { default_order: :asc }) %></li>
+                                        <li class="w-full hover:bg-primary-hover"><%= sort_link(@q_spots, 'rating', '高評価', { default_order: :desc }) %></li>
+                                        <li class="w-full hover:bg-primary-hover"><%= sort_link(@q_spots, 'created_at desc', '新着順', { default_order: :desc }) %></li>
+                                        <li class="w-full hover:bg-primary-hover"><%= sort_link(@q_spots, 'created_at asc', '標準', { default_order: :asc }) %></li>
                                     </ul>
                                 </div>
 
