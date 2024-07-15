@@ -124,16 +124,19 @@ class ReviewsController < ApplicationController
     @user = review.user if review.present?
     @review = Review.find(params[:id])
     @reviews = @user.reviews.includes(:spot)
-    # 最初の画像ファイル名を取得
-    first_image_file_name = @review.images.first
+    
+    if @review.images.present?
+      # 最初の画像ファイル名を取得
+      first_image_file_name = @review.images.first
 
-  # 最初の画像ファイル名を取得
-  first_image_file_name = @review.images.first.identifier
-  # アップローダーインスタンスを作成し、最初の画像ファイルをストレージから取得
-  image_uploader = ImageUploader.new(@review, :images)
-  image_uploader.retrieve_from_store!(first_image_file_name)
-  # OGPバージョンのURLを取得
-  @first_ogp_image_url = image_uploader.ogp.url
+      # 最初の画像ファイル名を取得
+      first_image_file_name = @review.images.first.identifier
+      # アップローダーインスタンスを作成し、最初の画像ファイルをストレージから取得
+      image_uploader = ImageUploader.new(@review, :images)
+      image_uploader.retrieve_from_store!(first_image_file_name)
+      # OGPバージョンのURLを取得
+      @first_ogp_image_url = image_uploader.ogp.url
+    end
   end
 
   private
