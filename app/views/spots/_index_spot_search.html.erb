@@ -12,13 +12,13 @@
         </div>
         <div class="text-secondary flex-col items-center md:space-y-4">
             <div class="flex space-x-4 md:space-x-0 md:flex-col pt-4 pl-2 mb-4 md:mb-0">
-                <div class='label-select flex h-full text-sm space-x-2 items-center'>
+                <div class='label-select flex h-full md:text-sm text-xs space-x-2 items-center'>
                     <%= f.check_box :foster_parents_eq, { include_hidden: false, class: 'search-select text-sm checkbox checkbox-sm checkbox-secondary [--chkbg:theme(colors.secondary)] [--chkfg:white]' }, 1, nil %>
-                    <%= f.label :foster_parents_eq, '里親募集あり', class: 'label text-sm font-semibold' %>
+                    <%= f.label :foster_parents_eq, '里親募集あり', class: 'label font-semibold' %>
                 </div>
                 <div class='label-select flex h-full text-sm space-x-2 items-center'>
                     <%= f.check_box :adoption_event_eq, { include_hidden: false, class: 'search-select text-sm checkbox checkbox-sm checkbox-secondary [--chkbg:theme(colors.secondary)] [--chkfg:white]' }, 1, nil %>
-                    <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label text-sm font-semibold' %>
+                    <%= f.label :adoption_event_eq, '譲渡会開催あり', class: 'label font-semibold' %>
                 </div>
             </div>
             <div class="flex md:flex-col md:space-y-3 md:space-x-0 space-x-4 mb-4">
