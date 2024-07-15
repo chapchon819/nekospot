@@ -1,6 +1,8 @@
 class Spot < ApplicationRecord
+  require 'open-uri'
   require 'mini_magick'
-  mount_uploader :processed_image, ProcessedImageUploader
+  mount_uploader :ogp_image, ProcessedImageUploader
+  before_save :generate_ogp_image, if: :should_generate_ogp_image?
   
   acts_as_mappable default_units: :kms,
                    default_formula: :sphere,
@@ -51,26 +53,38 @@ class Spot < ApplicationRecord
   end
 
   def process_image(image_url)
-    image = MiniMagick::Image.open(image_url)
-    image.resize "1200x630"
-    image.format "png"
-    
-    # 一時ファイルとして保存
+    # URLから画像を取得
     temp_file = Tempfile.new(['processed_image', '.png'], encoding: 'ascii-8bit')
+    URI.open(image_url) do |image|
+      temp_file.binmode
+      temp_file.write(image.read)
+      temp_file.rewind
+    end
+  
+    # MiniMagickを使用して画像を加工
+    image = MiniMagick::Image.open(temp_file.path)
+    image.resize "1200x630"
+    image.format "webp"
     image.write(temp_file.path)
-
+  
     # CarrierWave::SanitizedFileオブジェクトを作成
     sanitized_file = CarrierWave::SanitizedFile.new(temp_file)
-
-    # Uploaderに保存
+  
+    # Uploaderを使用して画像を保存
     uploader = ProcessedImageUploader.new(self)
     uploader.store!(sanitized_file)
-    
+
+    # `ogp_image` カラムを更新
+    self.ogp_image = uploader.file
+  
     # 一時ファイルを閉じて削除
     temp_file.close
     temp_file.unlink
-    
-    # OGPバージョンのURLを返す
+
+    # デバッグメッセージ
+    puts "Uploader URL: #{uploader.url(:ogp)}"
+  
+    # 加工された画像のURLを返す
     uploader.url(:ogp)
   end
 
@@ -86,4 +100,20 @@ class Spot < ApplicationRecord
     ["category", "prefecture", "spot_images"]
   end
 
+  private
+
+  def default_image_url
+    ActionController::Base.helpers.asset_path('default.webp')
+  end
+
+  def generate_ogp_image
+    if prioritized_spot_image.present?
+      proxy_image_url = Rails.application.routes.url_helpers.proxy_image_url(photo_reference: prioritized_spot_image.image, host: Rails.env.production? ? 'https://nekospot.jp' : 'http://localhost:3000')
+      self.ogp_image = process_image(proxy_image_url)
+    end
+  end
+
+  def should_generate_ogp_image?
+    ogp_image.blank? || prioritized_spot_image.image_changed?
+  end
 end

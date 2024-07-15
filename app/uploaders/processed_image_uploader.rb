@@ -26,7 +26,7 @@ class ProcessedImageUploader < CarrierWave::Uploader::Base
   # end
   version :ogp do
     process resize_to_fill: [1200, 630] # OGP推奨サイズ
-    process convert: 'png'
+    process convert: 'webp'
   end
   # Process files as they are uploaded:
   # process scale: [200, 300]
@@ -43,12 +43,12 @@ class ProcessedImageUploader < CarrierWave::Uploader::Base
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w(jpg jpeg gif png webp)
   end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "processed_image_#{model.id}.png" if original_filename
+    "processed_image_#{model.id}.webp" if original_filename
   end
 end
