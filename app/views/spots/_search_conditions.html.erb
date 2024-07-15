@@ -1,14 +1,14 @@
 <div role="alert" class="alert shadow-md w-11/12 border-gray-100 mb-8 bg-white max-[600px]:flex max-[600px]:justify-between">
-<div>
-<i class="ph-bold ph-magnifying-glass fa-lg text-accent"></i>
-</div>
-<div class="max-[600px]:text-left">
-    <h3 class="font-bold text-neutral">現在の絞り込み条件</h3>
-    <div class="text-sm text-secondary">
-        <%= search_conditions(params) %>
+    <div>
+        <i class="ph-bold ph-magnifying-glass fa-lg text-accent"></i>
     </div>
-</div>
-<div>
-    <%= link_to "解除", map_spots_path, data: { turbo: false }, class: "btn rounded-lg text-secondary bg-primary border-secondary flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" %>
-</div>
+    <div class="max-[600px]:text-left">
+        <h3 class="font-bold text-neutral">現在の絞り込み条件</h3>
+        <div class="text-sm text-secondary">
+            <%= search_conditions(params) %>
+        </div>
+    </div>
+    <div>
+        <%= link_to "解除", map_spots_path, data: { turbo: false }, class: "btn rounded-lg text-secondary bg-primary border-secondary flex items-center p-3 md:text-sm text-xs capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" %>
+    </div>
 </div>
