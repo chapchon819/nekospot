@@ -106,6 +106,7 @@ class SpotsController < ApplicationController
     @all_reviews_count = @spot.reviews.count
     @average_rating = @spot.reviews.average(:rating).to_f
     @prioritized_image = @spot.prioritized_spot_image # 優先的に表示する画像を取得
+    @image_url = @spot.process_image(spot_image_proxy_url(@prioritized_image.image))
   end
 
   def search

@@ -4,17 +4,17 @@
             data-review-modal-target="backGround"
             data-spot-id="<%= @spot.id %>" 
             data-action="click->review-modal#closeBackground">
-    <div class="modal-content relative bg-white rounded-xl shadow-lg py-4 px-8 flex flex-col justify-center w-screen md:w-80 h-[550px]" data-review-modal-target="reviewModal">
+    <div class="modal-content relative bg-white rounded-xl shadow-lg py-4 md:mt-16 flex flex-col justify-center w-screen md:w-80 h-[550px]" data-review-modal-target="reviewModal">
       <div class="absolute top-3 right-4">
           <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
       </div>
-      <div class=" mx-auto w-full">
+      <div class=" mx-auto w-full h-full overflow-y-auto px-8 pb-8">
         <%= form_with model: [@spot, @review], 
                         url: spot_review_path(@spot, @review),
                         data: { action: "turbo:submit-start->review-modal#showLoadingSpinner turbo:submit-end->review-modal#hideLoadingSpinner turbo:submit-end->review-modal#close" },
                         html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
-          <div class="relative md:mb-4 mb-2.5 flex flex-col w-full">
+          <div class="relative mb-4 flex flex-col w-full">
             <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
             <div class="rating rating-lg">
               <%= f.radio_button :rating, 0, class: "hidden mask mask-star-2 bg-yellow-400", checked: @review.rating == 0 %>
@@ -25,7 +25,7 @@
               <%= f.radio_button :rating, 5, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 5 %>
             </div>
           </div>
-          <div class="relative mb-2.5 md:mb-4 flex flex-col w-full">
+          <div class="relative mb-4 flex flex-col w-full">
             <% if @review.images.present? %>
               <%= f.label :images, "投稿済の画像", class: "text-sm text-secondary mb-2" %>
               <div class="flex justify-start items-center gap-4">
@@ -42,16 +42,19 @@
             <%= f.file_field :images, multiple: true %>
           </div>
           <%= f.hidden_field :remove_image_at, value: "", data: { review_modal_target: "removeImageInput" } %>
-          <div class="mb-2.5 md:mb-4 flex flex-col w-full">
+          <div class="mb-4 flex flex-col w-full">
             <%= f.label :body, "コメント", class: "mb-1 text-sm text-secondary" %>
             <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-16 md:h-24 text-gray-900 text-sm rounded-lg" %>
           </div>
-          <div class="mb-2.5 md:mb-4 flex flex-col w-full">
+          <div class="mb-4 flex flex-col w-full">
             <%= f.label :tag_ids, "タグ", class: "mb-1 text-sm text-secondary" %>
             <%= text_field_tag 'review[tag_ids][]', @tag_list, autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
           </div>
-          <div class="mb-16 md:mb-4">
-            <%= f.submit "口コミを更新する", class: "bg-accent text-sm text-white px-4 py-2 rounded-full flex mx-auto items-center justify-center w-full" %>
+          <div class="mb-20 md:mb-8">
+            <%= f.submit '口コミを投稿する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
+              <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+              <span class="relative"></span>
+            <% end %>
           </div>
         <% end %>
       </div>

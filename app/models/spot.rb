@@ -1,5 +1,6 @@
 class Spot < ApplicationRecord
   require 'mini_magick'
+  mount_uploader :processed_image, ProcessedImageUploader
   
   acts_as_mappable default_units: :kms,
                    default_formula: :sphere,
@@ -49,13 +50,28 @@ class Spot < ApplicationRecord
     spot_images.find_by(cat: true) || spot_images.first
   end
 
-  def processed_image_url(image_url)
+  def process_image(image_url)
     image = MiniMagick::Image.open(image_url)
     image.resize "1200x630"
     image.format "png"
-    processed_image_path = Rails.root.join("public", "uploads", "processed_image_#{id}.png")
-    image.write(processed_image_path)
-    "/uploads/processed_image_#{id}.png"
+    
+    # 一時ファイルとして保存
+    temp_file = Tempfile.new(['processed_image', '.png'], encoding: 'ascii-8bit')
+    image.write(temp_file.path)
+
+    # CarrierWave::SanitizedFileオブジェクトを作成
+    sanitized_file = CarrierWave::SanitizedFile.new(temp_file)
+
+    # Uploaderに保存
+    uploader = ProcessedImageUploader.new(self)
+    uploader.store!(sanitized_file)
+    
+    # 一時ファイルを閉じて削除
+    temp_file.close
+    temp_file.unlink
+    
+    # OGPバージョンのURLを返す
+    uploader.url(:ogp)
   end
 
   # Geocoding setup
