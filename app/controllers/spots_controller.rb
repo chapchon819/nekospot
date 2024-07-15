@@ -106,7 +106,7 @@ class SpotsController < ApplicationController
     @all_reviews_count = @spot.reviews.count
     @average_rating = @spot.reviews.average(:rating).to_f
     @prioritized_image = @spot.prioritized_spot_image # 優先的に表示する画像を取得
-    @image_url = @spot.process_image(spot_image_proxy_url(@prioritized_image.image))
+    @image_url = @spot.ogp_image
   end
 
   def search
@@ -132,10 +132,12 @@ class SpotsController < ApplicationController
     url = "https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&photo_reference=#{photo_reference}&key=#{ENV['GMAP_API_KEY']}"
     
     begin
-      image_data = open(url).read
+      image_data = URI.open(url).read
       send_data image_data, type: 'image/jpeg', disposition: 'inline'
     rescue OpenURI::HTTPError => e
       render plain: "Image not found", status: :not_found
+    rescue => e
+      render plain: "An error occurred: #{e.message}", status: :internal_server_error
     end
   end
 
