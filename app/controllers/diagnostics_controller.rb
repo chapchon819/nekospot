@@ -136,6 +136,7 @@ class DiagnosticsController < ApplicationController
     def clear_scores #クッキーを削除
         cookies.delete(:scores)
         cookies.delete(:selected_answers)
+        cookies.delete(:recommend_spot)
         Rails.logger.debug "クッキー削除: scores=#{cookies[:scores]}, selected_answers=#{cookies[:selected_answers]}"
     end
 end
