@@ -224,6 +224,7 @@
     </div>
   </div>
 </div>
+<%= render "shared/spot_show_header" %>
 
 <% if user_signed_in? %>
   <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>

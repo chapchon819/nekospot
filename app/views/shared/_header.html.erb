@@ -44,9 +44,6 @@
     </div>
 </nav>
 
-<% if controller_name == 'spots' && action_name == 'show' %>
-    <%= render "shared/spot_show_header" %>
-<% else %>
 <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-primary-hover md:hidden">
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         <%= link_to map_spots_path, data: { turbo: false }, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
@@ -71,4 +68,3 @@
         <% end %>
     </div>
 </div>
-<% end %>
