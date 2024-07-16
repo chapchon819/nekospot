@@ -9,6 +9,9 @@
         </div>
     </div>
     <div>
-        <%= link_to "解除", map_spots_path, data: { turbo: false }, class: "btn rounded-lg text-secondary bg-primary border-secondary flex items-center p-3 md:text-sm text-xs capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" %>
+        <%= link_to map_spots_path, data: { turbo: false }, class: "btn rounded-lg text-secondary bg-primary border-secondary flex items-center md:p-3 md:text-sm text-xs capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+            <p class="hidden md:flex">解除</p>
+            <p class="md:hidden">解<br>除</p>
+        <% end %>
     </div>
 </div>
