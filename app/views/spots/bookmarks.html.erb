@@ -1,4 +1,7 @@
 <% content_for(:title, t('spots.bookmarks.title')) %>
+  <div id="flash">
+    <%= render 'layouts/flash_messages', flash: flash %>
+  </div>
 <div class="flex flex-col items-center justify-center w-full md:pt-24 md:bg-primary">
     <div class="md:w-11/12 w-full">
         <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">

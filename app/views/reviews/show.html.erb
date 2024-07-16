@@ -1,4 +1,7 @@
 <% assign_meta_tags title: @review.spot.name, image: @first_ogp_image_url %>
+<div id="flash">
+<%= render 'layouts/flash_messages', flash: flash %>
+</div>
 <nav class="md:hidden w-full h-12 ">
     <div class="navbar bg-primary text-secondary border-b border-primary-hover">
         <div class="flex-1 items-center mb-3">

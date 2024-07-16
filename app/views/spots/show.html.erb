@@ -1,8 +1,8 @@
 <% content_for(:title, @spot.name) %>
 <% assign_meta_tags title: @spot.name, image: @image_url %>
-<nav class="md:hidden w-full h-12 ">
-    <div class="navbar bg-primary text-secondary border-b border-primary-hover">
-        <div class="flex-1 items-center mb-3">
+<nav class="md:hidden w-full h-12 fixed top-0 z-10">
+    <div class="navbar bg-primary text-secondary border-b border-primary-hover items-center">
+        <div class="flex-1 items-center">
           <%= link_to "", class: "back-link", data: { turbo: false, excluded_paths: [user_line_omniauth_authorize_path, user_google_oauth2_omniauth_authorize_path].to_json } do %>
             <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
           <% end %>
@@ -10,8 +10,10 @@
     </div>
 </nav>
 
-<% flash.empty? ? flash_class = "md:mt-16" : flash_class = "" %>
-<div class="bg-primary relative md:pb-16 md:mb-0 mb-20 <%= flash_class %>" data-controller="login-modal">
+<div class="bg-primary relative mt-12 md:pb-16 md:mb-0 mb-20" data-controller="login-modal">
+  <div id="flash" class="mt-16">
+    <%= render 'layouts/flash_messages', flash: flash %>
+  </div>
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
     <% if @prioritized_image.present? %>
