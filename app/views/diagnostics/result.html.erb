@@ -1,4 +1,7 @@
 <% content_for(:title, t('diagnostics.result.title')) %>
+<div id="flash">
+    <%= render 'layouts/flash_messages', flash: flash %>
+</div>
 <div class="flex md:flex-col justify-center items-center w-screen h-screen bg-primary md:pt-52 pb-16">
     <div class="w-11/12 bg-white rounded-xl">
         <div class="my-8 flex-col items-center justify-center">

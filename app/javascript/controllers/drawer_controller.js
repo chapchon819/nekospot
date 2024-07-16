@@ -52,6 +52,29 @@ export default class extends Controller {
         this.hideBackdrop();
       });
     });
+
+    // Add touch events for swipe down to close
+    this.addSwipeListener(drawer);
+  }
+
+  addSwipeListener(drawer) {
+    let touchStartY = 0;
+
+    drawer.addEventListener('touchstart', (event) => {
+      touchStartY = event.touches[0].clientY;
+    });
+
+    drawer.addEventListener('touchmove', (event) => {
+      const touchEndY = event.touches[0].clientY;
+      if (touchStartY < touchEndY) {
+        // Swiping down
+        const touchDistance = touchEndY - touchStartY;
+        if (touchDistance > 100) { // Adjust this threshold as needed
+          drawer.classList.add('translate-y-full');
+          this.hideBackdrop();
+        }
+      }
+    });
   }
 
   showBackdrop() {

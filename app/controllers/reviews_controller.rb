@@ -9,19 +9,15 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
-    # フォームから送信されたタグの情報を取り出す。空の場合は[]を使う
-    tag_ids_param = params[:review][:tag_ids].first || "[]"
-    tag_list = if tag_ids_param.present?
-                  JSON.parse(tag_ids_param).map { |tag| tag["value"] }
-                else
-                  []
-                end
+    tag_list = extract_tag_list(params[:review][:tag_ids])
 
-    Rails.logger.debug "tag_list: #{tag_list.inspect}"
-    if @review.save
+    if tag_list.size > 5
+      @review.errors.add(:tags, "タグは5件までです。")
       reviews_data
+      render :new, status: :unprocessable_entity
+    elsif @review.save
       @review.save_tags(tag_list)
-      
+      reviews_data
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
         turbo_stream.prepend("reviews", partial: "reviews/review", locals: { review: @review }),
@@ -61,16 +57,15 @@ class ReviewsController < ApplicationController
         @review.remove_image_at_index(index.to_i)
       end
     end
-    # 投稿されたタグの情報を取り出す。空の場合は[]を使う
-    tag_ids_param = params[:review][:tag_ids].first || "[]"
-    tag_list = if tag_ids_param.present?
-                JSON.parse(tag_ids_param).map { |tag| tag["value"] }
-              else
-                []
-              end
+
+    tag_list = extract_tag_list(params[:review][:tag_ids])
 
     # 画像のバリデーションが成功し、レビューが保存できた場合
-    if @review.save
+    if tag_list.size > 5
+      @review.errors.add(:tags, "タグは5件までです。")
+      reviews_data
+      render :edit, status: :unprocessable_entity
+    elsif @review.save
       reviews_data #レビューに関連するデータを更新し
       @review.save_tags(tag_list) #タグを保存する。
       flash.now[:success] = "口コミを更新しました"
@@ -157,5 +152,9 @@ class ReviewsController < ApplicationController
     @reviews = @spot.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @average_rating = @spot.reviews.average(:rating).to_f
     @all_reviews_count = @spot.reviews.count
+  end
+
+  def extract_tag_list(tag_ids_param)
+    tag_ids_param.first.present? ? JSON.parse(tag_ids_param.first).map { |tag| tag["value"] } : []
   end
 end

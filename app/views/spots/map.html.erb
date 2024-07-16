@@ -1,4 +1,7 @@
 <% content_for(:title, t('spots.map.title')) %>
+  <div id="flash">
+    <%= render 'layouts/flash_messages', flash: flash %>
+  </div>
 <div class="hidden md:block md:ml-64 md:mt-4">
   <%= render 'layouts/flash_messages', flash: flash %>
 </div>
@@ -86,7 +89,7 @@
             </div>
           </div>
           <!-- infoCard -->
-          <div class="flex flex-col items-center justify-center md:my-8 md:bottom-0 w-full fixed bottom-14 md:static">
+          <div class="flex flex-col items-center justify-center md:my-8 md:bottom-0 w-full shadow-lg md:shadow-none fixed bottom-20 md:static">
             <% @spots.each do |spot| %>
               <%= link_to spot_path(spot), data: { turbo: false }, class: "w-11/12 rounded-xl infoCard-link" do %>
                 <div id="infoCard-<%= spot.id %>" class="hidden bg-white border rounded-xl shadow-sm flex mx-auto w-11/12 md:w-full absolute md:relative bottom-0 inset-x-0 z-10 md:mb-50 hover:shadow-lg group">
@@ -99,7 +102,7 @@
                   </div>
                   <div class="flex flex-wrap">
                     <div class="p-4 flex flex-col h-full md:p-7">
-                      <h3 id="spotName-<%= spot.id %>" class="md:text-lg px-2 font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-nowrap text-overflow-ellipsis break-words whitespace-pre-wrap"></h3>
+                      <h3 id="spotName-<%= spot.id %>" class="md:text-lg px-2 font-bold text-sm text-neutral font-zenmaru md:px-1.5 overflow-hidden w-full whitespace-pre-wrap pr-1 line-clamp-1"></h3>
                       <div class="justify-start flex md:space-x-4 space-x-2 mt-2">
                         <div class="inline-flex">
                           <p id="spotCategory-<%= spot.id %>" class="hidden md:block text-xs text-white py-1 px-2 rounded-full bg-accent dark:text-neutral-500"></p>

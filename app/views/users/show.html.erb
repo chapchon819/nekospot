@@ -1,4 +1,7 @@
 <% content_for(:title, t('users.show.title')) %>
+<div id="flash">
+    <%= render 'layouts/flash_messages', flash: flash %>
+</div>
 <div class="bg-primary md:pb-16 md:mb-0 mb-20">
     <div class="flex flex-col items-center justify-center w-full md:pt-20">
         <div class="md:w-11/12 w-full">

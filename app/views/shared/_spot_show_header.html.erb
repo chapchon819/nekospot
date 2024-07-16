@@ -1,4 +1,4 @@
-<div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-primary-hover md:hidden" data-controller="modal login-modal">
+<div class="fixed bottom-16 left-0 z-30 w-full h-16 bg-white border-primary-hover md:hidden" data-controller="modal login-modal">
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         <% if user_signed_in? %>
         <%= link_to new_spot_review_path(@spot), class: "btn text-white text-[16px] ml-4 drop-shadow-md my-2 inline-flex flex-col col-span-4 items-center justify-center px-4 rounded-md bg-accent hover:bg-accent-hover hover:shadow-lg", data: { turbo_frame: 'review_modal' } do %>

@@ -44,31 +44,27 @@
     </div>
 </nav>
 
-<% if controller_name == 'spots' && action_name == 'show' %>
-    <%= render "shared/spot_show_header" %>
-<% else %>
-<div class="fixed bottom-0 left-0 z-50 w-full h-12 bg-primary border-t border-primary-hover md:hidden">
+<div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-primary border-t border-primary-hover md:hidden">
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         <%= link_to map_spots_path, data: { turbo: false }, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-            <i class="ph ph-magnifying-glass fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <i class="ph-bold ph-magnifying-glass fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">検索</span>
         <% end %>
         <%= link_to spots_path, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-            <i class="ph ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <i class="ph-bold ph-list-dashes fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">一覧</span>
         <% end %>
         <%= link_to start_diagnostics_path, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-        <i class="ph ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+        <i class="ph-fill ph-paw-print fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary group-hover:text-neutral">診断</span>
         <% end %>
         <%= link_to bookmarks_spots_path, method: :get, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 group" do %>
-            <i class="ph ph-heart fa-lg w-6 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <i class="ph-bold ph-heart fa-lg w-6 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">保存/訪問済</span>
         <% end %>
         <%= link_to users_show_path(current_user), method: :get, class: "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group" do %>
-            <i class="ph ph-user-circle fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+            <i class="ph-bold ph-user-circle fa-lg w-5 h-4 mt-2 text-secondary group-hover:text-neutral" aria-hidden="true"></i>
             <span class="text-[9px] text-secondary dark:text-gray-400 group-hover:text-neutral">Myページ</span>
         <% end %>
     </div>
 </div>
-<% end %>
