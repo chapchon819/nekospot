@@ -43,7 +43,8 @@
                             <%= render 'spots/index_spot_search' %>
                         </div>
                         <div class="md:col-span-3">
-                            <div class="flex justify-end items-center" data-controller="drawer">
+                            <%= turbo_frame_tag "spots-list" do %>
+                                                            <div class="flex justify-end items-center" data-controller="drawer">
                                 <div class="dropdown dropdown-end" data-controller="sort">
                                     <div tabindex="0" role="button" class="hidden md:btn m-1 bg-white border-none md:rounded-full items-center shadow-lg" data-sort-target="sortButton" data-current-sort="<%= @current_sort %>">
                                         <i class="ph-bold ph-arrows-down-up fa-2xl text-primary-hover"></i>
@@ -70,7 +71,6 @@
                                     </form>
                                 </dialog>
                             </div>
-                            <%= turbo_frame_tag "spots-list" do %>
                                 <div class="md:hidden" data-controller="dropdown">
                                     <div class="join bg-primary rounded-full shadow-lg fixed bottom-20 left-[calc(50%-30px)] transform -translate-x-1/2 z-10" data-controller="sort">
                                         <button tabindex="0" class="btn join-item border-none" data-action="dropdown#toggle click@window->dropdown#hide" data-sort-target="sortButton" data-current-sort="<%= @current_sort %>">
@@ -113,8 +113,8 @@
                                     </div>
                                     <%= render 'spots/index_spot_search' %>
                                 </div>
-                                <% if params[:q].present? && params[:q][:s].blank? %>
-                                    <div class="flex justify-start items-center md:px-8 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
+                                <% if params[:q].present? && has_search_conditions?(params) %>
+                                    <div class="flex justify-start items-center md:px-8 mt-4 max-[600px]:w-full max-[600px]:border-b-2 md:mt-8">
                                         <div class="text-sm text-secondary">
                                             <p class="text-lg"><span class="text-neutral text-xl font-semibold"><%= @spots_count %>件</span>&ensp;「<%= search_conditions(params) %>」の検索結果</p>
                                         </div>

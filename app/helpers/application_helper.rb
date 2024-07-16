@@ -103,7 +103,7 @@ module ApplicationHelper
       }
     
       # 特定のキーを除外するためのセット
-      excluded_keys = ["name", "address"]
+      excluded_keys = ["name", "address", "s"]
     
       conditions = params[:q].to_unsafe_h.map do |key, value|
         next if value.blank? || excluded_keys.include?(key)
@@ -126,6 +126,12 @@ module ApplicationHelper
       end.compact
     
       conditions.join(', ')
+    end
+
+    def has_search_conditions?(params)
+      return false if params[:q].blank?
+    
+      params[:q].to_unsafe_h.any? { |key, value| key != 's' && value.present? }
     end
 
     def page_title(title = '')
