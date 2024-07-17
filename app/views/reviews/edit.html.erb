@@ -4,14 +4,14 @@
             data-review-modal-target="backGround"
             data-spot-id="<%= @spot.id %>" 
             data-action="click->review-modal#closeBackground">
-    <div class="modal-content relative bg-white rounded-xl shadow-lg py-4 md:mt-16 flex flex-col justify-center w-screen w-80 h-[550px]" data-review-modal-target="reviewModal">
+    <div class="modal-content relative bg-white rounded-xl shadow-lg py-4 md:mt-16 flex flex-col justify-center w-80 h-[550px]" data-review-modal-target="reviewModal">
       <div class="absolute top-3 right-4">
           <i class="ph ph-x h-6 w-6 text-secondary" data-action="click->review-modal#closeModal"></i>
       </div>
-      <div class=" mx-auto w-full h-full overflow-y-auto px-8 pb-8">
+      <div class=" mx-auto w-full h-full overflow-y-auto px-8 pb-8" data-controller="upload">
         <%= form_with model: [@spot, @review], 
                         url: spot_review_path(@spot, @review),
-                        data: { action: "turbo:submit-start->review-modal#showLoadingSpinner turbo:submit-end->review-modal#hideLoadingSpinner turbo:submit-end->review-modal#close" },
+                        data: { action: "turbo:submit-start->review-modal#showLoadingSpinner turbo:submit-end->review-modal#hideLoadingSpinner turbo:submit-end->review-modal#close", upload_target: "form" },
                         html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <div class="relative mb-4 flex flex-col w-full">
@@ -39,7 +39,8 @@
                 <% end %>
               </div>
             <% end %>
-            <%= f.file_field :images, multiple: true %>
+            <%= f.file_field :images, multiple: true, data: { target: "upload.input" } %>
+            <div data-upload-target="hiddenFields"></div>
           </div>
           <%= f.hidden_field :remove_image_at, value: "", data: { review_modal_target: "removeImageInput" } %>
           <div class="mb-4 flex flex-col w-full">
@@ -51,7 +52,7 @@
             <%= text_field_tag 'review[tag_ids][]', @tag_list, autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
           </div>
           <div class="mb-20 md:mb-8">
-            <%= f.submit '口コミを投稿する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white' do %>
+            <%= f.submit '口コミを投稿する', class: 'font-semibold text-sm rounded-md relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-accent active:shadow-none shadow-lg bg-gradient-to-tr from-accent to-accent-active border-accent-hover text-white', data: { action: "click->upload#uploadFile" } do %>
               <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
               <span class="relative"></span>
             <% end %>

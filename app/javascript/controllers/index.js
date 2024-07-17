@@ -7,9 +7,6 @@ import { application } from "./application"
 import Dropdown from '@stimulus-components/dropdown'
 application.register('dropdown', Dropdown)
 
-import RadioTagsController from "./radio_tags_controller"
-application.register("radio-tags", RadioTagsController)
-
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
@@ -28,6 +25,9 @@ application.register("image-modal", ImageModalController)
 import LoginModalController from "./login_modal_controller"
 application.register("login-modal", LoginModalController)
 
+import RadioTagsController from "./radio_tags_controller"
+application.register("radio-tags", RadioTagsController)
+
 import ReviewModalController from "./review_modal_controller"
 application.register("review-modal", ReviewModalController)
 
@@ -42,3 +42,6 @@ application.register("sort", SortController)
 
 import TagsController from "./tags_controller"
 application.register("tags", TagsController)
+
+import UploadController from "./upload_controller"
+application.register("upload", UploadController)

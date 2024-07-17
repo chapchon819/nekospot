@@ -1,3 +1,5 @@
+require 'aws-sdk-s3'
+
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_spot, only: [:new, :create, :edit, :update, :destroy]
@@ -10,6 +12,10 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     tag_list = extract_tag_list(params[:review][:tag_ids])
+    uploaded_images = params[:review][:uploaded_images]
+
+    Rails.logger.debug "Review params: #{review_params.inspect}"
+    Rails.logger.debug "Uploaded images: #{uploaded_images.inspect}"
 
     if tag_list.size > 5
       @review.errors.add(:tags, "タグは5件までです。")
@@ -17,6 +23,7 @@ class ReviewsController < ApplicationController
       render :new, status: :unprocessable_entity
     elsif @review.save
       @review.save_tags(tag_list)
+      save_uploaded_images(@review, uploaded_images) if uploaded_images.present?
       reviews_data
       flash.now[:success] = "口コミを投稿しました"
       render turbo_stream: [
@@ -59,6 +66,7 @@ class ReviewsController < ApplicationController
     end
 
     tag_list = extract_tag_list(params[:review][:tag_ids])
+    uploaded_images = params[:review][:uploaded_images]
 
     # 画像のバリデーションが成功し、レビューが保存できた場合
     if tag_list.size > 5
@@ -68,6 +76,7 @@ class ReviewsController < ApplicationController
     elsif @review.save
       reviews_data #レビューに関連するデータを更新し
       @review.save_tags(tag_list) #タグを保存する。
+      save_uploaded_images(@review, uploaded_images) if uploaded_images.present?
       flash.now[:success] = "口コミを更新しました"
       render turbo_stream: [
         turbo_stream.replace(@review),
@@ -134,7 +143,55 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def presigned_post
+    begin
+      # 環境変数の値をログに出力
+      logger.info "AWS_ACCESS_KEY_ID: #{ENV['AWS_KEY_ID']}"
+      logger.info "AWS_SECRET_ACCESS_KEY: #{ENV['AWS_SECLET_KEY']}"
+  
+      # デバッグ用の詳細ログ
+      logger.info "Received params: #{params.inspect}"
+  
+      credentials = Aws::Credentials.new(
+        ENV['AWS_KEY_ID'],
+        ENV['AWS_SECLET_KEY']
+      )
+      s3_client = Aws::S3::Client.new(
+        region: 'ap-northeast-1',
+        credentials: credentials
+      )
+  
+      signer = Aws::S3::Presigner.new(client: s3_client)
+      bucket = 'nekospot'
+      key = "uploads/#{SecureRandom.uuid}/#{params[:filename]}"
+  
+      # デバッグ用の詳細ログ
+      logger.info "Generated S3 key: #{key}"
+  
+      presigned_url = signer.presigned_url(
+        :put_object,
+        bucket: bucket,
+        key: key,
+        acl: 'public-read',
+        content_type: params[:content_type]
+      )
+  
+      # デバッグ用の詳細ログ
+      logger.info "Generated presigned URL: #{presigned_url}"
+  
+      render json: { url: presigned_url, fields: { key: key, acl: 'public-read', content_type: params[:content_type] } }
+    rescue => e
+      logger.error "Presigned URLの生成に失敗しました: #{e.message}"
+      render json: { error: 'Presigned URLの生成に失敗しました' }, status: :internal_server_error
+    end
+  end
+
   private
+
+  def save_uploaded_images(review, uploaded_images)
+    existing_images = review.images || []
+    review.update(images: existing_images + uploaded_images)
+  end
 
   def review_params
     params.require(:review).permit(:rating, :body, { images: [] }, :images_cache).merge(spot_id: params[:spot_id])

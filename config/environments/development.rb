@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require 'aws-sdk-s3'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -74,4 +75,8 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
   Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+  Aws.config.update({
+  region: 'ap-northeast-1',
+  credentials: Aws::Credentials.new(ENV['AWS_KEY_ID'], ENV['AWS_SECRET_KEY'])
+})
 end
