@@ -41,6 +41,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     "#{super.chomp(File.extname(super))}.webp" if original_filename.present?
   end
 
+  def fog_attributes
+    { 'Cache-Control' => "max-age=#{365.day.to_i}", 'x-amz-acl' => 'public-read' }
+  end
+
   def validate_max_files(files, max_files = 3)
     if files.size > max_files
       raise CarrierWave::IntegrityError, "画像は最高#{max_files} 枚まで投稿できます。"

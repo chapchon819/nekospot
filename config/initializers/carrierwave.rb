@@ -13,4 +13,5 @@ CarrierWave.configure do |config|
         region: 'ap-northeast-1', # リージョン
         path_style: true
     }
+    config.fog_public = true
 end 
