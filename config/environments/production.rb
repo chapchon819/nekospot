@@ -95,4 +95,8 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   Rails.application.routes.default_url_options[:host] = 'https://nekospot.jp'
+  Aws.config.update({
+    region: 'ap-northeast-1',
+    credentials: Aws::Credentials.new(ENV['AWS_KEY_ID'], ENV['AWS_SECRET_KEY'])
+  })
 end

@@ -145,13 +145,12 @@ class ReviewsController < ApplicationController
 
   def presigned_post
     begin
-      # 環境変数の値をログに出力
       logger.info "AWS_ACCESS_KEY_ID: #{ENV['AWS_KEY_ID']}"
       logger.info "AWS_SECRET_ACCESS_KEY: #{ENV['AWS_SECLET_KEY']}"
   
-      # デバッグ用の詳細ログ
       logger.info "Received params: #{params.inspect}"
   
+      start_time = Time.now
       credentials = Aws::Credentials.new(
         ENV['AWS_KEY_ID'],
         ENV['AWS_SECLET_KEY']
@@ -160,12 +159,12 @@ class ReviewsController < ApplicationController
         region: 'ap-northeast-1',
         credentials: credentials
       )
+      logger.info "S3 client created in #{Time.now - start_time} seconds"
   
       signer = Aws::S3::Presigner.new(client: s3_client)
       bucket = 'nekospot'
       key = "uploads/#{SecureRandom.uuid}/#{params[:filename]}"
   
-      # デバッグ用の詳細ログ
       logger.info "Generated S3 key: #{key}"
   
       presigned_url = signer.presigned_url(
@@ -175,9 +174,7 @@ class ReviewsController < ApplicationController
         acl: 'public-read',
         content_type: params[:content_type]
       )
-  
-      # デバッグ用の詳細ログ
-      logger.info "Generated presigned URL: #{presigned_url}"
+      logger.info "Presigned URL generated in #{Time.now - start_time} seconds"
   
       render json: { url: presigned_url, fields: { key: key, acl: 'public-read', content_type: params[:content_type] } }
     rescue => e
