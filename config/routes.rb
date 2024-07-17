@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
     get '/users/auth/failure' => 'omniauth_callbacks#failure'
   end
+  post 'presigned_post', to: 'reviews#presigned_post'
   get 'spot_images/:photo_reference', to: 'spot_images#show', as: 'spot_image_proxy'
   get 'static_pages/index'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
