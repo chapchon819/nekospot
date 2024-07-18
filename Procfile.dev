@@ -1,4 +1,4 @@
 js: yarn build --watch
 css: yarn build:css --watch
-web: bundle exec puma -C config/puma.rb
-worker: worker: bundle exec sidekiq -C config/sidekiq.yml
+web: bin/rails server -p ${PORT:-5000} -e $RAILS_ENV
+worker: bundle exec sidekiq
