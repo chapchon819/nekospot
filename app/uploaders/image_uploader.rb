@@ -1,6 +1,5 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  include ::CarrierWave::Backgrounder::Delay
 
   if Rails.env.production?
     storage :fog
@@ -32,6 +31,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def convert_to_webp
     manipulate! do |img|
+      Rails.logger.debug "Converting to webp: #{img.path}"
       img.format 'webp'
       img
     end
@@ -39,10 +39,6 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def filename
     "#{super.chomp(File.extname(super))}.webp" if original_filename.present?
-  end
-
-  def fog_attributes
-    { 'Cache-Control' => "max-age=#{365.day.to_i}", 'x-amz-acl' => 'public-read' }
   end
 
   def validate_max_files(files, max_files = 3)
