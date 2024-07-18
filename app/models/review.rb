@@ -6,7 +6,9 @@ class Review < ApplicationRecord
   has_many :tags, through: :review_tags
   attr_accessor :images_cache, :tag_names
   mount_uploaders :images, ImageUploader
-  process_in_background :images
+  after_commit :enqueue_image_processing, on: :create
+
+
 
 
   validates :rating, presence: true, numericality: { in: 1..5, message: "を入力してください" }
@@ -14,6 +16,12 @@ class Review < ApplicationRecord
   validate :validate_image_count
   validate :validate_tag_count
   #validate :validate_images
+
+  after_save :log_review_save
+
+  def log_review_save
+    Rails.logger.debug "Review saved with images: #{images.inspect}"
+  end
 
   # 画像削除を処理するメソッド
   def remove_image_at_index(index)
@@ -63,6 +71,10 @@ class Review < ApplicationRecord
     if tags.size > 5
       errors.add(:tags, "タグは5件までです。")
     end
+  end
+
+  def enqueue_image_processing
+    ProcessImageJob.perform_async(self.id)
   end
 
 =begin %>
