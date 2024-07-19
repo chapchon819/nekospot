@@ -1,6 +1,14 @@
 build:
   docker:
     web: Dockerfile
+
 run:
-  web: bundle exec puma -C config/puma.rb
-  worker: bundle exec sidekiq
+  web:
+    command:
+      - bundle exec rails server -p $PORT -e $RAILS_ENV
+    image: registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+
+  worker:
+    command:
+      - bundle exec sidekiq
+    image: registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/worker
