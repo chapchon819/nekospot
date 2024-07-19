@@ -15,7 +15,7 @@
                         html: { class: "mx-auto flex flex-col items-center justify-center space-y-8" } do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <div class="relative mb-4 flex flex-col w-full">
-            <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
+            <%= f.label :rating, "評価(必須)", class: "font-semibold text-sm text-secondary mb-2" %>
             <div class="rating rating-lg">
               <%= f.radio_button :rating, 0, class: "hidden mask mask-star-2 bg-yellow-400", checked: @review.rating == 0 %>
               <%= f.radio_button :rating, 1, class: "mask mask-star-2 bg-yellow-400", checked: @review.rating == 1 %>
@@ -27,7 +27,7 @@
           </div>
           <div class="relative mb-4 flex flex-col w-full">
             <% if @review.images.present? %>
-              <%= f.label :images, "投稿済の画像", class: "text-sm text-secondary mb-2" %>
+              <%= f.label :images, "投稿済の画像", class: "font-semibold text-sm text-secondary mb-2" %>
               <div class="flex justify-start items-center gap-4">
                 <% @review.images.each_with_index do |image, index| %>
                   <div class="flex flex-col items-center mb-2" id="image-<%= index %>">
@@ -43,11 +43,11 @@
           </div>
           <%= f.hidden_field :remove_image_at, value: "", data: { review_modal_target: "removeImageInput" } %>
           <div class="mb-4 flex flex-col w-full">
-            <%= f.label :body, "コメント", class: "mb-1 text-sm text-secondary" %>
+            <%= f.label :body, "コメント", class: "mb-1 text-sm text-secondary font-semibold" %>
             <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-16 md:h-24 text-gray-900 text-sm rounded-lg" %>
           </div>
           <div class="mb-4 flex flex-col w-full">
-            <%= f.label :tag_ids, "タグ", class: "mb-1 text-sm text-secondary" %>
+            <%= f.label :tag_ids, "タグ", class: "mb-1 text-sm text-secondary font-semibold" %>
             <%= text_field_tag 'review[tag_ids][]', @tag_list, autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
           </div>
           <div class="mb-20 md:mb-8">

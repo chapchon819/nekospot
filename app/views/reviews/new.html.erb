@@ -11,7 +11,7 @@
                                 html: { class: "mx-auto flex flex-col items-center justify-center space-y-4" } do |f| %>
                     <%= render 'shared/error_messages', object: f.object %>
                     <div class="relative mb-4 flex flex-col w-full">
-                        <%= f.label :rating, "評価(必須)", class: "text-sm text-secondary mb-2" %>
+                        <%= f.label :rating, "評価(必須)", class: "text-sm font-semibold text-secondary mb-2" %>
                         <div class="rating rating-lg">
                             <input type="radio" name="review[rating]" value="0" class="hidden mask mask-star-2 bg-yellow-400" checked/>
                             <input type="radio" name="review[rating]" value="1" class="mask mask-star-2 bg-yellow-400"/>
@@ -22,16 +22,16 @@
                         </div>
                     </div>
                     <div class="relative mb-4 flex flex-col w-full text-secondary">
-                        <p class="text-sm py-2">画像(３枚まで)</p>
+                        <p class="text-sm py-2 font-semibold">画像(３枚まで)</p>
                         <%= f.file_field :images, multiple: true, class: "block w-full text-xs text-secondary border border-gray-300 rounded-r-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
                         <%= f.hidden_field :images_cache %>
                     </div>
                     <div class="relative mb-4 flex flex-col w-full">
-                        <%= f.label :body, "コメント", class: "mb-2 text-sm text-secondary" %>
+                        <%= f.label :body, "コメント", class: "mb-2 text-sm font-semibold text-secondary" %>
                         <%= f.text_area :body, class: "bg-gray-50 border border-gray-300 h-24 text-gray-900 text-sm rounded-lg" %>
                     </div>
                     <div class="relative mb-4 flex flex-col w-full">
-                        <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary" %>
+                        <%= f.label :tag_ids, "タグ", class: "mb-2 text-sm text-secondary font-semibold" %>
                         <%= text_field_tag 'review[tag_ids][]', '', autofocus: true, data: { controller: "tags" }, multiple: true, id: 'tag_ids', placeholder: "Enterを押して区切ってください", class: "text-sm rounded-lg" %>
                     </div>
                     <div class="relative mb-4">
