@@ -42,12 +42,12 @@
             <div class="space-x-2 mt-8 mx-4 md:mt-4 md:mx-0 md:w-1/2" data-controller="radio-tags">
                 <h3 class="md:mt-4 md:mb-3 text-secondary font-semibold">タグから検索</h3>
                 <div class="flex flex-wrap gap-2 p-4">
-                    <div class="my-1 inline-flex text-secondary text-xs rounded-lg py-1 px-1.5 bg-primary items-center hover:bg-primary-hover" data-radio-tags-target="tag" data-action="click->radio-tags#select">
+                    <div class="my-1 inline-flex text-secondary text-sm rounded-full py-1.5 px-2 bg-primary items-center hover:bg-primary-hover" data-radio-tags-target="tag" data-action="click->radio-tags#select">
                         <%= f.radio_button :with_tag, '', id: "tag_none", checked: true, class: 'hidden' %>
                         <%= f.label :with_tag, "指定なし", value: '', for: "tag_none" %>
                     </div>
                     <% @tags.each do |tag| %>
-                        <div class="my-1 group inline-flex text-secondary text-xs rounded-lg py-1 px-1.5 bg-primary items-center hover:bg-primary-hover" data-radio-tags-target="tag" data-action="click->radio-tags#select">
+                        <div class="my-1 group inline-flex text-secondary text-sm rounded-full py-1.5 px-2 bg-primary items-center hover:bg-primary-hover" data-radio-tags-target="tag" data-action="click->radio-tags#select">
                             <%= f.radio_button :with_tag, tag.name, id: "tag_#{tag.id}", class: 'hidden' %>
                             <i class="ph ph-tag"></i>&nbsp;<%= f.label :with_tag, tag.name, for: "tag_#{tag.id}" %>
                         </div>
