@@ -12,22 +12,21 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-      - name: ログインしてHeroku CLIをインストール
-        run: |
-          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username="${{ secrets.HEROKU_APP_EMAIL }}" --password-stdin registry.heroku.com
-          curl https://cli-assets.heroku.com/install.sh | sh
-      - name: Dockerイメージをビルド
-        run: |
-          docker build -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web -f Dockerfile .
-          docker build -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/worker -f Dockerfile.worker .
-      - name: DockerイメージをHerokuにプッシュ
-        run: |
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/worker
-      - name: Dockerイメージをリリース
-        run: |
-          heroku container:release web worker --app ${{ secrets.HEROKU_APP_NAME }}
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_EMAIL: ${{ secrets.HEROKU_APP_EMAIL }}
+    - name: ログインしてHeroku CLIをインストール
+      run: |
+        echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username="${{ secrets.HEROKU_APP_EMAIL }}" --password-stdin registry.heroku.com
+        curl https://cli-assets.heroku.com/install.sh | sh
+    - name: Dockerイメージをビルド
+      run: |
+        docker build -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web -f Dockerfile .
+        docker build -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/worker -f Dockerfile.worker .
+    - name: DockerイメージをHerokuにプッシュ
+      run: |
+        docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+        docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/worker
+    - name: Dockerイメージをリリース
+      run: |
+        heroku container:release web worker --app ${{ secrets.HEROKU_APP_NAME }}
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_EMAIL: ${{ secrets.HEROKU_APP_EMAIL }}
