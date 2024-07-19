@@ -31,7 +31,7 @@ services:
     command: redis-server --appendonly yes
     ports:
       - "6379:6379"
-  sidekiq:
+  worker:
     build: .
     environment:
       RAILS_ENV: development
