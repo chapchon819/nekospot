@@ -2,7 +2,7 @@
   <div id="flash">
 <% flash.each do |message_type, message| %>
     <div class="<%= flash_background_color(message_type) %>">
-      <%= message %>
+      <i class="ph-fill ph-paw-print"></i> <%= message %>
     </div>
 <% end %>
 </div>

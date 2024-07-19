@@ -10,7 +10,9 @@ services:
     ports:
       - 5432:5432
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.web
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     tty: true
     stdin_open: true
@@ -32,7 +34,9 @@ services:
     ports:
       - "6379:6379"
   sidekiq:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
     environment:
       RAILS_ENV: development
       REDIS_URL: redis://redis:6379

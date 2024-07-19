@@ -11,7 +11,7 @@
 </nav>
 
 <div class="bg-primary relative mt-12 md:pb-16 md:mb-0 mb-20" data-controller="login-modal">
-  <div id="flash" class="mt-16">
+  <div id="flash" class="mt-16 md:mt-[72px]">
     <%= render 'layouts/flash_messages', flash: flash %>
   </div>
   <div class="swiper mySwiper">
@@ -234,13 +234,12 @@
       <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
     </button>
   <% end %>
-  <% else %>
-    <button data-action="click->login-modal#openModal" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
-      <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
-    </button>
-
-  <% end %>
-    <%= render 'shared/login_modal' %>
+<% else %>
+  <button data-action="click->login-modal#openModal" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+    <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+  </button>
+<% end %>
+<%= render 'shared/login_modal' %>
   </div>
 
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
