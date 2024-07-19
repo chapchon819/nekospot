@@ -6,7 +6,7 @@ on:
       - main  # メインブランチにプッシュされたときにトリガー
 
 jobs:
-    deploy:
+  deploy:
     runs-on: ubuntu-latest  # 実行環境
     steps:
       - name: Checkout code
