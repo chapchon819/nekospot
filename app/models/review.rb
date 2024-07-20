@@ -6,7 +6,6 @@ class Review < ApplicationRecord
   has_many :tags, through: :review_tags
   attr_accessor :images_cache, :tag_names
   mount_uploaders :images, ImageUploader
-  after_commit :enqueue_image_processing, on: :create
 
 
 
@@ -73,9 +72,6 @@ class Review < ApplicationRecord
     end
   end
 
-  def enqueue_image_processing
-    ProcessImageJob.perform_async(self.id)
-  end
 
 =begin %>
   def validate_images
