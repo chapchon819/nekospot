@@ -203,7 +203,7 @@
         <div class="lg:col-span-2 md:mr-8">
           <%= turbo_frame_tag 'review_modal' do %>
             <%= turbo_frame_tag 'tags_search' do %>
-              <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">口コミ一覧</h2>
+              <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">レビュー一覧</h2>
               <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
                 <i class="ph ph-tag"></i>&nbsp;タグ検索解除
               <% end %>
@@ -231,12 +231,12 @@
 <% if user_signed_in? %>
   <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>
     <button type="button" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
-      <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+      <p><i class="ph ph-chat-circle-dots fa-lg"></i> レビューを投稿する</p>
     </button>
   <% end %>
 <% else %>
   <button data-action="click->login-modal#openModal" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
-    <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+    <p><i class="ph ph-chat-circle-dots fa-lg"></i> レビューを投稿する</p>
   </button>
 <% end %>
 <%= render 'shared/login_modal' %>
