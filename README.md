@@ -1,5 +1,7 @@
 ## 🐈 アプリ名：NekoSpot
 ![ベージュ　シンプル　クラフト紙　ファイナンス　告知　Twitter投稿 (1).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3551101/cc6dd1a9-fc15-b40f-06a4-eaeb2bdb8e7b.png)
+<img src="https://img.shields.io/badge/-RubyonRails-CC0000.svg?logo=rubyonrails&style=popout"> <img src="https://img.shields.io/badge/-Ruby-CC342D.svg?logo=ruby&style=popout"> <img src="https://img.shields.io/badge/-Javascript-F7DF1E.svg?logo=javascript&style=popout">
+ <img src="https://img.shields.io/badge/-GithubActions-CC0000.svg?logo=githubactions&style=popout"> <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=popout"> <img src="https://img.shields.io/badge/-Postgresql-336791.svg?logo=postgresql&style=popout"> <img src="https://img.shields.io/badge/-Amazon-FF9900.svg?logo=amazon&style=popout">
 ## 🐈 サービスURL
 https://nekospot.jp
 ## 🐈 サービス概要
