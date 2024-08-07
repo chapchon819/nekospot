@@ -40,6 +40,15 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   config.include FactoryBot::Syntax::Methods
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
+  config.before(:each) do
+    OmniAuth.config.test_mode = true
+  end
+
+  config.after(:each) do
+    OmniAuth.config.mock_auth.clear
+  end
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -64,3 +73,21 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |file| require file }
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.logger = Logger.new(nil)
+OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+  provider: 'google_oauth2',
+  uid: '123456789',
+  info: {
+    email: 'test@example.com',
+    name: 'Test User'
+  },
+  credentials: {
+    token: 'mock_token',
+    expires_at: Time.now + 1.week,
+    refresh_token: 'mock_refresh_token'
+  }
+})

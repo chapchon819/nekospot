@@ -25,7 +25,7 @@ RSpec.describe Review, type: :model do
       expect(review.errors[:rating]).to include("を入力してください")
     end
 
-    it '5) bodyなしでも有効であること' do
+    it '5) bodyなしでもレビューが有効であること' do
       review = build(:review, body: nil)
       expect(review).to be_valid
     end

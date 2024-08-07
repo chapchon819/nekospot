@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :user do
-    name { "ねこスポット" }
-    email { "nekospot@example.com" }
-    encrypted_password { "nekospot" }
-    role { 0 }
+    email { "test@example.com" }
+    password { "password" }
+    password_confirmation { "password" }
+    provider { "google_oauth2" }
+    uid { "123456" }
   end
 end
