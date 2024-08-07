@@ -225,7 +225,9 @@
                                                 <% @reviews.each do |review| %>
                                                     <%= render 'spots/review', review: review, user: review.user %>
                                                 <% end %>
-                                                <%= paginate @reviews %>
+                                                <div class="flex items-center justify-center">
+                                                    <%= paginate @reviews, window: 2 %>
+                                                </div>
                                             </div>
                                         <% else %>
                                             <div class="">

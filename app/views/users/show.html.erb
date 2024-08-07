@@ -102,7 +102,7 @@
                 </div>
                 <div id="mypage-reviews-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
                     <div class="w-11/12 mx-auto divide-y space-y-8 pb-8">
-                        <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @user.name %>の口コミ一覧</h2>
+                        <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @user.name %>のレビュー一覧</h2>
                         <% if @reviews.present? %>
                             <%= render "users/reviews" %>
                             <%= paginate @reviews %>
@@ -113,7 +113,7 @@
                                 <p class="text-sm flex items-center justify-center w-full text-secondary">レビューや猫スポットを投稿してさらに猫スポットを楽しもう！</p>
                                 <%= link_to "#", class: "block w-full" do %>
                                     <button class="bg-accent text-white px-3 py-2 rounded-full flex mx-auto items-center justify-center w-full md:w-1/2">
-                                        <p><i class="ph ph-chat-circle-dots fa-lg"></i> 口コミを投稿する</p>
+                                        <p><i class="ph ph-chat-circle-dots fa-lg"></i> レビューを投稿する</p>
                                     </button>
                                 <% end %>
                             </div>
