@@ -41,15 +41,20 @@
 - イベントや猫スポットはネット検索でも取得できるが、情報が点在しているため、それを一元化させることで検索をスムーズにする。
 ## 🐈 機能一覧
 ### メイン機能
-| 猫画像スライド＆機能紹介 | Map検索機能① | Map検索機能② |
+| Map検索機能 (1) | Map検索機能 (2) | Map検索機能 (3) |
 | ---- | ---- | ---- |
-|　 [![Image from Gyazo](https://i.gyazo.com/feaef78e369dab37225fde6dcba9c23c.gif)](https://gyazo.com/feaef78e369dab37225fde6dcba9c23c) | [![Image from Gyazo](https://i.gyazo.com/78301cf93079ab6554b1dd95da241b63.gif)](https://gyazo.com/78301cf93079ab6554b1dd95da241b63) | [![Image from Gyazo](https://i.gyazo.com/43bc0b8ced42a483c8e74087c5531589.gif)](https://gyazo.com/43bc0b8ced42a483c8e74087c5531589) |
-| 猫画像を優先表示させることでスライダーを作成しています。機能紹介で何ができるアプリなのか一目でわかるようにしています。　　　　　　　　　| 現在地を取得し周辺の猫スポットを表示します。リストを押すと現在地周辺10km県内の猫スポットが近い順に最大10件表示されます。中央のピンの動きに合わせて動的に周辺のスポットを取得します。ピンをクリックすると画面下部に情報カードが表示され、カードをクリックするとスポットの詳細情報を見ることができます。 | 「絞り込み」ボタンを押すと、フリーワード(スポット名・住所)、里親募集の有無、譲渡会開催実績の有無、カテゴリ、タグから猫スポットを検索できます。都道府県を選択すると選択した都道府県にジャンプします。 | 一覧からもスポット検索をすることができ、Googleの高評価順に並び替えることもできます。タブを切り替えると全スポットのレビュー一覧を見ることができます。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
+|　 [![Image from Gyazo](https://i.gyazo.com/a94ea6f695bcc8cf9c27cf53145bfdec.gif)](https://gyazo.com/a94ea6f695bcc8cf9c27cf53145bfdec) | [![Image from Gyazo](https://i.gyazo.com/a364ba39045579f48e354c6b3236db72.gif)](https://gyazo.com/a364ba39045579f48e354c6b3236db72) | [![Image from Gyazo](https://i.gyazo.com/43bc0b8ced42a483c8e74087c5531589.gif)](https://gyazo.com/43bc0b8ced42a483c8e74087c5531589) |
+| ピンをクリックすると画面下部に情報カードが表示され、カードをクリックするとスポットの詳細情報を見ることができます。　　　　　　　　　　　　　| 中央のピンの動きに合わせて動的に周辺のスポットを取得します。リストを押すと現在地周辺10km県内の猫スポットが近い順に最大10件表示されます。 　　　　　　　　　　　| 「絞り込み」ボタンを押すと、フリーワード(スポット名・住所)、里親募集の有無、譲渡会開催実績の有無、カテゴリ、タグから猫スポットを検索できます。都道府県を選択すると選択した都道府県にジャンプします。　　　　　　　　　 | 一覧からもスポット検索をすることができ、Googleの高評価順に並び替えることもできます。タブを切り替えると全スポットのレビュー一覧を見ることができます。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
 
 | 一覧検索 | 猫スポット診断機能 | レビュー投稿機能 |
 | ---- | ---- | ---- |
 | [![Image from Gyazo](https://i.gyazo.com/450baf919cc7ed4e24ae87fea60b353b.gif)](https://gyazo.com/450baf919cc7ed4e24ae87fea60b353b) | [![Image from Gyazo](https://i.gyazo.com/cbb1c10dd5ffb893c69b39cabf925590.gif)](https://gyazo.com/cbb1c10dd5ffb893c69b39cabf925590) | [![Image from Gyazo](https://i.gyazo.com/ea86e5f842549b09edd4964e2f962a41.gif)](https://gyazo.com/ea86e5f842549b09edd4964e2f962a41) |
 | 一覧からもスポット検索をすることができ、Googleの高評価順に並び替えることもできます。タブを切り替えると全スポットのレビュー一覧を見ることができます。　　| ３つの質問に答えるだけで、おすすめの猫スポットを提案します。　　　　　　　　　　　　 | 各猫スポットにレビューを投稿することができます。　　　　　　　　　　　　　|
+
+| ソーシャルログイン | お気に入り機能・訪問済機能 | お気に入り・訪問済一覧 |
+| ---- | ---- | ---- |
+| [![Image from Gyazo](https://i.gyazo.com/99cba2b618c1d263eade61f0dc41d646.gif)](https://gyazo.com/99cba2b618c1d263eade61f0dc41d646) | [![Image from Gyazo](https://i.gyazo.com/97b89e560ff43a120dd065b6b627b648.gif)](https://gyazo.com/97b89e560ff43a120dd065b6b627b648) | [![Image from Gyazo](https://i.gyazo.com/ea86e5f842549b09edd4964e2f962a41.gif)](https://gyazo.com/ea86e5f842549b09edd4964e2f962a41) |
+| GoogleとLINEログインで手間なくログインできます。　　　　　　| 気になったスポットをお気に入りに登録したり、訪問したスポットを訪問済にすることができます。 | お気に入り・訪問済スポットを一覧から確認することができます。　　|
 
 ### 工夫したポイント
 
@@ -57,7 +62,7 @@
 | ---- | ---- |
 | 10個以上のアプリを使い比べた結果、上記のようなUI/UXにしました。　　| 猫スポットを運営されている方にとってもメリットがあるアプリにしたかったので、Xのタイムラインを表示させることでスポットの最新情報やおすすめ情報を掲載しました。|
 
-| [![Image from Gyazo](https://i.gyazo.com/7f4e982f534bc7d3a922e2472f343438.jpg)](https://gyazo.com/7f4e982f534bc7d3a922e2472f343438) | [![Image from Gyazo](https://i.gyazo.com/1bc541cf756fd30fff234e78037a33fe.gif)](https://gyazo.com/1bc541cf756fd30fff234e78037a33fe) |
+| [![Image from Gyazo](https://i.gyazo.com/175721798ad06c4d8c123d869fb4cfe0.jpg)](https://gyazo.com/175721798ad06c4d8c123d869fb4cfe0) | [![Image from Gyazo](https://i.gyazo.com/1bc541cf756fd30fff234e78037a33fe.gif)](https://gyazo.com/1bc541cf756fd30fff234e78037a33fe) |
 | ---- | ---- |
 | 猫画像を優先的に表示させることで猫があふれる世界観を実現しました。　　| ユーザーが操作に迷わないようにボタンやマーク、会員ランクについてモーダルで説明しています。　　　　　　　　　　　　　　　　　　　|
 
@@ -88,16 +93,26 @@
 - Cloud Vision APIによる猫画像優先表示
 - サイトマップ
 - 動的OGP(レビュー画像・スポット画像)
+
+## 🐈 今後の開発について
+### 対応エリア拡大
+猫スポットデータを追加し、ゆくゆくは全国対応させたいと考えています。。
+### 管理画面
+適切にアプリを運用するために管理画面を実装します。
+### レビューで画像を投稿した際のパフォーマンス改善
+画像を投稿した場合に、投稿に時間がかかってしまうのでバックグラウンド処理などを用いてパフォーマンスを改善したいと考えています。
+
 ## 🐈 使用技術
 | カテゴリー | 使用技術 |
 | ---- | ---- |
 | フロントエンド | TailwindCSS<br>daisyUI<br>JavaScript<br>Hotwire |
 | バックエンド | Ruby 3.2.2<br>Ruby on Rails 7.1.3 |
 | データベース | PostgreSQL |
-| インフラ | Heroku<br>AmazonS3<br>Redis |
+| インフラ | Heroku<br>AmazonS3 |
 | API | Google Maps JavaScript API<br>Google Places API<br>Google Geolocation API<br>Google Cloud Vision API |
 | CI/CD | GithubActions |
 | 開発環境 | Docker |
+| その他 | Redis |
 ## 画面遷移図(未修正)
 https://www.figma.com/file/I5K5nm237QJwWo64gCTjdm/Nekospot?type=design&node-id=0%3A1&mode=design&t=8og5QESets43UqBY-1
 
