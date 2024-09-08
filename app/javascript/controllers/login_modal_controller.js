@@ -13,14 +13,14 @@ export default class extends Controller {
     this.backGroundTarget.classList.remove("hidden")
     this.dialogTarget.classList.remove("hidden")
     this.dialogTarget.showModal()
-    // document.body.style.overflow = "hidden" // スクロール無効化
+    document.body.style.overflow = "hidden" // スクロール無効化
   }
 
   // モーダルを閉じる
-closeModal() {
-  this.backGroundTarget.classList.add("hidden")
-  this.dialogTarget.classList.add("hidden")
-  this.dialogTarget.close()
-  //document.body.style.overflow = "" // スクロール再有効化
-}
+  closeModal() {
+    this.backGroundTarget.classList.add("hidden")
+    this.dialogTarget.classList.add("hidden")
+    this.dialogTarget.close()
+    document.body.style.overflow = "" // スクロール再有効化
+  }
 }

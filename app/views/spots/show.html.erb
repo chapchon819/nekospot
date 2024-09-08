@@ -1,13 +1,13 @@
 <% content_for(:title, @spot.name) %>
 <% assign_meta_tags title: @spot.name, image: @image_url %>
 <nav class="md:hidden w-full h-12 fixed top-0 z-10">
-    <div class="navbar bg-primary text-secondary border-b border-primary-hover items-center">
-        <div class="flex-1 items-center">
-          <%= link_to "", class: "back-link", data: { turbo: false, excluded_paths: [user_line_omniauth_authorize_path, user_google_oauth2_omniauth_authorize_path].to_json } do %>
-            <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
-          <% end %>
-        </div>
+  <div class="navbar bg-primary text-secondary border-b border-primary-hover items-center">
+    <div class="flex-1 items-center">
+      <%= link_to "", class: "back-link", data: { turbo: false, excluded_paths: [user_line_omniauth_authorize_path, user_google_oauth2_omniauth_authorize_path].to_json } do %>
+        <i class="ph-light ph-caret-left fa-2xl text-secondary group-hover:text-neutral" aria-hidden="true"></i>
+      <% end %>
     </div>
+  </div>
 </nav>
 
 <div class="bg-primary relative mt-12 md:pb-16 md:mb-0 mb-20" data-controller="login-modal">
@@ -16,216 +16,217 @@
   </div>
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-    <% if @prioritized_image.present? %>
-      <div class="swiper-slide h-96 w-full">
-        <%= image_tag spot_image_proxy_url(@prioritized_image.image), class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
-      </div>
-    <% else %>
-      <div class="swiper-slide h-96 w-full">
-        <%= image_tag 'default.webp', class: "w-full h-full object-cover", alt: "Default Image" %>
-      </div>
-    <% end %>
-
-    <% if @spot.spot_images.any? %>
-      <% @spot.spot_images.each_with_index do |image, index| %>
-        <% unless image == @prioritized_image %>
-          <div class="swiper-slide h-96 w-full">
-            <%= image_tag spot_image_proxy_url(image.image), class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-  <!-- Add Pagination and Navigation -->
-  <div class="swiper-pagination"></div>
-  <div class="swiper-button-prev swiper-button-white"></div>
-  <div class="swiper-button-next swiper-button-white"></div>
-  <div class="swiper-scrollbar"></div>
-</div>
-
-<!-- スポット詳細タブ -->
-<div class="flex flex-col items-center justify-center w-full md:mt-4">
-  <div class="md:w-11/12 w-full">
-    <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
-      <ul class="list-reset flex border-b rounded-t-lg">
-        <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">詳細情報</a>
-        </li>
-        <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
-          <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" id="review_tab" href="#" data-turbo="false">口コミ(<%= @reviews.present? ? @all_reviews_count : 0 %>件)</a>
-        </li>
-      </ul>
-      <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
-        <div class="grid md:grid-cols-3">
-          <% if @spot.x_account.present? %>
-            <div class="text-secondary hidden md:block md:col-span-1 w-11/12 md:pl-4">
-              <p class="text-[16px] pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
-              <a class="twitter-timeline" data-height="500" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
-            </div>
-          <% end %>
-          <div class="w-11/12 mx-auto divide-y space-y-8 pb-8 md:col-span-2" >
-            <div class="my-4 mx-auto">
-              <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
-              <div class="justify-between w-full flex md:space-x-4 space-x-2 mt-2">
-                <div class="flex items-center space-x-2">
-                  <div class="flex">
-                    <% if @spot.rating.present? %>
-                      <p class="text-xs text-white font-semibold py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> <%= @spot.rating %></p>
-                    <% else %>
-                      <p class="md:hidden text-xs text-white font-semibold py-2 px-3 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> 評価なし</p>
-                    <% end %>
-                  </div>
-                  <div class="flex space-x-2 md:mb-1">
-                    <% if @spot.foster_parents_before_type_cast == 1 %>
-                        <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
-                    <% end %>
-                    <% if @spot.adoption_event_before_type_cast == 1 %>
-                        <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div>
-                    <% end %>
-                  </div>
-                  <button class="btn bg-white border-none w-6 h-6 shadow-none md:rounded-full items-center" onclick="m_modal_3.showModal()"><i class="ph-bold ph-question fa-xl text-primary-hover"></i></button>
-                  <dialog id="m_modal_3" class="modal">
-                    <div class="modal-box">
-                      <div class="flex justify-center items-center">
-                        <div class="flex flex-col space-y-4 text-left text-secondary">
-                            <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
-                            <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
-                            <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
-                            <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
-                            <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
-                            <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催実績あり</span></div>
-                            <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
-                        </div>
-                      </div>
-                    </div>
-                    <form method="dialog" class="modal-backdrop">
-                        <button>close</button>
-                    </form>
-                  </dialog>
-                </div>
-                <div class="flex space-x-2 items-start">
-                  <div class="flex space-x-2 justify-center items-center">
-                    <div class="">
-                      <div class="line-it-button" data-lang="ja" data-type="share-c" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
-                    </div>
-                    <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "" do %>
-                      <%= image_tag 'x-logo.png', size: '20x20' %>
-                    <% end %>
-                  </div>
-                  <div><%= render 'visited_buttons', { spot: @spot } %></div>
-                  <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
-                </div>
-              </div>
-              <% if @spot.x_account.present? %>
-                <div class="flex justify-center items-center md:hidden mt-8 w-full">
-                  <a href="https://twitter.com/<%= @spot.x_account %>" target=”_blank” class="w-4/5 relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-secondary transition duration-300 ease-out border-2 border-secondary rounded-full shadow-md group">
-                    <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-secondary group-hover:translate-x-0 ease">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                    <span class="absolute flex items-center justify-center w-full h-full text-secondary transition-all duration-300 transform group-hover:translate-x-full ease"><i class="ph-bold ph-x-logo fa-lg"></i>&ensp;最新情報をチェック</span>
-                    <span class="relative invisible">Button Text</span>
-                  </a>
-                </div>
-              <% end %>
-            </div>
-            <% if @spot.opening_hours.present? %>
-              <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-clock"></i> 営業時間</p>
-                  <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
-              </div>
-            <% end %>
-            <% if @spot.phone_number.present? %>
-              <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-phone"></i> 電話番号</p>
-                <p class="text-lg"><%= @spot.phone_number %></p>
-              </div>
-            <% end %>
-            <% if @spot.web_site.present? %>
-              <div class="my-4 text-secondary">
-                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-browser"></i> 公式サイト</p>
-                <%= link_to @spot.web_site, @spot.web_site, class: "text-sm", target: :_blank %>
-              </div>
-            <% end %>
-            <div class="my-4 text-secondary">
-              <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-map-pin"></i> 住所</p>
-              <div class="flex justify-start">
-                <div>
-                  <p class="text-sm"><%= @spot.postal_code %></p>
-                  <p class="text-sm mb-4"><%= @spot.address %></p>
-                </div>
-              </div>
-            <div>
-            <iframe frameborder="0" class="w-full md:h-64 h-48 rounded-xl" src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['EMBED_API_KEY'] %>&q=<%= @spot.address %>">
-            </iframe>
-            <div id="map"  data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
-            <div class="flex justify-end mt-4">
-              <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{@spot.latitude},#{@spot.longitude}", target: :_blank, class: "inline-flex items-center justify-end w-auto px-4 py-2 text-base text-sm font-semibold leading-6 text-white bg-accent border border-transparent rounded-full hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-active" do %>
-                <p><i class="ph-fill ph-path"></i> 経路</p>
-              <% end %>
-            </div>
-            <div class="my-4 text-secondary w-full border-t">
-              <div class="flex space-x-2 justify-center items-center my-8">
-                <div class="line-it-button" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="large" data-count="false" data-ver="3" style="display: none;"></div>
-                <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded px-3 py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
-                  <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                  <span class="relative text-sm text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>シェア</span>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- レビュータブ -->
-  <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
-    <div id="reviews_list">
-      <% if @reviews.present? %>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-          <div>
-            <div class="md:mx-8 my-3 rounded-lg border p-4 mx-auto justify-center items-center">
-              <h2 class="pl-3 mb-3 text-xl font-zenmaru font-bold text-neutral">スポット平均</h2>
-              <div class="mb-0.5 flex items-center gap-2">
-                <!-- stars - start -->
-                <div class="rating rating-md rating-half" id="average_rating">
-                  <input type="radio" name="rating-10" class="rating-hidden" />
-                  <% (1..5).each do |i| %>
-                      <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" <%= 'checked' if @average_rating >= (i - 0.5) && @average_rating < i %> />
-                      <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" <%= 'checked' if @average_rating >= i %> />
-                  <% end %>
-                  <span class="text-sm font-semibold text-secondary"><%= @average_rating.round(2) %></span>
-                </div>
-                <span class="text-sm font-semibold text-secondary" id="reviews_count"> (<%= @all_reviews_count %>件)</span>
-              </div>
-            </div>
-          </div>
-        <div class="lg:col-span-2 md:mr-8">
-          <%= turbo_frame_tag 'review_modal' do %>
-            <%= turbo_frame_tag 'tags_search' do %>
-              <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">レビュー一覧</h2>
-              <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
-                <i class="ph ph-tag"></i>&nbsp;タグ検索解除
-              <% end %>
-              <div class="grid">
-                <div id="reviews" class="space-y-8 divide-gray-200 divide-y">
-                  <%= render @reviews %>
-                </div>
-                <%= paginate @reviews %>
-              </div>
-            <% end %>
-          <% end %>
+      <% if @prioritized_image.present? %>
+        <div class="swiper-slide h-96 w-full">
+          <%= image_tag spot_image_proxy_url(@prioritized_image.image), class: "w-full h-96 object-cover", alt: "Prioritized Image" %>
         </div>
       <% else %>
-        <div id="no_reviews">
-          <%= render 'spots/no_reviews' %>
+        <div class="swiper-slide h-96 w-full">
+          <%= image_tag 'default.webp', class: "w-full h-full object-cover", alt: "Default Image" %>
         </div>
       <% end %>
+
+      <% if @spot.spot_images.any? %>
+        <% @spot.spot_images.each_with_index do |image, index| %>
+          <% unless image == @prioritized_image %>
+            <div class="swiper-slide h-96 w-full">
+              <%= image_tag spot_image_proxy_url(image.image), class: "w-full h-96 object-cover", alt: "Image #{index + 1}" %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <!-- Add Pagination and Navigation -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev swiper-button-white"></div>
+    <div class="swiper-button-next swiper-button-white"></div>
+    <div class="swiper-scrollbar"></div>
+  </div>
+
+
+  <div class="flex flex-col items-center justify-center w-full md:mt-4">
+    <div class="md:w-11/12 w-full">
+      <!-- スポット詳細タブ -->
+      <div data-controller="tabs rounded-t-lg" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t-lg">
+        <ul class="list-reset flex border-b rounded-t-lg">
+          <li class="-mb-px mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+            <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" href="#" data-turbo="false">詳細情報</a>
+          </li>
+          <li class="mr-1 w-1/2 bg-white rounded-t-lg text-center" data-tabs-target="tab" data-action="click->tabs#change">
+            <a class="bg-white inline-block py-2 px-4 rounded-t-lg text-secondary hover:text-neutral font-semibold no-underline rounded-t-lg" id="review_tab" href="#" data-turbo="false">口コミ(<%= @reviews.present? ? @all_reviews_count : 0 %>件)</a>
+          </li>
+        </ul>
+        <div id="details-tab" class="hidden bg-white py-4 px-4 w-full border-l border-b border-r rounded-b-lg rounded-r-lg" data-tabs-target="panel">
+          <div class="grid md:grid-cols-3">
+            <% if @spot.x_account.present? %>
+              <div class="text-secondary hidden md:block md:col-span-1 w-11/12 md:pl-4">
+                <p class="text-[16px] pb-4 pt-8 font-bold"><i class="ph-bold ph-megaphone"></i> 最新情報</p>
+                <a class="twitter-timeline" data-height="500" href="https://twitter.com/<%= @spot.x_account %>?ref_src=twsrc%5Etfw">Tweets by <%= @spot.name %></a>
+              </div>
+            <% end %>
+            <div class="w-11/12 mx-auto divide-y space-y-8 pb-8 md:col-span-2" >
+              <div class="my-4 mx-auto">
+                <h2 class="text-xl font-zenmaru font-bold text-neutral"><%= @spot.name %></h2>
+                <div class="justify-between w-full flex md:space-x-4 space-x-2 mt-2">
+                  <div class="flex items-center space-x-2">
+                    <div class="flex">
+                      <% if @spot.rating.present? %>
+                        <p class="text-xs text-white font-semibold py-1 px-2 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> <%= @spot.rating %></p>
+                      <% else %>
+                        <p class="md:hidden text-xs text-white font-semibold py-2 px-3 rounded-full bg-accent dark:text-neutral-500"><i class="ph-fill ph-star fa-lg"></i> 評価なし</p>
+                      <% end %>
+                    </div>
+                    <div class="flex space-x-2 md:mb-1">
+                      <% if @spot.foster_parents_before_type_cast == 1 %>
+                          <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div>
+                      <% end %>
+                      <% if @spot.adoption_event_before_type_cast == 1 %>
+                          <div class="bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div>
+                      <% end %>
+                    </div>
+                    <button class="btn bg-white border-none w-6 h-6 shadow-none md:rounded-full items-center" onclick="m_modal_3.showModal()"><i class="ph-bold ph-question fa-xl text-primary-hover"></i></button>
+                    <dialog id="m_modal_3" class="modal">
+                      <div class="modal-box">
+                        <div class="flex justify-center items-center">
+                          <div class="flex flex-col space-y-4 text-left text-secondary">
+                              <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">ボタン説明</h2>
+                              <div><i class="ph-fill ph-heart fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：ブックマーク</span></div>
+                              <div><i class="ph-fill ph-seal-check fa-xl w-full h-3 mt-2 text-gray-400"></i><span class="text-sm">&ensp;&ensp;：訪問済にする</span></div>
+                              <h2 class="text-xl font-zenmaru font-bold text-neutral text-center">マーク説明</h2>
+                              <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">里</div><span class="text-sm">&ensp;：里親募集中</span></div>
+                              <div><div class="inline-flex bg-primary px-2 py-1 rounded-md shadow-md text-secondary font-semibold text-sm items-center font-zenmaru">譲</div><span class="text-sm">&ensp;：譲渡会開催実績あり</span></div>
+                              <div><div class="flex-cols px-2 py-1 rounded-md shadow-md text-white font-semibold text-xs items-center bg-accent"><span><i class="ph-bold ph-warning"></i>&ensp;注意</span><br>里親募集や譲渡会の詳細につきましては、各猫スポットの公式サイトやSNSでご確認ください。</div></div>
+                          </div>
+                        </div>
+                      </div>
+                      <form method="dialog" class="modal-backdrop">
+                          <button>close</button>
+                      </form>
+                    </dialog>
+                  </div>
+                  <div class="flex space-x-2 items-start">
+                    <div class="flex space-x-2 justify-center items-center">
+                      <div class="">
+                        <div class="line-it-button" data-lang="ja" data-type="share-c" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+                      </div>
+                      <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "" do %>
+                        <%= image_tag 'x-logo.png', size: '20x20' %>
+                      <% end %>
+                    </div>
+                    <div><%= render 'visited_buttons', { spot: @spot } %></div>
+                    <div class="hidden md:block"><%= render 'bookmark_buttons', { spot: @spot } %></div>
+                  </div>
+                </div>
+                <% if @spot.x_account.present? %>
+                  <div class="flex justify-center items-center md:hidden mt-8 w-full">
+                    <a href="https://twitter.com/<%= @spot.x_account %>" target=”_blank” class="w-4/5 relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-secondary transition duration-300 ease-out border-2 border-secondary rounded-full shadow-md group">
+                      <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-secondary group-hover:translate-x-0 ease">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                      </span>
+                      <span class="absolute flex items-center justify-center w-full h-full text-secondary transition-all duration-300 transform group-hover:translate-x-full ease"><i class="ph-bold ph-x-logo fa-lg"></i>&ensp;最新情報をチェック</span>
+                      <span class="relative invisible">Button Text</span>
+                    </a>
+                  </div>
+                <% end %>
+              </div>
+              <% if @spot.opening_hours.present? %>
+                <div class="my-4 text-secondary">
+                  <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-bold ph-clock"></i> 営業時間</p>
+                    <p class="text-sm"><%= @spot.opening_hours.gsub("\n", '<br>').html_safe %></p>
+                </div>
+              <% end %>
+              <% if @spot.phone_number.present? %>
+                <div class="my-4 text-secondary">
+                  <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-phone"></i> 電話番号</p>
+                  <p class="text-lg"><%= @spot.phone_number %></p>
+                </div>
+              <% end %>
+              <% if @spot.web_site.present? %>
+                <div class="my-4 text-secondary">
+                  <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-browser"></i> 公式サイト</p>
+                  <%= link_to @spot.web_site, @spot.web_site, class: "text-sm", target: :_blank %>
+                </div>
+              <% end %>
+              <div class="my-4 text-secondary">
+                <p class="text-sm pb-4 pt-8 font-bold"><i class="ph-fill ph-map-pin"></i> 住所</p>
+                <div class="flex justify-start">
+                  <div>
+                    <p class="text-sm"><%= @spot.postal_code %></p>
+                    <p class="text-sm mb-4"><%= @spot.address %></p>
+                  </div>
+                </div>
+              <div>
+              <iframe frameborder="0" class="w-full md:h-64 h-48 rounded-xl" src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['EMBED_API_KEY'] %>&q=<%= @spot.address %>">
+              </iframe>
+              <div id="map"  data-lat="<%= @spot.latitude %>" data-lng="<%= @spot.longitude %>" data-name="<%= @spot.name %>"></div>
+              <div class="flex justify-end mt-4">
+                <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{@spot.latitude},#{@spot.longitude}", target: :_blank, class: "inline-flex items-center justify-end w-auto px-4 py-2 text-base text-sm font-semibold leading-6 text-white bg-accent border border-transparent rounded-full hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-active" do %>
+                  <p><i class="ph-fill ph-path"></i> 経路</p>
+                <% end %>
+              </div>
+              <div class="my-4 text-secondary w-full border-t">
+                <div class="flex space-x-2 justify-center items-center my-8">
+                  <div class="line-it-button" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://nekospot.jp/spots/<%= @spot.id %>" data-color="default" data-size="large" data-count="false" data-ver="3" style="display: none;"></div>
+                  <%= link_to "https://twitter.com/share?url=https://nekospot.jp/spots/#{@spot.id}/&text=#{ERB::Util.url_encode("「#{@spot.name}」をシェアしたよ🐈✨\n #NekoSpot \n")}", target: '_blank', class: "relative rounded px-3 py-1 overflow-hidden group bg-neutral relative hover:bg-gradient-to-r hover:from-neutral hover:to-secondary text-white hover:ring-2 hover:ring-offset-2 hover:ring-secondary transition-all ease-out duration-300" do %>
+                    <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                    <span class="relative text-sm text-white dark:text-gray-400 "><i class="ph-bold ph-x-logo fa-lg w-6 h-3" aria-hidden="true"></i>シェア</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- レビュータブ -->
+    <div id="reviews-tab" class="hidden bg-white p-4 w-full border-l border-b border-r rounded-l-lg rounded-b-lg" data-tabs-target="panel">
+      <div id="reviews_list">
+        <% if @reviews.present? %>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+            <div>
+              <div class="md:mx-8 my-3 rounded-lg border p-4 mx-auto justify-center items-center">
+                <h2 class="pl-3 mb-3 text-xl font-zenmaru font-bold text-neutral">スポット平均</h2>
+                <div class="mb-0.5 flex items-center gap-2">
+                  <!-- stars - start -->
+                  <div class="rating rating-md rating-half" id="average_rating">
+                    <input type="radio" name="rating-10" class="rating-hidden" />
+                    <% (1..5).each do |i| %>
+                        <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" <%= 'checked' if @average_rating >= (i - 0.5) && @average_rating < i %> />
+                        <input type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" <%= 'checked' if @average_rating >= i %> />
+                    <% end %>
+                    <span class="text-sm font-semibold text-secondary"><%= @average_rating.round(2) %></span>
+                  </div>
+                  <span class="text-sm font-semibold text-secondary" id="reviews_count"> (<%= @all_reviews_count %>件)</span>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-2 md:mr-8">
+              <%= turbo_frame_tag 'review_modal' do %>
+                <%= turbo_frame_tag 'tags_search' do %>
+                  <h2 class="my-3 text-xl font-zenmaru font-bold text-neutral border-bottom">レビュー一覧</h2>
+                  <%= link_to spot_path(@spot), data: { turbo_frame: "tags_search" }, class: "inline-block text-sm px-4 py-2 mx-auto text-secondary bg-primary rounded-lg hover:bg-primary-hover md:mx-0" do %>
+                    <i class="ph ph-tag"></i>&nbsp;タグ検索解除
+                  <% end %>
+                  <div class="grid">
+                    <div id="reviews" class="space-y-8 divide-gray-200 divide-y">
+                      <%= render @reviews %>
+                    </div>
+                    <%= paginate @reviews %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div id="no_reviews">
+            <%= render 'spots/no_reviews' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
+
   <%= render "shared/spot_show_header" %>
 
   <% if user_signed_in? %>
