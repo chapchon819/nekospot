@@ -217,30 +217,30 @@
           <% end %>
         </div>
       <% else %>
-            <div id="no_reviews">
-              <%= render 'spots/no_reviews' %>
-            </div>
-          <% end %>
+        <div id="no_reviews">
+          <%= render 'spots/no_reviews' %>
+        </div>
+      <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
-<%= render "shared/spot_show_header" %>
+  <%= render "shared/spot_show_header" %>
 
-<% if user_signed_in? %>
-  <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>
-    <button type="button" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
+  <% if user_signed_in? %>
+    <%= link_to new_spot_review_path(@spot), data: { turbo_frame: 'review_modal' } do %>
+      <button type="button" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg z-50">
+        <p><i class="ph ph-chat-circle-dots fa-lg"></i> レビューを投稿する</p>
+      </button>
+    <% end %>
+  <% else %>
+    <button data-action="click->login-modal#openModal" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg z-50">
       <p><i class="ph ph-chat-circle-dots fa-lg"></i> レビューを投稿する</p>
     </button>
   <% end %>
-<% else %>
-  <button data-action="click->login-modal#openModal" class="py-4 fixed bottom-24 right-6 hidden text-white my-2 md:inline-flex flex-col items-center justify-center px-4 rounded-full bg-accent hover:shadow-lg">
-    <p><i class="ph ph-chat-circle-dots fa-lg"></i> レビューを投稿する</p>
-  </button>
-<% end %>
-<%= render 'shared/login_modal' %>
-  </div>
+  <%= render 'shared/login_modal' %>
+</div>
 
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
