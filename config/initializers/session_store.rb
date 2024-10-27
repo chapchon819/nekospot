@@ -3,7 +3,8 @@ Rails.application.config.session_store :redis_store,
     servers: [
     {
         url: ENV['REDIS_URL'],
-        namespace: 'session'
+        namespace: 'session',
+        ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
     }
     ],
     expire_after: 90.minutes,
