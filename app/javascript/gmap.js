@@ -1,6 +1,6 @@
 let map, marker, markers = [];
-var apiKey = gon.api_key;
-var spots = gon.spots;
+const apiKey = gon.api_key;
+let spots = gon.spots;
 let currentCategoryId = null;
 let activeMarker = null;
 
